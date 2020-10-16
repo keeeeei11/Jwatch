@@ -1,24 +1,32 @@
-# hello-world
+# Jwatchのサービス概要
+Jリーグのスタジアム観戦情報をユーザーが投稿＆閲覧できるサイトです。<br>
+作成途中のものになります。<br>
 
-## Project setup
-```
-npm install
-```
+デザインはほぼ完成しており、現在はVue.jsとfirebaseを用いてバックエンド側を作成しています。<br>
+完成は10月中旬を予定しております。<br>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+https://jwatch-48c7e.web.app/mainpage/mainpage.html
+# 機能一覧
 
-### Compiles and minifies for production
-```
-npm run build
-```
+・投稿機能(文章＆画像)<br>
+・投稿の編集＆削除機能<br>
+・質問機能<br>
+・いいね機能<br>
+・通報機能<br>
+・お問い合わせ機能<br>
+・ログイン&ログアウト機能(SNSアカウント,匿名,メールアドレス)<br>
+・アカウント削除機能<br>
+・SNSでシェアできる機能(Facebook,Twitter,LINE)<br>
+・レスポンシブデザイン(スマホ・タブレット対応)<br>
 
-### Lints and fixes files
-```
-npm run lint
-```
+# 使用している技術一覧
+■言語<br>
+・HTML&CSS<br>
+・JavaScript<br>
+・Vue.js<br>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+■データベース<br>
+・Firebase(CloudFirestoreを使用)
+
+■コード管理<br>
+・git/Github
