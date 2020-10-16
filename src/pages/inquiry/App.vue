@@ -12,8 +12,8 @@
                         </a>
                     </div>
                     <div class="header-username" id="header_username">
-                        <!-- <p v-if="!isAnonymous">こんにちは <span id="visitor"></span> さん！</p>
-                        <p v-else>こんにちは 匿名ログイン さん！</p> -->
+                        <!-- <p v-if="!isAnonymous">こんにちは <span id="visitor"></span> さん！</p> -->
+                        <p>こんにちは 匿名ログイン さん！</p>
                     </div>
                 </div>
             </div>
