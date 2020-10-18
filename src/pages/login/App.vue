@@ -52,26 +52,26 @@
     </header>
 <!--メイン-->
 <main>
-        <div class="login-title">
-            <h1>Login Page</h1>
-            <p>観戦情報&こんな情報が欲しい！への投稿はログインが必要です。</p>
+    <div class="login-title">
+        <h1>Login Page</h1>
+        <p>観戦情報&こんな情報が欲しい！への投稿はログインが必要です。</p>
+    </div>
+    <div class="login-contents" id="login">
+        <h2>ログイン方法を選択してください</h2>
+        <div class="google-login login-btn">
+            <a href="https://jwatch-48c7e.web.app/login/login-google.html">Googleアカウントでログイン</a>
         </div>
-        <div class="login-contents" id="login">
-            <h2>ログイン方法を選択してください</h2>
-            <div class="google-login login-btn">
-                <a href="https://jwatch-48c7e.web.app/login/login-google.html">Googleアカウントでログイン</a>
-            </div>
-            <div class="twitter-login login-btn">
-                <a href="https://jwatch-48c7e.web.app/login/login-twitter.html">Twitterアカウントでログイン</a>
-            </div>
-            <div class="email-login login-btn">
-                <a href="https://jwatch-48c7e.web.app/login/login-email.html">メールアドレスでログイン</a>
-            </div>
-            <div class="easily-login login-btn">
-                <a href="https://jwatch-48c7e.web.app/login/login-anonymous.html">簡単(匿名)ログイン</a>
-            </div>
-            <p>※匿名ログインはページを離れると投稿が消去されるように設定しております。</p>
+        <div class="twitter-login login-btn">
+            <a href="https://jwatch-48c7e.web.app/login/login-twitter.html">Twitterアカウントでログイン</a>
         </div>
+        <div class="email-login login-btn">
+            <a href="https://jwatch-48c7e.web.app/login/login-email.html">メールアドレスでログイン</a>
+        </div>
+        <div class="easily-login login-btn">
+            <a href="https://jwatch-48c7e.web.app/login/login-anonymous.html">簡単(匿名)ログイン</a>
+        </div>
+        <p>※匿名ログインはページを離れると投稿が消去されるように設定しております。</p>
+</div>
 </main>
 <footer>
     <div class="footer-contents">
@@ -91,19 +91,19 @@
             <div class="icon-img">
                 <div class="icon-top">
                     <div class="twitter">
-                        <a href="https://twitter.com/intent/tweet?url=https://jwatch-48c7e.web.app/&text=Jwatch Jリーグのスタジアム観戦情報を投稿＆閲覧できるサイト&hashtags=Jwatch&hashtags=Jリーグ" target="_blank" rel="nofollow noopener noreferrer">
+                        <a href="https://twitter.com/intent/tweet?url=https://jwatch-8411c.web.app/&text=Jwatch Jリーグのスタジアム観戦情報を投稿＆閲覧できるサイト&hashtags=Jwatch&hashtags=Jリーグ" target="_blank" rel="nofollow noopener noreferrer">
                         <i class="fab fa-twitter"></i>
                         </a>
                     </div>
                     <div class="line">
-                        <a href="https://social-plugins.line.me/lineit/share?url=https://jwatch-48c7e.web.app/" target="_blank" rel="nofollow noopener noreferrer">
+                        <a href="https://social-plugins.line.me/lineit/share?url=https://jwatch-8411c.web.app/" target="_blank" rel="nofollow noopener noreferrer">
                         <i class="fab fa-line"></i>
                         </a>
                     </div>
                 </div>
                 <div class="icon-bottom">
                     <div class="facebook">
-                        <a href="http://facebook.com/share.php?u=https://jwatch-48c7e.web.app/" target="_blank" rel="nofollow noopener noreferrer">
+                        <a href="http://facebook.com/share.php?u=https://jwatch-8411c.web.app/" target="_blank" rel="nofollow noopener noreferrer">
                         <i class="fab fa-facebook-square"></i>
                         </a>
                     </div>
@@ -123,7 +123,30 @@ export default {
 
   },
   methods:{
+    googleLogin: function(){
+    firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    },
+    twitterLogin: function(){
+    firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider());
+    },
+    emailLongin: function(){
 
+    },
+    anonymousLogin: function(){
+    firebase.auth().signInAnonymously().catch(function(error) {
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    });
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+    } else {
+        return
+    }
+    })
+    },
   }
 }
 </script>
