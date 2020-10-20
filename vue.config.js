@@ -9,9 +9,6 @@ module.exports = {
       template: "public/index.html",
       // output as dist/index.html
       filename: "index.html",
-      // when using title option,
-      // template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
-      title: "Index Page",
       // chunks to include on this page, by default includes
       // extracted common chunks and vendor chunks.
       chunks: ["chunk-vendors", "chunk-common", "index"],
@@ -33,6 +30,7 @@ module.exports = {
     deleteAccount: {
       entry:"src/pages/deleteAccount/main.js",
       filename:"deleteaccount/index.html",
+      title:"ログアウト画面 Jwatch Jリーグ観戦情報サイト"
     },
     inquiry: {
       entry:"src/pages/inquiry/main.js",
