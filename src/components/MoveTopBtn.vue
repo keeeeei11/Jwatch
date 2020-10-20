@@ -39,7 +39,6 @@
     background-color: #c0c0c0e1;
     border-radius: 32px;
     padding:30px;
-    transition: all 0.2s ease-in-out;
 }
 .arrow:hover{
     opacity: 0.8s;
