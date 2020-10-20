@@ -44,15 +44,16 @@
             <div id="reconfirmation_cover" class="hidden"></div>
         </div>
         <form action="#" method="POST" class="name"></form>
+    <MoveTopBtn></MoveTopBtn>
     </main>
-  <Jfooter></Jfooter>
-
+    <Jfooter></Jfooter>
    </div>
 </div>
 </template>
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
@@ -62,6 +63,7 @@ export default {
   },
   components: {
     Jheader,
+    MoveTopBtn,
     Jfooter,
   },
   methods:{

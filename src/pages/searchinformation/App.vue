@@ -162,6 +162,7 @@
                     </a>
                 </div>
         </div>
+    <MoveTopBtn></MoveTopBtn>
     </main>
 <!--以下フッター-->
     <Jfooter></Jfooter>
@@ -172,6 +173,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
@@ -181,6 +183,7 @@ export default {
   },
   components: {
     Jheader,
+    MoveTopBtn,
     Jfooter,
   },
   methods:{

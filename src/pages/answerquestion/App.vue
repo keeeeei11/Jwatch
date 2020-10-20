@@ -69,7 +69,7 @@
                 <div class="attention-discription02">
                     <p>・警告対象に該当する投稿だと運営が判断した場合、警告させていただくことがあります。(イエローカード)<br>
                          2度警告対象(レッドカード)となった場合は投稿禁止となります。<br>
-                         警告対象となる行為は<a href="https://jwatch-48c7e.web.app/warning/warning.html" target="_brank" rel="noopener">こちら</a>をご覧ください。</p>
+                         警告対象となる行為は<a href="https://jwatch-8411c.web.app/warning.html" target="_brank" rel="noopener">こちら</a>をご覧ください。</p>
                 </div>
                 <div class="attention-discription03">
                     <p>・特定のチームや選手,サポーターへの誹謗中傷は如何なる理由であれ警告対象となります。</p>
@@ -209,7 +209,7 @@
             <div id="reconfirmation_cover" class="hidden"></div>
             <div class="answer-question-warning">
                 <p>※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br>
-                    警告対象となる行為は<a href="https://jwatch-48c7e.web.app/warning/warning.html" target="_brank" rel="noopener">こちら</a></p>
+                    警告対象となる行為は<a href="https://jwatch-8411c.web.app/warning.html" target="_brank" rel="noopener">こちら</a></p>
             </div>
         </div>
     </main>

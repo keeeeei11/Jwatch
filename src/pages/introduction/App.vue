@@ -35,17 +35,16 @@
             </div>
         </div>
     </div>
-    <!-- ページトップに戻るボタン -->
-    <div id="scroll_fadein" class="scroll-fadein arrow"></div>
-</main>
-  <Jfooter></Jfooter>
-
+    <MoveTopBtn></MoveTopBtn>
+    </main>
+    <Jfooter></Jfooter>
 </div>
 </div>
 </template>
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
@@ -55,6 +54,7 @@ export default {
   },
   components: {
     Jheader,
+    MoveTopBtn,
     Jfooter,
   },
   methods:{
@@ -122,58 +122,6 @@ main{
     margin-top: 30px;
 }
 
-/*ページトップに戻るボタン*/
-.scroll-fadein{
-    transition: opacity 1s;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.scroll-fadein.is-fadein{
-    visibility: visible;
-    opacity: 1;
-}
-
-.arrow{
-    cursor: pointer;
-    position: fixed;
-    right: 55px;
-    bottom: 55px;
-    color: #000000;
-    background-color: #c0c0c0e1;
-    border-radius: 32px;
-    padding:30px;
-    transition: all 0.2s ease-in-out;
-}
-
-.arrow:hover{
-    opacity: 0.8;
-    bottom:60px;
-}
-
-.arrow:before{
-    content:"";
-    width: 12px;
-    height: 12px;
-    border-top: 4px solid #ffffff;
-    border-right: 4px solid #ffffff;
-    transform: rotate(-45deg);
-    position: absolute;
-    left: 22px;
-    top: 17px;
-}
-.arrow:after{
-    content:"";
-    width: 12px;
-    height: 12px;
-    border-top: 4px solid #ffffff;
-    border-right: 4px solid #ffffff;
-    transform: rotate(-45deg);
-    position: absolute;
-    left: 22px;
-    top: 31px;
-}
-
 /* タブレット */
 @media (max-width:959px )
 {
@@ -196,10 +144,6 @@ main{
 
     .reason-text{
         padding-left: 0px;
-    }
-
-    #scroll_fadein{
-        display: none;
     }
 }
 /* スマホ */

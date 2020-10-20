@@ -165,6 +165,7 @@
                     警告対象となる行為は<a href="https://jwatch-48c7e.web.app/warning/warning.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a></p>
             </div>
         </div>
+    <MoveTopBtn></MoveTopBtn>
     </main>
     <!--以下フッター-->
   <Jfooter></Jfooter>
@@ -175,6 +176,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
@@ -184,6 +186,7 @@ export default {
   },
   components: {
     Jheader,
+    MoveTopBtn,
     Jfooter,
   },
   methods:{

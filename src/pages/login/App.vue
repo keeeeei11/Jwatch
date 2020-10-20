@@ -23,16 +23,17 @@
             <a href="https://jwatch-48c7e.web.app/login/login-anonymous.html">簡単(匿名)ログイン</a>
         </div>
         <p>※匿名ログインはページを離れると投稿が消去されるように設定しております。</p>
-</div>
-</main>
-  <Jfooter></Jfooter>
-
+    </div>
+    <MoveTopBtn></MoveTopBtn>
+    </main>
+    <Jfooter></Jfooter>
   </div>
 </div>
 </template>
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
@@ -42,10 +43,10 @@ export default {
   },
   components: {
     Jheader,
+    MoveTopBtn,
     Jfooter,
   },
   methods:{
-
   }
 };
 </script>
