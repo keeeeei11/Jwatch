@@ -24,13 +24,13 @@
                 <a href="https://jwatch-8411c.web.app/popular.html">人気の投稿</a>
               </div>
             <!-- ログインしていない時 -->
-            <!-- <div class="header-login" id="header_login">
+            <div class="header-login" id="header_login">
                 <a href="https://jwatch-8411c.web.app/login.html">
                     <i class="fas fa-door-open">
                         <p>Login</p>
                     </i>
                 </a>
-            </div> -->
+            </div>
             <!-- ログインしている時 -->
             <div class="header-mypage" id="header_mypage">
                 <a href="https://jwatch-8411c.web.app/mypage.html">
