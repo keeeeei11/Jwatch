@@ -197,21 +197,22 @@
                     <input type="file" name="picture" class="picture"><br>
                     <input type="file" name="picture" class="picture"><br>
                 </div>
-                <p id="execute">回答する！</p>
+                <p class="execute" @click="postPopupShow">回答する！</p>
             </form>
-            <section id="reconfirmation" class="hidden">
+            <section class="reconfirmation" v-if="popupShow">
                 <p>この内容で回答してもよろしいですか？</p>
-                <p id="cancel">戻る</p>
+                <p class="cancel" @click="popupHide">戻る</p>
                 <form action="">
-                    <input type="submit" class="post-btn" id="post_btn" value="回答する！">
+                    <input type="submit" class="post-btn" value="回答する！">
                 </form>
             </section>
-            <div id="reconfirmation_cover" class="hidden"></div>
+            <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
             <div class="answer-question-warning">
                 <p>※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br>
-                    警告対象となる行為は<a href="https://jwatch-8411c.web.app/warning.html" target="_brank" rel="noopener">こちら</a></p>
+                    警告対象となる行為は<a href="https://jwatch-8411c.web.app/warning.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a></p>
             </div>
         </div>
+    <MoveTopBtn></MoveTopBtn>
     </main>
   <Jfooter></Jfooter>
 
@@ -221,19 +222,30 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
   data(){
     return {
+        popupShow: false,
+        coverShow: false
     }
   },
   components: {
     Jheader,
+    MoveTopBtn,
     Jfooter,
   },
   methods:{
-
+      postPopupShow: function(){
+          this.popupShow = true,
+          this.coverShow = true
+      },
+      popupHide: function(){
+          this.popupShow = false,
+          this.coverShow = false
+      }
   }
 };
 </script>
@@ -476,7 +488,7 @@ textarea{
 }
 
 /* 送信ボタン*/
-#execute{
+.execute{
     width: 150px;
     font-size: 18px;
     font-weight: 500;
@@ -489,7 +501,7 @@ textarea{
     transition: background-color 0.4s linear;
 }
 
-#execute:hover{
+.execute:hover{
     background-color:#484b48;
     color: #fff;
     transition: 0.4s;
@@ -497,7 +509,7 @@ textarea{
 }
 
 /* 再確認のホップアップ */
-#reconfirmation{
+.reconfirmation{
     opacity: 1;
     width: 450px;
     height: 200px;
@@ -514,11 +526,7 @@ textarea{
     z-index: 3;
 }
 
-#reconfirmation.hidden {
-    display: none;
-}
-
-#cancel{
+.cancel{
     width: 350px;
     display: block;
     text-decoration: none;
@@ -531,15 +539,14 @@ textarea{
     border: 2px solid #484b48;
 }
 
-#cancel:hover{
+.cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-
-#post_btn{
+.post-btn{
     font-size: 18px;
     border: none;
     padding: 10px;
@@ -552,14 +559,14 @@ textarea{
     border: 2px solid #484b48;
 }
 
-#post_btn:hover{
+.post-btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-#reconfirmation_cover{
+.reconfirmation-cover{
     position: fixed;
     top: 0;
     left: 0;
@@ -570,10 +577,6 @@ textarea{
     opacity: 0.8;
 }
 
-#reconfirmation_cover.hidden{
-    transition: 0.4s;
-    display: none;
-}
 
 /*注意喚起*/
 
@@ -729,28 +732,28 @@ textarea{
   font-size: 16px;
 }
 
-#execute{
+.execute{
   font-size: 16px;
 }
 
 /* 再確認のホップアップ */
-#reconfirmation{
+.reconfirmation{
   width:350px;
 }
 
-#reconfirmation p{
+.reconfirmation p{
   font-size: 16px;
 }
 
-#cancel{
+.cancel{
   width: 300px;
 }
 
-#post_btn{
+.post_btn{
   width: 320px;
 }
 
-#post_btn p{
+.post_btn p{
   font-size: 16px;
 }
 /*注意喚起*/

@@ -73,16 +73,16 @@
                                 <p>残り{{ 400 - character.length }}字です</p>
                             </div> -->
                     </div>
-                    <p id="execute">送信する</p>
+                    <p class="execute" @click="postPopupShow">送信する</p>
                 </form>
-                <section id="reconfirmation" class="hidden">
+                <section class="reconfirmation" v-if="popupShow">
                     <p>この内容で送信してもよろしいですか？</p>
-                    <p id="cancel">戻る</p>
+                    <p class="cancel" @click="popupHide">戻る</p>
                     <form action="">
-                        <input type="submit" class="post-btn" id="post_btn" value="送信する">
+                        <input type="submit" class="post-btn" value="送信する">
                     </form>
                 </section>
-                <div id="reconfirmation_cover" class="hidden"></div>
+                <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
             </div>
         </div>
     <MoveTopBtn></MoveTopBtn>
@@ -101,6 +101,8 @@ export default {
   name: 'App',
   data(){
     return {
+        popupShow: false,
+        coverShow: false
     }
   },
   components: {
@@ -109,7 +111,14 @@ export default {
     Jfooter,
   },
   methods:{
-
+      postPopupShow: function(){
+      this.popupShow = true,
+      this.coverShow = true
+      },
+      popupHide: function(){
+      this.popupShow = false,
+      this.coverShow = false
+      }
   }
 };
 </script>
@@ -282,7 +291,7 @@ textarea.contant{
 }
 
 /* 送信ボタン*/
-#execute{
+.execute{
     width: 150px;
     font-size: 18px;
     font-weight: 500;
@@ -296,7 +305,7 @@ textarea.contant{
     transition: background-color 0.4s linear;
 }
 
-#execute:hover{
+.execute:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -304,7 +313,7 @@ textarea.contant{
 }
 
 /* 再確認のホップアップ */
-#reconfirmation{
+.reconfirmation{
     font-size: 18px;
     opacity: 1;
     width: 450px;
@@ -322,11 +331,7 @@ textarea.contant{
     z-index: 3;
 }
 
-#reconfirmation.hidden {
-    display: none;
-}
-
-#cancel{
+.cancel{
     font-size: 18px;
     width: 350px;
     display: block;
@@ -340,7 +345,7 @@ textarea.contant{
     border: 2px solid #484b48;
 }
 
-#cancel:hover{
+.cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -348,7 +353,7 @@ textarea.contant{
 }
 
 
-#post_btn{
+.post-btn{
     font-size: 18px;
     border: none;
     padding: 10px;
@@ -361,14 +366,14 @@ textarea.contant{
     border: 2px solid #484b48;
 }
 
-#post_btn:hover{
+.post-btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-#reconfirmation_cover{
+.reconfirmation-cover{
     position: fixed;
     top: 0;
     left: 0;
@@ -378,12 +383,6 @@ textarea.contant{
     z-index: 2;
     opacity: 0.8;
 }
-
-#reconfirmation_cover.hidden{
-    transition: 0.4s;
-    display: none;
-}
-
 @media (max-width:959px ){
 /* メイン */
 /* タイトル */
@@ -494,15 +493,15 @@ textarea.contant{
 }
 
 /* 再確認のホップアップ */
-#reconfirmation{
+.reconfirmation{
   font-size: 16px;
 }
 
-#cancel{
+.cancel{
   width: 330px;
 }
 
-#post_btn{
+.post_btn{
   font-size: 16px;
   padding:10px 0;
   width:350px;

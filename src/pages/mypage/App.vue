@@ -110,27 +110,27 @@
                     </div>
                 </div>
                 <div class="logout">
-                    <p id="logout_execute" @click="logoutPopupShow">ログアウトする</p>
+                    <p class="logout_execute" @click="logoutPopupShow">ログアウトする</p>
                 </div>
                 <div class="logout-popup" v-if="logoutShow">
-                    <section id="logout_reconfirmation">
+                    <section class="logout_reconfirmation">
                         <p>ログアウトしてもよろしいですか？</p>
-                        <p id="logout_cancel" @click="logoutPopupHide">戻る</p>
-                        <a href="https://jwatch-48c7e.web.app/logout/logout.html" id="logout_btn">ログアウトする</a>
+                        <p class="logout_cancel" @click="logoutPopupHide">戻る</p>
+                        <a href="https://jwatch-48c7e.web.app/logout/logout.html" class="logout_btn">ログアウトする</a>
                     </section>
                 </div>
                 <div class="delete-account">
-                    <p id="delete_execute" @click="deletePopupShow">アカウント削除する</p>
+                    <p class="delete_execute" @click="deletePopupShow">アカウント削除する</p>
                 </div>
                 <div class="delete-popup" v-if="deleteShow">
-                    <section id="delete_reconfirmation">
+                    <section class="delete_reconfirmation">
                         <p>アカウントを削除してもよろしいですか？</p>
                         <p>一度削除すると元に戻せません</p>
-                        <p id="delete_cancel" @click="deletePopupHide">戻る</p>
-                        <a href="https://jwatch-48c7e.web.app/delete-account/delete-account.html" id="delete_btn">削除する</a>
+                        <p class="delete_cancel" @click="deletePopupHide">戻る</p>
+                        <a href="https://jwatch-48c7e.web.app/delete-account/delete-account.html" class="delete_btn">削除する</a>
                     </section>
                 </div>
-              <div id="reconfirmation_cover" v-if="coverShow" @click="popupHide"></div>
+              <div class="reconfirmation_cover" v-if="coverShow" @click="popupHide"></div>
             </div>
         </div>
         </div>
@@ -405,7 +405,7 @@ main{
     margin: 0 10px;
   }
 /* ログアウト */
-#logout_execute{
+.logout_execute{
     font-size: 16px;
     width:250px;
     text-align: center;
@@ -419,7 +419,7 @@ main{
     transition: background-color 0.3s linear;
 }
 
-#logout_execute:hover{
+.logout_execute:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.3s;
@@ -427,14 +427,14 @@ main{
 }
 
 /* アカウント削除 */
-#delete_execute{
+.delete_execute{
     font-size: 16px;
     width:250px;
     text-align: center;
     margin: 70px auto;
 }
 
-#delete_execute {
+.delete_execute {
     padding: 20px 30px;
     color: #484b48;
     text-decoration: none;
@@ -444,7 +444,7 @@ main{
     transition: background-color 0.4s linear;
 }
 
-#delete_execute:hover{
+.delete_execute:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -457,7 +457,7 @@ main{
     font-size: 18px;
 }
 
-#logout_reconfirmation, #delete_reconfirmation{
+.logout_reconfirmation, .delete_reconfirmation{
     opacity: 1;
     position: fixed;
     background: #ffffff;
@@ -472,7 +472,7 @@ main{
     z-index: 3;
 }
 
-#logout_cancel, #delete_cancel{
+.logout_cancel, .delete_cancel{
     width: 350px;
     display: block;
     text-decoration: none;
@@ -486,21 +486,21 @@ main{
     transition: background-color 0.4s linear;
 }
 
-#logout_cancel:hover{
+.logout_cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-#delete_cancel:hover{
+.delete_cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-#logout_btn, #delete_btn{
+.logout_btn, .delete_btn{
     width: 350px;
     display: block;
     text-decoration: none;
@@ -513,14 +513,14 @@ main{
     border: 2px solid #484b48;
 }
 
-#logout_btn:hover{
+.logout_btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-#delete_btn:hover{
+.delete_btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -528,7 +528,7 @@ main{
 }
 
 
-#reconfirmation_cover{
+.reconfirmation_cover{
     position: fixed;
     top: 0;
     left: 0;
@@ -539,7 +539,7 @@ main{
     opacity: 0.8;
 }
 
-#reconfirmation_cover.hidden{
+.reconfirmation_cover.hidden{
     transition: 0.4s;
     display: none;
 }
@@ -677,15 +677,15 @@ textarea{
   font-size: 16px;
 }
 
-#logout_execute{
+.logout_execute{
   font-size: 16px;
 }
 
-#delete_execute{
+.delete_execute{
   font-size: 16px;
 }
 
-#logout_btn, #delete_btn{
+.logout_btn, .delete_btn{
   font-size: 16px;
   padding:10px 0;
   width:350px;

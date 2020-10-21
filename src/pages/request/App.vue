@@ -150,16 +150,16 @@
                     <input type="file" name="picture" class="picture"><br>
                     <input type="file" name="picture" class="picture"><br>
                 </div>
-                <p id="execute">リクエストする！</p>
+                <p class="execute" @click="requestPopupShow">リクエストする！</p>
             </form>
-                <section id="reconfirmation" class="hidden">
+                <section class="reconfirmation" v-if="popupShow">
                     <p>この内容でリクエストしてもよろしいですか？</p>
-                    <p id="cancel">戻る</p>
+                    <p class="cancel" @click="popupHide">戻る</p>
                     <form action="">
-                        <input type="submit" class="request-btn" id="request_btn" value="リクエストする！">
+                        <input type="submit" class="request-btn" value="リクエストする！">
                     </form>
                 </section>
-                <div id="reconfirmation_cover" class="hidden"></div>
+                <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
             <div class="request-warning">
                 <p>※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br>
                     警告対象となる行為は<a href="https://jwatch-48c7e.web.app/warning/warning.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a></p>
@@ -182,6 +182,8 @@ export default {
   name: 'App',
   data(){
     return {
+        popupShow: false,
+        coverShow: false
     }
   },
   components: {
@@ -190,6 +192,14 @@ export default {
     Jfooter,
   },
   methods:{
+        requestPopupShow: function(){
+        this.popupShow = true,
+        this.coverShow = true
+      },
+        popupHide: function(){
+        this.popupShow = false,
+        this.coverShow = false
+      }
 
   }
 };
@@ -355,7 +365,7 @@ textarea{
 }
 
 /* 送信ボタン*/
-#execute{
+.execute{
     width: 150px;
     font-size: 18px;
     font-weight: 500;
@@ -369,7 +379,7 @@ textarea{
     transition: background-color 0.4s linear;
 }
 
-#execute:hover{
+.execute:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -377,7 +387,7 @@ textarea{
 }
 
 /* 再確認のホップアップ */
-#reconfirmation{
+.reconfirmation{
     font-size: 18px;
     opacity: 1;
     width: 450px;
@@ -395,11 +405,7 @@ textarea{
     z-index: 3;
 }
 
-#reconfirmation.hidden {
-    display: none;
-}
-
-#cancel{
+.cancel{
     font-size: 18px;
     width: 350px;
     display: block;
@@ -413,14 +419,14 @@ textarea{
     border: 2px solid #484b48;
 }
 
-#cancel:hover{
+.cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-#request_btn{
+.request-btn{
     font-size: 18px;
     border: none;
     padding: 10px;
@@ -433,14 +439,14 @@ textarea{
     border: 2px solid #484b48;
 }
 
-#request_btn:hover{
+.request-btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-#reconfirmation_cover{
+.reconfirmation-cover{
     position: fixed;
     top: 0;
     left: 0;
@@ -449,11 +455,6 @@ textarea{
     background-color: gainsboro;
     z-index: 2;
     opacity: 0.8;
-}
-
-#reconfirmation_cover.hidden{
-    transition: 0.4s;
-    display: none;
 }
 
 /*注意喚起*/

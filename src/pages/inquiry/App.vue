@@ -32,18 +32,18 @@
                             <!-- <p>残り{{ 400 - character.length }}字です</p>
                         </div> -->
                 </div>
-                <p id="execute">送信する</p>
+                <p class="execute" @click="inquiryPopupShow">送信する</p>
             </form>
-            <section id="reconfirmation" class="hidden">
+            <section class="reconfirmation" v-if="popupShow">
                 <p>送信してもよろしいですか？</p>
-                <p id="cancel">戻る</p>
+                <p class="cancel" @click="popupHide">戻る</p>
                 <form action="">
-                    <input type="submit" class="post-btn" id="post_btn" value="送信する">
+                    <input type="submit" class="post-btn" value="送信する">
                 </form>
             </section>
-            <div id="reconfirmation_cover" class="hidden"></div>
         </div>
         <form action="#" method="POST" class="name"></form>
+         <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
     <MoveTopBtn></MoveTopBtn>
     </main>
     <Jfooter></Jfooter>
@@ -59,6 +59,8 @@ export default {
   name: 'App',
   data(){
     return {
+        popupShow: true,
+        coverShow: false
     }
   },
   components: {
@@ -67,7 +69,14 @@ export default {
     Jfooter,
   },
   methods:{
-
+        inquiryPopupShow: function(){
+        this.popupShow = true,
+        this.coverShow = true
+        },
+        popupHide: function(){
+        this.popupShow = false,
+        this.coverShow = false
+      }
   }
 };
 </script>
@@ -153,7 +162,7 @@ textarea.inquiry-text-form{
 }
 
 /* 送信ボタン*/
-#execute{
+.execute{
     width: 150px;
     font-size: 18px;
     font-weight: 500;
@@ -167,7 +176,7 @@ textarea.inquiry-text-form{
     transition: background-color 0.4s linear;
 }
 
-#execute:hover{
+.execute:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -175,7 +184,7 @@ textarea.inquiry-text-form{
 }
 
 /* 再確認のホップアップ */
-#reconfirmation{
+.reconfirmation{
     opacity: 1;
     width: 450px;
     height: 200px;
@@ -192,15 +201,7 @@ textarea.inquiry-text-form{
     z-index: 3;
 }
 
-#reconfirmation.hidden {
-    display: none;
-}
-
-#reconfirmation p{
-    font-size: 18px;
-}
-
-#cancel{
+.cancel{
     width: 350px;
     display: block;
     text-decoration: none;
@@ -213,36 +214,34 @@ textarea.inquiry-text-form{
     border: 2px solid #484b48;
 }
 
-#cancel:hover{
+.cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-
-#post_btn{
-    font-size: 18px;
-    border: none;
-    padding: 10px 10px 35px;
+.post-btn{
+    width: 350px;
+    display: block;
+    text-decoration: none;
     text-align: center;
-    width: 370px;
-    outline: none;
+    padding: 10px;
+    margin: 28px auto 30px;
     background:#ffffff;
     color: #484b48;
     border-radius: 10px;
     border: 2px solid #484b48;
 }
 
-#post_btn:hover{
+.post-btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-
-#reconfirmation_cover{
+.reconfirmation-cover{
     position: fixed;
     top: 0;
     left: 0;
@@ -252,12 +251,6 @@ textarea.inquiry-text-form{
     z-index: 2;
     opacity: 0.8;
 }
-
-#reconfirmation_cover.hidden{
-    transition: 0.4s;
-    display: none;
-}
-
 
 @media (max-width:959px )
 {
@@ -332,7 +325,7 @@ textarea.opinion{
 }
 
 /* 送信ボタン*/
-#execute{
+.execute{
     font-size: 16px;
 }
 }
