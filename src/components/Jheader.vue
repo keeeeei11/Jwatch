@@ -8,9 +8,10 @@
                     <h1>Jwatch</h1>
                 </a>
             </div>
-            <div class="header-username" id="header_username">
-                <p v-if="!isAnonymous">こんにちは <span id="visitor"></span> さん！</p>
-                <p v-else>こんにちは 匿名ログイン さん！</p>
+            <!-- ログイン時に表示 -->
+            <div class="header-username" v-if="isLogin">
+                <p v-if="!isAnonymous">こんにちは {{ visitor }} さん！</p>
+                <p v-else>こんにちは 匿名 さん！</p>
             </div>
         </div>
       </div>
@@ -24,7 +25,7 @@
                 <a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
               </div>
             <!-- ログインしていない時 -->
-            <div class="header-login" id="header_login">
+            <div class="header-login" v-if="!isLogin">
                 <a href="https://jwatch-8411c.web.app/login/index.html">
                     <i class="fas fa-door-open">
                         <p>Login</p>
@@ -32,7 +33,7 @@
                 </a>
             </div>
             <!-- ログインしている時 -->
-            <div class="header-mypage" id="header_mypage">
+            <div class="header-mypage" v-if="isLogin">
                 <a href="https://jwatch-8411c.web.app/mypage/index.html">
                     <i class="fas fa-user-edit">
                         <p>Mypage</p>
@@ -40,14 +41,13 @@
                 </a>
             </div>
               <div class="humburgar">
-                  <div class="menu-bar">
-                      <i class="fas fa-bars" id="show">
+                  <div class="menu-bar" @click="humburgarShow">
+                      <i class="fas fa-bars" id="show" >
                       <p>menu</p>
                       </i>
                   </div>
-                  <div id="cover"></div>
-                  <div class="menu-content" id="menu">
-                      <i class="fa fa-times" id="hide">
+                  <div class="menu-content" id="menu" v-if="humburgarMenu">
+                      <i class="fa fa-times" id="hide" @click="humburgarHide">
                           <p class="">close</p>
                       </i>
                       <ul>
@@ -69,17 +69,49 @@
 
 export default {
   name:'Jheader',
+  props:["user"],
   data(){
     return {
-
+      isLogin: false,
+      isAnonymous:false,
+      userData: null,
+      humburgarMenu: false,
     }
-
   },
   components:{
 
   },
   methods:{
-
+    humburgarShow: function(){
+      this.humburgarMenu = true;
+    },
+    humburgarHide: function(){
+      this.humburgarMenu = false;
+    },
+    // 匿名ログイン時
+    anonymous: function(){
+    firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      // User is signed in.
+      this.isAnonymous = user.isAnonymous;
+      let uid = user.uid;
+    } else {
+      return
+    }
+    });
+    },
+  },
+  created:function(){
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+      this.isLogin = true
+      this.userData = user;
+      } else {
+      this.isLogin = false
+      this.userData = null;
+      };
+      this.anonymous();
+  })
   }
 };
 </script>
@@ -214,21 +246,16 @@ header{
 }
 
 /* ハンバーガーメニュー(980px以上は非表示) */
-
 .humburgar{
-    display: none;
+  display:none;
 }
 
 #show {
-    font-size: 40px;
-    cursor: pointer;
-    margin-left: 10px;
     color: #484B49;
-}
-
-#show {
     font-size: 36px;
     padding-left: 10px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 #show p{
@@ -247,13 +274,12 @@ header{
     top: 0;
     left: 0;
     z-index: 1;
-    display: none;
+    display: block;
 }
 
 #menu {
     position: absolute;
     top: 0;
-    right: -100%;
     color: #ffffff;
     background: rgba(88, 88, 88, 0.9);
     padding: 8px;
@@ -262,6 +288,7 @@ header{
     min-height: 100vh;
     z-index: 2;
     transition: 0.4s;
+    right: 0;
 }
 
 #menu ul {
@@ -286,6 +313,7 @@ header{
     float: right;
     font-size: 36px;
     margin: 30px 30px 0 30px;
+    cursor: pointer;
 }
 
 .menu-content p {
@@ -294,16 +322,6 @@ header{
     margin: 0;
 }
 
-body.menu-open {
-    overflow-y: hidden;
-}
-body.menu-open #cover{
-    display: block;
-}
-
-body.menu-open #menu{
-    right: 0;
-}
 
 /* タブレット対応 */
 @media (max-width:1150px)
