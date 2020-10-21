@@ -6,9 +6,9 @@
           <p>〜全ての人にサッカー観戦の楽しみを〜</p>
       </div>
       <div class="link">
-        <a href="https://jwatch-48c7e.web.app/inquiry/inquiry.html">ご要望＆ご意見はこちら</a><br>
-        <a href="https://jwatch-48c7e.web.app/question/question.html">Q&A</a><br>
-        <a href="https://jwatch-48c7e.web.app/introduction/introduction.html">About 管理人</a>
+        <a href="https://jwatch-8411c.web.app/inquiry/index.html">ご要望＆ご意見はこちら</a><br>
+        <a href="https://jwatch-8411c.web.app/question/index.html">Q&A</a><br>
+        <a href="https://jwatch-8411c.web.app/introduction/index.html">About 管理人</a>
       </div>
       <div class="sns">
         <div class="icon-title">
