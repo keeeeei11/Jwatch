@@ -36,26 +36,30 @@ import Jheader from "../../components/Jheader.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
-  name: 'App',
-  data(){
+    name: 'App',
+    data(){
     return {
     }
-  },
-  components: {
+    },
+    components: {
     Jheader,
     MoveTopBtn,
     Jfooter,
-  },
+    },
     methods:{
-  },
-  mounted: function(){
+    redirect: function(){
     firebase.auth().onAuthStateChanged(function(user) {
-      if(user){
-          location.href = "https://jwatch-8411c.web.app/mypage/index.html"
-      } else {
+        // ログイン時はマイページへ
+    if(user){
+        location.href = "https://jwatch-8411c.web.app/mypage/index.html"
+    } else {
         return
-      }
+    }
     });
+    },
+    },
+    mounted: function(){
+        this.redirect();
     },
 };
 </script>

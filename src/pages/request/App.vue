@@ -21,7 +21,7 @@
                 </div>
                 <div class="attention-discription02">
                     <p>・投稿禁止対象に該当する投稿だと運営が判断した場合、投稿禁止とさせていただくことがあります。<br>
-                       ・投稿禁止対象となる行為は<a href="https://jwatch-8411c.web.app/warning.html" target="_brank" rel="noopener">こちら</a>をご覧ください。</p>
+                       ・投稿禁止対象となる行為は<a href="https://jwatch-8411c.web.app/warning/index.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a>をご覧ください。</p>
                 </div>
                 <div class="attention-discription03">
                     <p>・特定のチームや選手,サポーターへの誹謗中傷は如何なる理由であれ投稿禁止対象となります。</p>
@@ -156,7 +156,7 @@
                 <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
             <div class="request-warning">
                 <p>※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br>
-                    警告対象となる行為は<a href="https://jwatch-48c7e.web.app/warning/warning.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a></p>
+                    警告対象となる行為は<a href="https://jwatch-8411ce.web.app/warning/index.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a></p>
             </div>
         </div>
     <MoveTopBtn></MoveTopBtn>
@@ -195,9 +195,21 @@ export default {
         popupHide: function(){
         this.popupShow = false,
         this.coverShow = false
-      }
-
-  }
+      },
+      redirect: function(){
+      firebase.auth().onAuthStateChanged(function(user) {
+      // 非ログイン時はログイン画面にリダイレクトする
+        if(user === false){
+          location.href = 'https://jwatch-8411c.web.app/login/index.html'
+        } else {
+          return
+        }
+      });
+      },
+  },
+  mounted: function(){
+    this.redirect();
+  },
 };
 </script>
 
