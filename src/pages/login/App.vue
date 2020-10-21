@@ -46,15 +46,17 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
-  created: function(){
+    methods:{
+  },
+  mounted: function(){
+    firebase.auth().onAuthStateChanged(function(user) {
       if(user){
           location.href = "https://jwatch-8411c.web.app/mypage/index.html"
       } else {
-          return
+        return
       }
-  },
-  methods:{
-  }
+    });
+    },
 };
 </script>
 

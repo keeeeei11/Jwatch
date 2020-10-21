@@ -12,7 +12,11 @@ export default {
     return{
     }
   },
-  mounted: function(){
+  mounted:function(){
+    this.logout()
+  },
+  methods:{
+    logout:function(){
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       firebase.auth().signOut().then(function() {
@@ -24,7 +28,8 @@ export default {
     }
   });
   }
-}
+  },
+  }
 </script>
 
 <style>

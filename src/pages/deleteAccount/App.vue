@@ -12,19 +12,25 @@ export default {
     return{
     }
   },
-  // mounted: function(){
-  //   firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       user.delete().then(function() {
-  //       // 正常にアカウント削除が完了した時
-  //       location.href = 'http://localhost:8080/mainpage/index.html'
-  //     }).catch(function(error) {
-  //       // エラー発生時(セッション切れが原因であることが大半なので
-  //       // 再度ログインしてからアカウント削除するよう誘導)
-  //     });
-  //     }
-  //   });
-  // }
+  mounted:function(){
+    this.delete()
+  },
+  methods:{
+    delete:function(){
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          user.delete().then(function() {
+          // 正常にアカウント削除が完了した時
+          location.href = 'https://jwatch-8411c.web.app/mainpage/index.html'
+        }).catch(function(error) {
+          // エラー発生時(セッション切れが原因であることが大半なので
+          // 再度ログインしてからアカウント削除するよう文章で誘導)
+          console.log("エラー");
+        });
+        }
+      });
+    }
+  },
 }
 </script>
 
