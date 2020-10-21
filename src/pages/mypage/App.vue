@@ -110,29 +110,27 @@
                     </div>
                 </div>
                 <div class="logout">
-                    <p id="logout_execute">ログアウトする</p>
+                    <p id="logout_execute" @click="logoutPopupShow">ログアウトする</p>
                 </div>
-                <div class="logout-popup">
-                    <section id="logout_reconfirmation" class="hidden">
+                <div class="logout-popup" v-if="logoutShow">
+                    <section id="logout_reconfirmation">
                         <p>ログアウトしてもよろしいですか？</p>
-                        <p id="logout_cancel">戻る</p>
+                        <p id="logout_cancel" @click="logoutPopupHide">戻る</p>
                         <a href="https://jwatch-48c7e.web.app/logout/logout.html" id="logout_btn">ログアウトする</a>
                     </section>
                 </div>
                 <div class="delete-account">
-                    <p id="delete_execute">アカウント削除する</p>
+                    <p id="delete_execute" @click="deletePopupShow">アカウント削除する</p>
                 </div>
-                <div class="delete-popup">
-                    <section id="delete_reconfirmation" class="hidden">
+                <div class="delete-popup" v-if="deleteShow">
+                    <section id="delete_reconfirmation">
                         <p>アカウントを削除してもよろしいですか？</p>
                         <p>一度削除すると元に戻せません</p>
-                        <p id="delete_cancel">戻る</p>
+                        <p id="delete_cancel" @click="deletePopupHide">戻る</p>
                         <a href="https://jwatch-48c7e.web.app/delete-account/delete-account.html" id="delete_btn">削除する</a>
                     </section>
                 </div>
-            <div id="reconfirmation_cover" class="hidden"></div>
-                    <!-- ページトップに戻るボタン -->
-                <div id="scroll_fadein" class="scroll-fadein arrow"></div>
+              <div id="reconfirmation_cover" v-if="coverShow" @click="popupHide"></div>
             </div>
         </div>
         </div>
@@ -152,6 +150,9 @@ export default {
   name: 'App',
   data(){
     return {
+      logoutShow : false,
+      deleteShow : false,
+      coverShow : false,
     }
   },
   components: {
@@ -160,9 +161,31 @@ export default {
     Jfooter,
   },
   methods:{
-
-  }
-};
+    // ログアウト確認ポップアップの表示
+    logoutPopupShow:function(){
+      this.logoutShow = true;
+      this.coverShow = true
+    },
+    logoutPopupHide:function(){
+      this.logoutShow = false;
+      this.coverShow = false
+    },
+    // アカウント削除確認ポップアップの表示
+    deletePopupShow: function(){
+      this.deleteShow = true;
+        this.coverShow = true
+    },
+    deletePopupHide:function(){
+      this.deleteShow = false;
+      this.coverShow = false
+    },
+    popupHide:function(){
+      this.logoutShow = false,
+      this.deleteShow = false,
+      this.coverShow = false
+    }
+    },
+}
 </script>
 
 <style>
@@ -430,7 +453,7 @@ main{
 
 /* 再確認のホップアップ */
 
-.logout-popup, .delete-popup{
+.delete-popup, .delete-popup{
     font-size: 18px;
 }
 
@@ -447,10 +470,6 @@ main{
     text-align: center;
     transition: 0.4s;
     z-index: 3;
-}
-
-#logout_reconfirmation.hidden, #delete_reconfirmation.hidden {
-    display: none;
 }
 
 #logout_cancel, #delete_cancel{
