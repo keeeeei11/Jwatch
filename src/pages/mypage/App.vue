@@ -116,7 +116,7 @@
                     <section class="logout_reconfirmation">
                         <p>ログアウトしてもよろしいですか？</p>
                         <p class="logout_cancel" @click="logoutPopupHide">戻る</p>
-                        <a href="https://jwatch-48c7e.web.app/logout/logout.html" class="logout_btn">ログアウトする</a>
+                        <a href="http://localhost:8080/logout/index.html" class="logout_btn">ログアウトする</a>
                     </section>
                 </div>
                 <div class="delete-account">
@@ -127,7 +127,7 @@
                         <p>アカウントを削除してもよろしいですか？</p>
                         <p>一度削除すると元に戻せません</p>
                         <p class="delete_cancel" @click="deletePopupHide">戻る</p>
-                        <a href="https://jwatch-48c7e.web.app/delete-account/delete-account.html" class="delete_btn">削除する</a>
+                        <a href="http://localhost:8080/deleteAccount/index.html" class="delete_btn">削除する</a>
                     </section>
                 </div>
               <div class="reconfirmation_cover" v-if="coverShow" @click="popupHide"></div>
@@ -184,6 +184,7 @@ export default {
       this.deleteShow = false,
       this.coverShow = false
     }
+    
     },
 }
 </script>

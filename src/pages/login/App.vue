@@ -11,16 +11,16 @@
     <div class="login-contents" id="login">
         <h2>ログイン方法を選択してください</h2>
         <div class="google-login login-btn">
-            <button @click="googleLogin">Googleアカウントでログイン</button>
+            <a href="https://localhost:8080/loginGoogle/index.html">Googleアカウントでログイン</a>
         </div>
         <div class="twitter-login login-btn">
-            <button @click="twitterLogin">Twitterアカウントでログイン</button>
+            <a href="https://localhost:8080/loginTwitter/index.html">Twitterアカウントでログイン</a>
         </div>
         <div class="email-login login-btn">
-            <button @click="emailLogin">メールアドレスでログイン</button>
+            <a href="https://localhost:8080/loginEmail/index.html">メールアドレスでログイン</a>
         </div>
         <div class="easily-login login-btn">
-            <button @click="anonymousLogin">匿名ログイン(簡単ログイン)</button>
+            <a href="http://localhost:8080/loginAnonymous/index.html">簡単(匿名)ログイン</a>
         </div>
         <p>※匿名ログインはページを離れると投稿が消去されるように設定しております。</p>
     </div>
@@ -46,53 +46,14 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  created: function(){
+      if(user){
+          location.href = "http://localhost:8080/mypage/index.html"
+      } else {
+          return
+      }
+  },
   methods:{
-    // googleLogin: function(){
-    // firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-    // },
-    // twitterLogin: function(){
-    // firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider());
-    // },
-    // emailLogin: function(){
-    // var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // var uiConfig = {
-    // callbacks: {
-    //   signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-    //     return true;
-    //   },
-    //   uiShown: function() {
-    //     // ローディング時にログイン画面を表示させない働き
-    //     document.getElementById('loader').style.display = 'none';
-    //   }
-    // },
-    // // ログイン画面の表示方法、ログイン成功時のページ誘導,ログインの認証方法
-    // signInFlow: 'popup',
-    // signInSuccessUrl: 'https://jwatch-48c7e.web.app/login/login-complete.html',
-    // signInOptions: [
-    //   firebase.auth.EmailAuthProvider.PROVIDER_ID, //メール認証
-    // ],
-
-    // tosUrl: 'https://github.com/keeeeei11',
-    // privacyPolicyUrl: 'https://github.com/keeeeei11'
-    // };
-    // // UIレンダリング
-    // ui.start('#firebaseui-auth-container', uiConfig);
-    // },
-    // anonymousLogin: function(){
-    // firebase.auth().signInAnonymously().catch(function(error) {
-    // let errorCode = error.code;
-    // let errorMessage = error.message;
-    // });
-    // firebase.auth().onAuthStateChanged(function(user) {
-    // if (user) {
-    //     // User is signed in.
-    //     var isAnonymous = user.isAnonymous;
-    //     var uid = user.uid;
-    // } else {
-    //     return
-    // }
-    // });
-    // }
   }
 };
 </script>
@@ -139,7 +100,7 @@ main{
     margin: 80px auto;
 }
 
-.login-btn button{
+.login-btn a{
     padding: 20px 50px;
     font-size: 18px;
     border-radius: 10px;
@@ -151,7 +112,7 @@ main{
     outline: none;
 }
 
-.login-btn button:hover{
+.login-btn a:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -192,7 +153,7 @@ main{
     font-size: 18px;
 }
 
-.login-contents button{
+.login-contents a{
     width: 250px;
     font-size: 16px;
 }

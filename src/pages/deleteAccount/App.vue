@@ -7,13 +7,25 @@
 
 <script>
 export default {
-  name: 'App',
-  components: {
-
+  name: 'deleteAccount',
+  data(){
+    return{
+    }
   },
-  methods:{
-
-  }
+  // mounted: function(){
+  //   var user = firebase.auth().currentUser;
+  //   firebase.auth().onAuthStateChanged(function(user) {
+  //     if (user) {
+  //       user.delete().then(function() {
+  //       // 正常にアカウント削除が完了した時
+  //       location.href = 'http://localhost:8080/mainpage/index.html'
+  //     }).catch(function(error) {
+  //       // エラー発生時(セッション切れが原因であることが大半なので
+  //       // 再度ログインしてからアカウント削除するよう誘導)
+  //     });
+  //     }
+  //   });
+  // }
 }
 </script>
 

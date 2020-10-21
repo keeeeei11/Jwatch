@@ -112,7 +112,7 @@ main{
     font-size: 18px;
 }
 
-.reason-text{
+.reason-text p{
     font-size: 18px;
     padding-left: 50px;
     text-align: center;
