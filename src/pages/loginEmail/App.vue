@@ -22,7 +22,7 @@ export default {
     },
     // ログイン画面の表示方法、ログイン成功時のページ誘導,ログインの認証方法
     signInFlow: 'popup',
-    signInSuccessUrl: 'http://localhost:8080/mypage/index.html',
+    signInSuccessUrl: 'https://jwatch-8411c.web.app/loginComplete/index.html',
     signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID, //メール認証
     ],

@@ -13,7 +13,6 @@ export default {
     }
   },
   // mounted: function(){
-  //   var user = firebase.auth().currentUser;
   //   firebase.auth().onAuthStateChanged(function(user) {
   //     if (user) {
   //       user.delete().then(function() {

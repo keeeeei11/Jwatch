@@ -35,7 +35,7 @@ export default {
         },
         // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
         signInFlow: 'popup',
-        signInSuccessUrl: 'http://localhost:8080/mypage/index.html',
+        signInSuccessUrl: 'https://jwatch-8411c.web.app/mypage/index.html',
         signInOptions: [
           firebase.auth.TwitterAuthProvider.PROVIDER_ID, //Twitterアカウント認証
         ],

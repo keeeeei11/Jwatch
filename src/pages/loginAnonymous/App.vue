@@ -27,7 +27,7 @@ export default {
     // ログイン成功時
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
-    location.href = "http://localhost:8080/mypage/index.html"
+    location.href = "https://jwatch-8411c.web.app/mypage/index.html"
   } else {
     // ログイン失敗時
     return;

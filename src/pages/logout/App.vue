@@ -17,7 +17,7 @@ export default {
     if (user) {
       firebase.auth().signOut().then(function() {
       // 正常にアカウント削除が完了した時
-        location.href = 'http://localhost:8080/mainpage/index.html'
+        location.href = 'https://jwatch-8411c.web.app/mainpage/index.html'
       }).catch(function(error) {
       // エラー発生時
       });

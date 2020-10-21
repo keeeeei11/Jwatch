@@ -11,16 +11,16 @@
     <div class="login-contents" id="login">
         <h2>ログイン方法を選択してください</h2>
         <div class="google-login login-btn">
-            <a href="https://localhost:8080/loginGoogle/index.html">Googleアカウントでログイン</a>
+            <a href="https://jwatch-8411c.web.app/loginGoogle/index.html">Googleアカウントでログイン</a>
         </div>
         <div class="twitter-login login-btn">
-            <a href="https://localhost:8080/loginTwitter/index.html">Twitterアカウントでログイン</a>
+            <a href="https://jwatch-8411c.web.app/loginTwitter/index.html">Twitterアカウントでログイン</a>
         </div>
         <div class="email-login login-btn">
-            <a href="https://localhost:8080/loginEmail/index.html">メールアドレスでログイン</a>
+            <a href="https://jwatch-8411c.web.app/loginEmail/index.html">メールアドレスでログイン</a>
         </div>
         <div class="easily-login login-btn">
-            <a href="http://localhost:8080/loginAnonymous/index.html">簡単(匿名)ログイン</a>
+            <a href="https://jwatch-8411c.web.app/loginAnonymous/index.html">簡単(匿名)ログイン</a>
         </div>
         <p>※匿名ログインはページを離れると投稿が消去されるように設定しております。</p>
     </div>
@@ -48,7 +48,7 @@ export default {
   },
   created: function(){
       if(user){
-          location.href = "http://localhost:8080/mypage/index.html"
+          location.href = "https://jwatch-8411c.web.app/mypage/index.html"
       } else {
           return
       }
