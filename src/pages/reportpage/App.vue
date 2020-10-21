@@ -63,7 +63,7 @@
                         <option value="重複する内容を過剰に連投する行為">重複する内容を過剰に連投する行為</option>
                         <option value="その他">その他</option>
                     </select>
-                    <p>警告対象となる行為については<a href="https://jwatch-48c7e.web.app/warning/warning.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a>をご覧ください。</p>
+                    <p>投稿禁止対象となる行為については<a href="https://jwatch-48c7e.web.app/warning/warning.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a>をご覧ください。</p>
                 </form>
                 <form action="#" method="POST" class="report-page-reason-text">
                     <h3>詳細を下記フォームにご記入ください(省略可)</h3>

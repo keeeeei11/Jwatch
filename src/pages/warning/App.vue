@@ -6,7 +6,7 @@
         <div class="warning">
             <div class="warning-title">
                 <h1>About warning</h1>
-                <p>警告対象に関する情報が記載されています</p>
+                <p>投稿禁止対象に関する情報が記載されています</p>
             </div>
             <div class="warning-contents">
                 <div class="warning-discriptions">
