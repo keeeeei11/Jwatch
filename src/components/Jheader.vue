@@ -4,7 +4,7 @@
       <div class="header-contents-left">
         <div class="header-left-shortcut">
             <div class="header-title">
-                <a href="https://jwatch-8411c.web.app/mainpage.html">
+                <a href="https://jwatch-8411c.web.app/mainpage/index.html">
                     <h1>Jwatch</h1>
                 </a>
             </div>
@@ -17,15 +17,15 @@
       <div class="header-contents-right">
           <div class="header-right-shortcut">
               <div class="header-menu">
-                <a href="https://jwatch-8411c.web.app/usage.html">詳しい使い方</a>
-                <a href="https://jwatch-8411c.web.app/searchinformation.html">観戦情報を探す</a>
-                <a href="https://jwatch-8411c.web.app/posting.html">観戦情報を投稿する</a>
-                <a href="https://jwatch-8411c.web.app/answerreception.html">回答受付中の質問</a>
-                <a href="https://jwatch-8411c.web.app/popular.html">人気の投稿</a>
+                <a href="https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a>
+                <a href="https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a>
+                <a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a>
+                <a href="https://jwatch-8411c.web.app/answerreception/index.html">回答受付中の質問</a>
+                <a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
               </div>
             <!-- ログインしていない時 -->
             <div class="header-login" id="header_login">
-                <a href="https://jwatch-8411c.web.app/login.html">
+                <a href="https://jwatch-8411c.web.app/login/index.html">
                     <i class="fas fa-door-open">
                         <p>Login</p>
                     </i>
@@ -33,7 +33,7 @@
             </div>
             <!-- ログインしている時 -->
             <div class="header-mypage" id="header_mypage">
-                <a href="https://jwatch-8411c.web.app/mypage.html">
+                <a href="https://jwatch-8411c.web.app/mypage/index.html">
                     <i class="fas fa-user-edit">
                         <p>Mypage</p>
                     </i>
@@ -51,11 +51,11 @@
                           <p class="">close</p>
                       </i>
                       <ul>
-                            <li><a href="https://jwatch-8411c.web.app/usage.html">詳しい使い方</a></li>
-                            <li><a href="https://jwatch-8411c.web.app/searchinformation.html">観戦情報を探す</a></li>
-                            <li><a href="https://jwatch-8411c.web.app/posting.html">観戦情報を投稿する</a></li>
-                            <li><a href="https://jwatch-8411c.web.app/answerreception.html">回答受付中の質問</a></li>
-                            <li><a href="https://jwatch-8411c.web.app/popular.html">人気の投稿</a></li>
+                            <li><a href="https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a></li>
+                            <li><a href="https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a></li>
+                            <li><a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a></li>
+                            <li><a href="https://jwatch-8411c.web.app/answerreception/index.html">回答受付中の質問</a></li>
+                            <li><a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a></li>
                       </ul>
                   </div>
               </div>
