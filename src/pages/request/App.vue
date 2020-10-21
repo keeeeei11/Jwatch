@@ -138,12 +138,7 @@
             </form>
             <form action="#" method="POST" class="request-text-information">
                 <h3>本文</h3>
-                <div id="body_box">
-                    <textarea class="request-text-information-box" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
-                        <!-- <div class="count-character">
-                            <p>残り{{ 400 - character.length }}字です</p>
-                        </div> -->
-                </div>
+                <CharacterCount></CharacterCount>
                 <h3>画像(3枚まで)</h3>
                 <div class="post-picture">
                     <input type="file" name="picture" class="picture"><br>
@@ -176,6 +171,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
@@ -188,6 +184,7 @@ export default {
   },
   components: {
     Jheader,
+    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -245,7 +242,6 @@ main{
 .attention-title p{
     font-size: 18px;
 }
-
 
 .attention-discriptions{
     font-size: 18px;
@@ -348,12 +344,6 @@ input.request-title-information-box{
     width: 60%;
     height: 40px;
     font-size: 18px;
-}
-
-/*自由記述欄*/
-textarea{
-    width: 60%;
-    height: 400px;
 }
 
 /*画像を挿入*/
@@ -529,11 +519,6 @@ input.request-title-information-box{
   width: 90%;
 }
 
-/*自由記述欄*/
-textarea{
-  width: 90%;
-}
-
 /*画像を挿入*/
 .post-picture{
   display: block;
@@ -595,28 +580,28 @@ padding: 50px 40px;
 }
 
 /* 送信ボタン*/
-#execute{
+.execute{
   font-size: 16px;
 }
 
 /* 再確認のホップアップ */
-#reconfirmation{
+.reconfirmation{
   width:350px;
 }
 
-#reconfirmation p{
+.reconfirmation p{
   font-size: 16px;
 }
 
-#cancel{
+.cancel{
   width: 300px;
 }
 
-#request_btn{
+.request_btn{
   width: 320px;
 }
 
-#request_btn{
+.request_btn{
   font-size: 16px;
 }
 

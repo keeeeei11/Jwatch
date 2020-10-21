@@ -185,12 +185,7 @@
             </form>
             <form action="#" method="POST" class="answer-question-text-information">
                 <h3>本文</h3>
-                <div id="body_box">
-                    <textarea class="answer-question-text-information-box" placeholder="400字以内で入力してください" maxlength="400" minlength="1"></textarea><br>
-                        <!-- <div class="count-character">
-                            <p>残り{{ 400 - character.length }}字です</p>
-                        </div> -->
-                </div>
+                <CharacterCount></CharacterCount>
                 <h3>画像(3枚まで)</h3>
                 <div class="post-picture">
                     <input type="file" name="picture" class="picture"><br>
@@ -222,6 +217,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
@@ -234,6 +230,7 @@ export default {
   },
   components: {
     Jheader,
+    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -472,12 +469,6 @@ input.answer-question-title-information-box{
     font-size: 18px;
 }
 
-/*自由記述欄*/
-textarea{
-    width: 60%;
-    height: 400px;
-}
-
 /*画像を挿入*/
 /*画像を挿入*/
 .post-picture{
@@ -650,11 +641,6 @@ textarea{
 /* 題名 */
 input.answer-question-title-information-box{
   width: 90%;
-}
-
-/*自由記述欄*/
-textarea{
-  width:90%;
 }
 
 /*画像を挿入*/

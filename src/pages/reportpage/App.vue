@@ -67,12 +67,7 @@
                 </form>
                 <form action="#" method="POST" class="report-page-reason-text">
                     <h3>詳細を下記フォームにご記入ください(省略可)</h3>
-                    <div id="body_box">
-                        <textarea class="contant" placeholder="400字以内で入力してください" maxlength="400" minlength="1"></textarea><br>
-                            <!-- <div class="count-character">
-                                <p>残り{{ 400 - character.length }}字です</p>
-                            </div> -->
-                    </div>
+                    <CharacterCount></CharacterCount>
                     <p class="execute" @click="postPopupShow">送信する</p>
                 </form>
                 <section class="reconfirmation" v-if="popupShow">
@@ -95,6 +90,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
@@ -107,6 +103,7 @@ export default {
   },
   components: {
     Jheader,
+    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -279,17 +276,10 @@ main{
 }
 
 /*自由記述欄*/
-
 .report-page-reason-text h3{
      font-size: 18px;
      font-weight: normal;
 }
-textarea.contant{
-    width:70%;
-    height: 400px;
-    font-size: 18px;
-}
-
 /* 送信ボタン*/
 .execute{
     width: 150px;
@@ -351,7 +341,6 @@ textarea.contant{
     transition: 0.4s;
     cursor: pointer;
 }
-
 
 .post-btn{
     font-size: 18px;
@@ -419,12 +408,6 @@ font-size: 16px;
 
 .report-page-reason-box{
   width: 90%;
-}
-/*自由記述欄*/
-textarea.contant{
-  width:90%;
-  height: 400px;
-  font-size: 18px;
 }
 }
 

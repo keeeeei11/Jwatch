@@ -24,13 +24,7 @@
                 <p>タイトル<br></p>
                 <input type="text" name="email" class="inquiry-title-form" id="title_box" maxlength="20" placeholder="20字以内で入力してください">
                 <p>お問い合わせ・ご意見の内容<br></p>
-                <!-- 字数制限を設置する(400字)(他の投稿入力フォームも) -->
-                <div id="body_box">
-                    <textarea class="inquiry-text-form" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
-                        <!-- <div class="count-character"> -->
-                            <!-- <p>残り{{ 400 - character.length }}字です</p>
-                        </div> -->
-                </div>
+                <CharacterCount></CharacterCount>
             </form>
             <p class="execute" @click="inquiryPopupShow">送信する</p>
         </div>
@@ -54,6 +48,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
@@ -66,6 +61,7 @@ export default {
   },
   components: {
     Jheader,
+    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -152,14 +148,6 @@ main{
     width: 60%;
     height: 40px;
     font-size: 18px;
-}
-/*自由記述欄*/
-textarea.inquiry-text-form{
-    width:70%;
-    height: 400px;
-    font-size: 18px;
-    margin-top: 15px;
-    margin-bottom: 15px;
 }
 
 /* 送信ボタン*/
@@ -274,11 +262,6 @@ textarea.inquiry-text-form{
     width: 90%;
 }
 
-/*自由記述欄*/
-textarea.inquiry-text-form{
-    width: 90%;
-}
-
 }
 
 /* スマホ */
@@ -320,11 +303,6 @@ input.email{
 /*質問内容の選択*/
 .category{
     width: 350px;
-}
-
-/*自由記述欄*/
-textarea.opinion{
-    width: 80%;
 }
 
 /* 送信ボタン*/
