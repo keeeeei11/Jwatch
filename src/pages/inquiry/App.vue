@@ -25,15 +25,16 @@
                 <input type="text" name="email" class="inquiry-title-form" id="title_box" maxlength="20" placeholder="20字以内で入力してください">
                 <p>お問い合わせ・ご意見の内容<br></p>
                 <!-- 字数制限を設置する(400字)(他の投稿入力フォームも) -->
-                <!-- 謎にオブジェクト表示されるの修正する -->
                 <div id="body_box">
                     <textarea class="inquiry-text-form" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
                         <!-- <div class="count-character"> -->
                             <!-- <p>残り{{ 400 - character.length }}字です</p>
                         </div> -->
                 </div>
-                <p class="execute" @click="inquiryPopupShow">送信する</p>
             </form>
+            <p class="execute" @click="inquiryPopupShow">送信する</p>
+        </div>
+        <div class="inquiry-execute">
             <section class="reconfirmation" v-if="popupShow">
                 <p>送信してもよろしいですか？</p>
                 <p class="cancel" @click="popupHide">戻る</p>
@@ -41,9 +42,9 @@
                     <input type="submit" class="post-btn" value="送信する">
                 </form>
             </section>
-        </div>
         <form action="#" method="POST" class="name"></form>
          <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
+         </div>
     <MoveTopBtn></MoveTopBtn>
     </main>
     <Jfooter></Jfooter>
@@ -59,7 +60,7 @@ export default {
   name: 'App',
   data(){
     return {
-        popupShow: true,
+        popupShow: false,
         coverShow: false
     }
   },
@@ -204,6 +205,7 @@ textarea.inquiry-text-form{
 .cancel{
     width: 350px;
     display: block;
+    font-size: 18px;
     text-decoration: none;
     text-align: center;
     padding: 10px;
@@ -224,6 +226,7 @@ textarea.inquiry-text-form{
 .post-btn{
     width: 350px;
     display: block;
+    font-size: 18px;
     text-decoration: none;
     text-align: center;
     padding: 10px;
