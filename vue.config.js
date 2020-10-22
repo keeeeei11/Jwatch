@@ -29,8 +29,8 @@ module.exports = {
     },
     deleteAccount: {
       entry:"src/pages/deleteAccount/main.js",
-      filename:"deleteaccount/index.html",
-      title:"ログアウト画面 Jwatch Jリーグ観戦情報サイト"
+      filename:"deleteAccount/index.html",
+      title:"アカウント削除画面 Jwatch Jリーグ観戦情報サイト"
     },
     inquiry: {
       entry:"src/pages/inquiry/main.js",
@@ -76,6 +76,11 @@ module.exports = {
       entry:"src/pages/loginTwitter/main.js",
       filename:"loginTwitter/index.html",
       title:"ログイン画面 Jwatch Jリーグ観戦情報サイト"
+    },
+    logout: {
+      entry:"src/pages/logout/main.js",
+      filename:"logout/index.html",
+      title:"ログアウト画面 Jwatch Jリーグ観戦情報サイト"
     },
     mainpage: {
       entry:"src/pages/mainpage/main.js",
