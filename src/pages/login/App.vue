@@ -36,7 +36,7 @@ import Jheader from "../../components/Jheader.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
-    name: 'App',
+    name: 'login',
     data(){
     return {
     }

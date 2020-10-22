@@ -199,15 +199,15 @@ export default {
       redirect: function(){
         firebase.auth().onAuthStateChanged(function(user) {
         // 非ログイン時はログイン画面にリダイレクトする
-          if(user === false){
-              location.href = 'https://jwatch-8411c.web.app/login/index.html'
-          } else {
+          if(!user){
+            location.href = 'https://jwatch-8411c.web.app/login/index.html'
+            } else {
             return
           }
         });
       },
     },
-    mounted: function(){
+    created: function(){
         this.redirect();
     },
 }

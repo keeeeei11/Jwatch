@@ -62,7 +62,7 @@
         </div>
     <div class="request-nav">
         <h3>求めている情報が見つからないときはこちら！</h3>
-        <a href="https://jwatch-48c7e.web.app/request/request.html">
+        <a href="https://jwatch-8411c.web.app/request/index.html">
             <div class="request-nav-contents">
                 <div class="request-nav-ja">
                     <p>観戦情報をリクエストする！</p>

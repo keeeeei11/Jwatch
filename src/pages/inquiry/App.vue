@@ -9,7 +9,7 @@
             <p>ご意見＆ご要望入力フォーム</p>
         </div>
         <div class="inquiry-discription">
-            <p><a href="https://jwatch-48c7e.web.app/question/question.html" target="_brank" rel="nofollow noopener noreferrer">Q&A</a>にも情報がありますのでそちらも参考にしてください。</p>
+            <p><a href="https://jwatch-8411c.web.app/question/index.html" target="_brank" rel="nofollow noopener noreferrer">Q&A</a>にも情報がありますのでそちらも参考にしてください。</p>
         </div>
         <div class="inquiry-form">
             <form action="#" method="POST" class="name">

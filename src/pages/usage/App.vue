@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="search-nav">
-            <a href="https://jwatch-48c7e.web.app/searchinformation/searchinformation.html">
+            <a href="https://jwatch-8411c.web.app/searchinformation/index.html">
                 <div class="search-nav-contents nav">
                     <div class="search-nav-ja">
                         <p>観戦情報を探す！</p>
@@ -97,7 +97,7 @@
             </div>
         </div>
             <div class="post-nav">
-                <a href="https://jwatch-48c7e.web.app/posting/posting.html">
+                <a href="https://jwatch-8411c.web.app/posting/index.html">
                     <div class="post-nav-contents nav">
                         <div class="post-nav-ja">
                             <p>観戦情報を投稿する！</p>
@@ -173,7 +173,7 @@
                 </div>
             </div>
             <div class="request-nav">
-                <a href="https://jwatch-48c7e.web.app/request/request.html">
+                <a href="https://jwatch-8411c.web.app/request/index.html">
                     <div class="request-nav-contents">
                         <div class="request-nav-ja nav">
                             <p>観戦情報をリクエストする！</p>

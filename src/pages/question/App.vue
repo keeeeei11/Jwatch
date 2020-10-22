@@ -15,7 +15,7 @@
         </div>
         <div class="contact-nav">
             <h3>当サイトについてご不明な点がございましたら以下よりお尋ねください。</h3>
-                <a href="https://jwatch-48c7e.web.app/inquiry/inquiry.html">
+                <a href="https://jwatch-8411c.web.app/inquiry/index.html">
                     <div class="contact-nav-contents">
                         <div class="contact-nav-ja">
                             <p>ご意見＆ご要望はこちらから</p>

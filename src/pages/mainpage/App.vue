@@ -38,7 +38,7 @@
                 <div class="usage-primary-introduction">
                     <!--観戦情報を探す-->
                     <div class="usage-search">
-                        <a href="https://jwatch-48c7e.web.app/searchinformation/searchinformation.html">
+                        <a href="https://jwatch-8411c.web.app/searchinformation/index.html">
                             <h3>観戦情報を探す</h3>
                             <img src="../../assets/1843892_s.jpg" alt="パソコンと虫眼鏡の画像。情報を探すイメージ。">
                         </a>
@@ -46,7 +46,7 @@
                     </div>
                     <!--観戦情報を投稿する-->
                     <div class="usage-post">
-                        <a href="https://jwatch-48c7e.web.app/posting/posting.html">
+                        <a href="https://jwatch-8411c.web.app/posting/index.html">
                             <h3>観戦情報を投稿する</h3>
                             <img src="../../assets/812491_s.jpg" alt="女性がスマートフォンで観戦情報を投稿している画像。">
                         </a>
@@ -54,7 +54,7 @@
                     </div>
                     <!-- 情報をリクエストする -->
                     <div class="usage-asking">
-                        <a href="https://jwatch-48c7e.web.app/request/request.html">
+                        <a href="https://jwatch-8411c.web.app/request/index.html">
                             <h3>情報をリクエストする</h3>
                             <img src="../../assets/3063794_s.jpg" alt="自分の求めている情報が見つからず悩んでいる女性の画像。">
                         </a>
@@ -62,11 +62,11 @@
                     </div>
                 </div>
                 <div class="usage-secondary-introduction">
-                    <p>※観戦情報の投稿と情報のリクエストは <a href="https://jwatch-48c7e.web.app/login/login.html">ログイン</a> が必要となります。</p>
+                    <p>※観戦情報の投稿と情報のリクエストは <a href="https://jwatch-8411c.web.app/login/index.html">ログイン</a> が必要となります。</p>
                 </div>
             </div>
             <div class="detail-usage-nav">
-                <a href="https://jwatch-48c7e.web.app/usage/usage.html">
+                <a href="https://jwatch-8411c.web.app/usage/index.html">
                     <div class="detail-usage-nav-contants">
                         <div class="detail-usage-nav-title">
                             <p>Detailed discription</p>
