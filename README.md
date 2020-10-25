@@ -5,7 +5,7 @@ Jリーグのスタジアム観戦情報をユーザーが投稿＆閲覧でき�
 デザインはほぼ完成しており、現在はVue.jsとfirebaseを用いてバックエンド側を作成しています。<br>
 完成は10月中旬を予定しております。<br>
 
-https://jwatch-8411c.web.app/
+https://jwatch-8411c.web.app/mainpage/index.html
 # 機能一覧
 
 ・投稿機能(文章＆画像)<br>
