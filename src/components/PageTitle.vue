@@ -1,19 +1,19 @@
 <template>
-  <div class="page-title">
-    <h1>{{ title }}</h1>
-    <p>{{ description }}</p>
+  <div class="page-title-wrapper">
+    <div class="page-title">
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name:'PageTitle',
-  data(){
-    return{
-      title:"",
-      description:"",
-    }
-  }
+  props: {
+    title: String,
+    description: String,
+  },
 }
 </script>
 
@@ -32,8 +32,13 @@ export default {
 
 @media (max-width:959px)
 {
+.page-title-wrapper{
+  text-align: center;
+}
+
 .page-title{
-    margin-left: 10%;
+  margin-left:0;
+  margin-top: 150px;
 }
 }
 

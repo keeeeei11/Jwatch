@@ -5,25 +5,22 @@
     <!-- 以下メイン-->
     <main>
         <!--サイト名-->
-        <div class="introduction" id="introduction">
-            <h1>Jwatch</h1>
-            <p>〜全ての人にサッカー観戦の楽しみを〜</p>
-        </div>
+        <PageTitle title="Jwatch" description="〜全ての人にサッカー観戦の楽しみを〜"></PageTitle>
         <!--メッセージ-->
-        <div class="about" id="about">
-            <div class="about-title" id="about_title">
+        <div class="about">
+            <div class="about-title">
                 <h1>About</h1>
             </div>
-            <div class="about-discriptions" id="about-discriptions">
-                <div class="first-about-discription" id="first-about-discription">
+            <div class="about-discriptions">
+                <div class="first-about-discription">
                     <p class="discription01">JwatchはJリーグスタジアムの観戦情報を</p>
                     <p class="discription02">投稿＆閲覧できるサイトです。</p>
                 </div>
-                 <div class="second-about-discription" id="second-about-discription">
+                 <div class="second-about-discription">
                     <p class="discription03">事前にリアルなスタジアム情報を</p>
                     <p class="discription04">お届けすることで快適なスタジアム観戦をサポートします。</p>
                 </div>
-                 <div class="third-about-discription" id="third-about-discription">
+                 <div class="third-about-discription">
                     <p class="discription05">また、自分の応援するチームのスタジアム情報を投稿することで</p>
                     <p class="discription06">応援するチームの良さを全国の人に伝えることができます。</p>
                 </div>
@@ -87,6 +84,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
@@ -97,6 +95,7 @@ export default {
   },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
@@ -119,29 +118,12 @@ body{
 
 main{
     color: rgb(28.8%, 29.6%, 28.8%);
-    width: 100vw;
-}
-
-.introduction{
-    width: 100vw;
-    height: auto;
-    min-height: 50vh;
-    margin-top: 280px;
-    margin-left: 20%;
-}
-
-.introduction h1{
-    font-size: 64px;
-    font-weight: bold;
-}
-
-.introduction p{
-    font-size: 28px;
 }
 
 /*メッセージ*/
 .about{
     display: flex;
+    margin-top: 100px;
     margin-left: 10%;
     padding: 100px 80px;
     background-color: #f2f2f2;
@@ -271,45 +253,28 @@ detail-usage-nav-discription p{
 
 @media (max-width:959px)
 {
-    /* main */
-    .introduction{
-        margin-left: 10%;
-    }
+/* メイン */
+.about{
+    display: block;
+    text-align: center;
+    margin: auto;
+}
+/* サイトの使い方 */
+.usage{
+    text-align: center;
+}
+.usage-title{
+    margin: auto;
+    text-align: center;
+}
 
-    .about{
-        display: block;
-        text-align: center;
-        margin: auto;
-    }
-    /* サイトの使い方 */
-    .usage{
-        text-align: center;
-    }
-    .usage-title{
-        margin: auto;
-        text-align: center;
-    }
-
-    .usage-primary-introduction{
-        display: block;
-    }
+.usage-primary-introduction{
+    display: block;
+}
 }
 
 @media (max-width:559px){
-    /* メイン */
-    .introduction{
-        margin:280px auto 0px;
-        text-align: center;
-    }
-
-    .introduction h1{
-    font-size: 48px;
-    }
-
-    .introduction p{
-        font-size: 18px;
-    }
-
+/* メイン */
 /*メッセージ*/
 .about{
     padding:50px 40px;

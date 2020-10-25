@@ -5,10 +5,7 @@
     <!-- 以下メイン-->
     <main>
         <div class="search-information">
-            <div class="search-information-title">
-                <h1>Search Information</h1>
-                <p>スタジアムとカテゴリーを選択してください</p>
-            </div>
+            <PageTitle title="Search information" description="スタジアムとカテゴリーを選択してください。"></PageTitle>
             <div class="select-stadium">
                 <form action="#" method="POST" class="search" name="stadium">
                     <h2>スタジアムを選択してください</h2><br>
@@ -173,22 +170,17 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
 };
 </script>
 
@@ -201,20 +193,6 @@ export default {
 main{
     color: rgb(28.8%, 29.6%, 28.8%);
 }
-
-.search-information-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.search-information-title h1{
-    font-size: 48px;
-}
-
-.search-information-title p{
-    font-size: 21px;
-}
-
 /* スタジアム選択 */
 .select-stadium{
         margin-top: 100px;
@@ -331,11 +309,6 @@ main{
 
 @media (max-width:959px ){
 /* メイン */
-/* タイトル */
-.search-information-title{
-  margin-left: 10%;
-}
-
 /* スタジアム選択 */
 .select-stadium{
   margin-left: 0%;
@@ -360,14 +333,6 @@ main{
 
 @media (max-width:559px ){
 /* メイン */
-/* タイトル */
-.search-information-title h1{
-  font-size: 36px;
-}
-
-.search-information-title p{
-  font-size: 16px;
-}
 /* スタジアム選択 */
 .select-stadium{
   padding: 50px 40px;

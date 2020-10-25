@@ -6,21 +6,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css">
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
     <!-- built files will be auto injected -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-storage.js"></script>
-    <div id="app"></div>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
     <script>
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -37,22 +34,24 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
-      // 各ユーザーがログイン時に各ユーザーの情報を保持する
+      // ログイン時の各ユーザー情報
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // ログイン時
-          let displayName = user.displayName;
-          let email = user.email;
-          let emailVerified = user.emailVerified;
-          let photoURL = user.photoURL;
-          let isAnonymous = user.isAnonymous;
-          let uid = user.uid;
-          let providerData = user.providerData;
-          console.log(displayName, email, emailVerified, photoURL, isAnonymous, uid, providerData)
-          // 非ログイン時
-          console.log("非ログイン");
-        };
+          var visitor_name = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var visior_uid = user.uid;
+          var providerData = user.providerData;
+          console.log(visitor, email)
+        }
       })
       </script>
+      <div id="app"></div>
+      <noscript>
+        <strong>We're sorry but Jwatch doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      </noscript>
   </body>
   </html>

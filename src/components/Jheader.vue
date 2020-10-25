@@ -10,7 +10,7 @@
             </div>
             <!-- ログイン時に表示 -->
             <div class="header-username" v-if="isLogin">
-                <p v-if="!isAnonymous">こんにちは {{ visitor }} さん！</p>
+                <p v-if="!isAnonymous">こんにちは {{ visitor_name }} さん！</p>
                 <p v-else>こんにちは 匿名 さん！</p>
             </div>
         </div>
@@ -65,8 +65,7 @@
   </header>
 </template>
 
-<script>
-
+<script defer>
 export default {
   name:'Jheader',
   props:["user"],
@@ -94,7 +93,7 @@ export default {
     if (user) {
       // User is signed in.
       this.isAnonymous = user.isAnonymous;
-      let uid = user.uid;
+      let visitor_uid = user.uid;
     } else {
       return
     }
@@ -109,7 +108,7 @@ export default {
       } else {
       this.isLogin = false
       this.userData = null;
-      };
+      }
       this.anonymous();
   })
   }

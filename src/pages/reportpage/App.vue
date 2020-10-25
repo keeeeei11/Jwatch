@@ -5,10 +5,7 @@
     <!-- 以下メイン-->
     <main>
         <div class="report-page">
-            <div class="report-page-title">
-                <h1>Report page</h1>
-                <p>投稿を通報するページです</p>
-            </div>
+            <PageTitle title="Report page" description="投稿を通報するページです"></PageTitle>
             <div class="report-page-contants">
                 <div class="report-page-post">
                     <h3>選択した投稿</h3>
@@ -90,6 +87,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
@@ -103,6 +101,7 @@ export default {
   },
   components: {
     Jheader,
+    PageTitle,
     CharacterCount,
     MoveTopBtn,
     Jfooter,
@@ -129,22 +128,7 @@ export default {
 main{
     color: rgb(28.8%, 29.6%, 28.8%);
 }
-/*タイトル*/
-.report-page-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.report-page-title h1{
-    font-size: 48px;
-}
-
-.report-page-title p{
-    font-size: 21px;
-}
-
 /*対象の投稿を挿入する*/
-
 .report-page-contants{
     text-align: center;
     margin: 100px 0;
@@ -374,11 +358,6 @@ main{
 }
 @media (max-width:959px ){
 /* メイン */
-/* タイトル */
-.report-page-title{
-margin-left: 10%;
-}
-
 /* 投稿内容 */
 .post-example-contents{
   width: 80%;
@@ -413,14 +392,6 @@ font-size: 16px;
 
 @media (max-width:559px ){
 /* メイン */
-/*タイトル*/
-.report-page-title h1{
-  font-size: 36px;
-}
-
-.report-page-title p{
-  font-size: 18px;
-}
 /*対象の投稿を挿入する*/
 .report-page-contants{
   padding: 50px 40px;

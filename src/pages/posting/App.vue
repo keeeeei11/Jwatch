@@ -4,10 +4,7 @@
       <Jheader></Jheader>
     <main>
         <div class="post-imformation">
-            <div class="post-title">
-                <h1>Post informations</h1>
-                <p>観戦情報を投稿しましょう！</p>
-            </div>
+            <PageTitle title="Post informations" description="観戦情報を投稿しましょう！"></PageTitle>
         </div>
         <div class="attention">
             <div class="attention-title">
@@ -33,10 +30,10 @@
                 <h2>Input form</h2>
                 <p>入力フォーム</p><br>
             </div>
-            <form action="#" method="POST" class="post-stadium">
+            <form class="post-stadium">
                 <h3>スタジアム</h3>
-                <select name="stadiumlist" class="stadium-list-box box" id="stadium_list" size="1">
-                    <option value="スタジアムを選択してください" style="display: none;">--スタジアム名を選択してください--</option>
+                <select name="stadiumlist" v-model="stadium" class="stadium-list-box box" size="1">
+                    <option value="" disabled>--スタジアム名を選択してください(必須)--</option>
                     <option value="" disabled>--北海道--</option>
                     <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
                     <option value="[コンサドーレ札幌] 札幌ドーム">[コンサドーレ札幌] 札幌ドーム</option>
@@ -119,9 +116,9 @@
                     <option value="[FC琉球] タピック県総ひやごんスタジアム">[FC琉球] タピック県総ひやごんスタジアム</option>
                 </select>
             </form>
-            <form action="#" method="POST" class="post-category">
+            <form class="post-category">
                 <h3>カテゴリー</h3>
-                <select name="category" class="post-category-box box" id="category_list" size="1">
+                <select v-model="category" name="category" class="post-category-box box" size="1">
                     <option value="" style="display: none;">--カテゴリーを選択してください(必須)--</option>
                     <option value="スタジアムグルメ">スタジアムグルメ</option>
                     <option value="交通情報(駐車場や公共交通機関等)">交通情報(駐車場や公共交通機関等)</option>
@@ -131,11 +128,11 @@
                     <option value="その他">その他</option>
                 </select>
             </form>
-            <form action="#" method="POST" class="post-title-information">
+            <form class="post-title-information">
                 <h3>タイトル</h3>
-                <input type="text" name="subject" class="post-title-information-box" id="title_box" placeholder="20字以内で入力してください" maxlength="20" minlength="1">
+                <input v-model="title" type="text" name="subject" class="post-title-information-box" placeholder="20字以内で入力してください" maxlength="20" minlength="1">
             </form>
-            <form action="#" method="POST" class="post-text-information">
+            <form class="post-text-information">
                 <h3>本文</h3>
                 <CharacterCount></CharacterCount>
                 <h3>画像(3枚まで)</h3>
@@ -150,7 +147,7 @@
                 <p>投稿してもよろしいですか？</p>
                 <p class="cancel" @click="popupHide">戻る</p>
                 <form action="">
-                    <input type="submit" class="post-btn" value="投稿する！">
+                    <button @click="sendData" class="post-btn">投稿する！</button>
                 </form>
             </section>
             <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
@@ -168,8 +165,9 @@
 </div>
 </template>
 
-<script>
+<script defer>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
@@ -177,17 +175,26 @@ export default {
   name: 'App',
   data(){
     return {
+      // 再確認のポップアップの表示設定
         popupShow: false,
-        coverShow: false
+        coverShow: false,
+        // 投稿データの保持
+        stadium:"",
+        category:"",
+        title:"",
+        body:"",
+
     }
   },
   components: {
     Jheader,
+    PageTitle,
     CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
   methods:{
+      // ポップアップ表示・非表示
       postPopupShow: function(){
           this.popupShow = true,
           this.coverShow = true
@@ -196,16 +203,39 @@ export default {
           this.popupShow = false,
           this.coverShow = false
       },
+      // 非ログイン時はログイン画面にリダイレクトする
       redirect: function(){
         firebase.auth().onAuthStateChanged(function(user) {
-        // 非ログイン時はログイン画面にリダイレクトする
           if(!user){
-            location.href = 'https://jwatch-8411c.web.app/login/index.html'
+            // location.href = 'https://jwatch-8411c.web.app/login/index.html'
             } else {
             return
           }
         });
       },
+      sendData: function(){
+        const postdata = firebase.firestore().collection("posts");
+        const now = new Date();
+        const inputdata = {
+          stadium: this.stadium,
+          category: this.category,
+          title: this.title,
+          body: this.body,
+          title: this.title,
+          created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
+          contributor_name:visitor_name,
+          contributor_uid:visitor_uid,
+          updated:"",
+          likedCounter:0,
+          likedUser:"",
+        }
+        postdata.add(inputdata).then(function(docRef){
+          alert('正常に登録できました。')
+        })
+        .catch(function(error){
+          alert('エラーが発生しました。')
+        })
+      }
     },
     created: function(){
         this.redirect();
@@ -220,19 +250,6 @@ export default {
 /*以下メイン*/
 main{
     color:rgb(28.8%, 29.6%, 28.8%);
-}
-/*タイトル*/
-.post-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.post-title h1{
-    font-size: 48px;
-}
-
-.post-title p{
-    font-size: 21px;
 }
 
 /*注意点*/
@@ -490,12 +507,6 @@ input.post-title-information-box{
 }
 @media (max-width:959px ){
 /* メイン */
-/*タイトル*/
-.post-title{
-  margin-left: 10%;
-  margin-top: 250px;
-}
-
 /*注意点*/
 .attention{
   text-align: center;
@@ -535,16 +546,8 @@ input.post-title-information-box{
 }
 
 @media (max-width:559px ){
-  /* ヘッダー */
-.post-title h1{
-  font-size: 36px;
-}
 /* メイン */
 /*タイトル*/
-.post-title p{
-  font-size: 18px;
-}
-
 .attention-title h2{
   font-size: 28px;
 }

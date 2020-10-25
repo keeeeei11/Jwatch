@@ -4,10 +4,7 @@
       <Jheader></Jheader>
     <main>
         <div class="popular">
-            <div class="answer-reception-title">
-                <h1>Popular posts</h1>
-                <p>人気のある投稿が記載されています。チームやリーグごとに情報を絞ることも可能です。</p>
-            </div>
+            <PageTitle title="Popular posts" description="人気のある投稿が記載されています。チームやリーグごとに情報を絞ることも可能です。"></PageTitle>
             <div class="choose-stadium">
                 <form action="#" method="POST" class="filtering">
                   <select name="filtering-box" class="filtering-box box" size="1" id="stadium_list">
@@ -203,6 +200,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
@@ -213,6 +211,7 @@ export default {
   },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
@@ -228,47 +227,32 @@ export default {
 }
 /*以下メイン*/
 main{
-    color:rgb(28.8%, 29.6%, 28.8%);
+  color:rgb(28.8%, 29.6%, 28.8%);
+  margin: auto 50px;
+}
+.choose-stadium {
+  margin-top: 100px;
+  text-align: center;
 }
 
-.answer-reception-title{
-    margin-left: 10%;
-    margin-top: 250px;
-  }
+.filtering-box{
+  width: 60%;
+  height: 40px;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
 
-  .answer-reception-title h1{
-    font-size: 48px;
-  }
+.display-order{
+  text-align: right;
+  margin-right: 20%;
+}
 
-  .answer-reception-title p{
-    font-size: 21px;
-    line-height: 2.5em;
-  }
-
-  .choose-stadium {
-    margin-top: 100px;
-    text-align: center;
-  }
-
-  .filtering-box{
-    width: 60%;
-    height: 40px;
-    font-size: 18px;
-    margin-bottom: 40px;
-  }
-
-  .display-order{
-    text-align: right;
-    margin-right: 20%;
-  }
-
-  .display-order-box{
-    width: 200px;
-    height: 40px;
-    font-size: 16px;
-  }
-
-  /*人気の投稿*/
+.display-order-box{
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+}
+/*人気の投稿*/
 
 .popular-posts{
     margin: 50px 0;

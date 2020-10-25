@@ -4,10 +4,7 @@
       <Jheader></Jheader>
     <main>
        <div class="view-informations">
-            <div class="view-informations-title">
-                <h1>View Informations</h1>
-                <p><span>〇〇スタジアム</span>の<span>スタジアムグルメ</span>に関する情報が記載されています</p>
-            </div>
+         <PageTitle title="View Informations" description="試合観戦に役立つ情報が記載されています。"></PageTitle>
        </div>
         <div class="core-information">
             <div class="core-information-title">
@@ -73,8 +70,8 @@
             </div>
         </a>
     </div>
-    </main>
     <MoveTopBtn></MoveTopBtn>
+    </main>
     <!--以下フッター-->
     <Jfooter></Jfooter>
     </div>
@@ -83,22 +80,17 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
 };
 </script>
 
@@ -111,20 +103,6 @@ export default {
 main{
     color:rgb(28.8%, 29.6%, 28.8%);
 }
-
-.view-informations-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.view-informations-title h1{
-    font-size: 48px;
-}
-
-.view-informations-title p{
-    font-size: 21px;
-}
-
 
 /* 投稿一覧 */
 .core-information{
@@ -147,90 +125,88 @@ main{
 
 /* 投稿内容 */
 .post-example-contents{
-    width: 70%;
-    margin:30px auto;
-    padding: 20px 40px;
-    border: 2px solid #979797;
-    border-radius: 10px;
-  }
+  width: 70%;
+  margin:30px auto;
+  padding: 20px 40px;
+  border: 2px solid #979797;
+  border-radius: 10px;
+}
 
-  .post-basic-information{
+.post-basic-information{
   display: block;
-  }
+}
 
-  .post-basic-information-top{
+.post-basic-information-top{
   display: flex;
   height: 30px;
   margin-bottom: 30px;
   justify-content: space-around;
-  }
-
-  .post-basic-information-bottom{
-  display: flex;
-  justify-content: space-around;
-  }
-
-  .post-name{
-    font-size: 21px;
-  }
-
-  .post-stadium{
-    font-size: 18px;
-  }
-
-  .post-category{
-    font-size: 18px;
-  }
-
-  .post-date{
-    font-size: 18px;
-  }
-
-  .post-title p{
-    text-align: center;
-    font-size: 21px;
-  }
-
-  .post-text{
-    margin: 25px 0;
-    padding: 0 30px;
-    text-align: left;
-  }
-
-  .post-text p{
-    font-size: 18px;
-  }
-
-  .post-img img{
-      height: auto;
-      margin: 30px auto 20px;
-      width:30%;
-  }
-
-  .post-evaluation p{
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    font-size: 16px;
-  }
-
-  .post-evaluation-contents{
-    display: flex;
-    justify-content:center;
-  }
-
-  .good-count, .reporting{
-    text-align:center;
-    border: 1px solid #797979;
-    border-radius: 10px;
-    padding:5px 10px;
-    margin: 0 10px;
-  }
-
-  .post-img{
-    display: flex;
 }
 
+.post-basic-information-bottom{
+  display: flex;
+  justify-content: space-around;
+}
 
+.post-name{
+  font-size: 21px;
+}
+
+.post-stadium{
+  font-size: 18px;
+}
+
+.post-category{
+  font-size: 18px;
+}
+
+.post-date{
+  font-size: 18px;
+}
+
+.post-title p{
+  text-align: center;
+  font-size: 21px;
+}
+
+.post-text{
+  margin: 25px 0;
+  padding: 0 30px;
+  text-align: left;
+}
+
+.post-text p{
+  font-size: 18px;
+}
+
+.post-img img{
+  height: auto;
+  margin: 30px auto 20px;
+  width:30%;
+}
+
+.post-evaluation p{
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  font-size: 16px;
+}
+
+.post-evaluation-contents{
+  display: flex;
+  justify-content:center;
+}
+
+.good-count, .reporting{
+  text-align:center;
+  border: 1px solid #797979;
+  border-radius: 10px;
+  padding:5px 10px;
+  margin: 0 10px;
+}
+
+.post-img{
+  display: flex;
+}
 /* こんな情報が欲しい！ */
 
 .request-nav h3{
@@ -265,45 +241,32 @@ main{
 
 @media (max-width:959px)
 {
-    /* メイン */
-    /* タイトル */
-    .view-informations-title{
-    margin-left: 10%;
-    }
-    /* 投稿内容 */
-    .post-example-contents{
-    width: 80%;
-    margin: 10% auto;
-    }
+/* メイン */
+/* 投稿内容 */
+.post-example-contents{
+width: 80%;
+margin: 10% auto;
+}
 
-    .post-name{
-    font-size: 18px;
-    }
+.post-name{
+font-size: 18px;
+}
 
-    .post-stadium{
-    font-size: 16px;
-    }
+.post-stadium{
+font-size: 16px;
+}
 
-    .post-category{
-    font-size: 16px;
-    }
+.post-category{
+font-size: 16px;
+}
 
-    .post-date{
-    font-size: 16px;
+.post-date{
+font-size: 16px;
     }
 }
 
 @media (max-width:559px){
 /* メイン */
-/* タイトル */
-.view-informations-title h1{
-  font-size: 36px;
-}
-
-.view-informations-title p{
-  font-size: 18px;
-}
-
 /* 投稿一覧 */
 .core-information p{
   font-size: 18px;

@@ -4,10 +4,7 @@
       <Jheader></Jheader>
     <main>
         <div class="request-imformation">
-            <div class="request-title">
-                <h1>Request informations</h1>
-                <p>観戦情報を探しても目当ての情報が見つからないときは<br>下記の入力フォームから聞いてみましょう。</p>
-            </div>
+            <PageTitle title="Request informations" description="観戦情報を探しても情報が見つからないときは入力フォームから聞いてみましょう。"></PageTitle>
         </div>
         <div class="attention">
             <div class="attention-title">
@@ -170,6 +167,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
@@ -183,6 +181,7 @@ export default {
   },
   components: {
     Jheader,
+    PageTitle,
     CharacterCount,
     MoveTopBtn,
     Jfooter,
@@ -222,21 +221,6 @@ export default {
 main{
     color:rgb(28.8%, 29.6%, 28.8%);
 }
-/*タイトル*/
-.request-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.request-title h1{
-    font-size: 48px;
-}
-
-.request-title p{
-    font-size: 21px;
-    line-height: 2.5em;
-}
-
 /*注意点*/
 .attention{
     margin-top: 100px;
@@ -493,12 +477,7 @@ input.request-title-information-box{
 
 @media (max-width:959px ){
 /* メイン */
-/*タイトル*/
-.request-title{
-  margin-left: 10%;
-}
 /*注意点*/
-
 .attention{
   text-align: center;
   margin-right: 0em;
@@ -542,19 +521,6 @@ input.request-title-information-box{
 
 @media (max-width:559px ){
 /* メイン */
-.request-form{
-  margin-left: 0%;
-padding: 50px 40px;
-}
-/* タイトル */
-.request-title h1{
-  font-size: 36px;
-}
-
-.request-title p{
-  font-size: 18px;
-  line-height: 2.0em;
-}
 /*注意点*/
 .attention{
   padding: 50px 40px;

@@ -4,17 +4,14 @@
       <Jheader></Jheader>
     <main>
         <div class="warning">
-            <div class="warning-title">
-                <h1>About warning</h1>
-                <p>投稿禁止対象に関する情報が記載されています</p>
-            </div>
+            <PageTitle title="About warning" description="投稿禁止対象に関する情報が記載されています"></PageTitle>
             <div class="warning-contents">
                 <div class="warning-discriptions">
                     <div class="warning-discription discription">
-                        <p>1.特定のチーム、選手、サポーターへの暴言が投稿の中に含まれている。</p>
-                        <p>2.有害なサイトへの誘導等。</p>
-                        <p>3.重複する内容を過剰に連投する行為。</p>
-                        <p>4.その他閲覧者を攻撃する内容が含まれていると運営が判断した場合。</p>
+                        <p>1.特定のチーム、選手、サポーターへの暴言が投稿の中に含まれている。<br>
+                        2.有害なサイトへの誘導等。<br>
+                        3.重複する内容を過剰に連投する行為。<br>
+                        4.その他閲覧者を攻撃する内容が含まれていると運営が判断した場合。</p>
                     </div>
                 </div>
                 <div class="warning-please">
@@ -45,22 +42,17 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
 };
 </script>
 
@@ -76,19 +68,6 @@ main{
     color:rgb(28.8%, 29.6%, 28.8%);
 }
 
-.warning-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.warning-title h1{
-    font-size: 48px;
-}
-
-.warning-title p{
-    font-size: 24px;
-}
-
 /*警告の詳細*/
 
 .warning-contents{
@@ -98,7 +77,7 @@ main{
 
 .discription p{
     font-size: 18px;
-    margin-block-start: 1em;
+    line-height: 3.0em;
 }
 
 .warning-please{
@@ -139,31 +118,23 @@ main{
 
 @media (max-width:959px)
 {
-  /* メイン */
-  /* タイトル */
-  .warning-title{
-    margin-left: 10%;
-}
-
 /*警告の詳細*/
 
-.warning-contents{
-    width: 90%;
-    margin:100px auto;
+.warning-discription{
+    text-align: center;
+}
+
+.warning-discription p{
+    display: inline-block;
+    text-align: left;
 }
 }
+
 
 @media (max-width:559px)
 {
 /* メイン */
-/* タイトル */
-.warning-title h1{
-    font-size: 36px;
-}
-
-.warning-title p{
-    font-size: 18px;
-}
+/* 警告内容 */
 
 .discription p{
     font-size: 16px;

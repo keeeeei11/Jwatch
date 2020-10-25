@@ -5,10 +5,7 @@
     <!-- 以下メイン-->
     <main>
     <div class="introduction">
-        <div class="introduction-title">
-            <h1>About 管理人</h1>
-            <p>管理人からのメッセージ</p>
-        </div>
+        <PageTitle title="About 管理人" description="管理人からのメッセージ"></PageTitle>
         <div class="reason">
             <div class="reason-title">
                 <h2>Reason</h2>
@@ -44,22 +41,17 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
 };
 </script>
 
@@ -73,22 +65,8 @@ body{
 }
 
 /*以下メイン*/
-
 main{
     color: #494b49;
-}
-
-.introduction-title {
-    margin-top: 250px;
-    margin-left: 20%;
-}
-
-.introduction-title h1{
-    font-size: 48px;
-}
-
-.introduction-title p{
-    font-size: 21px;
 }
 
 /* Jwatchの作成理由 */
@@ -125,48 +103,38 @@ main{
 /* タブレット */
 @media (max-width:959px )
 {
-    /* メイン */
-    /* タイトル */
-    .introduction-title {
-        margin-top: 250px;
-        margin-left: 10%;
-    }
+/* メイン */
+/* Jwatchの作成理由 */
+.reason{
+    margin-left: 0;
+    text-align: center;
+}
 
-    .introduction-title p{
-        font-size: 18px;
-    }
-
-    /* Jwatchの作成理由 */
-    .reason{
-        margin-left: 0;
-        text-align: center;
-    }
-
-    .reason-text{
-        padding-left: 0px;
-    }
+.reason-text{
+    padding-left: 0px;
+}
 }
 /* スマホ */
 @media (max-width:559px)
 {
-    /* メイン */
-    .reason{
-        padding: 50px 40px;
-    }
-    .reason p{
-        font-size: 16px;
-    }
-    /* タイトル */
-    .introduction-title h1{
-        font-size: 36px;
-    }
+/* メイン */
+.reason{
+    padding: 50px 40px;
+}
+.reason p{
+    font-size: 16px;
+}
+/* タイトル */
+.introduction-title h1{
+    font-size: 36px;
+}
 
-    .introduction-title p{
-        font-size: 18px;
-    }
-    /* Jwatchの作成理由 */
-    .reason-title h2{
-        font-size: 28px;
-    }
+.introduction-title p{
+    font-size: 18px;
+}
+/* Jwatchの作成理由 */
+.reason-title h2{
+    font-size: 28px;
+}
 }
 </style>

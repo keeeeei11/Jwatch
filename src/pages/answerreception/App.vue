@@ -4,10 +4,7 @@
       <Jheader></Jheader>
   <main>
     <div class="answer-reception">
-      <div class="answer-reception-title">
-          <h1>Answer Reception</h1>
-          <p>回答受付中の質問です</p>
-      </div>
+      <PageTitle title="Answer Reception" description="回答受付中の質問です"></PageTitle>
       <div class="choose-stadium">
         <form action="#" method="POST" class="filtering">
           <select name="filtering-box" class="filtering-box box" id="stadium_list" size="1">
@@ -205,16 +202,14 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
@@ -242,20 +237,6 @@ export default {
 /*以下メイン*/
 main{
   color:rgb(28.8%, 29.6%, 28.8%);
-}
-
-.answer-reception-title{
-  margin-left: 20%;
-  margin-top: 250px;
-}
-
-.answer-reception-title h1{
-  font-size: 48px;
-}
-
-.answer-reception-title p{
-  font-size: 21px;
-  line-height: 2.5em;
 }
 
 /* スタジアム選択バー */
@@ -441,15 +422,6 @@ font-size: 16px;
 
 @media (max-width:559px ){
 /* メイン */
-/* タイトル */
-.answer-reception-title h1{
-  font-size: 48px;
-}
-
-.answer-reception-title p{
-  font-size: 18px;
-}
-
 /* スタジアム選択バー */
 .filtering-box{
   width: 80%;

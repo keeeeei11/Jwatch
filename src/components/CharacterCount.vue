@@ -1,18 +1,18 @@
 <template>
     <div id="body_box">
-      <textarea v-model="character" class="inquiry-text-form" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
+      <textarea v-model="body" class="inquiry-text-form" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
           <div class="count-character">
-                <p>残り{{ 400 - character.length }}字です</p>
+                <p>残り{{ 400 - body.length }}字です</p>
           </div>
     </div>
 </template>
 
-<script>
+<script defer>
 export default {
   name:'characterCount',
   data(){
     return {
-      character:"",
+      body:"",
     }
   }
 }

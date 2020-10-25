@@ -11,7 +11,8 @@
 export default {
   name:'loginComplete',
   // メールアドレスによる初回ログイン時に認証メールを送信する
-  mounted:function(){
+  created:function(){
+    firebase.auth().onAuthStateChanged(function(user) {
       if (!emailVerified) {
       var actionCodeSettings = {
         url: 'https://jwatch-8411c.web.app/mypage/index.html',
@@ -20,15 +21,18 @@ export default {
       firebase.auth().currentUser.sendEmailVerification(actionCodeSettings)
       .then(function() {
         // 成功時
+        console.log("成功")
       })
       .catch(function(error) {
         // 失敗時
+        console.log("失敗")
       });
     } else {
       // 既に認証済みの時はマイページを表示する
       location.href = "https://jwatch-8411c.web.app/mypage/index.html"
     }
-  }
+  })
+}
 }
 </script>
 

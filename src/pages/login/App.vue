@@ -4,10 +4,7 @@
       <Jheader></Jheader>
 <!--メイン-->
     <main>
-    <div class="login-title">
-        <h1>Login Page</h1>
-        <p>観戦情報&こんな情報が欲しい！への投稿はログインが必要です。</p>
-    </div>
+    <PageTitle title="Login Page" description="観戦情報&こんな情報が欲しい！への投稿はログインが必要です。"></PageTitle>
     <div class="login-contents" id="login">
         <h2>ログイン方法を選択してください</h2>
         <div class="google-login login-btn">
@@ -33,6 +30,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
@@ -43,6 +41,7 @@ export default {
     },
     components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
     },

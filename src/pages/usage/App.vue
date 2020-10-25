@@ -4,10 +4,7 @@
       <Jheader></Jheader>
     <!-- 以下メイン-->
     <main>
-        <div class="usage-title">
-            <h1>How to use</h1>
-            <p>観戦情報の閲覧と投稿、情報のリクエストの方法を記載しています</p>
-        </div>
+        <PageTitle title="How to use" description="観戦情報の閲覧と投稿、情報のリクエストの方法を記載しています"></PageTitle>
         <div class="search-contents">
             <div class="search-title">
                 <h2>How to Search</h2>
@@ -87,7 +84,7 @@
                 <div class="post-evaluation">
                     <div class="post-evaluation-contents">
                         <div class="good-count">
-                            <p>役に立った！ 6</p>
+                            <p>いいね！ 6</p>
                         </div>
                         <div class="reporting">
                             <p>通報する</p>
@@ -194,22 +191,17 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
 };
 </script>
 
@@ -223,20 +215,6 @@ export default {
 main{
     color: rgb(28.8%, 29.6%, 28.8%);
 }
-/*タイトル*/
-.usage-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.usage-title h1{
-    font-size: 48px;
-}
-
-.usage-title p{
-    font-size: 21px;
-}
-
 /*観戦情報の探し方*/
 
 .search-contents{
@@ -319,218 +297,217 @@ main{
 }
 
 /*投稿例*/
-
 .post-example-contents{
-    width: 70%;
-    margin:30px auto;
-    padding: 20px 40px 20px;
-    border: 2px solid #979797;
-    border-radius: 10px;
-  }
+  width: 70%;
+  margin:30px auto;
+  padding: 20px 40px 20px;
+  border: 2px solid #979797;
+  border-radius: 10px;
+}
 
-  .post-basic-information{
+.post-basic-information{
   display: block;
-  }
+}
 
-  .post-basic-information-top{
+.post-basic-information-top{
   display: flex;
   height: 30px;
   margin-bottom: 30px;
   justify-content: space-around;
-  }
+}
 
-  .post-basic-information-bottom{
+.post-basic-information-bottom{
   display: flex;
   justify-content: space-around;
-  }
+}
 
-  .post-name{
-    font-size: 21px;
-  }
+.post-name{
+  font-size: 21px;
+}
 
-  .post-stadium{
-    font-size: 18px;
-  }
+.post-stadium{
+  font-size: 18px;
+}
 
-  .post-category{
-    font-size: 18px;
-  }
+.post-category{
+  font-size: 18px;
+}
 
-  .post-date{
-    font-size: 18px;
-  }
+.post-date{
+  font-size: 18px;
+}
 
-  .post-title p{
-    text-align: center;
-    font-size: 21px;
-  }
+.post-title p{
+  text-align: center;
+  font-size: 21px;
+}
 
-  .post-text{
-    margin: 25px 0;
-    padding: 0 30px;
-    text-align: left;
-  }
+.post-text{
+  margin: 25px 0;
+  padding: 0 30px;
+  text-align: left;
+}
 
-  .post-text p{
-    font-size: 18px;
-  }
+.post-text p{
+  font-size: 18px;
+}
 
-  .post-img img{
-      height: auto;
-      margin: 30px auto 20px;
-      width:30%;
-  }
+.post-img img{
+  height: auto;
+  margin: 30px auto 20px;
+  width:30%;
+}
 
-  .post-evaluation p{
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    font-size: 16px;
-  }
+.post-evaluation p{
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  font-size: 16px;
+}
 
-  .post-evaluation-contents{
-    display: flex;
-    justify-content:center;
-  }
+.post-evaluation-contents{
+  display: flex;
+  justify-content:center;
+}
 
-  .good-count, .reporting{
-    text-align:center;
-    border: 1px solid #797979;
-    border-radius: 10px;
-    padding:5px 10px;
-    margin: 0 10px;
-  }
+.good-count, .reporting{
+  text-align:center;
+  border: 1px solid #797979;
+  border-radius: 10px;
+  padding:5px 10px;
+  margin: 0 10px;
+}
 
-  .post-img{
-    display: flex;
+.post-img{
+  display: flex;
 }
 /* 投稿するボタン */
 .post-nav a{
-    width: 100vw;
-    height: 300px;
-    margin-top: 100px;
-    background-color: #323232;
-    color: #ffffff;
-    line-height: 2.5em;
-    transition: background-color 0.4s linear;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    text-decoration: none;
+  width: 100vw;
+  height: 300px;
+  margin-top: 100px;
+  background-color: #323232;
+  color: #ffffff;
+  line-height: 2.5em;
+  transition: background-color 0.4s linear;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
 }
 
 .post-nav a:hover{
-    background-color: #202020;
+  background-color: #202020;
 }
 
 .post-nav-contants{
-    display: block;
-    font-size: 18px;
+  display: block;
+  font-size: 18px;
 }
 
 /* リクエストの方法 */
 .request-contents{
-    margin-top: 100px;
-    margin-left: 10%;
-    padding: 100px 80px;
-    background-color: #f2f2f2;
+  margin-top: 100px;
+  margin-left: 10%;
+  padding: 100px 80px;
+  background-color: #f2f2f2;
 }
 
 .request-title h2{
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .request-title p{
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .request-discription{
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .request-discription p{
-    font-size: 18px;
-    line-height: 2.5em;
+  font-size: 18px;
+  line-height: 2.5em;
 }
 
 .request-example h3{
-    font-size: 21px;
-    text-align: center;
+  font-size: 21px;
+  text-align: center;
 }
 /* リクエスト例 */
 .request-example-contents{
-    width: 70%;
-    margin:30px auto;
-    padding: 20px 40px 20px;
-    border: 2px solid #979797;
-    border-radius: 10px;
-  }
+  width: 70%;
+  margin:30px auto;
+  padding: 20px 40px 20px;
+  border: 2px solid #979797;
+  border-radius: 10px;
+}
 
-  .request-basic-information{
+.request-basic-information{
   display: block;
-  }
+}
 
-  .request-basic-information-top{
+.request-basic-information-top{
   display: flex;
   height: 30px;
   margin-bottom: 30px;
   justify-content: space-around;
-  }
+}
 
-  .request-basic-information-bottom{
+.request-basic-information-bottom{
   display: flex;
   justify-content: space-around;
-  }
+}
 
-  .request-name{
-    font-size: 21px;
-  }
+.request-name{
+  font-size: 21px;
+}
 
-  .request-stadium{
-    font-size: 18px;
-  }
+.request-stadium{
+  font-size: 18px;
+}
 
-  .request-category{
-    font-size: 18px;
-  }
+.request-category{
+  font-size: 18px;
+}
 
-  .request-date{
-    font-size: 18px;
-  }
+.request-date{
+  font-size: 18px;
+}
 
-  .request-title p{
-    text-align: center;
-    font-size: 21px;
-  }
+.request-title p{
+  text-align: center;
+  font-size: 21px;
+}
 
-  .request-text{
-    margin: 25px 0;
-    padding: 0 30px;
-    text-align: left;
-  }
+.request-text{
+  margin: 25px 0;
+  padding: 0 30px;
+  text-align: left;
+}
 
-  .request-text p{
-    font-size: 18px;
-  }
+.request-text p{
+  font-size: 18px;
+}
 
-  .request-evaluation p{
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    font-size: 16px;
-  }
+.request-evaluation p{
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  font-size: 16px;
+}
 
-  .request-evaluation-contents{
-    display: flex;
-    justify-content:center;
-  }
+.request-evaluation-contents{
+  display: flex;
+  justify-content:center;
+}
 
-  .answering, .reporting{
-    text-align:center;
-    border: 1px solid #797979;
-    border-radius: 10px;
-    padding:5px 10px;
-    margin: 0 10px;
-  }
+.answering, .reporting{
+  text-align:center;
+  border: 1px solid #797979;
+  border-radius: 10px;
+  padding:5px 10px;
+  margin: 0 10px;
+}
 
 /* リクエストするボタン */
 .request-nav a{
@@ -559,10 +536,6 @@ main{
 
 @media (max-width:959px){
 /* メイン */
-/* タイトル */
-.usage-title{
-  margin-left: 10%;
-}
 /*観戦情報の探し方*/
 .search-contents{
   margin-left: 0%;
@@ -595,17 +568,17 @@ main{
   font-size: 18px;
   }
 
-  .post-stadium{
-  font-size: 16px;
-  }
+.post-stadium{
+font-size: 16px;
+}
 
-  .post-category{
-  font-size: 16px;
-  }
+.post-category{
+font-size: 16px;
+}
 
-  .post-date{
-  font-size: 16px;
-  }
+.post-date{
+font-size: 16px;
+}
 
 /* リクエストの方法 */
 .request-contents{
@@ -623,33 +596,25 @@ main{
 }
 
 .request-name{
-  font-size: 18px;
-  }
+font-size: 18px;
+}
 
-  .request-stadium{
-  font-size: 16px;
-  }
+.request-stadium{
+font-size: 16px;
+}
 
-  .request-category{
-  font-size: 16px;
-  }
+.request-category{
+font-size: 16px;
+}
 
-  .request-date{
-  font-size: 16px;
-  }
+.request-date{
+font-size: 16px;
+}
 }
 
 @media (max-width:559px)
 {
 /* メイン */
-/* タイトル */
-.usage-title h1{
-  font-size: 36px;
-}
-
-.usage-title p{
-  font-size: 18px;
-}
 /*観戦情報の探し方*/
 .search-contents{
   padding: 50px 40px;

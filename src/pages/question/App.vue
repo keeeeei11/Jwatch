@@ -4,10 +4,7 @@
       <Jheader></Jheader>
         <!--以下メイン-->
     <main>
-        <div class="question-corner">
-            <h1>Q&A</h1>
-            <p>よくある質問を記載しております。</p>
-        </div>
+        <PageTitle title="Q&A" description="よくある質問が記載されております"></PageTitle>
         <div class="question-contents">
             <div class="note">
                 <p>質問は随時こちらに掲載いたします。</p>
@@ -35,22 +32,17 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
+    PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
 };
 </script>
 
@@ -61,21 +53,6 @@ export default {
 /*以下メイン*/
 main{
     color: rgb(28.8%, 29.6%, 28.8%);
-}
-
-/*Q&Aタイトル部分*/
-
-.question-corner{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-
-.question-corner h1{
-    font-size: 48px;
-}
-
-.question-corner p{
-    font-size: 24px;
 }
 
 .question-contents{
@@ -121,45 +98,30 @@ main{
 
 /* タブレット */
 @media (max-width:959px ){
-    /* メイン */
-    .question-corner{
-        margin-left: 10%;
-    }
-
-    .question-contents{
-        margin-left: 0;
-    }
-
+.question-contents{
+    margin-left: 0;
+}
 }
 
 /* スマホ */
 @media (max-width:559px)
 {
-    /* メイン */
-    .question-corner h1{
-        font-size: 36px;
-    }
+/* ご意見ご要望への誘導 */
+.contact-nav h3{
+    font-size: 16px;
+    padding: 0 30px;
+}
 
-    .question-contents p{
-        font-size: 18px;
-    }
+.contact-nav a{
+    height: 200px;
+}
 
-    /* ご意見ご要望への誘導 */
-    .contact-nav h3{
-        font-size: 16px;
-        padding: 0 30px;
-    }
+.contact-nav-contants{
+    font-size: 16px;
+}
 
-    .contact-nav a{
-        height: 200px;
-    }
-
-    .contact-nav-contants{
-        font-size: 16px;
-    }
-
-    .question-corner p{
-        font-size: 18px;
-    }
+.question-corner p{
+    font-size: 18px;
+}
 }
 </style>

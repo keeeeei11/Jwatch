@@ -4,10 +4,7 @@
       <Jheader></Jheader>
     <!--以下メイン-->
     <main>
-        <div class="inquiry-title">
-            <h1>Contact</h1>
-            <p>ご意見＆ご要望入力フォーム</p>
-        </div>
+        <PageTitle title="Contact" description="ご意見＆ご要望入力フォーム"></PageTitle>
         <div class="inquiry-discription">
             <p><a href="https://jwatch-8411c.web.app/question/index.html" target="_brank" rel="nofollow noopener noreferrer">Q&A</a>にも情報がありますのでそちらも参考にしてください。</p>
         </div>
@@ -48,6 +45,7 @@
 
 <script>
 import Jheader from "../../components/Jheader.vue"
+import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
@@ -61,6 +59,7 @@ export default {
   },
   components: {
     Jheader,
+    PageTitle,
     CharacterCount,
     MoveTopBtn,
     Jfooter,
@@ -86,17 +85,6 @@ export default {
 /*以下メイン*/
 main{
     color: rgb(28.8%, 29.6%, 28.8%);
-}
-/*タイトル*/
-.inquiry-title{
-    margin-left: 20%;
-    margin-top: 250px;
-}
-.inquiry-title h1{
-    font-size: 48px;
-}
-.inquiry-title p{
-    font-size: 21px;
 }
 /*注意点の箇条書き*/
 .inquiry-discription{
@@ -243,7 +231,7 @@ main{
     opacity: 0.8;
 }
 
-@media (max-width:959px )
+@media (max-width:959px)
 {
 /* メイン */
 /*注意点の箇条書き*/
@@ -261,7 +249,6 @@ main{
 .inquiry-form input{
     width: 90%;
 }
-
 }
 
 /* スマホ */
@@ -269,18 +256,13 @@ main{
 {
 /* ヘッダー */
 .header-contents{
-    margin: auto 10px;
-    }
-
-    #menu a {
-    font-size: 18px;
-    }
-
-/* メイン */
-.inquiry-title p{
-    font-size: 18px;
+margin: auto 10px;
 }
 
+#menu a {
+font-size: 18px;
+}
+/* メイン */
 /*注意点の箇条書き*/
 .inquiry-discription p{
     font-size: 16px;
