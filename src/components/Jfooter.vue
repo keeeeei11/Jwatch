@@ -17,19 +17,19 @@
         <div class="icon-img">
             <div class="icon-top">
                 <div class="twitter">
-                    <a href="https://twitter.com/intent/tweet?url=https://jwatch-8411c.web.app/&text=Jwatch Jリーグのスタジアム観戦情報を投稿＆閲覧できるサイト&hashtags=Jwatch&hashtags=Jリーグ" target="_blank" rel="nofollow noopener noreferrer">
+                    <a href="https://twitter.com/intent/tweet?url=https://jwatch-8411c.web.app/mainpage/index.html&text=Jwatch Jリーグのスタジアム観戦情報を投稿＆閲覧できるサイト&hashtags=Jwatch&hashtags=Jリーグ" target="_blank" rel="nofollow noopener noreferrer">
                     <i class="fab fa-twitter"></i>
                     </a>
                 </div>
                 <div class="line">
-                    <a href="https://social-plugins.line.me/lineit/share?url=https://jwatch-8411c.web.app/" target="_blank" rel="nofollow noopener noreferrer">
+                    <a href="https://social-plugins.line.me/lineit/share?url=https://jwatch-8411c.web.app/mainpage/index.html" target="_blank" rel="nofollow noopener noreferrer">
                     <i class="fab fa-line"></i>
                     </a>
                 </div>
             </div>
             <div class="icon-bottom">
                 <div class="facebook">
-                    <a href="http://facebook.com/share.php?u=https://jwatch-8411c.web.app/" target="_blank" rel="nofollow noopener noreferrer">
+                    <a href="http://facebook.com/share.php?u=https://jwatch-8411c.web.app/mainpage/index.html" target="_blank" rel="nofollow noopener noreferrer">
                     <i class="fab fa-facebook-square"></i>
                     </a>
                 </div>

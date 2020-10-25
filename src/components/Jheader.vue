@@ -42,7 +42,7 @@
             </div>
               <div class="humburgar">
                   <div class="menu-bar" @click="humburgarShow">
-                      <i class="fas fa-bars" id="show" >
+                      <i class="fas fa-bars" id="show">
                       <p>menu</p>
                       </i>
                   </div>
@@ -359,13 +359,22 @@ header{
     .header-contents{
         margin: auto 20px;
     }
-    
     .header-left-shortcut{
       display: block;
     }
 
     .header-username{
       padding: 0;
+    }
+
+    .header-login i{
+      font-size: 28px;
+    }
+    .header-mypage i{
+      font-size: 28px;
+    }
+    #show{
+      font-size: 28px;
     }
 
     #menu a {
