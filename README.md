@@ -25,7 +25,28 @@ https://jwatch-8411c.web.app/mainpage/index.html
 ・Vue.js<br>
 
 ■データベース<br>
-・Firebase(CloudFirestoreを使用)
+・Firebase(CloudFirestoreを使用)<br>
 
 ■コード管理<br>
 ・git/GitHub
+
+# 採用担当者の方へ
+この度は私のポートフォリオを閲覧していただき誠にありがとうございます。<br>
+
+現在この作品は作成途中となっております。<br>
+
+完成している部分は主に<br>
+HTML＆CSS,Vueによるデザイン(レスポンシブ対応)<br>
+ログイン機能<br>
+SNSシェア機能<br>
+となります。<br>
+
+また、作成途中の部分は主に<br>
+DBにデータを保存する機能<br>
+投稿機能<br>
+いいね機能<br>
+となります。<br>
+
+現在はfirebase,Vueを使い完成に向けて日々作業を行っております。<br>
+
+何卒よろしくお願い致します。
