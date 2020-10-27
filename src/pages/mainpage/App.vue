@@ -13,16 +13,16 @@
             </div>
             <div class="about-discriptions">
                 <div class="first-about-discription">
-                    <p class="discription01">JwatchはJリーグスタジアムの観戦情報を</p>
-                    <p class="discription02">投稿＆閲覧できるサイトです。</p>
+                    <p>JwatchはJリーグスタジアムの観戦情報を</p>
+                    <p>投稿＆閲覧できるサイトです。</p>
                 </div>
                  <div class="second-about-discription">
-                    <p class="discription03">事前にリアルなスタジアム情報を</p>
-                    <p class="discription04">お届けすることで快適なスタジアム観戦をサポートします。</p>
+                    <p>事前にリアルなスタジアム情報を</p>
+                    <p>お届けすることで快適なスタジアム観戦をサポートします。</p>
                 </div>
                  <div class="third-about-discription">
-                    <p class="discription05">また、自分の応援するチームのスタジアム情報を投稿することで</p>
-                    <p class="discription06">応援するチームの良さを全国の人に伝えることができます。</p>
+                    <p>また、自分の応援するチームのスタジアム情報を投稿することで</p>
+                    <p>応援するチームの良さを全国の人に伝えることができます。</p>
                 </div>
             </div>
         </div>
@@ -33,7 +33,6 @@
             </div>
             <div class="usage-introduction">
                 <div class="usage-primary-introduction">
-                    <!--観戦情報を探す-->
                     <div class="usage-search">
                         <a href="https://jwatch-8411c.web.app/searchinformation/index.html">
                             <h3>観戦情報を探す</h3>
@@ -41,7 +40,6 @@
                         </a>
                         <p>観戦予定のスタジアム/カテゴリーを選択して観戦情報を探してみましょう！</p>
                     </div>
-                    <!--観戦情報を投稿する-->
                     <div class="usage-post">
                         <a href="https://jwatch-8411c.web.app/posting/index.html">
                             <h3>観戦情報を投稿する</h3>
@@ -49,7 +47,6 @@
                         </a>
                         <p>試合観戦の感想やワンポイントアドバイス等を投稿してみましょう！</p>
                     </div>
-                    <!-- 情報をリクエストする -->
                     <div class="usage-asking">
                         <a href="https://jwatch-8411c.web.app/request/index.html">
                             <h3>情報をリクエストする</h3>
@@ -83,25 +80,23 @@
 </template>
 
 <script>
+// import firebase from "firebase";
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
   name: 'App',
-  data(){
-    return {
-    }
-  },
   components: {
     Jheader,
     PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
 };
 </script>
 
@@ -257,7 +252,7 @@ detail-usage-nav-discription p{
 .about{
     display: block;
     text-align: center;
-    margin: auto;
+    margin:100px auto auto;
 }
 /* サイトの使い方 */
 .usage{

@@ -6,6 +6,11 @@
 </template>
 
 <script>
+import firebase from "firebase";
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 export default {
   name:'logout',
   data(){
@@ -22,8 +27,6 @@ export default {
       firebase.auth().signOut().then(function() {
       // 正常にアカウント削除が完了した時
         location.href = 'https://jwatch-8411c.web.app/mainpage/index.html'
-      }).catch(function(error) {
-      // エラー発生時
       });
     }
   });

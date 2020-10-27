@@ -143,6 +143,11 @@
 </template>
 
 <script>
+// import firebase from "firebase";
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"

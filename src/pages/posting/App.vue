@@ -147,7 +147,7 @@
                 <p>投稿してもよろしいですか？</p>
                 <p class="cancel" @click="popupHide">戻る</p>
                 <form action="">
-                    <button @click="sendData" class="post-btn">投稿する！</button>
+                    <!-- <button @click="sendData" class="post-btn">投稿する！</button> -->
                 </form>
             </section>
             <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
@@ -165,7 +165,12 @@
 </div>
 </template>
 
-<script defer>
+<script>
+import firebase from "firebase";
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
@@ -183,7 +188,6 @@ export default {
         category:"",
         title:"",
         body:"",
-
     }
   },
   components: {
@@ -213,29 +217,29 @@ export default {
           }
         });
       },
-      sendData: function(){
-        const postdata = firebase.firestore().collection("posts");
-        const now = new Date();
-        const inputdata = {
-          stadium: this.stadium,
-          category: this.category,
-          title: this.title,
-          body: this.body,
-          title: this.title,
-          created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
-          contributor_name:visitor_name,
-          contributor_uid:visitor_uid,
-          updated:"",
-          likedCounter:0,
-          likedUser:"",
-        }
-        postdata.add(inputdata).then(function(docRef){
-          alert('正常に登録できました。')
-        })
-        .catch(function(error){
-          alert('エラーが発生しました。')
-        })
-      }
+      // sendData: function(){
+      //   const postdata = firebase.firestore().collection("posts");
+      //   const now = new Date();
+      //   const inputdata = {
+      //     stadium: this.stadium,
+      //     category: this.category,
+      //     title: this.title,
+      //     body: this.body,
+      //     title: this.title,
+      //     created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
+      //     contributor_name:visitor_name,
+      //     contributor_uid:visitor_uid,
+      //     updated:"",
+      //     likedCounter:0,
+      //     likedUser:"",
+      //   }
+      //   postdata.add(inputdata).then(function(docRef){
+      //     alert('正常に登録できました。')
+      //   })
+      //   .catch(function(error){
+      //     alert('エラーが発生しました。')
+      //   })
+      // }
     },
     created: function(){
         this.redirect();

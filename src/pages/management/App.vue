@@ -20,14 +20,13 @@
 </template>
 
 <script>
+// import firebase from "firebase";
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 export default {
   name: 'App',
-  components: {
-
-  },
-  methods:{
-
-  }
 }
 </script>
 

@@ -96,7 +96,7 @@ export default {
   data(){
     return {
         popupShow: false,
-        coverShow: false
+        coverShow: false,
     }
   },
   components: {

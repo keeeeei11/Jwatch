@@ -6,6 +6,11 @@
 </template>
 
 <script>
+import firebase from "firebase"
+import "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 export default {
   name: 'deleteAccount',
   data(){

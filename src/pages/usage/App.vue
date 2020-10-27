@@ -151,11 +151,6 @@
                         <div class="request-text">
                             <p>☆☆スタジアムの駐車場から出場するのに30分程度かかるとのことですが、試合終了後すぐに駐車場から出られる方法はありますか？</p>
                         </div>
-                        <div class="request-img">
-                            <img src="" alt="">
-                            <img src="" alt="">
-                            <img src="" alt="">
-                        </div>
                     </div>
                     <div class="request-evaluation">
                         <div class="request-evaluation-contents">
@@ -352,8 +347,11 @@ main{
   font-size: 18px;
 }
 
+.post-img{
+  display: flex;
+}
+
 .post-img img{
-  height: auto;
   margin: 30px auto 20px;
   width:30%;
 }
@@ -377,9 +375,6 @@ main{
   margin: 0 10px;
 }
 
-.post-img{
-  display: flex;
-}
 /* 投稿するボタン */
 .post-nav a{
   width: 100vw;
@@ -678,6 +673,10 @@ font-size: 16px;
   font-size: 16px;
 }
 
+.post-img{
+  display: block;
+}
+
 .post-basic-information-bottom{
   display: block;
 }
@@ -696,6 +695,7 @@ font-size: 16px;
 .post-nav-contants{
   font-size: 16px;
 }
+
 
 /* リクエストの方法 */
 .request-contents{
