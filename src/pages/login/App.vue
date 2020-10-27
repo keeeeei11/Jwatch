@@ -8,16 +8,13 @@
     <div class="login-contents" id="login">
         <h2>ログイン方法を選択してください</h2>
         <div class="google-login login-btn">
-            <a href="https://jwatch-8411c.web.app/loginGoogle/index.html">Googleアカウントでログイン</a>
+            <button  @click="googleLogin">Googleアカウントでログイン</button>
         </div>
         <div class="twitter-login login-btn">
-            <a href="https://jwatch-8411c.web.app/loginTwitter/index.html">Twitterアカウントでログイン</a>
-        </div>
-        <div class="email-login login-btn">
-            <a href="https://jwatch-8411c.web.app/loginEmail/index.html">メールアドレスでログイン</a>
+            <button @click="twitterLogin">Twitterアカウントでログイン</button>
         </div>
         <div class="easily-login login-btn">
-            <a href="https://jwatch-8411c.web.app/loginAnonymous/index.html">簡単(匿名)ログイン</a>
+            <button @click="anonymousLogin">簡単(匿名)ログイン</button>
         </div>
         <p>※匿名ログインはページを離れると投稿が消去されるように設定しております。</p>
     </div>
@@ -29,6 +26,11 @@
 </template>
 
 <script>
+import firebase from "firebase";
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
@@ -56,11 +58,34 @@ export default {
     }
     });
     },
+    googleLogin: function(){
+        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    },
+    twitterLogin: function(){
+        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    },
+    anonymousLogin: function(){
+    firebase.auth().signInAnonymously().catch(function() {
+    // let errorCode = error.code;
+    // let errorMessage = error.message;
+    // });
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+    // User is signed in.
+    // var isAnonymous = user.isAnonymous;
+    // var uid = user.uid;
+    } else {
+        return
+    }
+    });
+    })
     },
     mounted: function(){
         this.redirect();
     },
-};
+}
+    }
+
 </script>
 
 <style>
@@ -95,17 +120,14 @@ main{
     background-color: #f2f2f2;
     text-align: center;
 }
-
+；
 .login-contents h2{
     text-align: center;
     font-size: 21px;
 }
 
-.login-btn{
-    margin: 80px auto;
-}
-
-.login-btn a{
+.login-btn button{
+    margin: 40px auto;
     padding: 20px 50px;
     font-size: 18px;
     border-radius: 10px;
@@ -117,7 +139,7 @@ main{
     outline: none;
 }
 
-.login-btn a:hover{
+.login-btn button:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -158,8 +180,9 @@ main{
     font-size: 18px;
 }
 
-.login-contents a{
-    width: 250px;
+.login-contents button{
+    margin:20px auto;
+    padding:10px 30px;
     font-size: 16px;
 }
 
