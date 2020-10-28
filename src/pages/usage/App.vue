@@ -354,7 +354,12 @@ main{
 .post-img img{
   margin: 30px auto 20px;
   width:30%;
+  height: auto;
 }
+/* .post-img img::before{
+  display: block;
+  padding-top:75%;
+} */
 
 .post-evaluation p{
   margin-block-start: 0em;
@@ -673,9 +678,13 @@ font-size: 16px;
   font-size: 16px;
 }
 
-.post-img{
+/* .post-img{
   display: block;
 }
+
+.post-img img{
+  margin: 20px auto;
+} */
 
 .post-basic-information-bottom{
   display: block;

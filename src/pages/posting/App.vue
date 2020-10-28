@@ -177,7 +177,7 @@ import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
-  name: 'App',
+  name: 'posting',
   data(){
     return {
       // 再確認のポップアップの表示設定
@@ -186,8 +186,8 @@ export default {
         // 投稿データの保持
         stadium:"",
         category:"",
-        title:"",
-        body:"",
+        title:null,
+        body:null,
     }
   },
   components: {
@@ -217,33 +217,68 @@ export default {
           }
         });
       },
-      // sendData: function(){
-      //   const postdata = firebase.firestore().collection("posts");
-      //   const now = new Date();
-      //   const inputdata = {
-      //     stadium: this.stadium,
-      //     category: this.category,
-      //     title: this.title,
-      //     body: this.body,
-      //     title: this.title,
-      //     created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
-      //     contributor_name:visitor_name,
-      //     contributor_uid:visitor_uid,
-      //     updated:"",
-      //     likedCounter:0,
-      //     likedUser:"",
-      //   }
-      //   postdata.add(inputdata).then(function(docRef){
-      //     alert('正常に登録できました。')
-      //   })
-      //   .catch(function(error){
-      //     alert('エラーが発生しました。')
-      //   })
-      // }
+      sendData: function(){
+        const db = firebase.firestore()
+        const postdata = db.collection("posts");
+        const now = new Date();
+        const inputdata = {
+          stadium: this.stadium,
+          category: this.category,
+          title: this.title,
+          body: this.body,
+          created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
+          contributor_name:this.visitor_name,
+          contributor_uid:this.visitor_uid,
+          updated:null,
+          likedCounter:0,
+          likedUser:null,
+        }
+        postdata.add(inputdata).then(function(docRef){
+          alert('正常に登録できました。', docRef.id)
+        })
+        .catch(function(error){
+          alert('エラーが発生しました。', error)
+        })
+      }
     },
     created: function(){
-        this.redirect();
-    },
+    //   const firebaseConfig = {
+    //   apiKey: "AIzaSyAb7dyC4OAKSZaaWHLIS2SlskncyESE6Lg",
+    //   authDomain: "jwatch-8411c.firebaseapp.com",
+    //   databaseURL: "https://jwatch-8411c.firebaseio.com",
+    //   projectId: "jwatch-8411c",
+    //   storageBucket: "jwatch-8411c.appspot.com",
+    //   messagingSenderId: "868452645100",
+    //   appId: "1:868452645100:web:b0ac64ce8f42b75a7dcdc9",
+    //   measurementId: "G-RK4728SNM4"
+    // };
+    // firebase.initializeApp(firebaseConfig);
+    // firebase.analytics();
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   if (user) {
+    //     // ログイン時
+    //     var visitor_name = user.displayName;
+    //     var email = user.email;
+    //     var emailVerified = user.emailVerified;
+    //     var photoURL = user.photoURL;
+    //     var isAnonymous = user.isAnonymous;
+    //     var visior_uid = user.uid;
+    //     var providerData = user.providerData;
+    //     console.log(visitor_name ,email ,emailVerified ,photoURL ,isAnonymous ,visior_uid ,providerData)
+    //     console.log(this)
+    //   }
+    // });
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if(user) {
+    //   this.isLogin = true
+    //   this.userData = user;
+    //   } else {
+    //   this.isLogin = false
+    //   this.userData = null;
+    //   }
+    // }),
+      this.redirect()
+}
 }
 </script>
 
