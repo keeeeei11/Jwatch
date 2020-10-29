@@ -1,7 +1,7 @@
 <template>
   <div id="app">
         <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName"  :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!-- 以下メイン-->
     <main>
         <!--サイト名-->
@@ -80,24 +80,23 @@
 </template>
 
 <script>
-// import firebase from "firebase";
-// Add the Firebase products that you want to use
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import Jheader from "../../components/Jheader.vue"
-import PageTitle from "../../components/PageTitle.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from '../../mixin/myFirstMixin';
+import Jheader from "../../components/Jheader"
+import PageTitle from "../../components/PageTitle"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
 export default {
-  name: 'App',
+  name: 'mainpage',
   components: {
     Jheader,
     PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-};
+  mixins:[
+    myFirstMixin
+  ]
+}
 </script>
 
 <style>

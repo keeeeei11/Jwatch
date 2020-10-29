@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!-- 以下メイン-->
     <main>
         <div class="answer-question">
@@ -82,7 +82,7 @@
             </div>
             <form action="#" method="POST" class="answer-question-stadium">
                 <h3>スタジアム</h3>
-                    <select name="stadium" class="answer-question-stadium-box box" id="stadium_list" size="1">
+                    <select name="stadiumlist" v-model="stadium" class="answer-question-stadium-box box" size="1">
                         <option value="スタジアムを選択してください" style="display: none;">--スタジアム名を選択してください--</option>
                         <option value="" disabled>--北海道--</option>
                         <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
@@ -166,9 +166,9 @@
                         <option value="[FC琉球] タピック県総ひやごんスタジアム">[FC琉球] タピック県総ひやごんスタジアム</option>
                     </select>
             </form>
-            <form action="#" method="POST" class="answer-question-category">
+            <form class="answer-question-category">
                 <h3>カテゴリー</h3>
-                <select name="category" class="answer-question-category-box box" id="category_list" size="1">
+                <select name="category" v-model="category" class="answer-question-category-box box" id="category_list" size="1">
                     <option value="" style="display: none;">--カテゴリーを選択してください(必須)--</option>
                     <option value="スタジアムグルメ">スタジアムグルメ</option>
                     <option value="交通情報(駐車場や公共交通機関等)">交通情報(駐車場や公共交通機関等)</option>
@@ -178,11 +178,11 @@
                     <option value="その他">その他</option>
                 </select>
             </form>
-            <form action="#" method="POST" class="answer-question-title-information">
+            <form class="answer-question-title-information">
                 <h3>タイトル</h3>
-                <input type="text" name="subject" class="answer-question-title-information-box" id="title_box" placeholder="20字以内で入力してください" maxlength="20" minlength="1">
+                <input type="text" v-model="title" name="subject" class="answer-question-title-information-box" id="title_box" placeholder="20字以内で入力してください" maxlength="20" minlength="1">
             </form>
-            <form action="#" method="POST" class="answer-question-text-information">
+            <form class="answer-question-text-information">
                 <h3>本文</h3>
                 <CharacterCount></CharacterCount>
                 <h3>画像(3枚まで)</h3>
@@ -196,9 +196,7 @@
             <section class="reconfirmation" v-if="popupShow">
                 <p>この内容で回答してもよろしいですか？</p>
                 <p class="cancel" @click="popupHide">戻る</p>
-                <form action="">
-                    <input type="submit" class="post-btn" value="回答する！">
-                </form>
+                <button @click="sendData" class="post-btn">回答する！</button>
             </section>
             <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
             <div class="answer-question-warning">
@@ -215,20 +213,26 @@
 </template>
 
 <script>
-// Add the Firebase products that you want to use
+import firebase from "firebase";
+import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import Jheader from "../../components/Jheader.vue"
-import CharacterCount from "../../components/CharacterCount.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import Jheader from "../../components/Jheader"
+import CharacterCount from "../../components/CharacterCount"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
+import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
-  name: 'App',
+  name: 'answerquestion',
   data(){
     return {
         popupShow: false,
-        coverShow: false
+        coverShow: false,
+        stadium:"",
+        category:"",
+        title:null,
+        body:null,
     }
   },
   components: {
@@ -237,15 +241,41 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
   methods:{
-      postPopupShow: function(){
-          this.popupShow = true,
-          this.coverShow = true
-      },
-      popupHide: function(){
-          this.popupShow = false,
-          this.coverShow = false
-      }
+    postPopupShow: function(){
+        this.popupShow = true,
+        this.coverShow = true
+    },
+    popupHide: function(){
+        this.popupShow = false,
+        this.coverShow = false
+    },
+    sendData: function(){
+    const db = firebase.firestore()
+    const postdata = db.collection("posts");
+    const now = new Date();
+    const inputdata = {
+        stadium: this.stadium,
+        category: this.category,
+        title: this.title,
+        body: this.body,
+        created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
+        contributor_name:"user",
+        contributor_uid:"0001",
+        updated:null,
+        likedCounter:0,
+        likedUser:null,
+    }
+    postdata.add(inputdata).then(function(docRef){
+        alert('正常に登録できました。', docRef.id)
+    })
+    .catch(function(error){
+        alert('エラーが発生しました。', error)
+    })
+    }
   }
 };
 </script>
@@ -487,7 +517,7 @@ input.answer-question-title-information-box{
     font-size: 18px;
     font-weight: 500;
     color: #484b48;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border:2px solid #484b48;
     margin:30px auto;
     padding: 10px 20px;

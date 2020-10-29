@@ -1,7 +1,7 @@
 <template>
 <div id="app">
     <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!-- 以下メイン-->
     <main>
         <div class="report-page">
@@ -86,11 +86,18 @@
 </template>
 
 <script>
+// import firebase from "firebase";
+// import "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+// import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
+
 export default {
   name: 'App',
   data(){
@@ -106,6 +113,9 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+ mixins:[
+    myFirstMixin
+  ],
   methods:{
       postPopupShow: function(){
       this.popupShow = true,

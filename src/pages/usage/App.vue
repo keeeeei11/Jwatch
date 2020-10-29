@@ -1,7 +1,7 @@
 <template>
 <div id="app">
       <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!-- 以下メイン-->
     <main>
         <PageTitle title="How to use" description="観戦情報の閲覧と投稿、情報のリクエストの方法を記載しています"></PageTitle>
@@ -185,10 +185,17 @@
 </template>
 
 <script>
+// import firebase from "firebase";
+// import "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+// import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
+
 export default {
   name: 'App',
   components: {
@@ -197,6 +204,9 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
 };
 </script>
 

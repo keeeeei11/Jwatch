@@ -1,13 +1,13 @@
 <template>
 <div id="app">
     <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
   <main>
     <div class="answer-reception">
       <PageTitle title="Answer Reception" description="回答受付中の質問です"></PageTitle>
       <div class="choose-stadium">
-        <form action="#" method="POST" class="filtering">
-          <select name="filtering-box" class="filtering-box box" id="stadium_list" size="1">
+        <form>
+          <select name="filtering-box" class="filtering-box box" size="1">
             <option value="スタジアムを選択してください" style="display: none;">--スタジアム名を選択してください--</option>
             <option value="" disabled>--北海道--</option>
             <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
@@ -92,8 +92,8 @@
         </select>
         </form>
         <div class="display-order">
-          <form action="#" method="POST">
-            <select name="display-order-box" class="display-order-box box" id="list_order">
+          <form>
+            <select name="display-order-box" class="display-order-box box">
               <option value="新しい順">新しい順</option>
               <option value="古い順">古い順</option>
             </select>
@@ -202,38 +202,45 @@
 
 <script>
 import firebase from "firebase";
-// Add the Firebase products that you want to use
+import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import Jheader from "../../components/Jheader.vue"
-import PageTitle from "../../components/PageTitle.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from '../../mixin/myFirstMixin';
+import Jheader from "../../components/Jheader"
+import PageTitle from "../../components/PageTitle"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
 export default {
-  name: 'App',
+  name: 'answerreception',
   components: {
     Jheader,
     PageTitle,
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin,
+  ],
   methods:{
-    redirect: function(){
-    firebase.auth().onAuthStateChanged(function(user) {
-    // 非ログイン時はログイン画面にリダイレクトする
-      if(!user){
-          location.href = 'https://jwatch-8411c.web.app/login/index.html'
-      } else {
+      notLoginRedirect: function(){
+      firebase.auth().onAuthStateChanged(function(user) {
+        // ログイン時はマイページへ
+    if(user){
+        location.href = "https://jwatch-8411c.web.app/mypage/index.html"
+    } else {
         return
-      }
+    }
     });
+    }
   },
-  },
-  created: function(){
-  this.redirect();
+  // ここをcreatedにするとmixinより先に実行されてエラーがでる
+  // createdはimportより先に実行される
+  mounted: function(){
+    this.notLoginRedirect();
   }
-};
+}
+
 </script>
 <style>
 .wrap{

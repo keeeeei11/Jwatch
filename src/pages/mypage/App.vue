@@ -1,12 +1,12 @@
 <template>
 <div id="app">
     <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!-- 以下メイン-->
     <main>
         <div class="mypage">
             <div class="mypage-title">
-                <p><span class="user-name"></span> さんのマイページ</p>
+                <p>{{ visitorName }} さんのマイページ</p>
             </div>
             <div class="mypage-contents">
                 <div class="mypage-past-post">
@@ -144,13 +144,13 @@
 
 <script>
 // import firebase from "firebase";
-// Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   name: 'App',
   data(){
@@ -165,6 +165,9 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
   methods:{
     // ログアウト確認ポップアップの表示
     logoutPopupShow:function(){
@@ -189,7 +192,6 @@ export default {
       this.deleteShow = false,
       this.coverShow = false
     }
-    
     },
 }
 </script>

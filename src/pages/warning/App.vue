@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <main>
         <div class="warning">
             <PageTitle title="About warning" description="投稿禁止対象に関する情報が記載されています"></PageTitle>
@@ -45,6 +45,8 @@ import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
+
 export default {
   name: 'App',
   components: {
@@ -53,6 +55,9 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
 };
 </script>
 

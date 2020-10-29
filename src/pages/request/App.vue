@@ -1,7 +1,7 @@
 <template>
 <div id="app">
     <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <main>
         <div class="request-imformation">
             <PageTitle title="Request informations" description="観戦情報を探しても情報が見つからないときは入力フォームから聞いてみましょう。"></PageTitle>
@@ -166,13 +166,20 @@
 </template>
 
 <script>
+import firebase from "firebase";
+import "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
+
 export default {
-  name: 'App',
+  name: 'request',
   data(){
     return {
         popupShow: false,
@@ -186,6 +193,9 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
   methods:{
         requestPopupShow: function(){
         this.popupShow = true,

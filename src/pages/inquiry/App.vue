@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!--以下メイン-->
     <main>
         <PageTitle title="Contact" description="ご意見＆ご要望入力フォーム"></PageTitle>
@@ -9,17 +9,17 @@
             <p><a href="https://jwatch-8411c.web.app/question/index.html" target="_brank" rel="nofollow noopener noreferrer">Q&A</a>にも情報がありますのでそちらも参考にしてください。</p>
         </div>
         <div class="inquiry-form">
-            <form action="#" method="POST" class="name">
+            <form class="name">
                 <p>お名前(任意)<br></p>
                 <input type="text" name="name" class="inquiry-name-form" maxlength="50">
             </form>
-            <form action="#" method="POST" class="email">
+            <form class="email">
                 <p>メールアドレス(任意)<br></p>
                 <input type="text" name="email" class="inquiry-email-form" maxlength="50">
             </form>
-            <form action="#" method="POST" class="inquiry-contents">
+            <form class="inquiry-contents">
                 <p>タイトル<br></p>
-                <input type="text" name="email" class="inquiry-title-form" id="title_box" maxlength="20" placeholder="20字以内で入力してください">
+                <input type="text" name="email" class="inquiry-title-form" maxlength="20" placeholder="20字以内で入力してください">
                 <p>お問い合わせ・ご意見の内容<br></p>
                 <CharacterCount></CharacterCount>
             </form>
@@ -29,11 +29,8 @@
             <section class="reconfirmation" v-if="popupShow">
                 <p>送信してもよろしいですか？</p>
                 <p class="cancel" @click="popupHide">戻る</p>
-                <form action="">
                     <input type="submit" class="post-btn" value="送信する">
-                </form>
             </section>
-        <form action="#" method="POST" class="name"></form>
          <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
          </div>
     <MoveTopBtn></MoveTopBtn>
@@ -45,6 +42,9 @@
 
 <script>
 // Add the Firebase products that you want to use
+// DBと繋いだ時にで有効にする
+// import firebase from "firebase";
+import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
@@ -53,6 +53,7 @@ import PageTitle from "../../components/PageTitle.vue"
 import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from '../../mixin/myFirstMixin';
 export default {
   name: 'App',
   data(){
@@ -68,15 +69,18 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
   methods:{
-        inquiryPopupShow: function(){
-        this.popupShow = true,
-        this.coverShow = true
-        },
-        popupHide: function(){
-        this.popupShow = false,
-        this.coverShow = false
-      }
+    inquiryPopupShow: function(){
+    this.popupShow = true,
+    this.coverShow = true
+    },
+    popupHide: function(){
+    this.popupShow = false,
+    this.coverShow = false
+    }
   }
 };
 </script>

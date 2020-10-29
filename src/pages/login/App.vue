@@ -27,64 +27,64 @@
 
 <script>
 import firebase from "firebase";
-// Add the Firebase products that you want to use
+import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import myFirstMixin from '../../mixin/myFirstMixin';
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
     name: 'login',
-    data(){
-    return {
-    }
-    },
     components: {
-    Jheader,
-    PageTitle,
-    MoveTopBtn,
-    Jfooter,
+        Jheader,
+        PageTitle,
+        MoveTopBtn,
+        Jfooter,
     },
+    mixins:[
+        myFirstMixin,
+    ],
     methods:{
-    redirect: function(){
-    firebase.auth().onAuthStateChanged(function(user) {
-        // ログイン時はマイページへ
-    if(user){
-        location.href = "https://jwatch-8411c.web.app/mypage/index.html"
-    } else {
-        return
-    }
-    });
+        redirect: function(){
+        firebase.auth().onAuthStateChanged(function(user) {
+            // ログイン時はマイページへ
+        if(user){
+            location.href = "https://jwatch-8411c.web.app/mypage/index.html"
+        } else {
+            return
+        }
+        });
+        },
+        googleLogin: function(){
+            firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+        },
+        twitterLogin: function(){
+            firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+        },
+        anonymousLogin: function(){
+        firebase.auth().signInAnonymously().catch(function() {
+        // let errorCode = error.code;
+        // let errorMessage = error.message;
+        // });
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+        // User is signed in.
+        // var isAnonymous = user.isAnonymous;
+        // var uid = user.uid;
+        } else {
+            return
+        }
+        });
+        })
+        },
     },
-    googleLogin: function(){
-        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-    },
-    twitterLogin: function(){
-        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-    },
-    anonymousLogin: function(){
-    firebase.auth().signInAnonymously().catch(function() {
-    // let errorCode = error.code;
-    // let errorMessage = error.message;
-    // });
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-    // User is signed in.
-    // var isAnonymous = user.isAnonymous;
-    // var uid = user.uid;
-    } else {
-        return
-    }
-    });
-    })
-    },
-    mounted: function(){
+    mounted:function(){
         this.redirect();
     },
 }
-    }
 
 </script>
 
@@ -92,7 +92,6 @@ export default {
 .wrap{
     overflow: hidden;
 }
-
 /*以下メイン*/
 
 main{

@@ -1,16 +1,16 @@
 <template>
 <div id="app">
   <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!-- 以下メイン-->
     <main>
         <div class="search-information">
             <PageTitle title="Search information" description="スタジアムとカテゴリーを選択してください。"></PageTitle>
             <div class="select-stadium">
-                <form action="#" method="POST" class="search" name="stadium">
+                <form>
                     <h2>スタジアムを選択してください</h2><br>
                     <!-- 送信ボタンを設置する -->
-                    <select name="stadiumlist" class="stadium-list" id="stadium_list" size="1"><br>
+                    <select name="stadiumlist" class="stadium-list" size="1"><br>
                         <option value="スタジアムを選択してください" style="display: none;">--スタジアム名を選択してください--</option>
                         <option value="" disabled>--北海道--</option>
                         <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
@@ -169,10 +169,17 @@
 </template>
 
 <script>
+// import firebase from "firebase";
+// import "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+// import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
+
 export default {
   name: 'App',
   components: {
@@ -181,6 +188,9 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
 };
 </script>
 

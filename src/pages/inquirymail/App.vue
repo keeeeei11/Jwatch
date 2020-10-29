@@ -96,18 +96,18 @@
 </template>
 
 <script>
-// Add the Firebase products that you want to use
+// あとで有効にする
+// import firebase from "firebase";
+import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import myFirstMixin from '../../mixin/myFirstMixin';
 export default {
   name: 'App',
-  components: {
-
-  },
-  methods:{
-
-  }
+  mixins:[
+    myFirstMixin
+  ],
 }
 </script>
 

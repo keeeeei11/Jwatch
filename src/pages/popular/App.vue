@@ -1,7 +1,7 @@
 <template>
 <div id="app">
       <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <main>
         <div class="popular">
             <PageTitle title="Popular posts" description="人気のある投稿が記載されています。チームやリーグごとに情報を絞ることも可能です。"></PageTitle>
@@ -208,21 +208,18 @@ import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
-  name: 'App',
-  data(){
-    return {
-    }
-  },
+  name: 'popular',
   components: {
     Jheader,
     PageTitle,
     MoveTopBtn,
     Jfooter,
   },
-  methods:{
-
-  }
+  mixins:[
+    myFirstMixin
+  ],
 };
 </script>
 

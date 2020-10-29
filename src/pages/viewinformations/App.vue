@@ -1,14 +1,14 @@
 <template>
 <div id="app">
       <div class="wrap">
-      <Jheader></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <main>
        <div class="view-informations">
          <PageTitle title="View Informations" description="試合観戦に役立つ情報が記載されています。"></PageTitle>
        </div>
         <div class="core-information">
             <div class="core-information-title">
-                <p><span>札幌厚別公園競技場</span><br><span>スタジアムグルメ</span></p>
+                <p>〇〇スタジアム<br><span>スタジアムグルメ</span></p>
             </div>
             <div class="core-information-post">
                 <div class="post-example">
@@ -79,10 +79,17 @@
 </template>
 
 <script>
+// import firebase from "firebase";
+// import "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+// import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
+import myFirstMixin from "../../mixin/myFirstMixin";
+
 export default {
   name: 'App',
   components: {
@@ -91,6 +98,9 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
+  mixins:[
+    myFirstMixin
+  ],
 };
 </script>
 

@@ -7,30 +7,30 @@
 
 <script>
 import firebase from "firebase";
-// Add the Firebase products that you want to use
+import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   name:'logout',
-  data(){
-    return{
-    }
-  },
-  mounted:function(){
-    this.logout()
-  },
   methods:{
     logout:function(){
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      firebase.auth().signOut().then(function() {
-      // 正常にアカウント削除が完了した時
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          firebase.auth().signOut().then(function() {
+            // 正常にアカウント削除が完了した時
         location.href = 'https://jwatch-8411c.web.app/mainpage/index.html'
       });
     }
   });
   }
+  },
+  mixins:[
+    myFirstMixin
+  ],
+  mounted:function(){
+    this.logout()
   },
   }
 </script>
