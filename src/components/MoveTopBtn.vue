@@ -66,7 +66,8 @@
     left: 22px;
     top: 31px;
 }
-@media (max-width:959px ){
+/* PC以外では非表示 */
+@media (max-width:959px){
 #move_top{
   display: none;
 }

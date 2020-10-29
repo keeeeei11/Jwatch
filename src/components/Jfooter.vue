@@ -40,7 +40,8 @@
   </footer>
 </template>
 
-<script defer>
+<script>
+
 export default {
   name:'Jfooter'
 }

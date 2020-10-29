@@ -10,7 +10,7 @@
             </div>
             <!-- ログイン時に表示 -->
             <div class="header-username" v-if="isLogin">
-                <p v-if="!isAnonymous">こんにちは {{ visitor_name }} さん！</p>
+                <p v-if="!isAnonymous">こんにちは {{ visitorName }} さん！</p>
                 <p v-else>こんにちは 匿名 さん！</p>
             </div>
         </div>
@@ -64,21 +64,18 @@
   </div>
   </header>
 </template>
-
-<script defer>
+<script>
 export default {
-  name:'Jheader',
-  props:["user"],
+  // 文字を外部から受け取る
+  props:{
+    visitorName:String,
+    isLogin:Boolean,
+    isAnonymous:Boolean,
+    },
   data(){
     return {
-      isLogin: false,
-      isAnonymous:false,
-      userData: null,
       humburgarMenu: false,
     }
-  },
-  components:{
-
   },
   methods:{
     humburgarShow: function(){
@@ -87,32 +84,8 @@ export default {
     humburgarHide: function(){
       this.humburgarMenu = false;
     },
-    // 匿名ログイン時
-    anonymous: function(){
-    firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      // User is signed in.
-      this.isAnonymous = user.isAnonymous;
-      let visitor_uid = user.uid;
-    } else {
-      return
-    }
-    });
     },
-  },
-  created:function(){
-    firebase.auth().onAuthStateChanged(user => {
-      if(user) {
-      this.isLogin = true
-      this.userData = user;
-      } else {
-      this.isLogin = false
-      this.userData = null;
-      }
-      this.anonymous();
-  })
-  }
-};
+}
 </script>
 <style>
 /*以下ヘッダー*/
@@ -148,9 +121,9 @@ header{
 }
 /* ログイン時のユーザー名 */
 .header-username{
-  width: 200px;
-  margin: 0 10px;
-  font-size: 14px;
+  width: 300px;
+  margin-left: 10px;
+  font-size: 12px;
   padding-top: 25px;
 }
 
@@ -220,7 +193,7 @@ header{
 }
 /* マイページ */
 .header-mypage{
-    margin: 25px 10px 0px 20px;
+    margin: 25px 10px 0px 0px;
     text-align: center;
 }
 
@@ -323,7 +296,7 @@ header{
 
 
 /* タブレット対応 */
-@media (max-width:1150px)
+@media (max-width:1190px)
 {
     /* ヘッダー */
     .header-menu{

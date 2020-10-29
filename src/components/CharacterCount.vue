@@ -7,7 +7,7 @@
     </div>
 </template>
 
-<script defer>
+<script>
 export default {
   name:'characterCount',
   data(){
