@@ -1,7 +1,8 @@
 // mixinを使って全ページ共通のものを作成する
 // 必要なものを各ページに渡していくイメージ
-// firebaseの導入
+// firebaseの導入とログイン情報の保持
 import firebase from "firebase";
+// import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
@@ -48,7 +49,5 @@ export default {
           this.isLogin = false
         }
         })
-        // this.signatureLogin();
-        // this.anonymous();
         }
 }
