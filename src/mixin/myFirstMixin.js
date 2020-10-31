@@ -31,7 +31,10 @@ export default {
         appId: "1:868452645100:web:b0ac64ce8f42b75a7dcdc9",
         measurementId: "G-RK4728SNM4"
       };
-      firebase.initializeApp(firebaseConfig);
+      // firebaseの初期化が多重に行われることを防ぐ
+      if (firebase.apps.length === 0) {
+        firebase.initializeApp(firebaseConfig);
+      }
       firebase.analytics();
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -41,10 +44,10 @@ export default {
           this.emailVerified = user.emailVerified;
           this.photoURL = user.photoURL;
           this.isAnonymous = user.isAnonymous;
-          this.visiorUid = user.uid;
+          this.visitorUid = user.uid;
           this.providerData = user.providerData;
           this.isLogin = true
-          console.log(this.visitorName ,this.email ,this.emailVerified ,this.photoURL ,this.isAnonymous ,this.visiorUid ,this.providerData)
+          console.log(this.visitorName, this.visitorUid ,this.email ,this.emailVerified ,this.photoURL ,this.isAnonymous  ,this.providerData)
         } else {
           this.isLogin = false
         }
