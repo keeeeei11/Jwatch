@@ -1,7 +1,7 @@
 <template>
 <div id="app">
       <div class="wrap">
-      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
+      <Jheader :visitorName="visitorName"  :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <main>
         <div class="post-imformation">
             <PageTitle title="Post informations" description="観戦情報を投稿しましょう！"></PageTitle>
@@ -130,25 +130,37 @@
             </form>
             <form class="post-title-information">
                 <h3>タイトル</h3>
-                <input v-model="title" type="text" name="subject" class="post-title-information-box" placeholder="20字以内で入力してください" maxlength="20" minlength="1">
+                <input v-model="title" type="text" name="subject" class="post-title-information-box" placeholder="20字以内で入力してください" maxlength="20">
             </form>
             <form class="post-text-information">
                 <h3>本文</h3>
-                <CharacterCount></CharacterCount>
+                      <textarea v-model="body" class="post-body-information-box" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
+                      <div class="count-character">
+                            <p>残り{{ 400 - body.length }}字です</p>
+                      </div>
                 <h3>画像(3枚まで)</h3>
                 <div class="post-picture">
                     <input type="file" name="picture" class="picture"><br>
                     <input type="file" name="picture" class="picture"><br>
                     <input type="file" name="picture" class="picture"><br>
                 </div>
-                <p class="execute" @click="postPopupShow">投稿する！</p>
+                <p class="execute" @click="triggerPostPopupShow">投稿する！</p>
             </form>
-            <section class="reconfirmation" v-if="popupShow">
+            <!-- 再確認のポップアップ -->
+            <section class="reconfirmation" v-if="confirmationPopupShow">
                 <p>投稿してもよろしいですか？</p>
-                <p class="cancel" @click="popupHide">戻る</p>
+                <p class="cancel" @click="triggerPostPopupHide">戻る</p>
                 <button @click="sendData" class="post-btn">投稿する！</button>
             </section>
-            <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
+            <div class="reconfirmation-cover" v-if="confirmationCoverShow" @click="triggerPostPopupHide"></div>
+            <!-- 投稿完了を伝えるポップアップ -->
+            <section class="complete" v-if="completePopupShow">
+                <p>投稿が完了しました！</p>
+                <a href="http://localhost:8080/posting" @click="triggerPostedPopupHide">続けて投稿する</a>
+                <a href="https://jwatch-8411c.web.app/mainpage/index.html">トップページへ</a>
+                <a href="https://jwatch-8411c.web.app/mypage/index.html">マイページへ</a>
+            </section>
+            <div class="complete-cover" v-if="completeCoverShow"></div>
             <div class="post-warning">
                 <p>※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br>
                     警告対象となる行為は<a href="https://jwatch-8411c.web.app/warning/index.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a></p>
@@ -165,35 +177,37 @@
 
 <script>
 // firebaseを使うページではfirebaseを定義する必要があるので記述する
-import firebase from "firebase";
-import "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import myFirstMixin from '../../mixin/myFirstMixin';
+import firebase from "firebase"
+import "firebase/app"
+import "firebase/auth"
+import "firebase/firestore"
+import "firebase/storage"
+import myFirstMixin from '../../mixin/myFirstMixin'
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
-import CharacterCount from "../../components/CharacterCount.vue"
+// import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
-  name: 'posting',
+  // props:["body"],
   data(){
     return {
       // 再確認のポップアップの表示設定
-        popupShow: false,
-        coverShow: false,
+        confirmationPopupShow: false,
+        confirmationCoverShow: false,
+        completePopupShow: false,
+        completeCoverShow: false,
         // 投稿データの保持
         stadium:"",
         category:"",
-        title:null,
-        body:null,
+        title:"",
+        body:"",
     }
   },
   components: {
     Jheader,
     PageTitle,
-    CharacterCount,
+    // CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -202,13 +216,22 @@ export default {
   ],
   methods:{
       // ポップアップ表示・非表示
-      postPopupShow: function(){
-          this.popupShow = true,
-          this.coverShow = true
+      triggerPostPopupShow: function(){
+          this.confirmationPopupShow = true,
+          this.confirmationCoverShow = true
       },
-      popupHide: function(){
-          this.popupShow = false,
-          this.coverShow = false
+      triggerPostPopupHide: function(){
+          this.confirmationPopupShow = false,
+          this.confirmationCoverShow = false
+      },
+      triggerPostedPopupShow: function(){
+          this.completePopupShow = true,
+          this.completeCoverShow = true
+          return
+      },
+      triggerPostedPopupHide: function(){
+          this.completePopupShow = false,
+          this.completeCoverShow = false
       },
       // 非ログイン時はログイン画面にリダイレクトする
       redirect: function(){
@@ -230,18 +253,29 @@ export default {
           title: this.title,
           body: this.body,
           created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
-          contributor_name:"user",
-          contributor_uid:"0001",
+          contributorName:this.visitorName,
+          contributorUid:this.visitorUid,
           updated:null,
           likedCounter:0,
-          likedUser:null,
+          likedUser:[],
         }
-        postdata.add(inputdata).then(function(docRef){
-          alert('正常に登録できました。', docRef.id)
-        })
-        .catch(function(error){
-          alert('エラーが発生しました。', error)
-        })
+          // console.log(postdata, inputdata)
+          // valueの値を受け取っている
+        if(this.stadium.length > 0 && this.category.length > 0) {
+            if (this.title.length > 0 && this.body.length > 0) {
+          postdata.add(inputdata).then(() => {
+              this.triggerPostedPopupShow();
+              this.triggerPostPopupHide();
+             })
+             .catch(function(error){
+               console.error(error)
+             })
+            } else {
+            alert('タイトルと本文を入力してください。')
+            }
+        } else {
+            alert('スタジアム名とカテゴリー名を選択してください。');
+        }
       }
     },
     mounted: function(){
@@ -381,6 +415,12 @@ input.post-title-information-box{
     font-size: 18px;
 }
 
+.post-body-information-box{
+      width: 60%;
+    height: 400px;
+}
+
+
 /*画像を挿入*/
 .post-picture{
     display: flex;
@@ -480,6 +520,55 @@ input.post-title-information-box{
     opacity: 0.8;
 }
 
+/* 投稿完了のポップアップ */
+.complete{
+    opacity: 1;
+    width: 450px;
+    height: 300px;
+    position: fixed;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    text-align: center;
+    transition: 0.4s;
+    z-index: 3;
+}
+
+.complete-cover{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: gainsboro;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+.complete a{
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 28px auto 30px;
+    background:#ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+}
+
+.complete a:hover{
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
 /*注意喚起*/
 
 .post-warning p{
@@ -540,6 +629,10 @@ input.post-title-information-box{
 /* 題名 */
 input.post-title-information-box{
   width: 90%;
+}
+
+.post-body-information-box{
+  width:90%;
 }
 
 /*画像を挿入*/
