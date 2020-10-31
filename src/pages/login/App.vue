@@ -16,7 +16,6 @@
         <div class="easily-login login-btn">
             <button @click="anonymousLogin">簡単(匿名)ログイン</button>
         </div>
-        <p>※匿名ログインはページを離れると投稿が消去されるように設定しております。</p>
     </div>
     <MoveTopBtn></MoveTopBtn>
     </main>
@@ -51,7 +50,7 @@ export default {
         firebase.auth().onAuthStateChanged(function(user) {
             // ログイン時はマイページへ
         if(user){
-            location.href = "https://jwatch-8411c.web.app/mypage/index.html"
+            // location.href = "https://jwatch-8411c.web.app/mypage/index.html"
         } else {
             return
         }
@@ -144,10 +143,6 @@ main{
     cursor: pointer;
 }
 
-.login-contents p{
-    font-size: 18px;
-}
-
 /* タブレット */
 @media (max-width:959px )
 {
@@ -181,10 +176,6 @@ main{
 .login-contents button{
     margin:20px auto;
     padding:10px 30px;
-    font-size: 16px;
-}
-
-.login-contents p{
     font-size: 16px;
 }
 }
