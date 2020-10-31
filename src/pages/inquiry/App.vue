@@ -11,33 +11,36 @@
         <div class="inquiry-form">
             <form class="name">
                 <p>お名前(任意)<br></p>
-                <input type="text" name="name" class="inquiry-name-form" maxlength="50">
+                <input type="text" v-model="name" name="name" class="inquiry-name-form" maxlength="50">
             </form>
             <form class="email">
                 <p>メールアドレス(任意)<br></p>
-                <input type="text" name="email" class="inquiry-email-form" maxlength="50">
+                <input type="text" v-model="mailAddress" name="email" class="inquiry-email-form" maxlength="50">
             </form>
             <form class="inquiry-contents">
                 <p>タイトル<br></p>
-                <input type="text" name="email" class="inquiry-title-form" maxlength="20" placeholder="20字以内で入力してください">
+                <input type="text" v-model="title" name="email" class="inquiry-title-form" maxlength="20" placeholder="20字以内で入力してください">
                 <p>お問い合わせ・ご意見の内容<br></p>
-                <CharacterCount></CharacterCount>
+                    <textarea v-model="body" class="inquiry-body-information-box" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
+                    <div class="count-character">
+                        <p>残り{{ 400 - body.length }}字です</p>
+                    </div>
             </form>
-            <p class="execute" @click="postPopupShow">送信する</p>
+            <p class="execute" @click="triggerPostPopupShow">送信する</p>
         </div>
         <!-- 再確認のポップアップ -->
         <div class="inquiry-execute">
             <section class="reconfirmation" v-if="confirmationPopupShow">
                 <p>送信してもよろしいですか？</p>
-                <p class="cancel" @click="postPopupHide">戻る</p>
-                    <button type="submit" class="post-btn">送信する</button>
+                <p class="cancel" @click="triggerPostPopupHide">戻る</p>
+                <button @click="sendData" class="post-btn">送信する</button>
             </section>
-            <div class="reconfirmation-cover" v-if="confirmationCoverShow" @click="postPopupHide"></div>
+            <div class="reconfirmation-cover" v-if="confirmationCoverShow" @click="triggerPostPopupHide"></div>
+            <!-- 投稿完了のポップアップ -->
             <section class="complete" v-if="completePopupShow">
-                <p>投稿が完了しました！</p>
-                <!-- <a href="http://localhost:8080/posting" @click="postedPopupHide">続けて投稿する</a> -->
-                <a href="https://jwatch-8411c.web.app/mainpage/index.html">トップページへ</a>
-                <a href="https://jwatch-8411c.web.app/mypage/index.html">マイページへ</a>
+                <p>お問い合わせありがとうございます。</p>
+                <p>正常に送信されました。</p>
+                <a href="https://jwatch-8411c.web.app/mainpage/index.html" @click="triggerPostedPopupHide">トップページへ</a>
             </section>
             <div class="complete-cover" v-if="completeCoverShow"></div>
          </div>
@@ -49,16 +52,14 @@
 </template>
 
 <script>
-// Add the Firebase products that you want to use
 // DBと繋いだ時にで有効にする
-// import firebase from "firebase";
+import firebase from "firebase";
 import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
-import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from '../../mixin/myFirstMixin';
@@ -69,12 +70,15 @@ export default {
         confirmationCoverShow: false,
         completePopupShow: false,
         completeCoverShow: false,
+        name:"",
+        mailAddress:"",
+        title:"",
+        body:"",
     }
   },
   components: {
     Jheader,
     PageTitle,
-    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -82,22 +86,46 @@ export default {
     myFirstMixin
   ],
   methods:{
-    postPopupShow: function(){
+    triggerPostPopupShow: function(){
         this.confirmationPopupShow = true,
         this.confirmationCoverShow = true
     },
-    postPopupHide: function(){
+    triggerPostPopupHide: function(){
         this.confirmationPopupShow = false,
         this.confirmationCoverShow = false
     },
-    postedPopupShow: function(){
+    triggerPostedPopupShow: function(){
         this.completePopupShow = true,
         this.completeCoverShow = true
     },
-    postedPopupHide: function(){
+    triggerPostedPopupHide: function(){
         this.completePopupShow = false,
         this.completeCoverShow = false
     },
+    sendData: function(){
+        const db = firebase.firestore()
+        const postdata = db.collection("inquiries");
+        const now = new Date();
+        const inputdata = {
+            name: this.name,
+            mailAddress: this.mailAddress,
+            title: this.title,
+            body: this.body,
+            created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
+        }
+        // タイトルと本文が入力されているか判定する
+        if(this.title.length > 0 && this.body.length > 0) {
+            postdata.add(inputdata).then(() => {
+            this.triggerPostedPopupShow();
+            this.triggerPostPopupHide();
+            })
+            .catch(function(error){
+            console.error(error)
+            })
+        } else {
+        alert('タイトルと本文を入力してください。')
+        }
+      }
   }
 };
 </script>
@@ -161,6 +189,11 @@ main{
     width: 60%;
     height: 40px;
     font-size: 18px;
+}
+
+.inquiry-body-information-box{
+    width: 90%;
+    height: 400px;
 }
 
 /* 送信ボタン*/
@@ -260,7 +293,7 @@ main{
 .complete{
     opacity: 1;
     width: 450px;
-    height: 300px;
+    height: 200px;
     position: fixed;
     background: #ffffff;
     padding: 30px;
@@ -272,6 +305,7 @@ main{
     text-align: center;
     transition: 0.4s;
     z-index: 3;
+    text-align: center;
 }
 
 .complete-cover{

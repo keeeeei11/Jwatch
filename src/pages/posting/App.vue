@@ -183,13 +183,11 @@ import "firebase/auth"
 import "firebase/firestore"
 import "firebase/storage"
 import myFirstMixin from '../../mixin/myFirstMixin'
-import Jheader from "../../components/Jheader.vue"
-import PageTitle from "../../components/PageTitle.vue"
-// import CharacterCount from "../../components/CharacterCount.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import Jheader from "../../components/Jheader"
+import PageTitle from "../../components/PageTitle"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
 export default {
-  // props:["body"],
   data(){
     return {
       // 再確認のポップアップの表示設定
@@ -207,7 +205,6 @@ export default {
   components: {
     Jheader,
     PageTitle,
-    // CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -227,7 +224,6 @@ export default {
       triggerPostedPopupShow: function(){
           this.completePopupShow = true,
           this.completeCoverShow = true
-          return
       },
       triggerPostedPopupHide: function(){
           this.completePopupShow = false,
@@ -259,17 +255,18 @@ export default {
           likedCounter:0,
           likedUser:[],
         }
-          // console.log(postdata, inputdata)
-          // valueの値を受け取っている
+        // this.stadiumとthis.categoryはvalueの値を受け取っている
+        // スタジアムとカテゴリーが選択されているか判定する
         if(this.stadium.length > 0 && this.category.length > 0) {
-            if (this.title.length > 0 && this.body.length > 0) {
-          postdata.add(inputdata).then(() => {
-              this.triggerPostedPopupShow();
-              this.triggerPostPopupHide();
-             })
-             .catch(function(error){
-               console.error(error)
-             })
+        // タイトルと本文が入力されているか判定する
+            if (this.title.length > 0 && this.body.length > 0 ) {
+              postdata.add(inputdata).then(() => {
+                this.triggerPostedPopupShow();
+                this.triggerPostPopupHide();
+              })
+              .catch(function(error){
+                console.error(error)
+              })
             } else {
             alert('タイトルと本文を入力してください。')
             }
@@ -416,7 +413,7 @@ input.post-title-information-box{
 }
 
 .post-body-information-box{
-      width: 60%;
+    width: 60%;
     height: 400px;
 }
 

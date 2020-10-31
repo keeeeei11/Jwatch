@@ -52,8 +52,8 @@
                         </div>
                 </div>
                 </div>
-                <form action="#" method="POST" class="report-page-reason">
-                    <select name="report-page-reason-box" class="report-page-reason-box" id="report_list" size="1">
+                <form class="report-page-reason">
+                    <select v-model="reportCategory" name="report-page-reason-box" class="report-page-reason-box" size="1">
                         <option value="" style="display: none;">--通報の理由(必須)--</option>
                         <option value="特定のチーム、選手、サポーターへの誹謗中傷">特定のチーム、選手、サポーターへの誹謗中傷</option>
                         <option value="有害なサイトへの誘導">有害なサイトへの誘導</option>
@@ -62,19 +62,26 @@
                     </select>
                     <p>投稿禁止対象となる行為については<a href="https://jwatch-8411c.web.app/warning/index.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a>をご覧ください。</p>
                 </form>
-                <form action="#" method="POST" class="report-page-reason-text">
+                <form class="report-page-reason-text">
                     <h3>詳細を下記フォームにご記入ください(省略可)</h3>
-                    <CharacterCount></CharacterCount>
-                    <p class="execute" @click="postPopupShow">送信する</p>
+                        <textarea v-model="body" class="report-body-information-box" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
+                        <div class="count-character">
+                            <p>残り{{ 400 - body.length }}字です</p>
+                        </div>
+                    <p class="execute" @click="triggerPostPopupShow">送信する</p>
                 </form>
-                <section class="reconfirmation" v-if="popupShow">
+                <section class="reconfirmation" v-if="confirmationPopupShow">
                     <p>この内容で送信してもよろしいですか？</p>
-                    <p class="cancel" @click="popupHide">戻る</p>
-                    <form action="">
-                        <input type="submit" class="post-btn" value="送信する">
-                    </form>
+                    <p class="cancel" @click="triggerPostPopupHide">戻る</p>
+                    <button @click="sendData" class="post-btn">送信する</button>
                 </section>
-                <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
+                <div class="reconfirmation-cover" v-if="confirmationCoverShow" @click="triggerPostPopupHide"></div>
+                <section class="complete" v-if="completePopupShow">
+                    <p>通報が完了しました。</p>
+                    <p>管理者が確認の上対処いたします。</p>
+                    <a href="https://jwatch-8411c.web.app/mainpage/index.html">トップページへ戻る</a>
+                </section>
+                <div class="complete-cover" v-if="completeCoverShow"></div>
             </div>
         </div>
     <MoveTopBtn></MoveTopBtn>
@@ -86,14 +93,13 @@
 </template>
 
 <script>
-// import firebase from "firebase";
-// import "firebase/app";
-// import "firebase/auth";
-// import "firebase/firestore";
-// import "firebase/storage";
+import firebase from "firebase";
+import "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
-import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from "../../mixin/myFirstMixin";
@@ -101,14 +107,17 @@ import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   data(){
     return {
-        popupShow: false,
-        coverShow: false,
+        confirmationPopupShow: false,
+        confirmationCoverShow: false,
+        completePopupShow: false,
+        completeCoverShow: false,
+        reportCategory:"",
+        body:"",
     }
   },
   components: {
     Jheader,
     PageTitle,
-    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -116,13 +125,51 @@ export default {
     myFirstMixin
   ],
   methods:{
-      postPopupShow: function(){
-      this.popupShow = true,
-      this.coverShow = true
+      triggerPostPopupShow: function(){
+          this.confirmationPopupShow = true,
+          this.confirmationCoverShow = true
       },
-      popupHide: function(){
-      this.popupShow = false,
-      this.coverShow = false
+      triggerPostPopupHide: function(){
+          this.confirmationPopupShow = false,
+          this.confirmationCoverShow = false
+      },
+      triggerPostedPopupShow: function(){
+          this.completePopupShow = true,
+          this.completeCoverShow = true
+      },
+      triggerPostedPopupHide: function(){
+          this.completePopupShow = false,
+          this.completeCoverShow = false
+      },
+      sendData: function(){
+          const db = firebase.firestore()
+          const postdata = db.collection("reports");
+          const now = new Date();
+          const inputdata = {
+          reportCategory: this.reportCategory,
+          body: this.body,
+          created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
+          contributorName:this.visitorName,
+          contributorUid:this.visitorUid,
+      }
+        // this.stadiumとthis.categoryはvalueの値を受け取っている
+        // スタジアムとカテゴリーが選択されているか判定する
+        if(this.reportCategory.length > 0) {
+        // タイトルと本文が入力されているか判定する
+            if (this.body.length > 0 ) {
+              postdata.add(inputdata).then(() => {
+                this.triggerPostedPopupShow();
+                this.triggerPostPopupHide();
+              })
+              .catch(function(error){
+                console.error(error)
+              })
+            } else {
+            alert('通報内容を入力してください。')
+            }
+        } else {
+            alert('通報理由を選択してください。');
+        }
       }
   }
 };
@@ -273,6 +320,10 @@ main{
      font-size: 18px;
      font-weight: normal;
 }
+.report-body-information-box{
+      width: 60%;
+    height: 400px;
+}
 /* 送信ボタン*/
 .execute{
     width: 150px;
@@ -365,6 +416,59 @@ main{
     z-index: 2;
     opacity: 0.8;
 }
+
+/* 投稿完了のポップアップ */
+.complete{
+    opacity: 1;
+    width: 450px;
+    height: 200px;
+    position: fixed;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    text-align: center;
+    transition: 0.4s;
+    z-index: 3;
+}
+
+.complete-cover{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: gainsboro;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+.complete p{
+  text-align: center;
+}
+
+.complete a{
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 28px auto 30px;
+    background:#ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+}
+
+.complete a:hover{
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+}
 @media (max-width:959px ){
 /* メイン */
 /* 投稿内容 */
@@ -396,6 +500,9 @@ font-size: 16px;
 
 .report-page-reason-box{
   width: 90%;
+}
+.report-body-information-box{
+  width:90%;
 }
 }
 
@@ -457,6 +564,14 @@ font-size: 16px;
 
 /* 再確認のホップアップ */
 .reconfirmation{
+  font-size: 16px;
+}
+
+/* 投稿完了画面 */
+.complete p{
+  font-size: 16px;
+}
+.complete a{
   font-size: 16px;
 }
 
