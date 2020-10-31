@@ -197,7 +197,6 @@ import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from "../../mixin/myFirstMixin";
 
 export default {
-  name: 'App',
   components: {
     Jheader,
     PageTitle,
@@ -688,13 +687,16 @@ font-size: 16px;
   font-size: 16px;
 }
 
-/* .post-img{
-  display: block;
+.post-img{
+  /* display: block; */
+  flex-direction: column;
 }
 
 .post-img img{
-  margin: 20px auto;
-} */
+    margin: 20px auto;
+  width:60%;
+  height: auto;
+}
 
 .post-basic-information-bottom{
   display: block;

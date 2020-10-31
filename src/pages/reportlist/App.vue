@@ -90,7 +90,6 @@
 import myFirstMixin from "../../mixin/myFirstMixin";
 
 export default {
-  name: 'reportlist',
   mixins:[
     myFirstMixin
   ],

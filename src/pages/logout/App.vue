@@ -13,7 +13,6 @@ import "firebase/firestore";
 import "firebase/storage";
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
-  name:'logout',
   methods:{
     logout:function(){
       firebase.auth().onAuthStateChanged(function(user) {

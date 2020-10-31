@@ -210,7 +210,6 @@ import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
-  name: 'popular',
   components: {
     Jheader,
     PageTitle,

@@ -83,7 +83,7 @@
             <form action="#" method="POST" class="answer-question-stadium">
                 <h3>スタジアム</h3>
                     <select name="stadiumlist" v-model="stadium" class="answer-question-stadium-box box" size="1">
-                        <option value="スタジアムを選択してください" style="display: none;">--スタジアム名を選択してください--</option>
+                        <option value="" disabled>--スタジアム名を選択してください--(必須)</option>
                         <option value="" disabled>--北海道--</option>
                         <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
                         <option value="[コンサドーレ札幌] 札幌ドーム">[コンサドーレ札幌] 札幌ドーム</option>
@@ -193,12 +193,19 @@
                 </div>
                 <p class="execute" @click="postPopupShow">回答する！</p>
             </form>
-            <section class="reconfirmation" v-if="popupShow">
+            <section class="reconfirmation" v-if="confirmationPopupShow">
                 <p>この内容で回答してもよろしいですか？</p>
-                <p class="cancel" @click="popupHide">戻る</p>
+                <p class="cancel" @click="postPopupHide">戻る</p>
                 <button @click="sendData" class="post-btn">回答する！</button>
             </section>
-            <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
+            <div class="reconfirmation-cover" v-if="confirmationCoverShow" @click="popupHide"></div>
+            <section class="complete" v-if="completePopupShow">
+                <p>投稿が完了しました！</p>
+                <a href="http://localhost:8080/posting" @click="postedPopupHide">続けて投稿する</a>
+                <a href="https://jwatch-8411c.web.app/mainpage/index.html">トップページへ</a>
+                <a href="https://jwatch-8411c.web.app/mypage/index.html">マイページへ</a>
+            </section>
+            <div class="complete-cover" v-if="completeCoverShow"></div>
             <div class="answer-question-warning">
                 <p>※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br>
                     警告対象となる行為は<a href="https://jwatch-8411c.web.app/warning/index.html" target="_brank" rel="nofollow noopener noreferrer">こちら</a></p>
@@ -224,11 +231,12 @@ import MoveTopBtn from "../../components/MoveTopBtn"
 import Jfooter from "../../components/Jfooter"
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
-  name: 'answerquestion',
   data(){
     return {
-        popupShow: false,
-        coverShow: false,
+        confirmationPopupShow: false,
+        confirmationCoverShow: false,
+        completePopupShow: false,
+        completeCoverShow: false,
         stadium:"",
         category:"",
         title:null,
@@ -245,14 +253,22 @@ export default {
     myFirstMixin
   ],
   methods:{
-    postPopupShow: function(){
-        this.popupShow = true,
-        this.coverShow = true
-    },
-    popupHide: function(){
-        this.popupShow = false,
-        this.coverShow = false
-    },
+     postPopupShow: function(){
+          this.confirmationPopupShow = true,
+          this.confirmationCoverShow = true
+      },
+      postPopupHide: function(){
+          this.confirmationPopupShow = false,
+          this.confirmationCoverShow = false
+      },
+      postedPopupShow: function(){
+          this.completePopupShow = true,
+          this.completeCoverShow = true
+      },
+      postedPopupHide: function(){
+          this.completePopupShow = false,
+          this.completeCoverShow = false
+      },
     sendData: function(){
     const db = firebase.firestore()
     const postdata = db.collection("posts");
@@ -263,8 +279,8 @@ export default {
         title: this.title,
         body: this.body,
         created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
-        contributor_name:"user",
-        contributor_uid:"0001",
+        contributor_name:"this.visitorName",
+        contributor_uid:"this.visitorUid",
         updated:null,
         likedCounter:0,
         likedUser:null,
@@ -599,6 +615,55 @@ input.answer-question-title-information-box{
     background-color: gainsboro;
     z-index: 2;
     opacity: 0.8;
+}
+
+/* 投稿完了のポップアップ */
+.complete{
+    opacity: 1;
+    width: 450px;
+    height: 300px;
+    position: fixed;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    text-align: center;
+    transition: 0.4s;
+    z-index: 3;
+}
+
+.complete-cover{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: gainsboro;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+.complete a{
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 28px auto 30px;
+    background:#ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+}
+
+.complete a:hover{
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
 }
 
 

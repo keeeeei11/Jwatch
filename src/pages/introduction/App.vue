@@ -47,7 +47,6 @@ import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 export default {
-  name: 'App',
   components: {
     Jheader,
     PageTitle,

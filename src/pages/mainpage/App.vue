@@ -86,7 +86,6 @@ import PageTitle from "../../components/PageTitle"
 import MoveTopBtn from "../../components/MoveTopBtn"
 import Jfooter from "../../components/Jfooter"
 export default {
-  name: 'mainpage',
   components: {
     Jheader,
     PageTitle,

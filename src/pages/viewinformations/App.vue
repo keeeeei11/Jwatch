@@ -91,7 +91,6 @@ import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from "../../mixin/myFirstMixin";
 
 export default {
-  name: 'App',
   components: {
     Jheader,
     PageTitle,

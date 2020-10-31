@@ -23,15 +23,23 @@
                 <p>お問い合わせ・ご意見の内容<br></p>
                 <CharacterCount></CharacterCount>
             </form>
-            <p class="execute" @click="inquiryPopupShow">送信する</p>
+            <p class="execute" @click="postPopupShow">送信する</p>
         </div>
+        <!-- 再確認のポップアップ -->
         <div class="inquiry-execute">
-            <section class="reconfirmation" v-if="popupShow">
+            <section class="reconfirmation" v-if="confirmationPopupShow">
                 <p>送信してもよろしいですか？</p>
-                <p class="cancel" @click="popupHide">戻る</p>
-                    <input type="submit" class="post-btn" value="送信する">
+                <p class="cancel" @click="postPopupHide">戻る</p>
+                    <button type="submit" class="post-btn">送信する</button>
             </section>
-         <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
+            <div class="reconfirmation-cover" v-if="confirmationCoverShow" @click="postPopupHide"></div>
+            <section class="complete" v-if="completePopupShow">
+                <p>投稿が完了しました！</p>
+                <!-- <a href="http://localhost:8080/posting" @click="postedPopupHide">続けて投稿する</a> -->
+                <a href="https://jwatch-8411c.web.app/mainpage/index.html">トップページへ</a>
+                <a href="https://jwatch-8411c.web.app/mypage/index.html">マイページへ</a>
+            </section>
+            <div class="complete-cover" v-if="completeCoverShow"></div>
          </div>
     <MoveTopBtn></MoveTopBtn>
     </main>
@@ -55,11 +63,12 @@ import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from '../../mixin/myFirstMixin';
 export default {
-  name: 'App',
   data(){
     return {
-        popupShow: false,
-        coverShow: false
+        confirmationPopupShow: false,
+        confirmationCoverShow: false,
+        completePopupShow: false,
+        completeCoverShow: false,
     }
   },
   components: {
@@ -73,14 +82,22 @@ export default {
     myFirstMixin
   ],
   methods:{
-    inquiryPopupShow: function(){
-    this.popupShow = true,
-    this.coverShow = true
+    postPopupShow: function(){
+        this.confirmationPopupShow = true,
+        this.confirmationCoverShow = true
     },
-    popupHide: function(){
-    this.popupShow = false,
-    this.coverShow = false
-    }
+    postPopupHide: function(){
+        this.confirmationPopupShow = false,
+        this.confirmationCoverShow = false
+    },
+    postedPopupShow: function(){
+        this.completePopupShow = true,
+        this.completeCoverShow = true
+    },
+    postedPopupHide: function(){
+        this.completePopupShow = false,
+        this.completeCoverShow = false
+    },
   }
 };
 </script>
@@ -237,6 +254,55 @@ main{
     background-color: gainsboro;
     z-index: 2;
     opacity: 0.8;
+}
+
+/* 投稿完了のポップアップ */
+.complete{
+    opacity: 1;
+    width: 450px;
+    height: 300px;
+    position: fixed;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    text-align: center;
+    transition: 0.4s;
+    z-index: 3;
+}
+
+.complete-cover{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: gainsboro;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+.complete a{
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 28px auto 30px;
+    background:#ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+}
+
+.complete a:hover{
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
 }
 
 @media (max-width:959px)
