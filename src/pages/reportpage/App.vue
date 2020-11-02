@@ -148,7 +148,7 @@ export default {
           const inputdata = {
           reportCategory: this.reportCategory,
           body: this.body,
-          created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
+          created: now.getFullYear() + "年" + ("0"+(now.getMonth() + 1)).slice(-2) + '月' + ("0" + now.getDate()).slice(-2) + '日' + ("0" + now.getHours()).slice(-2) + '時' + ("0" + now.getMinutes()).slice(-2) + '分',
           contributorName:this.visitorName,
           contributorUid:this.visitorUid,
       }
