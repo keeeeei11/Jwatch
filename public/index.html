@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -10,48 +9,6 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css">
   </head>
   <body>
-    <!-- built files will be auto injected -->
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
-    <script>
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      let firebaseConfig = {
-        apiKey: "AIzaSyAb7dyC4OAKSZaaWHLIS2SlskncyESE6Lg",
-        authDomain: "jwatch-8411c.firebaseapp.com",
-        databaseURL: "https://jwatch-8411c.firebaseio.com",
-        projectId: "jwatch-8411c",
-        storageBucket: "jwatch-8411c.appspot.com",
-        messagingSenderId: "868452645100",
-        appId: "1:868452645100:web:b0ac64ce8f42b75a7dcdc9",
-        measurementId: "G-RK4728SNM4"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-      // ログイン時の各ユーザー情報
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // ログイン時
-          var visitor_name = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
-          var visior_uid = user.uid;
-          var providerData = user.providerData;
-          console.log(visitor, email)
-        }
-      })
-      </script>
-      <div id="app"></div>
-      <noscript>
-        <strong>We're sorry but Jwatch doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-      </noscript>
+    <div id="app"></div>
   </body>
   </html>
