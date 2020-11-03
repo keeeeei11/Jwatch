@@ -57,10 +57,10 @@ export default {
         });
         },
         googleLogin: function(){
-            firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
         },
         twitterLogin: function(){
-            firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
         },
         anonymousLogin: function(){
         firebase.auth().signInAnonymously().catch(function() {
@@ -73,7 +73,7 @@ export default {
         // var isAnonymous = user.isAnonymous;
         // var uid = user.uid;
         } else {
-            return
+            alert("エラーが発生しました。もう一度ログインしてください。")
         }
         });
         })
@@ -143,19 +143,23 @@ main{
     cursor: pointer;
 }
 
+.easily-login button{
+    padding:20px 85px;
+}
+
 /* タブレット */
 @media (max-width:959px )
 {
-    /* メイン */
-    /* タイトル */
-    .login-title{
-        margin-left: 10%;
-        margin-top: 250px;
-    }
+/* メイン */
+/* タイトル */
+.login-title{
+    margin-left: 10%;
+    margin-top: 250px;
+}
 
-    .login-contents{
-        margin-left: 0px;
-    }
+.login-contents{
+    margin-left: 0px;
+}
 }
 
 /* スマホ */
@@ -177,6 +181,9 @@ main{
     margin:20px auto;
     padding:10px 30px;
     font-size: 16px;
+}
+.easily-login button{
+    padding: 10px 65px;
 }
 }
 </style>
