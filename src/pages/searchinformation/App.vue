@@ -5,13 +5,13 @@
     <!-- 以下メイン-->
     <main>
         <div class="search-information">
-            <PageTitle title="Search information" description="スタジアムとカテゴリーを選択してください。"></PageTitle>
+            <PageTitle title="Search informations" description="スタジアムとカテゴリーを選択すると情報が表示されます。"></PageTitle>
             <div class="select-stadium">
                 <form>
-                    <h2>スタジアムを選択してください</h2><br>
+                    <h2>スタジアムとカテゴリーを選択してください</h2><br>
                     <!-- 送信ボタンを設置する -->
-                    <select name="stadiumlist" class="stadium-list" size="1"><br>
-                        <option value="スタジアムを選択してください" style="display: none;">--スタジアム名を選択してください--</option>
+                    <select v-model="stadium" class="stadium-list list" size="1"><br>
+                        <option value="" selected disabled>--スタジアム名を選択してください(必須)--</option>
                         <option value="" disabled>--北海道--</option>
                         <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
                         <option value="[コンサドーレ札幌] 札幌ドーム">[コンサドーレ札幌] 札幌ドーム</option>
@@ -93,57 +93,26 @@
                         <option value="" disabled>--沖縄--</option>
                         <option value="[FC琉球] タピック県総ひやごんスタジアム">[FC琉球] タピック県総ひやごんスタジアム</option>
                     </select>
-                    <input type="button" class="select-button" value="選択する！" onclick="displayStadium()">
+                </form>
+                <form class="post-category">
+                    <select v-model="category" class="category-list list" size="1">
+                        <option value="" selected disabled>--カテゴリーを選択してください(必須)--</option>
+                        <option value="スタジアムグルメ">スタジアムグルメ</option>
+                        <option value="交通情報(駐車場や公共交通機関等)">交通情報(駐車場や公共交通機関等)</option>
+                        <option value="座席(座席確保・座席の特徴・見やすさ)">座席(座席確保・座席の特徴・見やすさ)</option>
+                        <option value="周辺情報(飲食店・ホテル・観光地等)">周辺情報(飲食店・ホテル・観光地等)</option>
+                        <option value="チーム特有の情報(ダービーなど)">チーム特有の情報(ダービーなど)</option>
+                        <option value="その他">その他</option>
+                    </select>
                 </form>
             </div>
                 <div class="stadium-basic-information">
                     <div class="stadium-name">
-                        <h3 id="selectedStadium"></h3>
+                        <h3> {{ stadium }} </h3>
                     </div>
-                </div>
-                <div class="categories">
-                    <div class="categories-first-line">
-                        <a href="#" class="stadium-gourmet-box">
-                            <div class="stadium-gourmet category">
-                                <h4>スタジアム<br>グルメ</h4>
-                                <p>スタジアムグルメに関する情報</p>
-                            </div>
-                        </a>
-                        <a href="#" class="traffic-box">
-                            <div class="traffic category">
-                                <h4>交通情報</h4>
-                                <p>駐車場や公共交通機関等<br>交通情報に関する情報</p>
-                            </div>
-                        </a>
+                    <div class="category-name">
+                        <h3> {{ category }} </h3>
                     </div>
-                <div class="categories-second-line">
-                    <a href="#" class="seat-box">
-                        <div class="seat category">
-                            <h4>座席</h4>
-                            <p>座席確保・座席の特徴・見やすさ等<br>に関する情報</p>
-                        </div>
-                    </a>
-                    <a href="#" class="nearby-information-box">
-                        <div class="nearby category">
-                            <h4>周辺情報</h4>
-                            <p>飲食店・ホテル・観光地等<br>に関する情報</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="categories-third-line">
-                    <a href="#" class="unique-information-box">
-                        <div class="unique-information category">
-                            <h4>チーム特有の情報</h4>
-                            <p>ダービーやチーム特有のイベント等<br>に関する情報</p>
-                        </div>
-                    </a>
-                    <a href="#" class="others-box">
-                        <div class="others category">
-                            <h4>その他</h4>
-                            <p>その他スタジアム観戦<br>に役立つ情報</p>
-                        </div>
-                    </a>
-                </div>
                 </div>
                 <div class="request-nav">
                     <h3>求めている情報が見つからないときはこちら！</h3>
@@ -170,10 +139,10 @@
 
 <script>
 // import firebase from "firebase";
-// import "firebase/app";
-// import "firebase/auth";
-// import "firebase/firestore";
-// import "firebase/storage";
+import "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
@@ -181,6 +150,12 @@ import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from "../../mixin/myFirstMixin";
 
 export default {
+    data(){
+        return{
+            stadium:"",
+            category:"",
+        }
+    },
   components: {
     Jheader,
     PageTitle,
@@ -204,85 +179,36 @@ main{
 }
 /* スタジアム選択 */
 .select-stadium{
-        margin-top: 100px;
-        margin-bottom: 50px;
-        margin-left: 10%;
-        padding: 100px 80px;
-        background-color: #f2f2f2;
-        text-align: center;
-        display: block;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    margin-left: 10%;
+    padding: 100px 80px;
+    background-color: #f2f2f2;
+    text-align: center;
+    display: block;
 }
 
 .select-stadium h2{
     font-size: 21px;
 }
 
-.stadium-list{
+.list{
     width: 70%;
     height: 40px;
+    margin: 20px auto;
     font-size: 18px;
     border-radius: 10px;
     text-align: center;
+    background-color: #ffffff;
 }
 
 .stadium-basic-information{
-    margin: 50px auto;
+    margin: 30px auto;
     text-align: center;
 }
 
 .stadium-basic-information h3{
     font-size: 32px;
-}
-
-.select-button{
-    outline: none;
-    font-size: 18px;
-    background-color: #fff;
-    color: #484b48;
-    border: 2px solid #484b48;
-    border-radius: 10px;
-    padding:10px 30px;
-    transition: background-color 0.4s linear;
-    display: block;
-    margin: 50px auto 0;
-}
-
-.select-button:hover{
-    color: #fff;
-    background-color: #484b48;
-    transition: 0.4s;
-    cursor: pointer;
-}
-
-/* カテゴリー選択 */
-
-.categories a{
-    width: 300px;
-    height: 150px;
-    margin:50px auto;
-    padding: 30px;
-    background-color:#f2f2f2;
-    text-decoration: none;
-    color: rgb(28.8%, 29.6%, 28.8%);
-    border-radius: 10px;
-}
-
-.categories a:hover{
-    background-color: beige;
-}
-
-.category h4{
-    font-size: 21px;
-}
-
-.category p{
-    font-size: 18px;
-}
-
-.categories-first-line, .categories-second-line, .categories-third-line{
-    text-align: center;
-    display: flex;
-    justify-content: space-around;
 }
 
 /* リクエストするボタン */
@@ -335,29 +261,32 @@ main{
 /* カテゴリー選択 */
 
 .categories a{
-  width: 250px;
+  width: 240px;
   padding: 30px 15px;
 }
 }
 
-@media (max-width:559px ){
+@media (max-width:559px){
 /* メイン */
 /* スタジアム選択 */
 .select-stadium{
   padding: 50px 40px;
 }
+
 .select-stadium h2{
   font-size: 18px;
 }
+
 .stadium-list{
   font-size: 16px;
 }
-/* スタジアム基本情報 */
-.stadium-basic-information{
-  padding: 40px;
-}
 
 /* カテゴリー選択 */
+
+.categories{
+    margin-top: 0px;
+}
+
 .categories a{
   display: block;
   width: 80%;
