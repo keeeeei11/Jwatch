@@ -19,46 +19,47 @@
     </div>
     <div class="inquiry-sort">
     <select @change="sortData()" v-model="sortValue">
-      <option value="newest">新しい順</option>
+      <option value="newest" selected>新しい順</option>
       <option value="oldest">古い順</option>
     </select>
     </div>
     <!-- inquirySingleData = doc である。-->
-    <div v-for="(inquirySingleData) in getItems" :key="inquirySingleData.index">
+    <!-- getItemsにinquiryMultipleDataが格納されている -->
+    <div v-for="inquirySingleData in getItems" :key="inquirySingleData.index">
       <div class="inquiry-contents">
-      <div class="inquiry-example-contents">
-        <div class="inquiry-basic-information">
-          <div class="inquiry-basic-information-top">
-              <div class="inquiry-name">
-                  <p>{{ inquirySingleData.data().name }}</p>
+        <div class="inquiry-example-contents">
+          <div class="inquiry-basic-information">
+            <div class="inquiry-basic-information-top">
+                <div class="inquiry-name">
+                    <p>{{ inquirySingleData.data().name }}</p>
+                </div>
+                <div class="inquiry-email">
+                  <p>{{ inquirySingleData.data().mailAddress }}</p>
+                </div>
+            </div>
+            <div class="inquiry-basic-information-bottom">
+                <div class="inquiry-date">
+                    <p>{{ inquirySingleData.data().created }}</p>
+                </div>
+            </div>
+          </div>
+          <div class="inquiry-main-content">
+              <div class="inquiry-title">
+                  <p>{{ inquirySingleData.data().title }}</p>
               </div>
-              <div class="inquiry-email">
-                <p>{{ inquirySingleData.data().mailAddress }}</p>
+              <div class="inquiry-text">
+                  <p>{{ inquirySingleData.data().body }}</p>
               </div>
           </div>
-          <div class="inquiry-basic-information-bottom">
-              <div class="inquiry-date">
-                  <p>{{ inquirySingleData.data().created }}</p>
-              </div>
-          </div>
-        </div>
-        <div class="inquiry-main-content">
-            <div class="inquiry-title">
-                <p>{{ inquirySingleData.data().title }}</p>
+          <div class="inquiry-evaluation">
+            <div class="inquiry-evaluation-contents">
+                <div class="inquiry-delete">
+                  <button @click="deleteData(inquirySingleData.id)">このお問い合わせを削除する</button>
+                </div>
             </div>
-            <div class="inquiry-text">
-                <p>{{ inquirySingleData.data().body }}</p>
-            </div>
-        </div>
-        <div class="inquiry-evaluation">
-          <div class="inquiry-evaluation-contents">
-              <div class="inquiry-delete">
-                <button @click="deleteData(inquirySingleData.id)">このお問い合わせを削除する</button>
-              </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
     <Paginate :page-count="getPageCount"
     :page-range="3"
@@ -90,7 +91,6 @@ import myFirstMixin from '../../mixin/myFirstMixin';
 import MoveTopBtn from '../../components/MoveTopBtn.vue';
 import Paginate from 'vuejs-paginate'
 export default {
-  props:{},
   data(){
     return{
       // お問い合わせのデータを格納
@@ -142,10 +142,10 @@ export default {
     // selectタグの操作時に実行する。
     // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
     sortData: function(){
-      const db = firebase.firestore();
+        this.inquiryMultipleData = [];
+        const db = firebase.firestore();
         const inquiryData = db.collection("inquiries")
         if(this.sortValue === "newest"){
-          this.inquiryMultipleData = [];
           const newestDisplayData = inquiryData.orderBy('created','desc').get()
             .then(querySnapshot => {
               querySnapshot.forEach((doc) => {
@@ -159,7 +159,6 @@ export default {
               console.log(newestDisplayData)
             });
         } else if (this.sortValue === "oldest"){
-          this.inquiryMultipleData = [];
           const oldestDisplayData = inquiryData.orderBy('created').get()
           .then(querySnapshot => {
             querySnapshot.forEach(doc => {
@@ -188,7 +187,7 @@ export default {
 
           })
           .catch(function(error){
-            console.error("Error removing document: ", error);
+            console.error("エラーが発生しました。: ", error);
           })
       }
     },
@@ -212,6 +211,7 @@ export default {
   },
   mounted: function(){
     this.getData();
+    this.sortValue = "newest"
   },
 }
 </script>
@@ -356,7 +356,7 @@ justify-content: space-around;
 
 /* ページネーション */
 .paginate{
-  margin-top:20px;
+  margin:50px auto;
   text-align:center;
 }
 
@@ -386,7 +386,7 @@ justify-content: space-around;
   margin-left: 10px;
   outline: none;
 }
-
+/* 選択中のペ-ジ */
 .active-page-link{
   color: #ffffff;
   background-color: gray;

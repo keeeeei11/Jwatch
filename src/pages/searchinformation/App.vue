@@ -349,6 +349,9 @@ export default {
         return Math.ceil(this.postMultipleData.length / this.parPage);
       },
     },
+    mounted:function(){
+        this.sortValue = "newest"
+    }
 };
 </script>
 
