@@ -1,7 +1,7 @@
 <template>
 <div id="app">
       <div class="wrap">
-      <Jheader :visitorName="visitorName"  :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
+      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <main>
         <div class="post-imformation">
             <PageTitle title="Post informations" description="観戦情報を投稿しましょう！"></PageTitle>
@@ -33,7 +33,7 @@
             <form class="post-stadium">
                 <h3>スタジアム</h3>
                 <select name="stadiumlist" v-model="stadium" class="stadium-list-box box" size="1">
-                    <option value="" disabled>--スタジアム名を選択してください(必須)--</option>
+                    <option value="" selected disabled>--スタジアム名を選択してください(必須)--</option>
                     <option value="" disabled>--北海道--</option>
                     <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
                     <option value="[コンサドーレ札幌] 札幌ドーム">[コンサドーレ札幌] 札幌ドーム</option>
@@ -119,7 +119,7 @@
             <form class="post-category">
                 <h3>カテゴリー</h3>
                 <select v-model="category" name="category" class="post-category-box box" size="1">
-                    <option value="" style="display: none;">--カテゴリーを選択してください(必須)--</option>
+                    <option value="" selected disabled>--カテゴリーを選択してください(必須)--</option>
                     <option value="スタジアムグルメ">スタジアムグルメ</option>
                     <option value="交通情報(駐車場や公共交通機関等)">交通情報(駐車場や公共交通機関等)</option>
                     <option value="座席(座席確保・座席の特徴・見やすさ)">座席(座席確保・座席の特徴・見やすさ)</option>
@@ -248,7 +248,7 @@ export default {
           category: this.category,
           title: this.title,
           body: this.body,
-          created: now.getFullYear() + "年" + ("0"+(now.getMonth() + 1)).slice(-2) + '月' + ("0" + now.getDate()).slice(-2) + '日' + ("0" + now.getHours()).slice(-2) + '時' + ("0" + now.getMinutes()).slice(-2) + '分',
+          created: now.getFullYear() + "/" + ("0"+(now.getMonth() + 1)).slice(-2) + '/' + ("0" + now.getDate()).slice(-2),
           contributorName:this.visitorName,
           contributorUid:this.visitorUid,
           updated:null,
@@ -261,8 +261,8 @@ export default {
         // タイトルと本文が入力されているか判定する
             if (this.title.length > 0 && this.body.length > 0 ) {
               postdata.add(inputdata).then(() => {
-                this.triggerPostedPopupShow();
                 this.triggerPostPopupHide();
+                this.triggerPostedPopupShow();
               })
               .catch(function(error){
                 console.error(error)

@@ -111,7 +111,7 @@ export default {
             mailAddress: this.mailAddress,
             title: this.title,
             body: this.body,
-            created: now.getFullYear() + "年" + ("0"+(now.getMonth() + 1)).slice(-2) + '月' + ("0" + now.getDate()).slice(-2) + '日' + ("0" + now.getHours()).slice(-2) + '時' + ("0" + now.getMinutes()).slice(-2) + '分',
+            created: now.getFullYear() + "/" + ("0"+(now.getMonth() + 1)).slice(-2) + '/' + ("0" + now.getDate()).slice(-2),
         // タイトルと本文が入力されているか判定する
         }
         if(this.title.length > 0 && this.body.length > 0) {
