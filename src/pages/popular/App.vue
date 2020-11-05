@@ -100,7 +100,7 @@
                     <a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する！</a>
                 </div>
               <div class="post-contents" v-else>
-                  <div v-for="postSingleData in getItems" :key="postSingleData.index" @click="deleteBtnDisplay()">
+                  <div v-for="postSingleData in getItems" :key="postSingleData.index">
                       <div class="post-example-contents">
                           <div class="post-basic-information">
                           <div class="post-basic-information-top">
@@ -138,12 +138,19 @@
                                       <button>いいね！ {{ postSingleData.data().likedCounter }}</button>
                                   </div>
                                   <!-- 投稿者と閲覧者が同じである時 -->
-                                  <div class="deleting evaluation-btn" v-if="postSingleData.data().contributorUid == visitorUid">
-                                      <button @click="deleteData(postSingleData.id)">削除する</button>
+                                  <div class="allow-manage" v-if="postSingleData.data().contributorUid == visitorUid">
+                                    <div class="deleting evaluation-btn">
+                                        <button @click="deleteData(postSingleData.id)">削除する</button>
+                                    </div>
+                                    <div class="editing evaluation-btn">
+                                        <button>編集する</button>
+                                    </div>
                                   </div>
                                   <!-- 投稿者と閲覧者が異なる時 -->
-                                  <div class="reporting evaluation-btn" v-else>
-                                      <button>通報する</button>
+                                  <div class="disallow-manage" v-else>
+                                    <div class="reporting evaluation-btn">
+                                        <button>通報する</button>
+                                    </div>
                                   </div>
                               </div>
                           </div>
@@ -220,7 +227,7 @@ export default {
           const displayData = postData.orderBy('likedCounter','desc').get()
           .then(querySnapshot => {
                 querySnapshot.forEach((doc) => {
-                  console.log(this.postMultipleData.push(doc));
+                  this.postMultipleData.push(doc);
                   sessionStorage.setItem("sortkey", this.sortValue)
                   // データが1件以上ある時はfalseにする
                   this.noData = false
@@ -236,7 +243,7 @@ export default {
           const displayData = inputData.orderBy('likedCounter','desc').get()
           .then(querySnapshot => {
                 querySnapshot.forEach((doc) => {
-                  console.log(this.postMultipleData.push(doc));
+                  this.postMultipleData.push(doc);
                   sessionStorage.setItem("sortkey", this.sortValue)
                   // データが1件以上ある時はfalseにする
                   this.noData = false
@@ -346,7 +353,7 @@ main{
 
 /* 投稿を表示する部分 */
 .post-example-contents{
-  width: 70%;
+  width: 80%;
   margin:30px auto;
   padding: 20px 40px 20px;
   border: 2px solid #979797;
@@ -445,6 +452,10 @@ main{
     transition: 0.4s;
 }
 
+.allow-manage{
+  display: flex;
+}
+
 /* ページネーション */
 .paginate{
   margin:100px;
@@ -532,17 +543,12 @@ font-size: 16px;
   font-size: 16px;
 }
 
-.post-evaluation p{
-  font-size: 14px;
-}
-/* タイトル */
-.answer-reception-title h1{
-  font-size: 36px;
+.evaluation-btn{
+  margin: 0 3px;
 }
 
-.answer-reception-title p{
-  font-size: 18px;
-  line-height: 1.8em;
+.evaluation-btn button{
+  font-size: 14px;
 }
 }
 </style>

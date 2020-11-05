@@ -155,19 +155,26 @@
                             </div>
                         </div>
                         <div class="post-evaluation">
-                            <div class="post-evaluation-contents">
-                                <div class="good-count evaluation-btn">
-                                    <button>いいね！ {{ postSingleData.data().likedCounter }}</button>
-                                </div>
-                                <!-- 投稿者と閲覧者が同じである時 -->
-                                <div class="deleting evaluation-btn" v-if="postSingleData.data().contributorUid == visitorUid">
+                          <div class="post-evaluation-contents">
+                              <div class="good-count evaluation-btn">
+                                  <button>いいね！ {{ postSingleData.data().likedCounter }}</button>
+                              </div>
+                              <!-- 投稿者と閲覧者が同じである時 -->
+                              <div class="allow-manage" v-if="postSingleData.data().contributorUid == visitorUid">
+                                <div class="deleting evaluation-btn">
                                     <button @click="deleteData(postSingleData.id)">削除する</button>
                                 </div>
-                                <!-- 投稿者と閲覧者が異なる時 -->
-                                <div class="reporting evaluation-btn" v-else>
+                                <div class="editing evaluation-btn">
+                                    <button>編集する</button>
+                                </div>
+                              </div>
+                              <!-- 投稿者と閲覧者が異なる時 -->
+                              <div class="disallow-manage" v-else>
+                                <div class="reporting evaluation-btn">
                                     <button>通報する</button>
                                 </div>
-                            </div>
+                              </div>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -252,7 +259,7 @@ export default {
     methods:{
         sortData: function(stadium, category){
             // スタジアムとカテゴリーが入力されているかチェック
-        if(this.stadium.length > 0 && this.category.length > 0){
+          if(this.stadium.length > 0 && this.category.length > 0){
             // 一度配列を空にしないと前の検索結果が残ったままになる。
             this.postMultipleData = [];
             // データの取得
@@ -267,7 +274,7 @@ export default {
                 .then(querySnapshot => {
                     // console.log(this.querySnapshot.length)
                     querySnapshot.forEach((doc) => {
-                        console.log(this.postMultipleData.push(doc));
+                        this.postMultipleData.push(doc);
                         sessionStorage.setItem("sortkey", this.sortValue)
                         // データが1件以上ある時はfalseにする
                         this.noData = false
@@ -283,7 +290,7 @@ export default {
                 const oldestDisplayData = displayData.orderBy('created').get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
-                    console.log(this.postMultipleData.push(doc));
+                    this.postMultipleData.push(doc);
                     sessionStorage.setItem("sortkey", this.sortValue)
                         this.noData = false
             })
@@ -297,7 +304,7 @@ export default {
                 const goodDisplayData = displayData.orderBy('likedCounter', 'desc').get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
-                    console.log(this.postMultipleData.push(doc));
+                    this.postMultipleData.push(doc);
                     sessionStorage.setItem("sortkey", this.sortValue)
                     this.noData = false
             })
@@ -310,16 +317,9 @@ export default {
             console.log("sortError!")
             }
             // スタジアムとカテゴリーが選択されていない時に伝える
-        } else {
-            return alert("スタジアム名とカテゴリーを選択してください。")
-        }
-        },
-        displayDeteleBtn: function(contributorUid){
-            if(contributorUid == this.visitorUid){
-                this.allowDelete = true;
-            } else {
-                this.allowDelete = false;
-            }
+          } else {
+              return alert("スタジアム名とカテゴリーを選択してください。")
+          }
         },
         deleteData: function(id){
             console.log(id);
@@ -588,6 +588,10 @@ main{
     transition: 0.4s;
 }
 
+.allow-manage{
+  display: flex;
+}
+
 
 /* ページネーション */
 .paginate{
@@ -700,13 +704,6 @@ main{
 .post-date{
   font-size: 16px;
 }
-
-/* カテゴリー選択 */
-
-.categories a{
-  width: 240px;
-  padding: 30px 15px;
-}
 }
 
 @media (max-width:559px){
@@ -724,7 +721,7 @@ main{
   font-size: 16px;
 }
 
-/* 投稿例 */
+/* 投稿内容*/
 .post-example-contents{
   padding: 20px;
 }
@@ -747,12 +744,11 @@ main{
 }
 
 .post-img{
-  /* display: block; */
   flex-direction: column;
 }
 
 .post-img img{
-    margin: 20px auto;
+  margin: 20px auto;
   width:60%;
   height: auto;
 }
@@ -768,27 +764,11 @@ main{
   font-size: 14px;
 }
 
-/* カテゴリー選択 */
-
-.categories{
-    margin-top: 0px;
+.evaluation-btn button{
+  font-size: 14px;
 }
-
-.categories a{
-  display: block;
-  width: 80%;
-}
-
-.categories-first-line, .categories-second-line, .categories-third-line{
-  display: block;
-}
-
-.category h4{
-  font-size: 18px;
-}
-
-.category p{
-  font-size: 16px;
+.evaluation-btn{
+  margin: 0 3px;
 }
 
 /* リクエストするボタン */
