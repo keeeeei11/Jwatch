@@ -100,14 +100,12 @@
                     <a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する！</a>
                 </div>
               <div class="post-contents" v-else>
-                  <div v-for="postSingleData in getItems" :key="postSingleData.index" @click="displayDeleteBtn(postSingleData.data().contributorUid)">
-                  <!-- <div v-for="postSingleData in getItems" :key="postSingleData.index" :class="[postSingleData.data().contributorUid == this.visitorUid] ? "> -->
+                  <div v-for="postSingleData in getItems" :key="postSingleData.index" @click="deleteBtnDisplay()">
                       <div class="post-example-contents">
                           <div class="post-basic-information">
                           <div class="post-basic-information-top">
                               <div class="post-name">
                                   <p>{{ postSingleData.data().contributorName}}</p>
-                                  <!-- <p>{{ postSingleData.data().contributorUid}}</p> -->
                               </div>
                               <div class="post-date">
                                   <p>{{ postSingleData.data().created }}</p>
@@ -139,12 +137,13 @@
                                   <div class="good-count evaluation-btn">
                                       <button>いいね！ {{ postSingleData.data().likedCounter }}</button>
                                   </div>
-                                  <!-- 条件分岐を実装する -->
-                                  <div class="reporting evaluation-btn" v-if="!allowDelete">
-                                      <button>通報する</button>
-                                  </div>
-                                  <div class="deleting evaluation-btn" v-else>
+                                  <!-- 投稿者と閲覧者が同じである時 -->
+                                  <div class="deleting evaluation-btn" v-if="postSingleData.data().contributorUid == visitorUid">
                                       <button @click="deleteData(postSingleData.id)">削除する</button>
+                                  </div>
+                                  <!-- 投稿者と閲覧者が異なる時 -->
+                                  <div class="reporting evaluation-btn" v-else>
+                                      <button>通報する</button>
                                   </div>
                               </div>
                           </div>
@@ -248,31 +247,31 @@ export default {
               console.log(displayData)
           });
         }
+      },
+      deleteData: function(id){
+        console.log(id);
+          if(confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")){
+            const db = firebase.firestore();
+            const postData = db.collection("posts")
+            postData.doc(id).delete()
+            .then(function(){
+                alert('削除できました。')
+                return location.reload();
+            })
+            .catch(function(error){
+                console.error("エラーが発生しました。: ", error);
+            })
+          }
+      },
+      clickCallback: function (pageNum) {
+      this.currentPage = Number(pageNum);
+      window.scrollTo({
+          top:0,
+          behavior:"instant",
+      })
+      },
     },
-    deleteData: function(id){
-      console.log(id);
-        if(confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")){
-          const db = firebase.firestore();
-          const postData = db.collection("posts")
-          postData.doc(id).delete()
-          .then(function(){
-              alert('削除できました。')
-              return location.reload();
-          })
-          .catch(function(error){
-              console.error("エラーが発生しました。: ", error);
-          })
-        }
-    },
-        clickCallback: function (pageNum) {
-        this.currentPage = Number(pageNum);
-        window.scrollTo({
-            top:0,
-            behavior:"instant",
-        })
-        },
-    },
-      computed: {
+    computed: {
       getItems: function() {
         let current = this.currentPage * this.parPage;
         let start = current - this.parPage;
@@ -427,6 +426,23 @@ main{
   border-radius: 10px;
   padding:5px;
   margin: 0 10px;
+}
+
+.evaluation-btn button{
+    color: #484b48;
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 2px solid #484b48;
+    border-radius: 10px;
+    padding:5px 10px;
+    transition: background-color 0.4s linear;
+}
+
+.evaluation-btn button:hover{
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #484b48;
+    transition: 0.4s;
 }
 
 /* ページネーション */
