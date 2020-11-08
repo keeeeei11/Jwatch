@@ -122,7 +122,7 @@
                 </div>
                 <!-- 選択したスタジアムとカテゴリーで投稿が1つ以上存在する時 -->
                 <div class="post-contents" v-else>
-                <div v-for="postSingleData in getItems" :key="postSingleData.index" @click="deteleBtnDisplay()">
+                <div v-for="postSingleData in getItems" :key="postSingleData.index">
                     <div class="post-example-contents">
                         <div class="post-basic-information">
                         <div class="post-basic-information-top">
@@ -171,13 +171,83 @@
                               <!-- 投稿者と閲覧者が異なる時 -->
                               <div class="disallow-manage" v-else>
                                 <div class="reporting evaluation-btn">
-                                    <button>通報する</button>
+                                    <button @click="triggerReportShow()">通報する</button>
                                 </div>
                               </div>
                           </div>
                         </div>
                     </div>
+                    <!-- 通報画面 -->
+                    <div class="report" v-if="reportForm">
+                      <section class="reconfirmation">
+                        <h3>通報画面</h3>
+                        <!-- 対象の投稿 -->
+                        <div class="post-example-contents">
+                          <div class="post-basic-information">
+                            <div class="post-basic-information-top">
+                                <div class="post-name">
+                                    <p>{{ postSingleData.data().contributorName}}</p>
+                                </div>
+                                <div class="post-date">
+                                    <p>{{ postSingleData.data().created }}</p>
+                                </div>
+                            </div>
+                            <div class="post-basic-information-bottom">
+                                <div class="post-stadium">
+                                    <p>{{ postSingleData.data().stadium }}</p>
+                                </div>
+                                <div class="post-category">
+                                    <p>{{ postSingleData.data().category }}</p>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="post-main-content">
+                              <div class="post-title">
+                                  <p>{{ postSingleData.data().title }}</p>
+                              </div>
+                              <div class="post-text">
+                                  <p>{{ postSingleData.data().body }}</p>
+                              </div>
+                              <div class="post-img">
+                                  <!-- <img src="../../assets/3602761_s.jpg" alt=""> -->
+                                  <!-- <img src="../../assets/2396379_s.jpg" alt=""> -->
+                              </div>
+                          </div>
+                        </div>
+                        <!-- 通報理由 -->
+                        <form class="report-reason">
+                          <select v-model="reportReason" class="report-reason-box" size="1">
+                              <option value="" disabled>--通報の理由(必須)--</option>
+                              <option value="特定のチーム、選手、サポーターへの誹謗中傷">特定のチーム、選手、サポーターへの誹謗中傷</option>
+                              <option value="有害なサイトへの誘導">有害なサイトへの誘導</option>
+                              <option value="重複する内容を過剰に連投する行為">重複する内容を過剰に連投する行為</option>
+                              <option value="その他">その他</option>
+                          </select>
+                        </form>
+                        <form class="report-reason-text">
+                            <h3>詳細を下記フォームにご記入ください(省略可)</h3>
+                                <textarea v-model="reportBody" class="report-body-information-box" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
+                                <div class="count-character">
+                                    <p>残り{{ 400 - reportBody.length }}字です</p>
+                                </div>
+                        </form>
+                        <!-- ボタン -->
+                        <div class="report-btn">
+                          <button class="cancel" @click="triggerReportHide()">戻る</button>
+                          <button class="report" @click="reportData(postSingleData.data())">通報する</button>
+                        </div>
+                      </section>
+                      <div class="reconfirmation-cover"></div>
+                    </div>
+                    <!-- 通報完了画面 -->
                 </div>
+                <div class="complete" v-if="reported">
+                  <section>
+                      <p>通報が完了しました</p>
+                      <button @click="triggerReportedHide()">戻る</button>
+                  </section>
+                </div>
+                <div class="complete-cover" v-if="reported"></div>
             </div>
             <Paginate :page-count="getPageCount"
             :page-range="3"
@@ -232,18 +302,23 @@ import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
     data(){
         return{
-            // ページ読み込み時はfalseに設定しておく
-            noData: false,
+          // スタジアムとカテゴリーの選択
             stadium:"",
             category:"",
-            // trueで削除ボタンが表示される
+            noData: false,
+            // trueで削除ボタンが表示される(投稿者と閲覧者の一致)
             allowDelete:false,
-            // 配列の取得
+            // firestoreから取得したデータを保管する
             postMultipleData:[],
             // ページネーション機能
             sortValue:sessionStorage.getItem("sortkey"),
             parPage: 10,
             currentPage: 1,
+            // 通報画面
+            reportForm:false,
+            reported:false,
+            reportReason:"",
+            reportBody:"",
         }
     },
     components: {
@@ -266,7 +341,7 @@ export default {
             const db = firebase.firestore();
             const postData = db.collection("posts")
             const displayData = postData.where("stadium", "==", stadium).where("category", "==", category)
-            // 0件の場合はcloud firestoreからデータを取得しないのでif文以下が実行されず、this.noData = trueで処理が終了する。
+            // 0件の場合はforEachが実行されないのでthis.noData = trueのままで処理が完了する。
             this.noData = true
             // 新しい順が選択されている時
             if(this.sortValue === "newest"){
@@ -321,6 +396,56 @@ export default {
               return alert("スタジアム名とカテゴリーを選択してください。")
           }
         },
+        triggerReportShow: function(){
+          this.reportForm = true;
+        },
+        triggerReportHide: function(){
+          this.reportForm = false;
+        },
+        triggerReportedShow: function(){
+          this.reportForm = false;
+          this.reported = true;
+        },
+        triggerReportedHide: function(){
+          this.reported = false;
+        },
+        // 通報データの追加
+        reportData: function(data){
+          console.log(data);
+          const db = firebase.firestore()
+          const reportData = db.collection("reports");
+          const now = new Date();
+          const postData = data
+          const inputData = {
+            // 通報対象のデータ
+            postStadium : postData.stadium,
+            postCategory : postData.category,
+            postTitle : postData.title,
+            postBody : postData.body,
+            postCreated : postData.created,
+            postContributorName : postData.contributorName,
+            postContributorUid : postData.contributorUid,
+            postUpdated : postData.updated,
+            postLikedCounter : postData.likedCounter,
+            postLikedUser : postData.likedUser,
+            // 通報理由
+            reportReason : this.reportReason,
+            reportBody : this.reportBody,
+            reportCreated : now.getFullYear() + "/" + ("0"+(now.getMonth() + 1)).slice(-2) + '/' + ("0" + now.getDate()).slice(-2),
+          }
+          if(this.reportReason.length > 0){
+            reportData.add(inputData).then (() => {
+              this.triggerReportHide();
+              this.triggerReportedShow();
+            })
+            .catch(function(error){
+              console.error(error)
+            })
+          } else {
+            alert('通報理由を選択してください')
+          }
+        },
+        // 選択した投稿を削除する
         deleteData: function(id){
             console.log(id);
             if(confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")){
@@ -361,9 +486,6 @@ export default {
     mounted:function(){
         // 初回訪問時に新しい順を選択する
         this.sortValue = "newest"
-        // if(postSingleData.data().contributorUid == this.visitorUid){
-
-        // }
     }
 };
 </script>
@@ -592,6 +714,137 @@ main{
   display: flex;
 }
 
+/* 通報画面 */
+.reconfirmation{
+    opacity: 1;
+    width: 1000px;
+    height: 700px;
+    position: fixed;
+    background: #ffffff;
+    padding-bottom: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    text-align: center;
+    transition: 0.4s;
+    z-index: 3;
+}
+
+/*通報の理由*/
+
+.report-reason{
+    margin: 30px 0;
+}
+
+.report-reason-box{
+    height: 30px;
+    width:50%;
+    font-size: 18px;
+    color: rgb(28.8%, 29.6%, 28.8%);
+    border-radius: 10px;
+}
+
+.report-reason p{
+    font-size: 18px;
+}
+
+/*自由記述欄*/
+.report-reason-text h3{
+     font-size: 18px;
+     font-weight: normal;
+}
+.report-body-information-box{
+    width: 60%;
+    height: 100px;
+}
+
+/* ボタン */
+.report-btn{
+  display: flex;
+}
+
+.report-btn button{
+  font-size: 18px;
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    background:#ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+}
+
+.report-btn button:hover{
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.reconfirmation-cover{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: gainsboro;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+/* 通報完了画面 */
+.complete{
+    opacity: 1;
+    width: 450px;
+    height: 150px;
+    position: fixed;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    text-align: center;
+    transition: 0.4s;
+    z-index: 3;
+}
+
+.complete button{
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 28px auto 30px;
+    background:#ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+}
+
+.complete button:hover{
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.complete-cover{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: gainsboro;
+    z-index: 2;
+    opacity: 0.8;
+}
 
 /* ページネーション */
 .paginate{
