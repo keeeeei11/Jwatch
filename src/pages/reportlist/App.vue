@@ -1,133 +1,230 @@
 <template>
 <div id="app">
   <div class="wrap">
-    <header>
-      <div class="header-contents">
-        <div class="header-title">
-          <a href="https://jwatch-8411c.web.app/management/index.html">管理者画面</a>
-        </div>
-        <div class="header-menu">
-          <a href="https://jwatch-8411c.web.app/reportlist/index.html">通報一覧</a>
-          <a href="https://jwatch-8411c.web.app/inquirymail/index.html">お問い合わせメール</a>
-        </div>
-      </div>
-    </header>
+    <adminHeader></adminHeader>
     <main>
       <div class="report-title">
         <h2>通報一覧</h2>
+        <p>{{ reportMultipleData.length }} 件あります</p>
       </div>
-      <div class="report-contents">
-        <div class="report-example-contents">
-          <div class="report-example-post-title">
-            <h3>投稿内容</h3>
-          </div>
-          <div class="report-basic-information">
-            <div class="report-basic-information-top">
-                <div class="report-name">
-                    <p id="report_username">〇〇さん</p>
-                </div>
-                <div class="report-uid">
-                  <p id=uid></p>
-                </div>
-                <div class="report-date">
-                  <p>2000/1/1</p>
-                </div>
+    <div class="report-sort">
+    <select @change="sortData()" v-model="sortValue">
+      <option value="newest" selected>新しい順</option>
+      <option value="oldest">古い順</option>
+    </select>
+    </div>
+      <div v-for="reportSingleData in getItems" :key="reportSingleData.index">
+        <div class="report-contents">
+          <div class="report-example-contents">
+            <div class="report-example-post-title">
+              <h3>投稿内容</h3>
             </div>
+            <div class="report-basic-information">
+              <div class="report-basic-information-top">
+                  <div class="report-name">
+                      <p>{{ reportSingleData.data().postContributorName }}</p>
+                  </div>
+                  <div class="report-uid">
+                      <p>{{ reportSingleData.data().postContributorUid }}</p>
+                  </div>
+                  <div class="report-date">
+                      <p>{{ reportSingleData.data().postCreated }}</p>
+                  </div>
+              </div>
               <div class="report-basic-information-bottom">
                 <div class="report-stadium">
-                  <p>☆☆スタジアム</p>
+                    <p>{{ reportSingleData.data().postStadium }}</p>
                 </div>
                 <div class="report-category">
-                  <p>スタジアムグルメ</p>
+                    <p>{{ reportSingleData.data().postCategory }}</p>
                 </div>
+              </div>
             </div>
-          </div>
-          <div class="report-main-content">
+            <div class="report-main-content">
               <div class="report-title">
-                  <p id="report_title">△△の唐揚げがとても美味しかったです</p>
+                    <p>{{ reportSingleData.data().postTitle }}</p>
               </div>
               <div class="report-text">
-                  <p id="report_body">ここの唐揚げは出来たてを提供してくれます。また値段も低価格で観戦の際はいつも購入しています！是非購入してみてください！</p>
+                    <p>{{ reportSingleData.data().postBody }}</p>
+              </div>
+            </div>
+            <div class="report-example-warning">
+              <div class="report-example-warning-title">
+                <h3>通報理由</h3>
+                <p>{{ reportSingleData.data().reportReason }}</p>
+                <p>{{ reportSingleData.data().reportCreated }}</p>
+              </div>
+              <div class="report-example-warning-body">
+                <p>{{ reportSingleData.data().reportBody }}</p>
+              </div>
+            </div>
+            <div class="report-evaluation">
+              <div class="report-evaluation-contents">
+                  <div class="report-delete">
+                    <button @click="deleteData(reportSingleData.id)">削除する</button>
+                  </div>
               </div>
           </div>
-          <div class="report-example-warning">
-            <div class="report-example-warning-title">
-              <h3>通報理由</h3>
-              <p>誹謗中傷</p>
-            </div>
-            <div class="report-example-warning-body">
-              <p>この投稿は特定の選手を誹謗中傷していると思われます。</p>
-            </div>
           </div>
-          <div class="report-evaluation">
-            <div class="report-evaluation-contents">
-                <div class="report-delete">
-                  <p id="report_execute">削除する</p>
-                </div>
-            </div>
-        </div>
         </div>
       </div>
-      <div class="report-popup">
-        <section id="report_reconfirmation" class="hidden">
-            <p>この通報内容を削除してもよろしいですか？</p>
-            <p id="report_cancel">戻る</p>
-            <a href="#" id="report_btn">削除する</a>
-        </section>
-      </div>
-      <div id="reconfirmation_cover" class="hidden"></div>
+      <Paginate :page-count="getPageCount"
+      :page-range="3"
+      :margin-pages="2"
+      :click-handler="clickCallback"
+      :prev-text="'<<'"
+      :next-text="'>>'"
+      :no-li-surround="true"
+      :container-class="'paginate'"
+      :prev-link-class="'prev-link'"
+      :page-link-class="'page-link'"
+      :next-link-class="'next-link'"
+      :active-class="'active-page-link'"
+      ></Paginate>
+      <MoveTopBtn></MoveTopBtn>
     </main>
     </div>
 </div>
 </template>
 
 <script>
-// import firebase from "firebase";
-// import "firebase/app";
-// import "firebase/auth";
-// import "firebase/firestore";
-// import "firebase/storage";
+import firebase from "firebase";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
+import adminHeader from "../../components/adminHeader"
 import myFirstMixin from "../../mixin/myFirstMixin";
+import MoveTopBtn from '../../components/MoveTopBtn.vue';
+import Paginate from 'vuejs-paginate'
 
 export default {
-  mixins:[
-    myFirstMixin
-  ],
+    data(){
+      return{
+        // お問い合わせのデータを格納
+        reportMultipleData:[],
+        sortValue:sessionStorage.getItem("sortkey"),
+        parPage: 5,
+        currentPage: 1
+      }
+    },
+    mixins:[
+      myFirstMixin
+    ],
+    components:{
+      adminHeader,
+      MoveTopBtn,
+      Paginate
+    },
+    methods:{
+      getData: function(){
+        const db = firebase.firestore();
+        const reportData = db.collection("reports")
+        if(this.sortValue === "newest"){
+          const displayData = reportData.orderBy('reportCreated','desc').get()
+          .then(querySnapshot => {
+            // docにcloud firestoreからのデータが格納されている
+              querySnapshot.forEach((doc) => {
+                this.reportMultipleData.push(doc)
+            })
+          })
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+            console.log(displayData)
+          });
+        } else if (this.sortValue === "oldest"){
+            const oldestDisplayData = reportData.orderBy('reportCreated').get()
+            .then(querySnapshot => {
+              querySnapshot.forEach((doc) => {
+                this.reportMultipleData.push(doc);
+            })
+        })
+        .catch(function(error) {
+          console.log("Error getting documents: ", error);
+          console.log(oldestDisplayData)
+          });
+        } else {
+          return
+        }
+      },
+          // selectタグの操作時に実行する。
+    // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
+    sortData: function(){
+        this.reportMultipleData = [];
+        const db = firebase.firestore();
+        const reportData = db.collection("reports")
+        if(this.sortValue === "newest"){
+          const newestDisplayData = reportData.orderBy('reportCreated','desc').get()
+            .then(querySnapshot => {
+              querySnapshot.forEach((doc) => {
+                  this.reportMultipleData.push(doc);
+                  sessionStorage.setItem("sortkey", this.sortValue)
+                  return location.reload();
+              })
+            })
+            .catch(function(error) {
+              console.log("Error getting documents: ", error);
+              console.log(newestDisplayData)
+            });
+        } else if (this.sortValue === "oldest"){
+          const oldestDisplayData = reportData.orderBy('reportCreated').get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                  this.reportMultipleData.push(doc);
+                sessionStorage.setItem("sortkey", this.sortValue)
+                return location.reload();
+          })
+        })
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+            console.log(oldestDisplayData)
+          });
+        } else {
+          console.log("sortError!")
+        }
+    },
+      deleteData: function(id){
+        if(confirm("この通報内容を削除しますか？一度削除すると2度と戻せません。")){
+          const db = firebase.firestore();
+          const reportData = db.collection("reports")
+            reportData.doc(id).delete()
+            .then(function(){
+              alert('削除できました。')
+              return location.reload();
+
+            })
+            .catch(function(error){
+              console.error("エラーが発生しました。: ", error);
+            })
+        }
+      },
+      clickCallback: function (pageNum) {
+        this.currentPage = Number(pageNum);
+        window.scrollTo({
+          top:0,
+          behavior:"instant",
+        })
+      },
+    },
+    computed: {
+      getItems: function() {
+        let current = this.currentPage * this.parPage;
+        let start = current - this.parPage;
+        return this.reportMultipleData.slice(start, current);
+      },
+      getPageCount: function() {
+        return Math.ceil(this.reportMultipleData.length / this.parPage);
+      }
+    },
+    mounted: function(){
+      this.getData();
+      this.sortValue = "newest"
+    },
 }
 </script>
 
 <style>
 .wrap{
   overflow: hidden;
-}
-/*以下ヘッダー*/
-header{
-  width: 100%;
-  position: fixed;
-  top:0;
-  background-color:white;
-  border-bottom: 1px solid #efefef;
-  z-index: 2;
-}
-.header-contents{
-  height: 50px;
-  display: flex;
-  margin: auto 50px;
-  justify-content: space-around;
-}
-
-.header-contents{
-  margin-top: 30px;
-}
-
-.header-contents a{
-  text-decoration: none;
-  color: #484b48;
-  margin: 0 30px;
-}
-
-.header-contents a:hover{
-  color: gray;
 }
 
 main{
@@ -136,6 +233,21 @@ main{
 
 .report-title{
   text-align: center;
+}
+
+.report-sort{
+  text-align: center;
+}
+
+.report-sort select{
+  margin: 30px auto;
+  padding:10px 0;
+  width: 500px;
+  font-size: 18px;
+}
+
+.report-sort select:hover{
+  cursor: pointer;
 }
 
 /*投稿例*/
@@ -232,7 +344,6 @@ justify-content: space-around;
 
 .report-delete{
   text-align:center;
-  border: 1px solid #797979;
   border-radius: 10px;
   padding:5px 10px;
   margin: 0 10px;
@@ -243,83 +354,41 @@ justify-content: space-around;
   cursor: pointer;
 }
 
-/* 再確認のホップアップ */
-.report-popup{
-  font-size: 16px;
+/* ページネーション */
+.paginate{
+  margin:50px auto;
+  text-align:center;
 }
 
-#report_reconfirmation{
-  opacity: 1;
-  position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top:50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
+/* 前に戻るボタン */
+
+.prev-link{
+  font-size: 24px;
+  margin-right: 10px;
+  outline: none;
+  color:#484b48;
 }
 
-#report_reconfirmation.hidden {
-  display: none;
+/* 数字のボタン */
+.page-link{
+  font-size: 24px;
+  font-weight: lighter;
+  padding:15px;
+  margin: 10px;
+  border:1px solid #484b48;
+  border-radius: 5px;
+  outline: none;
 }
 
-#report_cancel{
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding:10px 0px;
-  margin: 28px auto 30px;
-  background-color:#fff;
-  color: #484b48;
-  border: 2px solid #484b48;
-  border-radius: 10px;
-  transition: background-color 0.2s linear;
+/* 次に進むボタン */
+.next-link{
+  font-size: 24px;
+  margin-left: 10px;
+  outline: none;
 }
-
-#report_cancel:hover{
-  cursor: pointer;
-  color: #fff;
-  background-color: #484b48;
-}
-
-#report_btn{
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding:10px 0px;
-  margin: 28px auto 30px;
-  background-color:#fff;
-  color: #484b48;
-  border: 2px solid #484b48;
-  border-radius: 10px;
-  transition: background-color 0.2s linear;
-}
-
-#report_btn:hover{
-  cursor: pointer;
-  color: #fff;
-  background-color: #484b48;
-}
-
-#reconfirmation_cover{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: gainsboro;
-  z-index: 2;
-  opacity: 0.8;
-}
-
-#reconfirmation_cover.hidden{
-  transition: 0.4s;
-  display: none;
+/* 選択中のペ-ジ */
+.active-page-link{
+  color: #ffffff;
+  background-color: gray;
 }
 </style>
