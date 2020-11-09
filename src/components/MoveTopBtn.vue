@@ -4,7 +4,6 @@
 
 <script>
  export default {
-  name:'MoveTopBtn',
   data(){
     return {
       show:false,

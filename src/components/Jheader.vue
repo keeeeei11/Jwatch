@@ -66,7 +66,7 @@
 </template>
 <script>
 export default {
-  // 文字を外部から受け取る
+  // 文字を外部から受け取る(子要素)
   props:{
     visitorName:String,
     isLogin:Boolean,

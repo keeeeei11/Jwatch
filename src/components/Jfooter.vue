@@ -40,13 +40,6 @@
   </footer>
 </template>
 
-<script>
-
-export default {
-  name:'Jfooter'
-}
-</script>
-
 <style>
 /*以下フッター*/
 footer{
