@@ -1,21 +1,11 @@
 <template>
 <div id="app">
     <div class="wrap">
-  <header>
-    <div class="header-contents">
-      <div class="header-title">
-        <a href="https://jwatch-8411c.web.app/management/index.html">管理者画面</a>
-      </div>
-      <div class="header-menu">
-        <a href="https://jwatch-8411c.web.app/reportlist/index.html">通報一覧</a>
-        <a href="https://jwatch-8411c.web.app/inquirymail/index.html">お問い合わせメール</a>
-      </div>
-    </div>
-  </header>
+    <adminHeader></adminHeader>
   <main>
     <div class="inquiry-title">
       <h2>お問い合わせメール</h2>
-    <p>{{ inquiryMultipleData.length }} 件あります</p>
+      <p>{{ inquiryMultipleData.length }} 件あります</p>
     </div>
     <div class="inquiry-sort">
     <select @change="sortData()" v-model="sortValue">
@@ -83,12 +73,12 @@
 <script>
 // あとで有効にする
 import firebase from "firebase";
-import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import adminHeader from "../../components/adminHeader"
 import myFirstMixin from '../../mixin/myFirstMixin';
-import MoveTopBtn from '../../components/MoveTopBtn.vue';
+import MoveTopBtn from '../../components/MoveTopBtn';
 import Paginate from 'vuejs-paginate'
 export default {
   data(){
@@ -104,10 +94,29 @@ export default {
     myFirstMixin
   ],
   components:{
+    adminHeader,
     MoveTopBtn,
     Paginate
   },
   methods:{
+    adminJudgment: function(){
+      firebase.auth().onAuthStateChanged(user => {
+        // ログインしていないユーザーを強制的にトップページに飛ばす
+        if(!user){
+          location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
+        }
+        const db = firebase.firestore();
+        const admin = db.collection("admin").doc("adminUser")
+        admin.get().then(function(doc) {
+          // 管理者以外のユーザーを強制的にトップページに飛ばす
+          if(doc.data().adminUserId != user.uid){
+            location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
+          } else {
+            return
+          }
+        })
+      })
+    },
       // 初回訪問時&ページ更新時にデータを取得する
     getData: function(){
       const db = firebase.firestore();
@@ -117,7 +126,7 @@ export default {
         .then(querySnapshot => {
           // docにcloud firestoreからのデータが格納されている
             querySnapshot.forEach((doc) => {
-            console.log(this.inquiryMultipleData.push(doc))
+              this.inquiryMultipleData.push(doc)
           })
         })
         .catch(function(error) {
@@ -128,7 +137,7 @@ export default {
           const oldestDisplayData = inquiryData.orderBy('created').get()
           .then(querySnapshot => {
             querySnapshot.forEach((doc) => {
-                console.log(this.inquiryMultipleData.push(doc));
+                  this.inquiryMultipleData.push(doc);
           })
       })
       .catch(function(error) {
@@ -149,7 +158,7 @@ export default {
           const newestDisplayData = inquiryData.orderBy('created','desc').get()
             .then(querySnapshot => {
               querySnapshot.forEach((doc) => {
-                console.log(this.inquiryMultipleData.push(doc));
+                  this.inquiryMultipleData.push(doc);
                   sessionStorage.setItem("sortkey", this.sortValue)
                   return location.reload();
               })
@@ -162,7 +171,7 @@ export default {
           const oldestDisplayData = inquiryData.orderBy('created').get()
           .then(querySnapshot => {
             querySnapshot.forEach(doc => {
-                console.log(this.inquiryMultipleData.push(doc));
+                  this.inquiryMultipleData.push(doc);
                 sessionStorage.setItem("sortkey", this.sortValue)
                 return location.reload();
           })
@@ -210,6 +219,7 @@ export default {
     }
   },
   mounted: function(){
+    this.adminJudgment();
     this.getData();
     this.sortValue = "newest"
   },
@@ -219,35 +229,6 @@ export default {
 <style>
 .wrap{
   overflow: hidden;
-}
-/*以下ヘッダー*/
-header{
-  width: 100%;
-  position: fixed;
-  top:0;
-  background-color:white;
-  border-bottom: 1px solid #efefef;
-  z-index: 2;
-}
-.header-contents{
-  height: 50px;
-  display: flex;
-  margin: auto 50px;
-  justify-content: space-around;
-}
-
-.header-contents{
-  margin-top: 30px;
-}
-
-.header-contents a{
-  text-decoration: none;
-  color: #484b48;
-  margin: 0 30px;
-}
-
-.header-contents a:hover{
-  color: gray;
 }
 
 main{

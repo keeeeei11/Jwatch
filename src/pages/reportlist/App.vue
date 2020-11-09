@@ -94,7 +94,7 @@ import "firebase/firestore";
 import "firebase/storage";
 import adminHeader from "../../components/adminHeader"
 import myFirstMixin from "../../mixin/myFirstMixin";
-import MoveTopBtn from '../../components/MoveTopBtn.vue';
+import MoveTopBtn from '../../components/MoveTopBtn';
 import Paginate from 'vuejs-paginate'
 
 export default {
@@ -116,6 +116,22 @@ export default {
       Paginate
     },
     methods:{
+      adminJudgment: function(){
+        firebase.auth().onAuthStateChanged(user => {
+          // ログインしていないユーザーを強制的にトップページに飛ばす
+          if(!user){
+            location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
+          }
+          const db = firebase.firestore();
+          const admin = db.collection("admin").doc("adminUser")
+          admin.get().then(function(doc) {
+          // 管理者以外のユーザーを強制的にトップページに飛ばす
+            if(doc.data().adminUserId != user.uid){
+              location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
+            }
+          })
+        })
+      },
       getData: function(){
         const db = firebase.firestore();
         const reportData = db.collection("reports")
@@ -216,6 +232,7 @@ export default {
       }
     },
     mounted: function(){
+      this.adminJudgment();
       this.getData();
       this.sortValue = "newest"
     },

@@ -6,13 +6,13 @@
     </div>
     <div class="management-contents">
         <div class="management-report content">
-          <a href="http://127.0.0.1:5501/public/usermanagement/reportlist/reportlist.html">通報一覧</a>
+          <a href="http://jwatch-8411c.web.app/reportlist/index.html">通報一覧</a>
         </div>
         <div class="management-contact content">
-          <a href="http://127.0.0.1:5501/public/usermanagement/inquirymail/inquirymail.html">お問い合わせメール</a>
+          <a href="http://jwatch-8411c.web.app/inquirymail/index.html">お問い合わせメール</a>
         </div>
         <div class="logout content">
-          <a href="http://127.0.0.1:5501/public/logout/logout.html">ログアウト</a>
+          <a href="http://jwatch-8411c.web.app/logout/index.html">ログアウト</a>
         </div>
     </div>
   </main>
@@ -21,16 +21,38 @@
 
 <script>
 // あとで有効にする
-// import firebase from "firebase";
-// Add the Firebase products that you want to use
+import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+// Add the Firebase products that you want to use
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   mixins:[
     myFirstMixin
   ],
+  methods:{
+    // 管理者かどうかを判断する
+    adminJudgment: function(){
+      firebase.auth().onAuthStateChanged(user => {
+          // ログインしていないユーザーを強制的にトップページに飛ばす
+        if(!user){
+          location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
+        }
+        const db = firebase.firestore();
+        const admin = db.collection("admin").doc("adminUser")
+        admin.get().then(function(doc) {
+          // 管理者以外のユーザーを強制的にトップページに飛ばす
+          if(doc.data().adminUserId != user.uid){
+            location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
+          }
+        })
+      })
+    },
+  },
+  mounted:function(){
+    this.adminJudgment()
+  }
 }
 </script>
 
