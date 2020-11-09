@@ -80,7 +80,7 @@
                 <h2>Input form</h2>
                 <p>入力フォーム</p>
             </div>
-            <form action="#" method="POST" class="answer-question-stadium">
+            <form class="answer-question-stadium">
                 <h3>スタジアム</h3>
                     <select name="stadiumlist" v-model="stadium" class="answer-question-stadium-box box" size="1">
                         <option value="" disabled>--スタジアム名を選択してください--(必須)</option>
@@ -184,24 +184,27 @@
             </form>
             <form class="answer-question-text-information">
                 <h3>本文</h3>
-                <CharacterCount></CharacterCount>
+                    <textarea v-model="body" class="post-body-information-box" placeholder="400字以内で入力してください" maxlength="400"></textarea><br>
+                    <div class="count-character">
+                        <p>残り{{ 400 - body.length }}字です</p>
+                    </div>
                 <h3>画像(3枚まで)</h3>
                 <div class="post-picture">
                     <input type="file" name="picture" class="picture"><br>
                     <input type="file" name="picture" class="picture"><br>
                     <input type="file" name="picture" class="picture"><br>
                 </div>
-                <p class="execute" @click="postPopupShow">回答する！</p>
+                <p class="execute" @click="triggerPostPopupShow">回答する！</p>
             </form>
             <section class="reconfirmation" v-if="confirmationPopupShow">
                 <p>この内容で回答してもよろしいですか？</p>
-                <p class="cancel" @click="postPopupHide">戻る</p>
+                <p class="cancel" @click="triggerPostPopupHide">戻る</p>
                 <button @click="sendData" class="post-btn">回答する！</button>
             </section>
             <div class="reconfirmation-cover" v-if="confirmationCoverShow" @click="popupHide"></div>
             <section class="complete" v-if="completePopupShow">
                 <p>投稿が完了しました！</p>
-                <a href="http://localhost:8080/posting" @click="postedPopupHide">続けて投稿する</a>
+                <a href="https://jwatch-8411c.web.app/posting" @click="triggerPostedPopupHide">続けて投稿する</a>
                 <a href="https://jwatch-8411c.web.app/mainpage/index.html">トップページへ</a>
                 <a href="https://jwatch-8411c.web.app/mypage/index.html">マイページへ</a>
             </section>
@@ -226,7 +229,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import Jheader from "../../components/Jheader"
-import CharacterCount from "../../components/CharacterCount"
 import MoveTopBtn from "../../components/MoveTopBtn"
 import Jfooter from "../../components/Jfooter"
 import myFirstMixin from "../../mixin/myFirstMixin";
@@ -239,13 +241,12 @@ export default {
         completeCoverShow: false,
         stadium:"",
         category:"",
-        title:null,
-        body:null,
+        title:"",
+        body:"",
     }
   },
   components: {
     Jheader,
-    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },
@@ -253,25 +254,25 @@ export default {
     myFirstMixin
   ],
   methods:{
-     postPopupShow: function(){
+     triggerPostPopupShow: function(){
           this.confirmationPopupShow = true,
           this.confirmationCoverShow = true
       },
-      postPopupHide: function(){
+      triggerPostPopupHide: function(){
           this.confirmationPopupShow = false,
           this.confirmationCoverShow = false
       },
-      postedPopupShow: function(){
+      triggerPostedPopupShow: function(){
           this.completePopupShow = true,
           this.completeCoverShow = true
       },
-      postedPopupHide: function(){
+      triggerPostedPopupHide: function(){
           this.completePopupShow = false,
           this.completeCoverShow = false
       },
     sendData: function(){
     const db = firebase.firestore()
-    const postdata = db.collection("posts");
+    const postdata = db.collection("requests");
     const now = new Date();
     const inputdata = {
         stadium: this.stadium,
@@ -279,18 +280,28 @@ export default {
         title: this.title,
         body: this.body,
         created: now.getMonth()+1 + '月' + now.getDate() + '日' + now.getHours() + '時' + now.getMinutes() + '分',
-        contributor_name:"this.visitorName",
-        contributor_uid:"this.visitorUid",
+        contributorName:this.visitorName,
+        contributorUid:this.visitorUid,
         updated:null,
         likedCounter:0,
-        likedUser:null,
+        likedUser:[],
     }
-    postdata.add(inputdata).then(function(docRef){
-        alert('正常に登録できました。', docRef.id)
-    })
-    .catch(function(error){
-        alert('エラーが発生しました。', error)
-    })
+    if(this.stadium.length > 0 && this.category.length > 0) {
+    // タイトルと本文が入力されているか判定する
+        if (this.title.length > 0 && this.body.length > 0 ) {
+            postdata.add(inputdata).then(() => {
+            this.triggerPostedPopupShow();
+            this.triggerPostPopupHide();
+            })
+            .catch(function(error){
+            console.error(error)
+            })
+        } else {
+        alert('タイトルと本文を入力してください。')
+        }
+    } else {
+        alert('スタジアム名とカテゴリー名を選択してください。');
+    }
     }
   }
 };
@@ -518,6 +529,11 @@ input.answer-question-title-information-box{
     font-size: 18px;
 }
 
+.post-body-information-box{
+    width: 60%;
+    height: 400px;
+}
+
 /*画像を挿入*/
 /*画像を挿入*/
 .post-picture{
@@ -739,6 +755,10 @@ input.answer-question-title-information-box{
 /* 題名 */
 input.answer-question-title-information-box{
   width: 90%;
+}
+
+.post-body-information-box{
+  width:90%;
 }
 
 /*画像を挿入*/

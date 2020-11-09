@@ -5,10 +5,10 @@
 <!--メイン-->
     <main>
     <PageTitle title="Login Page" description="観戦情報&こんな情報が欲しい！への投稿はログインが必要です。"></PageTitle>
-    <div class="login-contents" id="login">
+    <div class="login-contents">
         <h2>ログイン方法を選択してください</h2>
         <div class="google-login login-btn">
-            <button  @click="googleLogin">Googleアカウントでログイン</button>
+            <button @click="googleLogin">Googleアカウントでログイン</button>
         </div>
         <div class="twitter-login login-btn">
             <button @click="twitterLogin">Twitterアカウントでログイン</button>
@@ -31,10 +31,10 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import myFirstMixin from '../../mixin/myFirstMixin';
-import Jheader from "../../components/Jheader.vue"
-import PageTitle from "../../components/PageTitle.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import Jheader from "../../components/Jheader"
+import PageTitle from "../../components/PageTitle"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
 export default {
     components: {
         Jheader,
@@ -50,7 +50,7 @@ export default {
         firebase.auth().onAuthStateChanged(function(user) {
             // ログイン時はマイページへ
         if(user){
-            // location.href = "https://jwatch-8411c.web.app/mypage/index.html"
+            location.href = "https://jwatch-8411c.web.app/mypage/index.html"
         } else {
             return
         }

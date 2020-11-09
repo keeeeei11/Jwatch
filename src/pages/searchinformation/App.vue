@@ -127,7 +127,7 @@
                         <div class="post-basic-information">
                         <div class="post-basic-information-top">
                             <div class="post-name">
-                                <p>{{ postSingleData.data().contributorName}}</p>
+                                <p>{{ postSingleData.data().contributorName}} さん</p>
                             </div>
                             <div class="post-date">
                                 <p>{{ postSingleData.data().created }}</p>

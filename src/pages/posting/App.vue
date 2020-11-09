@@ -34,10 +34,10 @@
                 <h3>スタジアム</h3>
                 <select name="stadiumlist" v-model="stadium" class="stadium-list-box box" size="1">
                     <option value="" selected disabled>--スタジアム名を選択してください(必須)--</option>
-                    <option value="" disabled>--北海道--</option>
+                    <option disabled>--北海道--</option>
                     <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
                     <option value="[コンサドーレ札幌] 札幌ドーム">[コンサドーレ札幌] 札幌ドーム</option>
-                    <option value="" disabled>--東北--</option>
+                    <option disabled>--東北--</option>
                     <option value="[ヴァンラーレ八戸] プライフーズスタジアム">[ヴァンラーレ八戸] プライフーズスタジアム</option>
                     <option value="[いわてグルージャ盛岡] いわぎんスタジアム">[いわてグルージャ盛岡] いわぎんスタジアム</option>
                     <option value="[いわてグルージャ盛岡] 北上総合運動公園北上陸上競技場">[いわてグルージャ盛岡] 北上総合運動公園北上陸上競技場</option>
@@ -47,7 +47,7 @@
                     <option value="[福島ユナイテッドFC] 郡山西部サッカー場">[福島ユナイテッドFC] 郡山西部サッカー場</option>
                     <option value="[福島ユナイテッドFC] とうほう・みんなのスタジアム">[福島ユナイテッドFC] とうほう・みんなのスタジアム</option>
                     <option value="[福島ユナイテッドFC] 会津総合運動公園あいづ陸上競技場">[福島ユナイテッドFC] 会津総合運動公園あいづ陸上競技場</option>
-                    <option value="" disabled>--関東--</option>
+                    <option disabled>--関東--</option>
                     <option value="[鹿島アントラーズ] 県立カシマサッカースタジアム">[鹿島アントラーズ] 県立カシマサッカースタジアム</option>
                     <option value="[水戸ホーリーホック] ケーズデンキスタジアム水戸">[水戸ホーリーホック] ケーズデンキスタジアム水戸</option>
                     <option value="[栃木SC] 栃木県グリーンスタジアム">[栃木SC] 栃木県グリーンスタジアム</option>
@@ -69,42 +69,42 @@
                     <option value="[横浜FC] ニッパツ三ツ沢球技場">[横浜FC] ニッパツ三ツ沢球技場</option>
                     <option value="[Y.S.C.C. 横浜] ニッパツ三ツ沢球技場">[Y.S.C.C. 横浜] ニッパツ三ツ沢球技場</option>
                     <option value="[SC相模原] 相模原ギオンスタジアム">[SC相模原] 相模原ギオンスタジアム</option>
-                    <option value="" disabled>--北陸--</option>
+                    <option disabled>--北陸--</option>
                     <option value="[アルビレックス新潟] デンカビッグスワンスタジアム">[アルビレックス新潟] デンカビッグスワンスタジアム</option>
                     <option value="[カターレ富山] 富山県総合運動公園陸上競技場">[カターレ富山] 富山県総合運動公園陸上競技場</option>
-                    <option value="">[ツエーゲン金沢] 石川県西部緑地公園陸上競技場</option>
+                    <option>[ツエーゲン金沢] 石川県西部緑地公園陸上競技場</option>
                     <option value="[ツエーゲン金沢] 石川県西部緑地公園陸上競技場">[カターレ富山] テクノポート福井スタジアム</option>
-                    <option value="" disabled>--甲信越--</option>
+                    <option disabled>--甲信越--</option>
                     <option value="[ヴァンフォーレ甲府] 山梨中銀スタジアム">[ヴァンフォーレ甲府] 山梨中銀スタジアム</option>
                     <option value="[松本山雅FC] サンプロ アルウィン">[松本山雅FC] サンプロ アルウィン</option>
                     <option value="[AC長野パルセイロ] 長野Ｕスタジアム">[AC長野パルセイロ] 長野Ｕスタジアム</option>
                     <option value="[FC岐阜] 岐阜メモリアルセンター長良川競技場">[FC岐阜] 岐阜メモリアルセンター長良川競技場</option>
-                    <option value="" disabled>--東海--</option>
+                    <option disabled>--東海--</option>
                     <option value="[ジュビロ磐田] ヤマハスタジアム">[ジュビロ磐田] ヤマハスタジアム</option>
                     <option value="[清水エスパルス] ＩＡＩスタジアム日本平">[清水エスパルス] ＩＡＩスタジアム日本平</option>
                     <option value="[アスルクラロ沼津] 愛鷹広域公園多目的競技場">[アスルクラロ沼津] 愛鷹広域公園多目的競技場</option>
                     <option value="[藤枝MYFC] 藤枝総合運動公園サッカー場">[藤枝MYFC] 藤枝総合運動公園サッカー場</option>
                     <option value="[名古屋グランパス] 豊田スタジアム">[名古屋グランパス] 豊田スタジアム</option>
                     <option value="[名古屋グランパス] パロマ瑞穂スタジアム">[名古屋グランパス] パロマ瑞穂スタジアム</option>
-                    <option value="" disabled>--近畿--</option>
+                    <option disabled>--近畿--</option>
                     <option value="[京都サンガF.C.] たけびしスタジアム京都">[京都サンガF.C.] たけびしスタジアム京都</option>
                     <option value="[京都サンガF.C.] サンガスタジアム ｂｙ ＫＹＯＣＥＲＡ">[京都サンガF.C.] サンガスタジアム ｂｙ ＫＹＯＣＥＲＡ</option>
                     <option value="[セレッソ大阪] ヤンマースタジアム長居">[セレッソ大阪] ヤンマースタジアム長居</option>
                     <option value="[ガンバ大阪] パナソニック スタジアム 吹田">[ガンバ大阪] パナソニック スタジアム 吹田</option>
                     <option value="[ヴィッセル神戸] ノエビアスタジアム神戸">[ヴィッセル神戸] ノエビアスタジアム神戸</option>
-                    <option value="" disabled>--中国--</option>
+                    <option disabled>--中国--</option>
                     <option value="[ガイナーレ鳥取] Ａｘｉｓバードスタジアム">[ガイナーレ鳥取] Ａｘｉｓバードスタジアム</option>
                     <option value="[ガイナーレ鳥取] チュウブＹＡＪＩＮスタジアム">[ガイナーレ鳥取] チュウブＹＡＪＩＮスタジアム</option>
                     <option value="[ファジアーノ岡山] シティライトスタジアム">[ファジアーノ岡山] シティライトスタジアム</option>
                     <option value="[サンフレッチェ広島] エディオンスタジアム広島<">[サンフレッチェ広島] エディオンスタジアム広島</option>
                     <option value="[レノファ山口FC] 維新みらいふスタジアム">[レノファ山口FC] 維新みらいふスタジアム</option>
                     <option value="[レノファ山口FC] セービング陸上競技場<">[レノファ山口FC] セービング陸上競技場</option>
-                    <option value="" disabled>--四国--</option>
+                    <option disabled>--四国--</option>
                     <option value="[徳島ヴォルティス] 鳴門・大塚スポーツパーク ポカリスエットスタジアム">[徳島ヴォルティス] 鳴門・大塚スポーツパーク ポカリスエットスタジアム</option>
                     <option value="[カマタマーレ讃岐] Ｐｉｋａｒａスタジアム">[カマタマーレ讃岐] Ｐｉｋａｒａスタジアム</option>
                     <option value="[愛媛FC] ニンジニアスタジアム">[愛媛FC] ニンジニアスタジアム</option>
                     <option value="[FC今治] ありがとうサービス．夢スタジアム">[FC今治] ありがとうサービス．夢スタジアム</option>
-                    <option value="" disabled>--九州--</option>
+                    <option disabled>--九州--</option>
                     <option value="[アビスパ福岡] ベスト電器スタジアム">[アビスパ福岡] ベスト電器スタジアム</option>
                     <option value="[ギラヴァンツ北九州] ミクニワールドスタジアム北九州">[ギラヴァンツ北九州] ミクニワールドスタジアム北九州</option>
                     <option value="[サガン鳥栖] 駅前不動産スタジアム">[サガン鳥栖] 駅前不動産スタジアム</option>
@@ -112,7 +112,7 @@
                     <option value="[ロアッソ熊本] えがお健康スタジアム">[ロアッソ熊本] えがお健康スタジアム</option>
                     <option value="[大分トリニータ] 昭和電工ドーム大分">[大分トリニータ] 昭和電工ドーム大分</option>
                     <option value="[鹿児島ユナイテッドFC] 白波スタジアム">[鹿児島ユナイテッドFC] 白波スタジアム</option>
-                    <option value="" disabled>--沖縄--</option>
+                    <option disabled>--沖縄--</option>
                     <option value="[FC琉球] タピック県総ひやごんスタジアム">[FC琉球] タピック県総ひやごんスタジアム</option>
                 </select>
             </form>
@@ -140,9 +140,7 @@
                       </div>
                 <h3>画像(3枚まで)</h3>
                 <div class="post-picture">
-                    <input type="file" name="picture" class="picture"><br>
-                    <input type="file" name="picture" class="picture"><br>
-                    <input type="file" name="picture" class="picture"><br>
+                    <input type="file" class="picture" multiple><br>
                 </div>
                 <p class="execute" @click="triggerPostPopupShow">投稿する！</p>
             </form>
@@ -156,7 +154,7 @@
             <!-- 投稿完了を伝えるポップアップ -->
             <section class="complete" v-if="completePopupShow">
                 <p>投稿が完了しました！</p>
-                <a href="http://localhost:8080/posting" @click="triggerPostedPopupHide">続けて投稿する</a>
+                <a href="https://jwatch-8411c.web.app/posting" @click="triggerPostedPopupHide">続けて投稿する</a>
                 <a href="https://jwatch-8411c.web.app/mainpage/index.html">トップページへ</a>
                 <a href="https://jwatch-8411c.web.app/mypage/index.html">マイページへ</a>
             </section>
@@ -273,12 +271,18 @@ export default {
         } else {
             alert('スタジアム名とカテゴリー名を選択してください。');
         }
-      }
+      },
+    displayImage:function(){
+      const storageRef = firebase.storage().ref();
+      const ImagesRef = storageRef.child('postsImages/サンプル画像.png');
+      console.log(ImagesRef);
+    },
     },
     mounted: function(){
       this.redirect();
-      }
-      }
+      this.displayImage();
+    }
+  }
 </script>
 
 <style>

@@ -42,10 +42,10 @@
 <script>
 // Add the Firebase products that you want to use
 import myFirstMixin from '../../mixin/myFirstMixin';
-import Jheader from "../../components/Jheader.vue"
-import PageTitle from "../../components/PageTitle.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import Jheader from "../../components/Jheader"
+import PageTitle from "../../components/PageTitle"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
 export default {
   components: {
     Jheader,

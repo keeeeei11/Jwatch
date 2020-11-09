@@ -173,7 +173,6 @@ import "firebase/firestore";
 import "firebase/storage";
 import Jheader from "../../components/Jheader.vue"
 import PageTitle from "../../components/PageTitle.vue"
-import CharacterCount from "../../components/CharacterCount.vue"
 import MoveTopBtn from "../../components/MoveTopBtn.vue"
 import Jfooter from "../../components/Jfooter.vue"
 import myFirstMixin from "../../mixin/myFirstMixin";
@@ -188,7 +187,6 @@ export default {
   components: {
     Jheader,
     PageTitle,
-    CharacterCount,
     MoveTopBtn,
     Jfooter,
   },

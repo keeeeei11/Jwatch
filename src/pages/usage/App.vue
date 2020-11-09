@@ -185,15 +185,10 @@
 </template>
 
 <script>
-// import firebase from "firebase";
-// import "firebase/app";
-// import "firebase/auth";
-// import "firebase/firestore";
-// import "firebase/storage";
-import Jheader from "../../components/Jheader.vue"
-import PageTitle from "../../components/PageTitle.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import Jheader from "../../components/Jheader"
+import PageTitle from "../../components/PageTitle"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
 import myFirstMixin from "../../mixin/myFirstMixin";
 
 export default {
@@ -365,10 +360,6 @@ main{
   width:30%;
   height: auto;
 }
-/* .post-img img::before{
-  display: block;
-  padding-top:75%;
-} */
 
 .post-evaluation p{
   margin-block-start: 0em;

@@ -34,6 +34,7 @@ export default {
   methods:{
     // 管理者かどうかを判断する
     adminJudgment: function(){
+      // ログインしていない時でもfirebase.auth()は実行される
       firebase.auth().onAuthStateChanged(user => {
           // ログインしていないユーザーを強制的にトップページに飛ばす
         if(!user){

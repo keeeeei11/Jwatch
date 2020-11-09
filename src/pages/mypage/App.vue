@@ -6,7 +6,8 @@
     <main>
         <div class="mypage">
             <div class="mypage-title">
-                <p>{{ visitorName }} さんのマイページ</p>
+                <p v-if="!isAnonymous">{{ visitorName }} さんのマイページ</p>
+                <p v-else> 匿名<span>{{ visitorUid.slice(0, 10) }}</span>さんのマイページ</p>
             </div>
             <div class="mypage-contents">
                 <div class="mypage-past-post">
@@ -56,81 +57,28 @@
                             </div>
                         </div>
                     </div>
-                <div class="mypage-past-request">
-                    <div class="mypage-past-request-title">
-                        <h2>過去の質問</h2>
-                        <a href="#">もっと見る</a>
-                        </div>
-                    <div class="mypage-past-request-contents">
-                        <div class="request-example-contents">
-                            <div class="request-basic-information">
-                                <div class="request-basic-information-top">
-                                    <div class="request-name">
-                                        <p>〇〇さん</p>
-                                    </div>
-                                    <div class="request-warning">
-                                    </div>
-                                    <div class="request-date">
-                                        <p>2000/1/1</p>
-                                    </div>
-                                </div>
-                                <div class="request-basic-information-bottom">
-                                    <div class="request-stadium">
-                                        <p>スタジアム</p>
-                                    </div>
-                                    <div class="request-category">
-                                        <p>駐車場</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="request-main-content">
-                                <div class="request-title">
-                                    <p>駐車場からスムーズに出るにはどうしたらよいでしょうか？</p>
-                                </div>
-                                <div class="request-text">
-                                    <p>☆☆スタジアムの駐車場から出場するのに30分程度かかるとのことですが、試合終了後すぐに駐車場から出られる方法はありますか？</p>
-                                </div>
-                                <div class="request-img">
-                                    <img src="" alt="">
-                                    <img src="" alt="">
-                                    <img src="" alt="">
-                                </div>
-                            </div>
-                            <div class="request-evaluation">
-                                <div class="request-evaluation-contents">
-                                    <div class="answering">
-                                        <p>回答する</p>
-                                    </div>
-                                    <div class="reporting">
-                                        <p>通報する</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="logout">
-                    <p class="logout_execute" @click="logoutPopupShow">ログアウトする</p>
+                    <p class="logout-execute" @click="logoutPopupShow">ログアウトする</p>
                 </div>
                 <div class="logout-popup" v-if="logoutShow">
-                    <section class="logout_reconfirmation">
+                    <section class="logout-reconfirmation">
                         <p>ログアウトしてもよろしいですか？</p>
-                        <p class="logout_cancel" @click="logoutPopupHide">戻る</p>
-                        <a href="https://jwatch-8411c.web.app/logout/index.html" class="logout_btn">ログアウトする</a>
+                        <p class="logout-cancel" @click="logoutPopupHide">戻る</p>
+                        <a href="https://jwatch-8411c.web.app/logout/index.html" class="logout-btn">ログアウトする</a>
                     </section>
                 </div>
                 <div class="delete-account">
-                    <p class="delete_execute" @click="deletePopupShow">アカウント削除する</p>
+                    <p class="delete-execute" @click="deletePopupShow">アカウント削除する</p>
                 </div>
                 <div class="delete-popup" v-if="deleteShow">
-                    <section class="delete_reconfirmation">
+                    <section class="delete-reconfirmation">
                         <p>アカウントを削除してもよろしいですか？</p>
                         <p>一度削除すると元に戻せません</p>
-                        <p class="delete_cancel" @click="deletePopupHide">戻る</p>
-                        <a href="https://jwatch-8411c.web.app/deleteAccount/index.html" class="delete_btn">削除する</a>
+                        <p class="delete-cancel" @click="deletePopupHide">戻る</p>
+                        <a href="https://jwatch-8411c.web.app/deleteAccount/index.html" class="delete-btn">削除する</a>
                     </section>
                 </div>
-              <div class="reconfirmation_cover" v-if="coverShow" @click="popupHide"></div>
+              <div class="reconfirmation-cover" v-if="coverShow" @click="popupHide"></div>
             </div>
         </div>
         </div>
@@ -143,20 +91,21 @@
 </template>
 
 <script>
-// import firebase from "firebase";
+import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import Jheader from "../../components/Jheader.vue"
-import MoveTopBtn from "../../components/MoveTopBtn.vue"
-import Jfooter from "../../components/Jfooter.vue"
+import Jheader from "../../components/Jheader"
+import MoveTopBtn from "../../components/MoveTopBtn"
+import Jfooter from "../../components/Jfooter"
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   data(){
     return {
-      logoutShow : false,
-      deleteShow : false,
-      coverShow : false,
+      visitorUid: String,
+      logoutShow: false,
+      deleteShow: false,
+      coverShow: false,
     }
   },
   components: {
@@ -168,6 +117,19 @@ export default {
     myFirstMixin
   ],
   methods:{
+    adminJudgment: function(){
+      firebase.auth().onAuthStateChanged(user => {
+        const db = firebase.firestore();
+        const admin = db.collection("admin").doc("adminUser")
+        admin.get().then(function(doc) {
+        if(doc.data().adminUserId == user.uid){
+          location.href = "https://jwatch-8411c.web.app/management/index.html"
+        } else {
+          return
+        }
+        })
+        })
+    },
     // ログアウト確認ポップアップの表示
     logoutPopupShow:function(){
       this.logoutShow = true;
@@ -191,7 +153,10 @@ export default {
       this.deleteShow = false,
       this.coverShow = false
     }
-    },
+  },
+  mounted:function(){
+    this.adminJudgment();
+  }
 }
 </script>
 
@@ -213,6 +178,10 @@ main{
 
 .mypage-title p{
     font-size: 32px;
+}
+
+.mypage-title span{
+    font-size: 18px;
 }
 
 .mypage-contents{
@@ -242,177 +211,91 @@ main{
 
 /*投稿例*/
 .post-example-contents{
-    width: 70%;
-    margin:30px auto;
-    padding: 20px 40px 20px;
-    border: 2px solid #979797;
-    border-radius: 10px;
-  }
+  width: 70%;
+  margin:30px auto;
+  padding: 20px 40px 20px;
+  border: 2px solid #979797;
+  border-radius: 10px;
+}
 
-  .post-basic-information{
+.post-basic-information{
   display: block;
-  }
+}
 
-  .post-basic-information-top{
+.post-basic-information-top{
   display: flex;
   height: 30px;
   margin-bottom: 30px;
   justify-content: space-around;
-  }
+}
 
-  .post-basic-information-bottom{
+.post-basic-information-bottom{
   display: flex;
   justify-content: space-around;
-  }
+}
 
-  .post-name{
-    font-size: 21px;
-  }
+.post-name{
+  font-size: 21px;
+}
 
-  .post-stadium{
-    font-size: 18px;
-  }
+.post-stadium{
+  font-size: 18px;
+}
 
-  .post-category{
-    font-size: 18px;
-  }
+.post-category{
+  font-size: 18px;
+}
 
-  .post-date{
-    font-size: 18px;
-  }
+.post-date{
+  font-size: 18px;
+}
 
-  .post-title p{
-    text-align: center;
-    font-size: 21px;
-  }
+.post-title p{
+  text-align: center;
+  font-size: 21px;
+}
 
-  .post-text{
-    margin: 25px 0;
-    padding: 0 30px;
-    text-align: left;
-  }
+.post-text{
+  margin: 25px 0;
+  padding: 0 30px;
+  text-align: left;
+}
 
-  .post-text p{
-    font-size: 18px;
-  }
+.post-text p{
+  font-size: 18px;
+}
 
+.post-evaluation p{
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  font-size: 16px;
+}
 
-  .post-evaluation p{
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    font-size: 16px;
-  }
+.post-evaluation-contents{
+  display: flex;
+  justify-content:center;
+}
 
-  .post-evaluation-contents{
-    display: flex;
-    justify-content:center;
-  }
+.good-count, .reporting{
+  text-align:center;
+  border: 1px solid #797979;
+  border-radius: 10px;
+  padding:5px 10px;
+  margin: 0 10px;
+}
 
-  .good-count, .reporting{
-    text-align:center;
-    border: 1px solid #797979;
-    border-radius: 10px;
-    padding:5px 10px;
-    margin: 0 10px;
-  }
-
-  .post-img{
-    display: flex;
+.post-img{
+  display: flex;
 }
 
 .post-img img{
     height: auto;
     margin: 30px auto 20px;
     width:30%;
-    /* max-width: 80%; */
 }
 
-/* 過去の質問 */
-.mypage-past-request-title{
-    display: flex;
-}
-
-.mypage-past-request-title a{
-    padding-top: 20px;
-    padding-left: 20px;
-}
-
-/* リクエスト例 */
-.request-example-contents{
-    width: 70%;
-    margin:30px auto;
-    padding: 20px 40px 20px;
-    border: 2px solid #979797;
-    border-radius: 10px;
-  }
-
-  .request-basic-information{
-  display: block;
-  }
-
-  .request-basic-information-top{
-  display: flex;
-  height: 30px;
-  margin-bottom: 30px;
-  justify-content: space-around;
-  }
-
-  .request-basic-information-bottom{
-  display: flex;
-  justify-content: space-around;
-  }
-
-  .request-name{
-    font-size: 21px;
-  }
-
-  .request-stadium{
-    font-size: 18px;
-  }
-
-  .request-category{
-    font-size: 18px;
-  }
-
-  .request-date{
-    font-size: 18px;
-  }
-
-  .request-title p{
-    text-align: center;
-    font-size: 21px;
-  }
-
-  .request-text{
-    margin: 25px 0;
-    padding: 0 30px;
-    text-align: left;
-  }
-
-  .request-text p{
-    font-size: 18px;
-  }
-
-  .request-evaluation p{
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    font-size: 16px;
-  }
-
-  .request-evaluation-contents{
-    display: flex;
-    justify-content:center;
-  }
-
-  .answering, .reporting{
-    text-align:center;
-    border: 1px solid #797979;
-    border-radius: 10px;
-    padding:5px 10px;
-    margin: 0 10px;
-  }
 /* ログアウト */
-.logout_execute{
+.logout-execute, .delete-execute{
     font-size: 16px;
     width:250px;
     text-align: center;
@@ -426,45 +309,20 @@ main{
     transition: background-color 0.3s linear;
 }
 
-.logout_execute:hover{
+.logout-execute:hover, .delete-execute:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.3s;
     cursor: pointer;
 }
 
-/* アカウント削除 */
-.delete_execute{
-    font-size: 16px;
-    width:250px;
-    text-align: center;
-    margin: 70px auto;
-}
-
-.delete_execute {
-    padding: 20px 30px;
-    color: #484b48;
-    text-decoration: none;
-    border:2px solid #484b48;
-    background-color: #fff;
-    border-radius: 10px;
-    transition: background-color 0.4s linear;
-}
-
-.delete_execute:hover{
-    background-color: #484b48;
-    color: #fff;
-    transition: 0.4s;
-    cursor: pointer;
-}
-
 /* 再確認のホップアップ */
 
-.delete-popup, .delete-popup{
+.delete-popup{
     font-size: 18px;
 }
 
-.logout_reconfirmation, .delete_reconfirmation{
+.logout-reconfirmation, .delete-reconfirmation{
     opacity: 1;
     position: fixed;
     background: #ffffff;
@@ -479,7 +337,7 @@ main{
     z-index: 3;
 }
 
-.logout_cancel, .delete_cancel{
+.logout-cancel, .delete-cancel{
     width: 350px;
     display: block;
     text-decoration: none;
@@ -493,21 +351,21 @@ main{
     transition: background-color 0.4s linear;
 }
 
-.logout_cancel:hover{
+.logout-cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-.delete_cancel:hover{
+.delete-cancel:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-.logout_btn, .delete_btn{
+.logout-btn, .delete-btn{
     width: 350px;
     display: block;
     text-decoration: none;
@@ -520,14 +378,14 @@ main{
     border: 2px solid #484b48;
 }
 
-.logout_btn:hover{
+.logout-btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
 }
 
-.delete_btn:hover{
+.delete-btn:hover{
     background-color: #484b48;
     color: #fff;
     transition: 0.4s;
@@ -535,7 +393,7 @@ main{
 }
 
 
-.reconfirmation_cover{
+.reconfirmation-cover{
     position: fixed;
     top: 0;
     left: 0;
@@ -546,7 +404,7 @@ main{
     opacity: 0.8;
 }
 
-.reconfirmation_cover.hidden{
+.reconfirmation-cover.hidden{
     transition: 0.4s;
     display: none;
 }
@@ -566,19 +424,19 @@ textarea{
 
 .post-name{
   font-size: 18px;
-  }
+}
 
-  .post-stadium{
+.post-stadium{
   font-size: 16px;
-  }
+}
 
-  .post-category{
+.post-category{
   font-size: 16px;
-  }
+}
 
-  .post-date{
+.post-date{
   font-size: 16px;
-  }
+}
 /* 質問内容 */
 .request-example-contents{
   width: 80%;
@@ -587,19 +445,19 @@ textarea{
 
 .request-name{
   font-size: 18px;
-  }
+}
 
-  .request-stadium{
+.request-stadium{
   font-size: 16px;
-  }
+}
 
-  .request-category{
+.request-category{
   font-size: 16px;
-  }
+}
 
-  .request-date{
+.request-date{
   font-size: 16px;
-  }
+}
 }
 
 @media (max-width:559px ){
@@ -684,19 +542,18 @@ textarea{
   font-size: 16px;
 }
 
-.logout_execute{
+.logout-execute{
   font-size: 16px;
 }
 
-.delete_execute{
+.delete-execute{
   font-size: 16px;
 }
 
-.logout_btn, .delete_btn{
+.logout-btn, .delete-btn{
   font-size: 16px;
   padding:10px 0;
   width:350px;
 }
-
 }
 </style>
