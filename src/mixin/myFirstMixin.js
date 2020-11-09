@@ -30,7 +30,7 @@ export default {
         appId: "1:868452645100:web:b0ac64ce8f42b75a7dcdc9",
         measurementId: "G-RK4728SNM4"
       };
-      // firebaseの初期化が多重に行われてエラーが発生することを防ぐ
+      // 稀にfirebaseの初期化が多重に行われてエラーが発生するのでそれを防ぐ
       if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
@@ -46,14 +46,8 @@ export default {
             this.providerData = user.providerData;
             this.isLogin = true
             console.log(this.visitorName, this.visitorUid ,this.email ,this.emailVerified ,this.photoURL ,this.isAnonymous  ,this.providerData)
-            const aaa = firebase.auth().currentUser.uid
-            console.log(aaa)
-            // console.log(firebase.auth().currentUser.uid)
-            // console.log(firebase.auth().currentUser.uid)
-          } else {
-            this.isLogin = false
           }
         })
       }
-        }
+    }
 }
