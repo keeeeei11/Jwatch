@@ -397,19 +397,6 @@
             :next-link-class="'next-link'"
             :active-class="'active-page-link'"
             ></Paginate>
-            <div class="request-nav">
-                <h3>求めている情報が見つからないときはこちら！</h3>
-                <a href="https://jwatch-8411c.web.app/request/index.html">
-                    <div class="request-nav-contents">
-                        <div class="request-nav-ja">
-                            <p>リクエストする！</p>
-                        </div>
-                        <div class="request-nav-en">
-                            <p>Let’s request!</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
         </div>
     <MoveTopBtn></MoveTopBtn>
     </main>
@@ -1180,38 +1167,6 @@ main{
   background-color: gray;
 }
 
-/* リクエストするボタン */
-.request-nav h3{
-    text-align: center;
-    font-weight: normal;
-    font-size: 18px;
-}
-
-.request-nav a{
-    width: 100vw;
-    height: 300px;
-    margin-top: 50px;
-    background-color: #323232;
-    color: #ffffff;
-    line-height: 2.5em;
-    transition: background-color 0.4s linear;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    text-decoration: none;
-}
-
-.request-nav a:hover{
-    background-color: #202020;
-}
-
-.request-nav-contants{
-    display: block;
-    font-size: 18px;
-}
-
-
 @media (max-width:959px ){
 /* メイン */
 /* スタジアム選択 */
@@ -1318,20 +1273,6 @@ main{
 }
 .evaluation-btn{
   margin: 0 3px;
-}
-
-/* リクエストするボタン */
-.request-nav h3{
-  font-size: 16px;
-}
-
-.request-nav a{
-  height: 200px;
-}
-
-.request-nav-contants{
-  display: block;
-  font-size: 16px;
 }
 }
 </style>

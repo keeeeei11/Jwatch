@@ -21,7 +21,6 @@
                 <a href="https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a>
                 <a href="https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a>
                 <a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a>
-                <a href="https://jwatch-8411c.web.app/answerreception/index.html">回答受付中の質問</a>
                 <a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
               </div>
             <!-- ログインしていない時 -->
@@ -54,7 +53,6 @@
                             <li><a href="https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a></li>
                             <li><a href="https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a></li>
                             <li><a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a></li>
-                            <li><a href="https://jwatch-8411c.web.app/answerreception/index.html">回答受付中の質問</a></li>
                             <li><a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a></li>
                       </ul>
                   </div>

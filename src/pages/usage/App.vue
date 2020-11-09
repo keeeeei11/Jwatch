@@ -4,7 +4,7 @@
       <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
     <!-- 以下メイン-->
     <main>
-        <PageTitle title="How to use" description="観戦情報の閲覧と投稿、情報のリクエストの方法を記載しています"></PageTitle>
+        <PageTitle title="How to use" description="観戦情報の閲覧と投稿、情報のの方法を記載しています"></PageTitle>
         <div class="search-contents">
             <div class="search-title">
                 <h2>How to Search</h2>
@@ -101,77 +101,6 @@
                         </div>
                         <div class="post-nav-en">
                             <p>Let’s post!</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <div class="request-contents">
-            <div class="request-title">
-                <h2>How to request</h2>
-                <p>情報のリクエスト</p>
-            </div>
-            <div class="request-discription">
-                <div class="request-primary-discription">
-                    <p>①情報をリクエストする！をクリックします。</p>
-                    <p>②投稿フォームが表示されるのでスタジアム名とカテゴリーを選択してください。</p>
-                    <p>③リクエストしたい内容を入力してください。</p>
-                </div>
-                <div class="request-secondary-discription">
-                    <p>※各クラブの公式HPに情報が記載されている場合がありますのでそちらもご確認ください。</p>
-                </div>
-            </div>
-        </div>
-            <div class="request-example">
-                <h3>投稿例</h3>
-                <div class="request-example-contents">
-                    <div class="request-basic-information">
-                        <div class="request-basic-information-top">
-                            <div class="request-name">
-                                <p>〇〇さん</p>
-                            </div>
-                            <div class="request-warning">
-                            </div>
-                            <div class="request-date">
-                                <p>2000/1/1</p>
-                            </div>
-                        </div>
-                        <div class="request-basic-information-bottom">
-                            <div class="request-stadium">
-                                <p>スタジアム</p>
-                            </div>
-                            <div class="request-category">
-                                <p>駐車場</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="request-main-content">
-                        <div class="request-title">
-                            <p>駐車場からスムーズに出るにはどうしたらよいでしょうか？</p>
-                        </div>
-                        <div class="request-text">
-                            <p>☆☆スタジアムの駐車場から出場するのに30分程度かかるとのことですが、試合終了後すぐに駐車場から出られる方法はありますか？</p>
-                        </div>
-                    </div>
-                    <div class="request-evaluation">
-                        <div class="request-evaluation-contents">
-                            <div class="answering">
-                                <p>回答する</p>
-                            </div>
-                            <div class="reporting">
-                                <p>通報する</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="request-nav">
-                <a href="https://jwatch-8411c.web.app/request/index.html">
-                    <div class="request-nav-contents">
-                        <div class="request-nav-ja nav">
-                            <p>観戦情報をリクエストする！</p>
-                        </div>
-                        <div class="request-nav-en">
-                            <p>Let’s request!</p>
                         </div>
                     </div>
                 </a>
@@ -405,135 +334,6 @@ main{
   font-size: 18px;
 }
 
-/* リクエストの方法 */
-.request-contents{
-  margin-top: 100px;
-  margin-left: 10%;
-  padding: 100px 80px;
-  background-color: #f2f2f2;
-}
-
-.request-title h2{
-  font-size: 32px;
-}
-
-.request-title p{
-  font-size: 18px;
-}
-
-.request-discription{
-  margin-top: 50px;
-}
-
-.request-discription p{
-  font-size: 18px;
-  line-height: 2.5em;
-}
-
-.request-example h3{
-  font-size: 21px;
-  text-align: center;
-}
-/* リクエスト例 */
-.request-example-contents{
-  width: 70%;
-  margin:30px auto;
-  padding: 20px 40px 20px;
-  border: 2px solid #979797;
-  border-radius: 10px;
-}
-
-.request-basic-information{
-  display: block;
-}
-
-.request-basic-information-top{
-  display: flex;
-  height: 30px;
-  margin-bottom: 30px;
-  justify-content: space-around;
-}
-
-.request-basic-information-bottom{
-  display: flex;
-  justify-content: space-around;
-}
-
-.request-name{
-  font-size: 21px;
-}
-
-.request-stadium{
-  font-size: 18px;
-}
-
-.request-category{
-  font-size: 18px;
-}
-
-.request-date{
-  font-size: 18px;
-}
-
-.request-title p{
-  text-align: center;
-  font-size: 21px;
-}
-
-.request-text{
-  margin: 25px 0;
-  padding: 0 30px;
-  text-align: left;
-}
-
-.request-text p{
-  font-size: 18px;
-}
-
-.request-evaluation p{
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  font-size: 16px;
-}
-
-.request-evaluation-contents{
-  display: flex;
-  justify-content:center;
-}
-
-.answering, .reporting{
-  text-align:center;
-  border: 1px solid #797979;
-  border-radius: 10px;
-  padding:5px 10px;
-  margin: 0 10px;
-}
-
-/* リクエストするボタン */
-.request-nav a{
-    width: 100vw;
-    height: 300px;
-    margin-top: 100px;
-    background-color: #323232;
-    color: #ffffff;
-    line-height: 2.5em;
-    transition: background-color 0.4s linear;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    text-decoration: none;
-}
-
-.request-nav a:hover{
-    background-color: #202020;
-}
-
-.request-nav-contants{
-    display: block;
-    font-size: 18px;
-}
-
 @media (max-width:959px){
 /* メイン */
 /*観戦情報の探し方*/
@@ -577,37 +377,6 @@ font-size: 16px;
 }
 
 .post-date{
-font-size: 16px;
-}
-
-/* リクエストの方法 */
-.request-contents{
-  margin-left: 0%;
-}
-
-.request-title {
-  text-align: center;
-}
-
-  /* 質問内容 */
-.request-example-contents{
-  width: 80%;
-  margin: 10% auto;
-}
-
-.request-name{
-font-size: 18px;
-}
-
-.request-stadium{
-font-size: 16px;
-}
-
-.request-category{
-font-size: 16px;
-}
-
-.request-date{
 font-size: 16px;
 }
 }
@@ -705,66 +474,6 @@ font-size: 16px;
 }
 
 .post-nav-contants{
-  font-size: 16px;
-}
-
-
-/* リクエストの方法 */
-.request-contents{
-  padding: 50px 40px;
-}
-
-.request-title h2{
-  font-size: 28px;
-}
-
-.request-title p{
-  font-size: 16px;
-}
-
-.request-discription p{
-  font-size: 16px;
-}
-.request-example h3{
-  font-size: 18px;
-}
-
-/* リクエスト例 */
-
-.request-example-contents{
-  padding: 20px;
-}
-.request-title p{
-  text-align: center;
-  font-size: 18px;
-}
-
-.request-text{
-  margin:10px 0;
-  padding:0 10px;
-}
-
-.request-text p{
-  font-size: 16px;
-}
-
-.request-basic-information-bottom{
-  display: block;
-}
-.request-basic-information-bottom p{
-  text-align: center;
-}
-
-.request-evaluation p{
-  font-size: 14px;
-}
-
-/* リクエストするボタン */
-.request-nav a{
-  height: 200px;
-}
-
-.request-nav-contants{
   font-size: 16px;
 }
 }

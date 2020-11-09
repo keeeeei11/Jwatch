@@ -47,16 +47,9 @@
                         </a>
                         <p>試合観戦の感想やワンポイントアドバイス等を投稿してみましょう！</p>
                     </div>
-                    <div class="usage-asking">
-                        <a href="https://jwatch-8411c.web.app/request/index.html">
-                            <h3>情報をリクエストする</h3>
-                            <img src="../../assets/3063794_s.jpg" alt="自分の求めている情報が見つからず悩んでいる女性の画像。">
-                        </a>
-                        <p>求めている情報が記載されていない時は情報を尋ねることが出来ます。</p>
-                    </div>
                 </div>
                 <div class="usage-secondary-introduction">
-                    <p>※観戦情報の投稿と情報のリクエストは <a href="https://jwatch-8411c.web.app/login/index.html">ログイン</a> が必要となります。</p>
+                    <p>※観戦情報の投稿と情報のは <a href="https://jwatch-8411c.web.app/login/index.html">ログイン</a> が必要となります。</p>
                 </div>
             </div>
             <div class="detail-usage-nav">
@@ -150,7 +143,7 @@ main{
 
 .usage-primary-introduction{
     display: flex;
-    margin:50px 0;
+    margin: auto;
 }
 
 .usage-primary-introduction a{
@@ -171,10 +164,7 @@ main{
 .usage-primary-introduction img{
     height: auto;
     width:80%;
-}
-/* 指定しないと高さが両サイドと異なるので記述 */
-.usage-post img{
-    height: 255px;
+    height: 300px;
 }
 
 .usage-primary-introduction p{

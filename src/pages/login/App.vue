@@ -4,7 +4,7 @@
       <Jheader></Jheader>
 <!--メイン-->
     <main>
-    <PageTitle title="Login Page" description="観戦情報&こんな情報が欲しい！への投稿はログインが必要です。"></PageTitle>
+    <PageTitle title="Login Page" description="観戦情報の投稿はログインが必要です。"></PageTitle>
     <div class="login-contents">
         <h2>ログイン方法を選択してください</h2>
         <div class="google-login login-btn">
