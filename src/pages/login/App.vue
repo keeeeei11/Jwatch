@@ -60,7 +60,7 @@ export default {
         firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
         },
         twitterLogin: function(){
-        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+        firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider());
         },
         anonymousLogin: function(){
         firebase.auth().signInAnonymously().catch(function() {
