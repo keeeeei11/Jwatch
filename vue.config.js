@@ -52,31 +52,6 @@ module.exports = {
       filename:"login/index.html",
       title:"ログイン画面 Jwatch Jリーグ観戦情報サイト"
     },
-    loginAnonymous: {
-      entry:"src/pages/loginAnonymous/main.js",
-      filename:"loginAnonymous/index.html",
-      title:"ログイン画面 Jwatch Jリーグ観戦情報サイト"
-    },
-    loginComplete: {
-      entry:"src/pages/loginComplete/main.js",
-      filename:"loginComplete/index.html",
-      title:"ログイン画面 Jwatch Jリーグ観戦情報サイト"
-    },
-    loginEmail: {
-      entry:"src/pages/loginEmail/main.js",
-      filename:"loginEmail/index.html",
-      title:"ログイン画面 Jwatch Jリーグ観戦情報サイト"
-    },
-    loginGoogle: {
-      entry:"src/pages/loginGoogle/main.js",
-      filename:"loginGoogle/index.html",
-      title:"ログイン画面 Jwatch Jリーグ観戦情報サイト"
-    },
-    loginTwitter: {
-      entry:"src/pages/loginTwitter/main.js",
-      filename:"loginTwitter/index.html",
-      title:"ログイン画面 Jwatch Jリーグ観戦情報サイト"
-    },
     logout: {
       entry:"src/pages/logout/main.js",
       filename:"logout/index.html",
@@ -117,11 +92,6 @@ module.exports = {
       filename:"reportlist/index.html",
       title:"通報一覧確認ページ"
     },
-    reportpage: {
-      entry:"src/pages/reportpage/main.js",
-      filename:"reportpage/index.html",
-      title:"通報画面 Jwatch Jリーグ観戦情報サイト"
-    },
     request: {
       entry:"src/pages/request/main.js",
       filename:"request/index.html",
@@ -136,11 +106,6 @@ module.exports = {
       entry:"src/pages/usage/main.js",
       filename:"usage/index.html",
       title:"詳しい使い方 Jwatch Jリーグ観戦情報サイト"
-    },
-    viewinformations: {
-      entry:"src/pages/viewinformations/main.js",
-      filename:"viewinformations/index.html",
-      title:"情報を見る！ Jwatch Jリーグ観戦情報サイト"
     },
     warning: {
       entry:"src/pages/warning/main.js",
