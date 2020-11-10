@@ -83,12 +83,17 @@ export default {
     Jfooter,
   },
   mixins:[
-    myFirstMixin
+      myFirstMixin
   ],
   methods:{
     triggerPostPopupShow: function(){
-        this.confirmationPopupShow = true,
-        this.confirmationCoverShow = true
+        // タイトルと本文が入力されているか判定する
+        if(this.title.length > 0 && this.body.length > 0) {
+            this.confirmationPopupShow = true,
+            this.confirmationCoverShow = true
+        } else {
+            alert('タイトルと本文を入力してください。')
+        }
     },
     triggerPostPopupHide: function(){
         this.confirmationPopupShow = false,
@@ -112,9 +117,7 @@ export default {
             title: this.title,
             body: this.body,
             created: now.getFullYear() + "/" + ("0"+(now.getMonth() + 1)).slice(-2) + '/' + ("0" + now.getDate()).slice(-2),
-        // タイトルと本文が入力されているか判定する
         }
-        if(this.title.length > 0 && this.body.length > 0) {
             postdata.add(inputdata).then(() => {
             this.triggerPostedPopupShow();
             this.triggerPostPopupHide();
@@ -122,9 +125,6 @@ export default {
             .catch(function(error){
             console.error(error)
             })
-        } else {
-        alert('タイトルと本文を入力してください。')
-        }
       }
   }
 };
