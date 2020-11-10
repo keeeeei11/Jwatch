@@ -10,6 +10,7 @@
             <div class="attention-title">
                 <h2>Points to note</h2>
                 <p>注意点</p>
+                <button @click="addData()">増殖用</button>
             </div>
             <div class="attention-discriptions">
                 <div class="attention-discription01">
@@ -210,10 +211,21 @@ export default {
     myFirstMixin
   ],
   methods:{
-      // ポップアップ表示・非表示
+    // ポップアップ表示・非表示
       triggerPostPopupShow: function(){
-          this.confirmationPopupShow = true,
-          this.confirmationCoverShow = true
+        // this.stadiumとthis.categoryはvalueの値を受け取っている
+        // スタジアムとカテゴリーが選択されているか判定する
+        if(this.stadium.length > 0 && this.category.length > 0) {
+        // タイトルと本文が入力されているか判定する
+            if (this.title.length > 0 && this.body.length > 0 ) {
+              this.confirmationPopupShow = true,
+              this.confirmationCoverShow = true
+            } else {
+            alert('タイトルと本文を入力してください。')
+            }
+        } else {
+            alert('スタジアム名とカテゴリー名を選択してください。');
+        }
       },
       triggerPostPopupHide: function(){
           this.confirmationPopupShow = false,
@@ -251,38 +263,54 @@ export default {
           contributorUid:this.visitorUid,
           updated:null,
           likedCounter:0,
-          likedUser:[],
+          likedUsers:[],
         }
-        // this.stadiumとthis.categoryはvalueの値を受け取っている
-        // スタジアムとカテゴリーが選択されているか判定する
-        if(this.stadium.length > 0 && this.category.length > 0) {
-        // タイトルと本文が入力されているか判定する
-            if (this.title.length > 0 && this.body.length > 0 ) {
-              postdata.add(inputdata).then(() => {
-                this.triggerPostPopupHide();
-                this.triggerPostedPopupShow();
-              })
-              .catch(function(error){
-                console.error(error)
-              })
-            } else {
-            alert('タイトルと本文を入力してください。')
-            }
-        } else {
-            alert('スタジアム名とカテゴリー名を選択してください。');
-        }
+          postdata.add(inputdata).then(() => {
+            this.triggerPostPopupHide();
+            this.triggerPostedPopupShow();
+          })
+          .catch(function(error){
+            console.error(error)
+          })
+
       },
-    displayImage:function(){
-      const storageRef = firebase.storage().ref();
-      const ImagesRef = storageRef.child('postsImages/サンプル画像.png');
-      console.log(ImagesRef);
-    },
+      // テストする時に投稿データを追加する用。
+      addData:function(){
+        const db = firebase.firestore()
+        const postdata = db.collection("posts");
+        const now = new Date();
+        const exampledata = {
+          stadium: "[コンサドーレ札幌] 札幌厚別公園競技場",
+          category: "スタジアムグルメ",
+          title: "ここの唐揚げが美味しい！",
+          body: "ここの唐揚げがとても美味しいです！しかも沢山入ってこの値段なので是非一度買ってみてください！",
+          created: now.getFullYear() + "/" + ("0"+(now.getMonth() + 1)).slice(-2) + '/' + ("0" + now.getDate()).slice(-2),
+          contributorName:this.visitorName,
+          contributorUid:this.visitorUid,
+          updated:null,
+          likedCounter:0,
+          likedUsers:[],
+        }
+        postdata.add(exampledata).then(() => {
+          console.log('成功')
+        })
+        .catch(function(error){
+          console.error(error)
+        })
+    // displayImage:function(){
+    //   const storageRef = firebase.storage().ref();
+    //   const ImagesRef = storageRef.child('postsImages/サンプル画像.png');
+    //   console.log(ImagesRef);
+    // },
+    
     },
     mounted: function(){
       this.redirect();
-      this.displayImage();
+      // this.addData();
+      // this.displayImage();
     }
   }
+}
 </script>
 
 <style>
