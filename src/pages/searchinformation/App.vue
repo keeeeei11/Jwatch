@@ -113,6 +113,7 @@
                         <option value="good">いいねが多い順</option>
                     </select>
                 </div>
+                <VueLoading v-if="isLoading" type="spiningDubbles" color="#aaa" :size="{ width: '100px', height: '100px' }"></VueLoading>
                 <!-- 選択したスタジアムとカテゴリーで投稿がない時 -->
                 <div class="post-no-contents" v-if="noData">
                     <p>{{ stadium }}の{{ category }}に関する投稿はまだありません…</p>
@@ -157,7 +158,7 @@
                         <div class="post-evaluation">
                           <div class="post-evaluation-contents">
                               <div class="good-count evaluation-btn">
-                                  <button>いいね！ {{ postSingleData.data().likedCounter }}</button>
+                                  <button @click="likedData(postSingleData.data(), postSingleData.id)">いいね！ {{ postSingleData.data().likedCounter }}</button>
                               </div>
                               <!-- 投稿者と閲覧者が同じである時 -->
                               <div class="allow-manage" v-if="postSingleData.data().contributorUid == visitorUid">
@@ -302,8 +303,6 @@
                       </section>
                       <div class="reconfirmation-cover"></div>
                     </div>
-
-
                     <!-- 通報画面 -->
                     <div class="report" v-if="reportForm">
                       <section class="reconfirmation">
@@ -417,6 +416,7 @@ import MoveTopBtn from "../../components/MoveTopBtn"
 import Paginate from 'vuejs-paginate'
 import Jfooter from "../../components/Jfooter"
 import myFirstMixin from "../../mixin/myFirstMixin"
+import { VueLoading } from "vue-loading-template"
 export default {
     data(){
         return{
@@ -428,6 +428,7 @@ export default {
           allowDelete:false,
           // firestoreから取得したデータを保管する
           postMultipleData:[],
+          isLiked:false,
           // ページネーション機能
           sortValue:sessionStorage.getItem("sortkey"),
           parPage: 10,
@@ -445,6 +446,8 @@ export default {
           reported:false,
           reportReason:"",
           reportBody:"",
+          // ローディング画面
+          isLoading:false,
         }
     },
     components: {
@@ -452,7 +455,8 @@ export default {
         PageTitle,
         MoveTopBtn,
         Jfooter,
-        Paginate
+        Paginate,
+        VueLoading
     },
     mixins:[
         myFirstMixin
@@ -463,52 +467,66 @@ export default {
             // スタジアムとカテゴリーが入力されているかチェック
           if(this.stadium.length > 0 && this.category.length > 0){
             // 一度配列を空にしないと前の検索結果が残ったままになる。
+            this.isLoading = true
             this.postMultipleData = [];
             // データの取得
             const db = firebase.firestore();
             const postData = db.collection("posts")
             const displayData = postData.where("stadium", "==", stadium).where("category", "==", category)
             // 0件の場合はforEachが実行されないのでthis.noData = trueのままで処理が完了する。
-            this.noData = true
             // 新しい順が選択されている時
             if(this.sortValue === "newest"){
-                const newestDisplayData = displayData.orderBy('created','desc').get()
+              const newestDisplayData = displayData.orderBy('created','desc').get()
                 .then(querySnapshot => {
-                    querySnapshot.forEach((doc) => {
-                        this.postMultipleData.push(doc);
+                  querySnapshot.forEach((doc) => {
+                    this.postMultipleData.push(doc);
                         sessionStorage.setItem("sortkey", this.sortValue)
                         // データが1件以上ある時はfalseにする
-                        this.noData = false
-                        // console.log()
                 })
+                this.isLoading = false
+                if(this.postMultipleData.length == 0){
+                  this.noData = true
+                } else {
+                  this.noData = false
+                }
                 })
                 .catch(function(error) {
-                    console.log("Error getting documents: ", error);
+                  console.log("Error getting documents: ", error);
                     console.log(newestDisplayData)
                 });
             // 古い順が選択されている時
             } else if (this.sortValue === "oldest"){
-                const oldestDisplayData = displayData.orderBy('created').get()
+              const oldestDisplayData = displayData.orderBy('created').get()
             .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                    this.postMultipleData.push(doc);
+              querySnapshot.forEach(doc => {
+                this.postMultipleData.push(doc);
                     sessionStorage.setItem("sortkey", this.sortValue)
-                        this.noData = false
             })
+            this.isLoading = false
+            if(this.postMultipleData.length == 0){
+              this.noData = true
+            } else {
+              this.noData = false
+            }
             })
             .catch(function(error) {
-                console.log("Error getting documents: ", error);
+              console.log("Error getting documents: ", error);
                 console.log(oldestDisplayData)
             });
             // いいねが多い順が選択されている時
             } else if (this.sortValue === "good"){
-                const goodDisplayData = displayData.orderBy('likedCounter', 'desc').get()
+              const goodDisplayData = displayData.orderBy('likedCounter', 'desc').get()
             .then(querySnapshot => {
-                querySnapshot.forEach(doc => {
-                    this.postMultipleData.push(doc);
+              querySnapshot.forEach(doc => {
+                this.postMultipleData.push(doc);
                     sessionStorage.setItem("sortkey", this.sortValue)
-                    this.noData = false
             })
+            this.isLoading = false
+            if(this.postMultipleData.length == 0){
+              this.noData = true
+            } else {
+              this.noData = false
+            }
             })
             .catch(function(error) {
                 console.log("Error getting documents: ", error);
@@ -521,6 +539,41 @@ export default {
           } else {
               return alert("スタジアム名とカテゴリーを選択してください。")
           }
+        },
+        countData: function(){
+          if(this.postMultipleData < 1){
+            this.noData = true
+          }
+        },
+        likedData: function(data, dataId){
+        firebase.auth().onAuthStateChanged(user => {
+          const db = firebase.firestore()
+          const postData = db.collection('posts').doc(dataId)
+          // DBのlikedUsersにuser.uidが存在するか判定する
+          const likedUser = data.likedUsers.some(param => {
+            return param == user.uid
+          })
+          if(likedUser == true){
+            // いいねを取り消す処理
+            postData.update({
+              likedCounter: firebase.firestore.FieldValue.increment(-1),
+              likedUsers: firebase.firestore.FieldValue.arrayRemove(user.uid)
+            });
+            postData.onSnapshot(function(data){
+              console.log(data)
+            })
+            // this.isLiked = false
+            console.log("存在する")
+          } else {
+            // いいねを増やす処理
+            console.log('存在しない')
+            postData.update({
+              likedCounter: firebase.firestore.FieldValue.increment(1),
+              likedUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
+            });
+            // this.isLiked = true
+          }
+        })
         },
         // 編集画面の表示/非表示
         triggerEditShow: function(data){
@@ -557,13 +610,13 @@ export default {
           updated: now.getFullYear() + "/" + ("0"+(now.getMonth() + 1)).slice(-2) + '/' + ("0" + now.getDate()).slice(-2),
           contributorName:this.visitorName,
           likedCounter:unchangeData.likedCounter,
-          likedUser:unchangeData.likedUser,
+          likedUsers:unchangeData.likedUsers,
         }
+        // スタジアムとカテゴリーが入力されているか判定する
         if(this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
             if (this.editTitle.length > 0 && this.editBody.length > 0 ) {
               postdata.doc(individualId).set(inputdata, {merge: true} ).then(() => {
-                // this.triggerEditHide();
                 this.triggerEditedShow();
               })
               .catch(function(error){
@@ -608,7 +661,7 @@ export default {
             postContributorUid : postData.contributorUid,
             postUpdated : postData.updated,
             postLikedCounter : postData.likedCounter,
-            postLikedUser : postData.likedUser,
+            postlikedUsers : postData.likedUsers,
             // 通報理由
             reportReason : this.reportReason,
             reportBody : this.reportBody,
@@ -629,8 +682,7 @@ export default {
         },
         // 選択した投稿を削除する
         deleteData: function(id){
-            console.log(id);
-            if(confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")){
+            if(confirm("この投稿を削除しますか？一度削除すると2度と戻せません。")){
             const db = firebase.firestore();
             const postData = db.collection("posts")
             postData.doc(id).delete()
@@ -651,7 +703,8 @@ export default {
             behavior:"instant",
         })
         },
-        // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、情報がないと誤表示するのを防ぐ役割
+        // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、
+        // 情報がないと誤表示するのを防ぐ役割
         noDataHide:function(){
             this.noData = false
         }
@@ -667,8 +720,11 @@ export default {
       },
     },
     mounted:function(){
-        // 初回訪問時に新しい順を選択しておく
-        this.sortValue = "newest"
+      // 初回訪問時に新しい順を選択しておく
+      this.sortValue = "newest"
+    },
+    beforeUpdate:function(){
+      this.isLoading = false
     }
 };
 </script>
@@ -957,6 +1013,11 @@ main{
     color: #fff;
     transition: 0.4s;
     cursor: pointer;
+}
+
+.liked button{
+    background-color: #484b48;
+    color: #fff;
 }
 
 /* 編集完了画面 */

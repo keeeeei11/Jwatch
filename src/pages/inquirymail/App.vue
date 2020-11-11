@@ -9,43 +9,46 @@
     </div>
     <div class="inquiry-sort">
     <select @change="sortData()" v-model="sortValue">
-      <option value="newest" selected>新しい順</option>
-      <option value="oldest">古い順</option>
+      <option value="newest" selected>日時が新しい順</option>
+      <option value="oldest">日時が古い順</option>
     </select>
     </div>
     <!-- inquirySingleData = doc である。-->
     <!-- getItemsにinquiryMultipleDataが格納されている -->
-    <div v-for="inquirySingleData in getItems" :key="inquirySingleData.index">
-      <div class="inquiry-contents">
-        <div class="inquiry-example-contents">
-          <div class="inquiry-basic-information">
-            <div class="inquiry-basic-information-top">
-                <div class="inquiry-name">
-                    <p>{{ inquirySingleData.data().name }}</p>
+    <VueLoading v-if="isLoading" type="spiningDubbles" color="#aaa" :size="{ width: '100px', height: '100px' }"></VueLoading>
+    <div class="inquiry-data" v-else>
+      <div v-for="inquirySingleData in getItems" :key="inquirySingleData.index">
+        <div class="inquiry-contents">
+          <div class="inquiry-example-contents">
+            <div class="inquiry-basic-information">
+              <div class="inquiry-basic-information-top">
+                  <div class="inquiry-name">
+                      <p>{{ inquirySingleData.data().name }}</p>
+                  </div>
+                  <div class="inquiry-email">
+                    <p>{{ inquirySingleData.data().mailAddress }}</p>
+                  </div>
+              </div>
+              <div class="inquiry-basic-information-bottom">
+                  <div class="inquiry-date">
+                      <p>{{ inquirySingleData.data().created }}</p>
+                  </div>
+              </div>
+            </div>
+            <div class="inquiry-main-content">
+                <div class="inquiry-title">
+                    <p>{{ inquirySingleData.data().title }}</p>
                 </div>
-                <div class="inquiry-email">
-                  <p>{{ inquirySingleData.data().mailAddress }}</p>
+                <div class="inquiry-text">
+                    <p>{{ inquirySingleData.data().body }}</p>
                 </div>
             </div>
-            <div class="inquiry-basic-information-bottom">
-                <div class="inquiry-date">
-                    <p>{{ inquirySingleData.data().created }}</p>
-                </div>
-            </div>
-          </div>
-          <div class="inquiry-main-content">
-              <div class="inquiry-title">
-                  <p>{{ inquirySingleData.data().title }}</p>
+            <div class="inquiry-evaluation">
+              <div class="inquiry-evaluation-contents">
+                  <div class="inquiry-delete">
+                    <button @click="deleteData(inquirySingleData.id)">このお問い合わせを削除する</button>
+                  </div>
               </div>
-              <div class="inquiry-text">
-                  <p>{{ inquirySingleData.data().body }}</p>
-              </div>
-          </div>
-          <div class="inquiry-evaluation">
-            <div class="inquiry-evaluation-contents">
-                <div class="inquiry-delete">
-                  <button @click="deleteData(inquirySingleData.id)">このお問い合わせを削除する</button>
-                </div>
             </div>
           </div>
         </div>
@@ -80,6 +83,7 @@ import adminHeader from "../../components/adminHeader"
 import myFirstMixin from '../../mixin/myFirstMixin';
 import MoveTopBtn from '../../components/MoveTopBtn';
 import Paginate from 'vuejs-paginate'
+import { VueLoading } from "vue-loading-template"
 export default {
   data(){
     return{
@@ -87,7 +91,9 @@ export default {
       inquiryMultipleData:[],
       sortValue:sessionStorage.getItem("sortkey"),
       parPage: 5,
-      currentPage: 1
+      currentPage: 1,
+      // ローディング画面
+      isLoading:false
     }
   },
   mixins:[
@@ -96,7 +102,9 @@ export default {
   components:{
     adminHeader,
     MoveTopBtn,
-    Paginate
+    Paginate,
+    VueLoading
+
   },
   methods:{
     adminJudgment: function(){
@@ -119,6 +127,7 @@ export default {
     },
       // 初回訪問時&ページ更新時にデータを取得する
     getData: function(){
+      this.isLoading = true
       const db = firebase.firestore();
       const inquiryData = db.collection("inquiries")
       if(this.sortValue === "newest"){
@@ -128,30 +137,33 @@ export default {
             querySnapshot.forEach((doc) => {
               this.inquiryMultipleData.push(doc)
           })
+          this.isLoading = false
         })
         .catch(function(error) {
           console.log("Error getting documents: ", error);
           console.log(displayData)
+          this.isLoading = false
         });
       } else if (this.sortValue === "oldest"){
-          const oldestDisplayData = inquiryData.orderBy('created').get()
+        const oldestDisplayData = inquiryData.orderBy('created').get()
           .then(querySnapshot => {
             querySnapshot.forEach((doc) => {
-                  this.inquiryMultipleData.push(doc);
+              this.inquiryMultipleData.push(doc);
+            })
+            this.isLoading = false
           })
-      })
-      .catch(function(error) {
-        console.log("Error getting documents: ", error);
-        console.log(oldestDisplayData)
-        });
-      } else {
-        return
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+            console.log(oldestDisplayData)
+            this.isLoading = false
+          });
       }
     },
     // selectタグの操作時に実行する。
     // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
     sortData: function(){
-        this.inquiryMultipleData = [];
+      this.isLoading = true
+      this.inquiryMultipleData = [];
         const db = firebase.firestore();
         const inquiryData = db.collection("inquiries")
         if(this.sortValue === "newest"){
@@ -160,32 +172,38 @@ export default {
               querySnapshot.forEach((doc) => {
                   this.inquiryMultipleData.push(doc);
                   sessionStorage.setItem("sortkey", this.sortValue)
-                  return location.reload();
               })
+              this.isLoading = false
+              if(this.inquiryMultipleData.length == 0){
+                this.noData = true
+              } else {
+                this.noData = false
+              }
             })
             .catch(function(error) {
               console.log("Error getting documents: ", error);
               console.log(newestDisplayData)
+              this.isLoading = false
             });
         } else if (this.sortValue === "oldest"){
           const oldestDisplayData = inquiryData.orderBy('created').get()
           .then(querySnapshot => {
             querySnapshot.forEach(doc => {
-                  this.inquiryMultipleData.push(doc);
+                this.inquiryMultipleData.push(doc);
                 sessionStorage.setItem("sortkey", this.sortValue)
-                return location.reload();
           })
-        })
+          this.isLoading = false
+          })
           .catch(function(error) {
             console.log("Error getting documents: ", error);
             console.log(oldestDisplayData)
+          this.isLoading = false
           });
         } else {
           console.log("sortError!")
         }
     },
     deleteData: function(id){
-      console.log(id);
       if(confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")){
         const db = firebase.firestore();
         const inquiryData = db.collection("inquiries")
@@ -219,9 +237,8 @@ export default {
     }
   },
   mounted: function(){
-    this.adminJudgment();
+    // this.adminJudgment();
     this.getData();
-    this.sortValue = "newest"
   },
 }
 </script>
@@ -323,16 +340,26 @@ justify-content: space-around;
 
 .inquiry-delete{
   text-align:center;
-  padding:5px 10px;
+  border-radius: 10px;
+  padding:5px;
   margin: 0 10px;
 }
 
 .inquiry-delete button{
-   outline: none;
+    color: #484b48;
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 2px solid #484b48;
+    border-radius: 10px;
+    padding:5px 10px;
+    transition: background-color 0.4s linear;
 }
 
 .inquiry-delete button:hover{
-  cursor: pointer;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #484b48;
+    transition: 0.4s;
 }
 
 /* ページネーション */

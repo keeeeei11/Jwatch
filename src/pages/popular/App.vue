@@ -92,6 +92,7 @@
                 </select>
                 </form>
               </div>
+                <VueLoading v-if="isLoading" type="spiningDubbles" color="#aaa" :size="{ width: '100px', height: '100px' }"></VueLoading>
               <div class="popular-posts">
                 <div class="post-no-contents" v-if="noData">
                     <p>{{ stadium }}に関する投稿はまだありません…</p>
@@ -131,8 +132,8 @@
                                   <!-- <img src="../../assets/3602761_s.jpg" alt=""> -->
                                   <!-- <img src="../../assets/2396379_s.jpg" alt=""> -->
                               </div>
-                          </div>
-                          <div class="post-evaluation">
+``                          </div>
+ ``                         <div class="post-evaluation">
                               <div class="post-evaluation-contents">
                                   <div class="good-count evaluation-btn">
                                       <button>いいね！ {{ postSingleData.data().likedCounter }}</button>
@@ -392,6 +393,8 @@ import MoveTopBtn from "../../components/MoveTopBtn"
 import Paginate from 'vuejs-paginate'
 import Jfooter from "../../components/Jfooter"
 import myFirstMixin from "../../mixin/myFirstMixin";
+import { VueLoading } from "vue-loading-template"
+
 export default {
   data(){
     return{
@@ -418,6 +421,8 @@ export default {
       reported:false,
       reportReason:"",
       reportBody:"",
+      // ローディング機能
+      isLoading:false
     }
   },
   components: {
@@ -425,31 +430,37 @@ export default {
     PageTitle,
     MoveTopBtn,
     Paginate,
-    Jfooter
+    Jfooter,
+    VueLoading
+
   },
   mixins:[
     myFirstMixin
   ],
   methods:{
     getData: function(stadium){
+        this.isLoading = true
         this.postMultipleData = [];
         // データの取得
-        this.noData = true
         const db = firebase.firestore();
         const postData = db.collection("posts")
         if(this.stadium === "allstadium"){
-        // 全てのスタジアム情報を取得する際の動作
+          // 全てのスタジアム情報を取得する際の動作
           const displayData = postData.orderBy('likedCounter','desc').get()
           .then(querySnapshot => {
-                querySnapshot.forEach((doc) => {
-                  this.postMultipleData.push(doc);
+            querySnapshot.forEach((doc) => {
+              this.postMultipleData.push(doc);
                   sessionStorage.setItem("sortkey", this.sortValue)
-                  // データが1件以上ある時はfalseにする
-                  this.noData = false
           })
+          this.isLoading = false
+          if(this.postMultipleData.length == 0){
+            this.noData = true
+          } else {
+            this.noData = false
+          }
           })
           .catch(function(error) {
-              console.log("Error getting documents: ", error);
+            console.log("Error getting documents: ", error);
               console.log(displayData)
           });
         } else {
@@ -457,12 +468,17 @@ export default {
           const inputData = postData.where("stadium", "==", stadium)
           const displayData = inputData.orderBy('likedCounter','desc').get()
           .then(querySnapshot => {
-                querySnapshot.forEach((doc) => {
-                  this.postMultipleData.push(doc);
+            querySnapshot.forEach((doc) => {
+              this.postMultipleData.push(doc);
                   sessionStorage.setItem("sortkey", this.sortValue)
                   // データが1件以上ある時はfalseにする
-                  this.noData = false
           })
+          this.isLoading = false
+          if(this.postMultipleData.length == 0){
+            this.noData = true
+          } else {
+            this.noData = false
+          }
           })
           .catch(function(error) {
               console.log("Error getting documents: ", error);
@@ -504,7 +520,7 @@ export default {
         updated: now.getFullYear() + "/" + ("0"+(now.getMonth() + 1)).slice(-2) + '/' + ("0" + now.getDate()).slice(-2),
         contributorName:this.visitorName,
         likedCounter:unchangeData.likedCounter,
-        likedUser:unchangeData.likedUser,
+        likedUsers:unchangeData.likedUsers,
       }
       if(this.editStadium.length > 0 && this.editCategory.length > 0) {
       // タイトルと本文が入力されているか判定する
@@ -555,7 +571,7 @@ export default {
           postContributorUid : postData.contributorUid,
           postUpdated : postData.updated,
           postLikedCounter : postData.likedCounter,
-          postLikedUser : postData.likedUser,
+          postlikedUsers : postData.likedUsers,
           // 通報理由
           reportReason : this.reportReason,
           reportBody : this.reportBody,

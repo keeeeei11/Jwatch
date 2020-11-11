@@ -5,16 +5,17 @@
     <main>
       <div class="report-title">
         <h2>通報一覧</h2>
-        <p>{{ reportMultipleData.length }} 件あります</p>
       </div>
     <div class="report-sort">
     <select @change="sortData()" v-model="sortValue">
-      <option value="newest" selected>新しい順</option>
-      <option value="oldest">古い順</option>
+      <option value="newest" selected>通報日時が新しい順</option>
+      <option value="oldest">通報日時が古い順</option>
     </select>
     </div>
+      <VueLoading v-if="isLoading" type="spiningDubbles" color="#aaa" :size="{ width: '100px', height: '100px' }"></VueLoading>
+      <div class="report-contents" v-else>
+      <h4>{{ reportMultipleData.length }} 件あります</h4>
       <div v-for="reportSingleData in getItems" :key="reportSingleData.index">
-        <div class="report-contents">
           <div class="report-example-contents">
             <div class="report-example-post-title">
               <h3>投稿内容</h3>
@@ -96,7 +97,7 @@ import adminHeader from "../../components/adminHeader"
 import myFirstMixin from "../../mixin/myFirstMixin";
 import MoveTopBtn from '../../components/MoveTopBtn';
 import Paginate from 'vuejs-paginate'
-
+import { VueLoading } from "vue-loading-template"
 export default {
     data(){
       return{
@@ -104,7 +105,9 @@ export default {
         reportMultipleData:[],
         sortValue:sessionStorage.getItem("sortkey"),
         parPage: 5,
-        currentPage: 1
+        currentPage: 1,
+        // ローディング画面
+        isLoading:false
       }
     },
     mixins:[
@@ -113,7 +116,9 @@ export default {
     components:{
       adminHeader,
       MoveTopBtn,
-      Paginate
+      Paginate,
+      VueLoading
+
     },
     methods:{
       adminJudgment: function(){
@@ -133,6 +138,8 @@ export default {
         })
       },
       getData: function(){
+        this.isLoading = true
+        this.postMultipleData = [];
         const db = firebase.firestore();
         const reportData = db.collection("reports")
         if(this.sortValue === "newest"){
@@ -141,23 +148,27 @@ export default {
             // docにcloud firestoreからのデータが格納されている
               querySnapshot.forEach((doc) => {
                 this.reportMultipleData.push(doc)
-            })
+              })
+              this.isLoading = false
           })
           .catch(function(error) {
             console.log("Error getting documents: ", error);
             console.log(displayData)
+            this.isLoading = false
           });
         } else if (this.sortValue === "oldest"){
             const oldestDisplayData = reportData.orderBy('reportCreated').get()
             .then(querySnapshot => {
               querySnapshot.forEach((doc) => {
                 this.reportMultipleData.push(doc);
+              })
+              this.isLoading = false
             })
-        })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error);
-          console.log(oldestDisplayData)
-          });
+            .catch(function(error) {
+              console.log("Error getting documents: ", error);
+              console.log(oldestDisplayData)
+              this.isLoading = false
+            });
         } else {
           return
         }
@@ -165,6 +176,7 @@ export default {
           // selectタグの操作時に実行する。
     // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
     sortData: function(){
+        this.isLoading = true
         this.reportMultipleData = [];
         const db = firebase.firestore();
         const reportData = db.collection("reports")
@@ -174,12 +186,13 @@ export default {
               querySnapshot.forEach((doc) => {
                   this.reportMultipleData.push(doc);
                   sessionStorage.setItem("sortkey", this.sortValue)
-                  return location.reload();
               })
+              this.isLoading = false
             })
             .catch(function(error) {
               console.log("Error getting documents: ", error);
               console.log(newestDisplayData)
+              this.isLoading = false
             });
         } else if (this.sortValue === "oldest"){
           const oldestDisplayData = reportData.orderBy('reportCreated').get()
@@ -187,12 +200,13 @@ export default {
             querySnapshot.forEach(doc => {
                   this.reportMultipleData.push(doc);
                 sessionStorage.setItem("sortkey", this.sortValue)
-                return location.reload();
+            })
+            this.isLoading = false
           })
-        })
           .catch(function(error) {
             console.log("Error getting documents: ", error);
             console.log(oldestDisplayData)
+            this.isLoading = false
           });
         } else {
           console.log("sortError!")
@@ -234,7 +248,6 @@ export default {
     mounted: function(){
       this.adminJudgment();
       this.getData();
-      this.sortValue = "newest"
     },
 }
 </script>
@@ -265,6 +278,10 @@ main{
 
 .report-sort select:hover{
   cursor: pointer;
+}
+
+.report-contents{
+  text-align: center;
 }
 
 /*投稿例*/
