@@ -1,82 +1,95 @@
 <template>
 <div id="app">
-  <div class="wrap">
-      <Jheader></Jheader>
-<!--メイン-->
-    <main>
-    <PageTitle title="Login Page" description="観戦情報の投稿はログインが必要です。"></PageTitle>
-    <div class="login-contents">
-        <h2>ログイン方法を選択してください</h2>
-        <div class="google-login login-btn">
-            <button @click="googleLogin">Googleアカウントでログイン</button>
-        </div>
-        <div class="twitter-login login-btn">
-            <button @click="twitterLogin">Twitterアカウントでログイン</button>
-        </div>
-        <div class="easily-login login-btn">
-            <button @click="anonymousLogin">簡単(匿名)ログイン</button>
+    <div class="normal-page" v-if="!isLoading">
+        <div class="wrap">
+            <Jheader></Jheader>
+        <!--メイン-->
+            <main>
+            <PageTitle title="Login Page" description="観戦情報の投稿はログインが必要です。"></PageTitle>
+            <div class="login-contents">
+                <h2>ログイン方法を選択してください</h2>
+                <div class="google-login login-btn">
+                    <button @click="googleLogin">Googleアカウントでログイン</button>
+                </div>
+                <div class="twitter-login login-btn">
+                    <button @click="twitterLogin">Twitterアカウントでログイン</button>
+                </div>
+                <div class="easily-login login-btn">
+                    <button @click="anonymousLogin">簡単(匿名)ログイン</button>
+                </div>
+            </div>
+            <MoveTopBtn></MoveTopBtn>
+            </main>
+            <Jfooter></Jfooter>
         </div>
     </div>
-    <MoveTopBtn></MoveTopBtn>
-    </main>
-    <Jfooter></Jfooter>
-  </div>
+    <div class="loading-page" v-else>
+        <VueLoading type="spiningDubbles" color="#aaa" :size="{ width: '100px', height: '100px' }"></VueLoading>
+    </div>
 </div>
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import myFirstMixin from '../../mixin/myFirstMixin';
+import firebase from "firebase"
+import "firebase/app"
+import "firebase/auth"
+import "firebase/firestore"
+import "firebase/storage"
+import myFirstMixin from '../../mixin/myFirstMixin'
 import Jheader from "../../components/Jheader"
 import PageTitle from "../../components/PageTitle"
 import MoveTopBtn from "../../components/MoveTopBtn"
 import Jfooter from "../../components/Jfooter"
+import { VueLoading }  from 'vue-loading-template'
 export default {
     components: {
         Jheader,
         PageTitle,
         MoveTopBtn,
         Jfooter,
+        VueLoading
     },
     mixins:[
         myFirstMixin,
     ],
+    data(){
+        return{
+            isLoading:sessionStorage.getItem("loading"),
+        }
+    },
     methods:{
         redirect: function(){
-        firebase.auth().onAuthStateChanged(function(user) {
-            // ログイン時はマイページへ
-        if(user){
-            location.href = "https://jwatch-8411c.web.app/mypage/index.html"
-        } else {
-            return
-        }
-        });
+            firebase.auth().onAuthStateChanged(function(user) {
+                // ログイン時はマイページへ
+                if(user){
+                    sessionStorage.removeItem('loading')
+                    location.href = "https://jwatch-8411c.web.app/mypage/index.html"
+                } else {
+                    return
+                }
+            });
         },
         googleLogin: function(){
-        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+            firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+            this.isLoading = true
+            sessionStorage.setItem('loading', this.isLoading)
         },
         twitterLogin: function(){
-        firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider());
+            firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider());
+            this.isLoading = true
+            sessionStorage.setItem('loading', this.isLoading)
         },
         anonymousLogin: function(){
-        firebase.auth().signInAnonymously().catch(function() {
-        // let errorCode = error.code;
-        // let errorMessage = error.message;
-        // });
-        firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-        // User is signed in.
-        // var isAnonymous = user.isAnonymous;
-        // var uid = user.uid;
-        } else {
-            alert("エラーが発生しました。もう一度ログインしてください。")
-        }
-        });
-        })
+            firebase.auth().signInAnonymously().catch(function() {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        this.isLoading = true
+                        sessionStorage.setItem('loading', this.isLoading)
+                    } else {
+                        alert("エラーが発生しました。もう一度ログインしてください。")
+                    }
+                });
+            })
         },
     },
     mounted:function(){
@@ -145,6 +158,18 @@ main{
 
 .easily-login button{
     padding:20px 85px;
+}
+
+.loading-page{
+    z-index:1;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* タブレット */
