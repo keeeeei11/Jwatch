@@ -92,11 +92,6 @@ module.exports = {
       filename:"reportlist/index.html",
       title:"通報一覧確認ページ"
     },
-    request: {
-      entry:"src/pages/request/main.js",
-      filename:"request/index.html",
-      title:"こんな情報が欲しい！ Jwatch Jリーグ観戦情報サイト"
-    },
     searchinformation: {
       entry:"src/pages/searchinformation/main.js",
       filename:"searchinformation/index.html",
