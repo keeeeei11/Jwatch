@@ -284,7 +284,7 @@ export default {
         contributorUid:this.visitorUid,
         updated:null,
         likedCounter:0,
-        likedUser:[],
+        likedUsers:[],
     }
     if(this.stadium.length > 0 && this.category.length > 0) {
     // タイトルと本文が入力されているか判定する

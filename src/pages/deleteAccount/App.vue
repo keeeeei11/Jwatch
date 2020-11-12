@@ -13,10 +13,6 @@ import "firebase/firestore";
 import "firebase/storage";
 import myFirstMixin from '../../mixin/myFirstMixin';
 export default {
-  data(){
-    return{
-    }
-  },
   mixins:[
     myFirstMixin
   ],

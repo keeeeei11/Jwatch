@@ -17,6 +17,7 @@
                 <div class="easily-login login-btn">
                     <button @click="anonymousLogin">簡単(匿名)ログイン</button>
                 </div>
+                <p>ログイン完了後、マイページに移動します</p>
             </div>
             <MoveTopBtn></MoveTopBtn>
             </main>
@@ -54,6 +55,7 @@ export default {
     ],
     data(){
         return{
+            // 保持することでログイン処理中にローディング画面を表示する。
             isLoading:sessionStorage.getItem("loading"),
         }
     },
@@ -136,6 +138,11 @@ main{
     font-size: 21px;
 }
 
+.login-contents p{
+    text-align: center;
+    font-size: 18px;
+}
+
 .login-btn button{
     margin: 40px auto;
     padding: 20px 50px;
@@ -202,6 +209,9 @@ main{
     font-size: 18px;
 }
 
+.login-contents p{
+    font-size: 16px;
+}
 .login-contents button{
     margin:20px auto;
     padding:10px 30px;
