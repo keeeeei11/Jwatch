@@ -93,7 +93,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 /*以下ヘッダー*/
 header {
   width: 100%;

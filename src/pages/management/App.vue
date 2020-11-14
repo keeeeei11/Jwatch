@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 main{
   color: rgb(28.8%, 29.6%, 28.8%);
   text-align: center;

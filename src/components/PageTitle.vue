@@ -16,7 +16,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .page-title{
     margin-left: 20%;
     margin-top: 250px;

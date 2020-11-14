@@ -23,6 +23,7 @@
                 >--スタジアム名を選択してください--</option
               >
               <option value="allstadium">全チーム</option>
+              <option value="テストスタジアム">テストスタジアム</option>
               <option disabled>--北海道--</option>
               <option value="[コンサドーレ札幌] 札幌厚別公園競技場"
                 >[コンサドーレ札幌] 札幌厚別公園競技場</option
@@ -347,6 +348,7 @@
                       <option value="" selected disabled
                         >--スタジアム名を選択してください(必須)--</option>
                       <option disabled>--北海道--</option>
+                      <option value="テストスタジアム">テストスタジアム</option>
                       <option value="[コンサドーレ札幌] 札幌厚別公園競技場"
                         >[コンサドーレ札幌] 札幌厚別公園競技場</option
                       >
@@ -1052,7 +1054,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .wrap {
   overflow: hidden;
 }

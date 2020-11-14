@@ -12,6 +12,7 @@
                     <select v-model="stadium" @change="noDataHide()" class="stadium-list list" size="1"><br>
                         <option value="" selected disabled>--スタジアム名を選択してください(必須)--</option>
                         <option disabled>--北海道--</option>
+                        <option value="テストスタジアム">テストスタジアム</option>
                         <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
                         <option value="[コンサドーレ札幌] 札幌ドーム">[コンサドーレ札幌] 札幌ドーム</option>
                         <option disabled>--東北--</option>
@@ -187,6 +188,7 @@
                             <select name="stadiumlist" v-model="editStadium" class="stadium-list-box box" size="1">
                                 <option value="" selected disabled>--スタジアム名を選択してください(必須)--</option>
                                 <option disabled>--北海道--</option>
+                                <option value="テストスタジアム">テストスタジアム</option>
                                 <option value="[コンサドーレ札幌] 札幌厚別公園競技場">[コンサドーレ札幌] 札幌厚別公園競技場</option>
                                 <option value="[コンサドーレ札幌] 札幌ドーム">[コンサドーレ札幌] 札幌ドーム</option>
                                 <option disabled>--東北--</option>
@@ -729,7 +731,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .wrap{
     overflow: hidden;
 }

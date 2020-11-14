@@ -24,7 +24,7 @@
   }
  }
 </script>
-<style>
+<style scoped>
 #move_top{
     user-select: none;
 }

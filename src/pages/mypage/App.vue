@@ -225,7 +225,6 @@
             </div>
             <div class="mypage-contents">
                 <div class="mypage-past-post">
-
                 <div class="logout">
                     <p class="logout-execute" @click="logoutPopupShow">ログアウトする</p>
                 </div>
@@ -284,6 +283,7 @@ export default {
       postMultipleData:[],
       // いいねボタンが押されているか
       isLiked:false,
+      liKedCount:0,
       // ページネーション機能
       sortValue:sessionStorage.getItem("sortkey"),
       parPage: 5,
@@ -327,7 +327,7 @@ export default {
     getData: function(){
       this.isLoading = true
       firebase.auth().onAuthStateChanged(user => {
-        this.noData = true
+      this.noData = true
       const db = firebase.firestore();
       const postData = db.collection("posts")
       console.log(user.uid)
@@ -469,7 +469,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .wrap{
     overflow: hidden;
 }

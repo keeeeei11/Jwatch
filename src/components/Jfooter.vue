@@ -40,7 +40,7 @@
   </footer>
 </template>
 
-<style>
+<style scoped>
 /*以下フッター*/
 footer{
   background-color:#f2f2f2;
