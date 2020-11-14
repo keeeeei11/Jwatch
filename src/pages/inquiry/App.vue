@@ -192,7 +192,7 @@ main{
 }
 
 .inquiry-body-information-box{
-    width: 90%;
+    width: 60%;
     height: 400px;
 }
 
@@ -355,6 +355,10 @@ main{
 }
 
 .inquiry-form input{
+    width: 90%;
+}
+
+.inquiry-body-information-box{
     width: 90%;
 }
 }
