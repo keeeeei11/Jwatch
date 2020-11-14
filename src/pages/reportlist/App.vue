@@ -252,7 +252,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .wrap{
   overflow: hidden;
 }

@@ -469,7 +469,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .wrap{
     overflow: hidden;
 }
@@ -922,9 +922,6 @@ main{
     text-decoration: none;
     color: rgb(28.8%, 29.6%, 28.8%);
 }
-
-
-
 
 /* ログアウト */
 .logout-execute, .delete-execute{

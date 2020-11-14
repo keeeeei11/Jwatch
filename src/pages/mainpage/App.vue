@@ -91,7 +91,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 body{
     font-family:"Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic Pro", Arial, メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
@@ -163,8 +163,9 @@ main{
 
 .usage-primary-introduction img{
     height: auto;
-    width:80%;
+    width:70%;
     height: 300px;
+    margin: auto 100px;
 }
 
 .usage-primary-introduction p{
@@ -254,6 +255,12 @@ detail-usage-nav-discription p{
 .usage-primary-introduction{
     display: block;
 }
+
+.usage-primary-introduction img{
+    width: 60%;
+    margin: auto;
+    height: 300px;
+}
 }
 
 @media (max-width:559px){
@@ -287,6 +294,12 @@ detail-usage-nav-discription p{
 
 .usage-primary-introduction p{
     font-size: 16px;
+}
+
+.usage-primary-introduction img{
+    width: 80%;
+    margin: auto;
+    height: 250px;
 }
 
 .usage-secondary-introduction{
