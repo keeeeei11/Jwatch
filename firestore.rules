@@ -1,9 +1,35 @@
 rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read
-      allow write;
+  service cloud.firestore {
+    match /databases/{database}/documents {
+    function isAdminUser() {
+      return exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    // 投稿データへのアクセス制限
+      match /posts/{postID=**}{
+        allow read: if true;
+        allow create: if request.auth.uid != null && request.auth.uid == request.resource.data.contributorUid;
+        allow update: if request.auth.uid != null && resource.data.contributorUid == request.resource.data.contributorUid;
+        allow delete: if request.auth.uid != null && request.auth.uid == request.data.contributorUid;
+      }
+      // お問い合わせデータへのアクセス制限
+      match /inquiries/{inquiryID=**}{
+        allow read: if isAdminUser();
+        allow create: if true;
+        allow update: if false;
+        allow delete: if isAdminUser();
+      }
+      // 通報データへのアクセス制限
+      match /reports/{reportID}{
+        allow read:	if isAdminUser();
+        allow create: if true;
+        allow update: if false;
+        allow delete: if isAdminUser();
+      }
+
+      // 管理者データへのアクセス制限
+      // 読み取りと書き取りの両方を管理者のみ可能に設定する
+      match /admin/{adminID}{
+        allow read, write: if isAdminUser();
+      }
     }
   }
-}
