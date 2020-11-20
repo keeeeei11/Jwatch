@@ -344,9 +344,11 @@
                       name="stadiumlist"
                       v-model="editStadium"
                       class="stadium-list-box box"
-                      size="1">
+                      size="1"
+                    >
                       <option value="" selected disabled
-                        >--スタジアム名を選択してください(必須)--</option>
+                        >--スタジアム名を選択してください(必須)--</option
+                      >
                       <option disabled>--北海道--</option>
                       <option value="テストスタジアム">テストスタジアム</option>
                       <option value="[コンサドーレ札幌] 札幌厚別公園競技場"
@@ -448,11 +450,14 @@
                       <option
                         value="[湘南ベルマーレ] Ｓｈｏｎａｎ ＢＭＷ スタジアム平塚"
                         >[湘南ベルマーレ] Ｓｈｏｎａｎ ＢＭＷ
-                        スタジアム平塚</option>
+                        スタジアム平塚</option
+                      >
                       <option value="[横浜F・マリノス] ニッパツ三ツ沢球技場"
-                        >[横浜F・マリノス] ニッパツ三ツ沢球技場</option>
+                        >[横浜F・マリノス] ニッパツ三ツ沢球技場</option
+                      >
                       <option value="[横浜FC] ニッパツ三ツ沢球技場"
-                        >[横浜FC] ニッパツ三ツ沢球技場</option>
+                        >[横浜FC] ニッパツ三ツ沢球技場</option
+                      >
                       <option value="[Y.S.C.C. 横浜] ニッパツ三ツ沢球技場"
                         >[Y.S.C.C. 横浜] ニッパツ三ツ沢球技場</option
                       >
@@ -728,7 +733,7 @@
                       placeholder="400字以内で入力してください"
                       maxlength="400"
                     ></textarea
-                    ><br/>
+                    ><br />
                     <div class="count-character">
                       <p>残り{{ 400 - reportBody.length }}字です</p>
                     </div>

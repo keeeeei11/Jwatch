@@ -1,26 +1,29 @@
 <template>
-<div id="app">
+  <div id="app">
     <main>
-    <div class="management-title">
-      <h2>管理画面</h2>
-    </div>
-    <div class="management-contents">
+      <div class="management-title">
+        <h2>管理画面</h2>
+      </div>
+      <div class="management-contents">
         <div class="management-report content">
-          <a href="http://jwatch-8411c.web.app/reportlist/index.html">通報一覧</a>
+          <a href="http://jwatch-8411c.web.app/reportlist/index.html"
+            >通報一覧</a
+          >
         </div>
         <div class="management-contact content">
-          <a href="http://jwatch-8411c.web.app/inquirymail/index.html">お問い合わせメール</a>
+          <a href="http://jwatch-8411c.web.app/inquirymail/index.html"
+            >お問い合わせメール</a
+          >
         </div>
         <div class="logout content">
           <a href="http://jwatch-8411c.web.app/logout/index.html">ログアウト</a>
         </div>
-    </div>
-  </main>
-</div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
-// あとで有効にする
 import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
@@ -28,52 +31,54 @@ import "firebase/storage";
 // Add the Firebase products that you want to use
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
-  mixins:[
-    myFirstMixin
-  ],
-  methods:{
+  mixins: [myFirstMixin],
+  methods: {
     // 管理者かどうかを判断する
-    adminJudgment: function(){
+    adminJudgment: function() {
       // ログインしていない時でもfirebase.auth()は実行される
-      firebase.auth().onAuthStateChanged(user => {
-          // ログインしていないユーザーを強制的にトップページに飛ばす
-        if(!user){
-          location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
+      firebase.auth().onAuthStateChanged((user) => {
+        // ログインしていないユーザーを強制的にトップページに飛ばす
+        if (!user) {
+          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
+        } else {
+          const db = firebase.firestore();
+          const admin = db.collection("admin");
+          admin.get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              // 管理者以外のユーザーを強制的にトップページに飛ばす
+              if (doc.id != user.uid) {
+                location.href =
+                  "https://jwatch-8411c.web.app/mainpage/index.html";
+              }
+            });
+          });
         }
-        const db = firebase.firestore();
-        const admin = db.collection("admin").doc("adminUser")
-        admin.get().then(function(doc) {
-          // 管理者以外のユーザーを強制的にトップページに飛ばす
-          if(doc.data().adminUserId != user.uid){
-            location.href = "https://jwatch-8411c.web.app/mainpage/index.html"
-          }
-        })
-      })
+      });
     },
   },
-  mounted:function(){
-    this.adminJudgment()
-  }
-}
+  mounted: function() {
+    this.adminJudgment();
+  },
+};
 </script>
 
 <style scoped>
-main{
+main {
   color: rgb(28.8%, 29.6%, 28.8%);
   text-align: center;
 }
-.management-contents a{
+.management-contents a {
   color: rgb(28.8%, 29.6%, 28.8%);
   font-size: 18px;
   position: relative;
   display: inline-block;
   text-decoration: none;
 }
-.management-contents a::after{
+.management-contents a::after {
   position: absolute;
   bottom: -1px;
   left: 0;
-  content: '';
+  content: "";
   width: 100%;
   height: 2px;
   background: #333;
@@ -81,11 +86,11 @@ main{
   transform-origin: center top;
   transition: transform 0.3s;
 }
-.management-contents a:hover::after{
-  transform: scale(1,1);
+.management-contents a:hover::after {
+  transform: scale(1, 1);
 }
 
-.content{
-  margin:30px auto;
+.content {
+  margin: 30px auto;
 }
 </style>

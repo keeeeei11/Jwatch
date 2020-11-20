@@ -1,123 +1,138 @@
 <template>
-<div id="app">
-      <div class="wrap">
-      <Jheader :visitorName="visitorName" :isLogin="isLogin" :isAnonymous="isAnonymous"></Jheader>
-    <!-- 以下メイン-->
-    <main>
-        <PageTitle title="How to use" description="観戦情報の閲覧と投稿、情報のの方法を記載しています"></PageTitle>
+  <div id="app">
+    <div class="wrap">
+      <Jheader
+        :visitorName="visitorName"
+        :isLogin="isLogin"
+        :isAnonymous="isAnonymous"
+      ></Jheader>
+      <!-- 以下メイン-->
+      <main>
+        <PageTitle
+          title="How to use"
+          description="観戦情報の閲覧と投稿、情報のの方法を記載しています"
+        ></PageTitle>
         <div class="search-contents">
-            <div class="search-title">
-                <h2>How to Search</h2>
-                <p>観戦情報の閲覧方法</p>
+          <div class="search-title">
+            <h2>How to Search</h2>
+            <p>観戦情報の閲覧方法</p>
+          </div>
+          <div class="search-discription">
+            <div class="search-primary-discription">
+              <p>①スタジアムを選択してください。</p>
+              <p>②カテゴリーを選択してください。</p>
             </div>
-            <div class="search-discription">
-                <div class="search-primary-discription">
-                    <p>①スタジアムを選択してください。</p>
-                    <p>②カテゴリーを選択してください。</p>
-                </div>
-                <div class="search-secondary-discription">
-                    <p>※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。</p>
-                </div>
+            <div class="search-secondary-discription">
+              <p>
+                ※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。
+              </p>
             </div>
+          </div>
         </div>
         <div class="search-nav">
-            <a href="https://jwatch-8411c.web.app/searchinformation/index.html">
-                <div class="search-nav-contents nav">
-                    <div class="search-nav-ja">
-                        <p>観戦情報を探す！</p>
-                    </div>
-                    <div class="search-nav-en">
-                        <p>Let’s search!</p>
-                    </div>
-                </div>
-            </a>
+          <a href="https://jwatch-8411c.web.app/searchinformation/index.html">
+            <div class="search-nav-contents nav">
+              <div class="search-nav-ja">
+                <p>観戦情報を探す！</p>
+              </div>
+              <div class="search-nav-en">
+                <p>Let’s search!</p>
+              </div>
+            </div>
+          </a>
         </div>
         <div class="post-contents">
-            <div class="post-title">
-                <h2>How to post</h2>
-                <p>観戦情報の投稿方法</p>
+          <div class="post-title">
+            <h2>How to post</h2>
+            <p>観戦情報の投稿方法</p>
+          </div>
+          <div class="post-discription">
+            <div class="post-primary-discription">
+              <p>①観戦情報を投稿する！をクリックします</p>
+              <p>
+                ②投稿フォームが表示されるのでスタジアム名とカテゴリーを選択してください。
+              </p>
+              <p>③投稿したい内容を入力してください</p>
             </div>
-            <div class="post-discription">
-                <div class="post-primary-discription">
-                    <p>①観戦情報を投稿する！をクリックします</p>
-                    <p>②投稿フォームが表示されるのでスタジアム名とカテゴリーを選択してください。</p>
-                    <p>③投稿したい内容を入力してください</p>
-                </div>
-                <div class="post-secondary-discription">
-                    <p>※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。</p>
-                </div>
+            <div class="post-secondary-discription">
+              <p>
+                ※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。
+              </p>
             </div>
+          </div>
         </div>
         <div class="post-example">
-            <h3>投稿例</h3>
-            <div class="post-example-contents">
-                <div class="post-basic-information">
-                <div class="post-basic-information-top">
-                    <div class="post-name">
-                        <p>〇〇さん</p>
-                    </div>
-                    <div class="post-date">
-                        <p>2000/1/1</p>
-                    </div>
+          <h3>投稿例</h3>
+          <div class="post-example-contents">
+            <div class="post-basic-information">
+              <div class="post-basic-information-top">
+                <div class="post-name">
+                  <p>〇〇さん</p>
                 </div>
-                <div class="post-basic-information-bottom">
-                    <div class="post-stadium">
-                        <p>☆☆スタジアム</p>
-                    </div>
-                    <div class="post-category">
-                        <p>スタジアムグルメ</p>
-                    </div>
+                <div class="post-date">
+                  <p>2000/1/1</p>
                 </div>
+              </div>
+              <div class="post-basic-information-bottom">
+                <div class="post-stadium">
+                  <p>☆☆スタジアム</p>
                 </div>
-                <div class="post-main-content">
-                    <div class="post-title">
-                        <p>△△の唐揚げがとても美味しかったです</p>
-                    </div>
-                    <div class="post-text">
-                        <p>ここの唐揚げは出来たてを提供してくれます。また値段も低価格で観戦の際はいつも購入しています！是非購入してみてください！</p>
-                    </div>
-                    <div class="post-img">
-                        <img src="../../assets/3602761_s.jpg" alt="">
-                        <img src="../../assets/2396379_s.jpg" alt="">
-                    </div>
+                <div class="post-category">
+                  <p>スタジアムグルメ</p>
                 </div>
-                <div class="post-evaluation">
-                    <div class="post-evaluation-contents">
-                        <div class="good-count">
-                            <p>いいね！ 6</p>
-                        </div>
-                        <div class="reporting">
-                            <p>通報する</p>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            <div class="post-main-content">
+              <div class="post-title">
+                <p>△△の唐揚げがとても美味しかったです</p>
+              </div>
+              <div class="post-text">
+                <p>
+                  ここの唐揚げは出来たてを提供してくれます。また値段も低価格で観戦の際はいつも購入しています！是非購入してみてください！
+                </p>
+              </div>
+              <div class="post-img">
+                <img src="../../assets/3602761_s.jpg" alt="" />
+                <img src="../../assets/2396379_s.jpg" alt="" />
+              </div>
+            </div>
+            <div class="post-evaluation">
+              <div class="post-evaluation-contents">
+                <div class="good-count">
+                  <p>いいね！ 6</p>
+                </div>
+                <div class="reporting">
+                  <p>通報する</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-            <div class="post-nav">
-                <a href="https://jwatch-8411c.web.app/posting/index.html">
-                    <div class="post-nav-contents nav">
-                        <div class="post-nav-ja">
-                            <p>観戦情報を投稿する！</p>
-                        </div>
-                        <div class="post-nav-en">
-                            <p>Let’s post!</p>
-                        </div>
-                    </div>
-                </a>
+        <div class="post-nav">
+          <a href="https://jwatch-8411c.web.app/posting/index.html">
+            <div class="post-nav-contents nav">
+              <div class="post-nav-ja">
+                <p>観戦情報を投稿する！</p>
+              </div>
+              <div class="post-nav-en">
+                <p>Let’s post!</p>
+              </div>
             </div>
-    <MoveTopBtn></MoveTopBtn>
-    </main>
-    <!--以下フッター-->
-    <Jfooter></Jfooter>
+          </a>
+        </div>
+        <MoveTopBtn></MoveTopBtn>
+      </main>
+      <!--以下フッター-->
+      <Jfooter></Jfooter>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-import Jheader from "../../components/Jheader"
-import PageTitle from "../../components/PageTitle"
-import MoveTopBtn from "../../components/MoveTopBtn"
-import Jfooter from "../../components/Jfooter"
+import Jheader from "../../components/Jheader";
+import PageTitle from "../../components/PageTitle";
+import MoveTopBtn from "../../components/MoveTopBtn";
+import Jfooter from "../../components/Jfooter";
 import myFirstMixin from "../../mixin/myFirstMixin";
 
 export default {
@@ -127,190 +142,47 @@ export default {
     MoveTopBtn,
     Jfooter,
   },
-  mixins:[
-    myFirstMixin
-  ],
+  mixins: [myFirstMixin],
 };
 </script>
 
 <style scoped>
 /*以下ヘッダー*/
-.wrap{
-    overflow: hidden;
+.wrap {
+  overflow: hidden;
 }
 /*以下メイン*/
 
-main{
-    color: rgb(28.8%, 29.6%, 28.8%);
+main {
+  color: rgb(28.8%, 29.6%, 28.8%);
 }
 /*観戦情報の探し方*/
 
-.search-contents{
-    margin-top: 100px;
-    margin-left: 10%;
-    padding: 100px 80px;
-    background-color: #f2f2f2;
+.search-contents {
+  margin-top: 100px;
+  margin-left: 10%;
+  padding: 100px 80px;
+  background-color: #f2f2f2;
 }
 
-.search-contents h2{
-    font-size: 32px;
+.search-contents h2 {
+  font-size: 32px;
 }
 
-.search-contents p{
-    font-size: 18px;
+.search-contents p {
+  font-size: 18px;
 }
 
-.search-discription{
-    padding-left: 10%;
+.search-discription {
+  padding-left: 10%;
 }
 
-.search-discription p{
-    line-height: 2.5em;
+.search-discription p {
+  line-height: 2.5em;
 }
 
 /* 探すボタン */
-.search-nav a{
-    width: 100vw;
-    height: 300px;
-    margin-top: 100px;
-    background-color: #323232;
-    color: #ffffff;
-    line-height: 2.5em;
-    transition: background-color 0.4s linear;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    text-decoration: none;
-}
-
-.search-nav a:hover{
-    background-color: #202020;
-}
-
-.search-nav-contants{
-    display: block;
-    font-size: 18px;
-}
-
-
-/*観戦情報の投稿方法*/
-.post-contents{
-    margin-top: 100px;
-    margin-left: 10%;
-    padding: 100px 80px;
-    background-color: #f2f2f2;
-}
-
-.post-title h2{
-    font-size: 32px;
-}
-
-.post-title p{
-    font-size: 18px;
-}
-
-.post-discription{
-    margin-top: 50px;
-}
-
-.post-discription p{
-    font-size: 18px;
-    line-height: 2.5em;
-}
-
-.post-example h3{
-    font-size: 21px;
-    text-align: center;
-}
-
-/*投稿例*/
-.post-example-contents{
-  width: 70%;
-  margin:30px auto;
-  padding: 20px 40px 20px;
-  border: 2px solid #979797;
-  border-radius: 10px;
-}
-
-.post-basic-information{
-  display: block;
-}
-
-.post-basic-information-top{
-  display: flex;
-  height: 30px;
-  margin-bottom: 30px;
-  justify-content: space-around;
-}
-
-.post-basic-information-bottom{
-  display: flex;
-  justify-content: space-around;
-}
-
-.post-name{
-  font-size: 21px;
-}
-
-.post-stadium{
-  font-size: 18px;
-}
-
-.post-category{
-  font-size: 18px;
-}
-
-.post-date{
-  font-size: 18px;
-}
-
-.post-title p{
-  text-align: center;
-  font-size: 21px;
-}
-
-.post-text{
-  margin: 25px 0;
-  padding: 0 30px;
-  text-align: left;
-}
-
-.post-text p{
-  font-size: 18px;
-}
-
-.post-img{
-  display: flex;
-}
-
-.post-img img{
-  margin: 30px auto 20px;
-  width:30%;
-  height: auto;
-}
-
-.post-evaluation p{
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  font-size: 16px;
-}
-
-.post-evaluation-contents{
-  display: flex;
-  justify-content:center;
-}
-
-.good-count, .reporting{
-  text-align:center;
-  border: 1px solid #797979;
-  border-radius: 10px;
-  padding:5px 10px;
-  margin: 0 10px;
-}
-
-/* 投稿するボタン */
-.post-nav a{
+.search-nav a {
   width: 100vw;
   height: 300px;
   margin-top: 100px;
@@ -325,156 +197,296 @@ main{
   text-decoration: none;
 }
 
-.post-nav a:hover{
+.search-nav a:hover {
   background-color: #202020;
 }
 
-.post-nav-contants{
+.search-nav-contants {
   display: block;
   font-size: 18px;
 }
 
-@media (max-width:959px){
-/* メイン */
-/*観戦情報の探し方*/
-.search-contents{
-  margin-left: 0%;
-}
-
-.search-title{
-  text-align: center;
-}
-
-.search-discription{
-  padding-left: 0%;
-}
-
 /*観戦情報の投稿方法*/
-.post-contents{
-  margin-left: 0%;
+.post-contents {
+  margin-top: 100px;
+  margin-left: 10%;
+  padding: 100px 80px;
+  background-color: #f2f2f2;
 }
 
-.post-title {
+.post-title h2 {
+  font-size: 32px;
+}
+
+.post-title p {
+  font-size: 18px;
+}
+
+.post-discription {
+  margin-top: 50px;
+}
+
+.post-discription p {
+  font-size: 18px;
+  line-height: 2.5em;
+}
+
+.post-example h3 {
+  font-size: 21px;
   text-align: center;
 }
 
-/* 投稿内容 */
-.post-example-contents{
-  width: 80%;
-  margin: 10% auto;
+/*投稿例*/
+.post-example-contents {
+  width: 70%;
+  margin: 30px auto;
+  padding: 20px 40px 20px;
+  border: 2px solid #979797;
+  border-radius: 10px;
 }
 
-.post-name{
-  font-size: 18px;
-  }
-
-.post-stadium{
-font-size: 16px;
+.post-basic-information {
+  display: block;
 }
 
-.post-category{
-font-size: 16px;
+.post-basic-information-top {
+  display: flex;
+  height: 30px;
+  margin-bottom: 30px;
+  justify-content: space-around;
 }
 
-.post-date{
-font-size: 16px;
-}
-}
-
-@media (max-width:559px)
-{
-/* メイン */
-/*観戦情報の探し方*/
-.search-contents{
-  padding: 50px 40px;
+.post-basic-information-bottom {
+  display: flex;
+  justify-content: space-around;
 }
 
-.search-contents h2{
-  font-size: 28px;
+.post-name {
+  font-size: 21px;
 }
 
-.search-contents p{
-  font-size: 16px;
-}
-/* 探すボタン */
-.search-nav a{
-  height: 200px;
-}
-
-.search-nav-contants{
- font-size: 16px;
-}
-/*観戦情報の投稿方法*/
-.post-contents{
-  padding: 50px 40px;
-}
-
-.post-title h2{
-  font-size: 28px;
-}
-
-.post-title p{
-  font-size: 16px;
-}
-
-.post-discription p{
-  font-size: 16px;
-}
-
-.post-example h3{
+.post-stadium {
   font-size: 18px;
 }
 
-/* 投稿例 */
-.post-example-contents{
-  padding: 20px;
+.post-category {
+  font-size: 18px;
 }
 
-.post-title p{
+.post-date {
+  font-size: 18px;
+}
+
+.post-title p {
   text-align: center;
+  font-size: 21px;
+}
+
+.post-text {
+  margin: 25px 0;
+  padding: 0 30px;
+  text-align: left;
+}
+
+.post-text p {
   font-size: 18px;
 }
-.post-text{
-  margin:10px 0;
-  padding:0 10px;
+
+.post-img {
+  display: flex;
 }
 
-.post-name{
-  font-size:18px;
-}
-
-.post-text p{
-  font-size: 16px;
-}
-
-.post-img{
-  /* display: block; */
-  flex-direction: column;
-}
-
-.post-img img{
-    margin: 20px auto;
-  width:60%;
+.post-img img {
+  margin: 30px auto 20px;
+  width: 30%;
   height: auto;
 }
 
-.post-basic-information-bottom{
-  display: block;
-}
-.post-basic-information-bottom p{
-  text-align: center;
-}
-
-.post-evaluation p{
-  font-size: 14px;
-}
-
-.post-nav a{
-  height: 200px;
-}
-
-.post-nav-contants{
+.post-evaluation p {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
   font-size: 16px;
 }
+
+.post-evaluation-contents {
+  display: flex;
+  justify-content: center;
+}
+
+.good-count,
+.reporting {
+  text-align: center;
+  border: 1px solid #797979;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+
+/* 投稿するボタン */
+.post-nav a {
+  width: 100vw;
+  height: 300px;
+  margin-top: 100px;
+  background-color: #323232;
+  color: #ffffff;
+  line-height: 2.5em;
+  transition: background-color 0.4s linear;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.post-nav a:hover {
+  background-color: #202020;
+}
+
+.post-nav-contants {
+  display: block;
+  font-size: 18px;
+}
+
+@media (max-width: 959px) {
+  /* メイン */
+  /*観戦情報の探し方*/
+  .search-contents {
+    margin-left: 0%;
+  }
+
+  .search-title {
+    text-align: center;
+  }
+
+  .search-discription {
+    padding-left: 0%;
+  }
+
+  /*観戦情報の投稿方法*/
+  .post-contents {
+    margin-left: 0%;
+  }
+
+  .post-title {
+    text-align: center;
+  }
+
+  /* 投稿内容 */
+  .post-example-contents {
+    width: 80%;
+    margin: 10% auto;
+  }
+
+  .post-name {
+    font-size: 18px;
+  }
+
+  .post-stadium {
+    font-size: 16px;
+  }
+
+  .post-category {
+    font-size: 16px;
+  }
+
+  .post-date {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 559px) {
+  /* メイン */
+  /*観戦情報の探し方*/
+  .search-contents {
+    padding: 50px 40px;
+  }
+
+  .search-contents h2 {
+    font-size: 28px;
+  }
+
+  .search-contents p {
+    font-size: 16px;
+  }
+  /* 探すボタン */
+  .search-nav a {
+    height: 200px;
+  }
+
+  .search-nav-contants {
+    font-size: 16px;
+  }
+  /*観戦情報の投稿方法*/
+  .post-contents {
+    padding: 50px 40px;
+  }
+
+  .post-title h2 {
+    font-size: 28px;
+  }
+
+  .post-title p {
+    font-size: 16px;
+  }
+
+  .post-discription p {
+    font-size: 16px;
+  }
+
+  .post-example h3 {
+    font-size: 18px;
+  }
+
+  /* 投稿例 */
+  .post-example-contents {
+    padding: 20px;
+  }
+
+  .post-title p {
+    text-align: center;
+    font-size: 18px;
+  }
+  .post-text {
+    margin: 10px 0;
+    padding: 0 10px;
+  }
+
+  .post-name {
+    font-size: 18px;
+  }
+
+  .post-text p {
+    font-size: 16px;
+  }
+
+  .post-img {
+    /* display: block; */
+    flex-direction: column;
+  }
+
+  .post-img img {
+    margin: 20px auto;
+    width: 60%;
+    height: auto;
+  }
+
+  .post-basic-information-bottom {
+    display: block;
+  }
+  .post-basic-information-bottom p {
+    text-align: center;
+  }
+
+  .post-evaluation p {
+    font-size: 14px;
+  }
+
+  .post-nav a {
+    height: 200px;
+  }
+
+  .post-nav-contants {
+    font-size: 16px;
+  }
 }
 </style>
