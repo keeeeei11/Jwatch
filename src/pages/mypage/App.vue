@@ -1157,7 +1157,7 @@ main {
 
 /* ページネーション */
 .paginate {
-  margin: 100px;
+  margin: 100px 0px;
   text-align: center;
 }
 
@@ -1349,6 +1349,21 @@ main {
   .post-date {
     font-size: 16px;
   }
+    /* ページネーション機能 */
+  .prev-link {
+    font-size: 18px;
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+  .page-link {
+    font-size: 18px;
+    padding: 5px;
+    margin: 5px;
+  }
+  .next-link {
+    font-size: 18px;
+    margin-left: 5px;
+  }
 }
 
 @media (max-width: 559px) {
@@ -1409,6 +1424,12 @@ main {
 
   .mypage-contents h2 {
     font-size: 18px;
+  }
+
+  .logout-execute,
+  .delete-execute {
+    width: 200px;
+    margin:30px auto;
   }
 
   /* 再確認のホップアップ */

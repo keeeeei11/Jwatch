@@ -1054,8 +1054,6 @@ export default {
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
-          console.log(individualId);
-          console.log(data);
           postdata
             .doc(individualId)
             .set(
@@ -1662,7 +1660,7 @@ main {
 
 /* ページネーション */
 .paginate {
-  margin: 100px;
+  margin: 100px 0;
   text-align: center;
 }
 
@@ -1738,6 +1736,21 @@ main {
 
   .post-date {
     font-size: 16px;
+  }
+  /* ページネーション機能 */
+  .prev-link {
+    font-size: 18px;
+    margin-right: 5px;
+    margin-top: 5px;
+  }
+  .page-link {
+    font-size: 18px;
+    padding: 5px;
+    margin: 5px;
+  }
+  .next-link {
+    font-size: 18px;
+    margin-left: 5px;
   }
 }
 
