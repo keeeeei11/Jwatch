@@ -713,41 +713,16 @@
               </div>
               <!-- 通報画面 -->
               <div class="report" v-if="reportForm">
-                <section class="reconfirmation">
+                <section class="report-page">
                   <h3>通報画面</h3>
-                  <!-- 対象の投稿 -->
-                  <div class="post-example-contents">
-                    <div class="post-basic-information">
-                      <div class="post-basic-information-top">
-                        <div class="post-name">
-                          <p>{{ postSingleData.data().contributorName }}</p>
-                        </div>
-                        <div class="post-date">
-                          <p>{{ postSingleData.data().created }}</p>
-                        </div>
-                      </div>
-                      <div class="post-basic-information-bottom">
-                        <div class="post-stadium">
-                          <p>{{ postSingleData.data().stadium }}</p>
-                        </div>
-                        <div class="post-category">
-                          <p>{{ postSingleData.data().category }}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="post-main-content">
-                      <div class="post-title">
+                    <div class="report-post-main-content">
+                      <div class="report-post-title">
                         <p>{{ postSingleData.data().title }}</p>
                       </div>
-                      <div class="post-text">
+                      <div class="report-post-text">
                         <p>{{ postSingleData.data().body }}</p>
                       </div>
-                      <div class="post-img">
-                        <!-- <img src="../../assets/3602761_s.jpg" alt=""> -->
-                        <!-- <img src="../../assets/2396379_s.jpg" alt=""> -->
-                      </div>
                     </div>
-                  </div>
                   <!-- 通報理由 -->
                   <form class="report-reason">
                     <select
@@ -768,19 +743,6 @@
                       <option value="その他">その他</option>
                     </select>
                   </form>
-                  <form class="report-reason-text">
-                    <h3>詳細を下記フォームにご記入ください(省略可)</h3>
-                    <textarea
-                      v-model="reportBody"
-                      class="report-body-information-box"
-                      placeholder="400字以内で入力してください"
-                      maxlength="400"
-                    ></textarea
-                    ><br />
-                    <div class="count-character">
-                      <p>残り{{ 400 - reportBody.length }}字です</p>
-                    </div>
-                  </form>
                   <!-- ボタン -->
                   <div class="report-btn">
                     <button class="cancel" @click="triggerReportHide()">
@@ -788,10 +750,7 @@
                     </button>
                     <button
                       class="report"
-                      @click="reportData(postSingleData.data())"
-                    >
-                      通報する
-                    </button>
+                      @click="reportData(postSingleData.data())">通報する</button>
                   </div>
                 </section>
                 <div class="reconfirmation-cover"></div>
@@ -877,7 +836,6 @@ export default {
       reportForm: false,
       reported: false,
       reportReason: "",
-      reportBody: "",
       // ローディング画面
       isLoading: false,
     };
@@ -1105,7 +1063,6 @@ export default {
     },
     // 通報データの追加
     reportData: function(data) {
-      console.log(data);
       const db = firebase.firestore();
       const now = new Date();
       const postData = data;
@@ -1123,7 +1080,6 @@ export default {
         postlikedUsers: postData.likedUsers,
         // 通報理由
         reportReason: this.reportReason,
-        reportBody: this.reportBody,
         reportCreated:
           now.getFullYear() +
           "/" +
@@ -1424,7 +1380,7 @@ main {
 /* 編集画面 */
 .edit-page {
   opacity: 1;
-  width: 1000px;
+  width: 800px;
   height: 700px;
   position: fixed;
   background: #ffffff;
@@ -1450,7 +1406,7 @@ main {
 }
 
 .edit-page textarea {
-  width: 90%;
+  width: 60%;
   height: 100px;
 }
 
@@ -1460,6 +1416,7 @@ main {
 /* ボタン */
 .edit-btn {
   display: flex;
+  margin:10px 0;
 }
 
 .edit-btn button {
@@ -1527,10 +1484,10 @@ main {
 }
 
 /* 通報画面 */
-.reconfirmation {
+.report-page {
   opacity: 1;
-  width: 1000px;
-  height: 700px;
+  width: 80%;
+  padding: 20px 10px;
   position: fixed;
   background: #ffffff;
   padding-bottom: 50px;
@@ -1542,6 +1499,23 @@ main {
   text-align: center;
   transition: 0.4s;
   z-index: 3;
+}
+
+/* 投稿を表示する部分 */
+/* 通報対象の投稿 */
+.report-post-title p {
+  text-align: center;
+  font-size: 21px;
+}
+
+.report-post-text {
+  margin: 25px 0;
+  padding: 0 30px;
+  text-align: left;
+}
+
+.report-post-text p {
+  font-size: 18px;
 }
 
 /*通報の理由*/
@@ -1560,16 +1534,6 @@ main {
 
 .report-reason p {
   font-size: 18px;
-}
-
-/*自由記述欄*/
-.report-reason-text h3 {
-  font-size: 18px;
-  font-weight: normal;
-}
-.report-body-information-box {
-  width: 60%;
-  height: 100px;
 }
 
 /* ボタン */
@@ -1665,7 +1629,6 @@ main {
 }
 
 /* 前に戻るボタン */
-
 .prev-link {
   font-size: 24px;
   margin-right: 10px;
@@ -1737,6 +1700,26 @@ main {
   .post-date {
     font-size: 16px;
   }
+  /* 編集画面 */
+  .edit-page{
+    width: 500px;
+    height: 800px;
+  }
+
+  .edit-btn {
+    display: block;
+  }
+  .edit-btn button {
+    margin:30px auto;
+  }
+  /* 通報画面 */
+  .report-btn {
+    display: block;
+  }
+
+  .report-btn button {
+    margin:30px auto;
+  }
   /* ページネーション機能 */
   .prev-link {
     font-size: 18px;
@@ -1774,6 +1757,18 @@ main {
     padding: 20px;
   }
 
+  .post-basic-information-top {
+    display: block;
+    padding-bottom: 30px;
+  }
+
+  .post-basic-information-bottom {
+    display: block;
+  }
+  .post-basic-information-bottom p {
+    text-align: center;
+  }
+
   .post-title p {
     text-align: center;
     font-size: 18px;
@@ -1801,13 +1796,6 @@ main {
     height: auto;
   }
 
-  .post-basic-information-bottom {
-    display: block;
-  }
-  .post-basic-information-bottom p {
-    text-align: center;
-  }
-
   .post-evaluation p {
     font-size: 14px;
   }
@@ -1817,6 +1805,30 @@ main {
   }
   .evaluation-btn {
     margin: 0 3px;
+  }
+  /* 編集画面 */
+  .edit-page {
+    width: 300px;
+  }
+
+  .edit-btn button {
+    font-size: 16px;
+    width: 200px;
+  }
+  /* 通報画面 */
+  .report-post-title p {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .report-post-text p {
+    font-size: 14px;
+  }
+
+  /*通報の理由*/
+  .report-btn button {
+    font-size: 16px;
+    width: 200px;
   }
 }
 </style>

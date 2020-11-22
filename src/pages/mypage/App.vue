@@ -454,6 +454,50 @@
                   </section>
                   <div class="reconfirmation-cover"></div>
                 </div>
+                <!-- 通報画面 -->
+                <div class="report" v-if="reportForm">
+                  <section class="report-page">
+                    <h3>通報画面</h3>
+                      <div class="report-post-main-content">
+                        <div class="report-post-title">
+                          <p>{{ postSingleData.data().title }}</p>
+                        </div>
+                        <div class="report-post-text">
+                          <p>{{ postSingleData.data().body }}</p>
+                        </div>
+                      </div>
+                    <!-- 通報理由 -->
+                    <form class="report-reason">
+                      <select
+                        v-model="reportReason"
+                        class="report-reason-box"
+                        size="1"
+                      >
+                        <option value="" disabled>--通報の理由(必須)--</option>
+                        <option value="特定のチーム、選手、サポーターへの誹謗中傷"
+                          >特定のチーム、選手、サポーターへの誹謗中傷</option
+                        >
+                        <option value="有害なサイトへの誘導"
+                          >有害なサイトへの誘導</option
+                        >
+                        <option value="重複する内容を過剰に連投する行為"
+                          >重複する内容を過剰に連投する行為</option
+                        >
+                        <option value="その他">その他</option>
+                      </select>
+                    </form>
+                    <!-- ボタン -->
+                    <div class="report-btn">
+                      <button class="cancel" @click="triggerReportHide()">
+                        戻る
+                      </button>
+                      <button
+                        class="report"
+                        @click="reportData(postSingleData.data())">通報する</button>
+                    </div>
+                  </section>
+                  <div class="reconfirmation-cover"></div>
+                </div>
               </div>
               <!-- 編集完了画面 -->
               <div class="edit-complete" v-if="edited">
@@ -568,6 +612,10 @@ export default {
       editCategory: "",
       editTitle: "",
       editBody: "",
+      // 通報画面
+      reportForm: false,
+      reported: false,
+      reportReason: "",
       // ローディング画面
       isLoading: false,
     };
@@ -681,6 +729,62 @@ export default {
         }
       } else {
         alert("スタジアム名とカテゴリー名を選択してください。");
+      }
+    },
+    // 通報画面の表示/非表示
+    triggerReportShow: function() {
+      this.reportForm = true;
+    },
+    triggerReportHide: function() {
+      this.reportForm = false;
+    },
+    // 通報完了画面の表示/非表示
+    triggerReportedShow: function() {
+      this.reportForm = false;
+      this.reported = true;
+    },
+    triggerReportedHide: function() {
+      this.reported = false;
+    },
+    // 通報データの追加
+    reportData: function(data) {
+      const db = firebase.firestore();
+      const now = new Date();
+      const postData = data;
+      const inputData = {
+        // 通報対象の投稿データ
+        postStadium: postData.stadium,
+        postCategory: postData.category,
+        postTitle: postData.title,
+        postBody: postData.body,
+        postCreated: postData.created,
+        postContributorName: postData.contributorName,
+        postContributorUid: postData.contributorUid,
+        postUpdated: postData.updated,
+        postLikedCounter: postData.likedCounter,
+        postlikedUsers: postData.likedUsers,
+        // 通報理由
+        reportReason: this.reportReason,
+        reportCreated:
+          now.getFullYear() +
+          "/" +
+          ("0" + (now.getMonth() + 1)).slice(-2) +
+          "/" +
+          ("0" + now.getDate()).slice(-2),
+      };
+      if (this.reportReason.length > 0) {
+        const reportData = db.collection("reports");
+        reportData
+          .add(inputData)
+          .then(() => {
+            this.triggerReportHide();
+            this.triggerReportedShow();
+          })
+          .catch(function(error) {
+            console.error(error);
+          });
+      } else {
+        alert("通報理由を選択してください");
       }
     },
     // 選択した投稿を削除する
@@ -921,7 +1025,7 @@ main {
 /* 編集画面 */
 .edit-page {
   opacity: 1;
-  width: 1000px;
+  width: 800px;
   height: 700px;
   position: fixed;
   background: #ffffff;
@@ -947,7 +1051,7 @@ main {
 }
 
 .edit-page textarea {
-  width: 90%;
+  width: 60%;
   height: 100px;
 }
 
@@ -957,6 +1061,7 @@ main {
 /* ボタン */
 .edit-btn {
   display: flex;
+  margin:10px 0;
 }
 
 .edit-btn button {
@@ -1024,10 +1129,10 @@ main {
 }
 
 /* 通報画面 */
-.reconfirmation {
+.report-page {
   opacity: 1;
-  width: 1000px;
-  height: 700px;
+  width: 80%;
+  padding: 20px 10px;
   position: fixed;
   background: #ffffff;
   padding-bottom: 50px;
@@ -1039,6 +1144,23 @@ main {
   text-align: center;
   transition: 0.4s;
   z-index: 3;
+}
+
+/* 投稿を表示する部分 */
+/* 通報対象の投稿 */
+.report-post-title p {
+  text-align: center;
+  font-size: 21px;
+}
+
+.report-post-text {
+  margin: 25px 0;
+  padding: 0 30px;
+  text-align: left;
+}
+
+.report-post-text p {
+  font-size: 18px;
 }
 
 /*通報の理由*/
@@ -1057,16 +1179,6 @@ main {
 
 .report-reason p {
   font-size: 18px;
-}
-
-/*自由記述欄*/
-.report-reason-text h3 {
-  font-size: 18px;
-  font-weight: normal;
-}
-.report-body-information-box {
-  width: 60%;
-  height: 100px;
 }
 
 /* ボタン */
@@ -1349,6 +1461,26 @@ main {
   .post-date {
     font-size: 16px;
   }
+    /* 編集画面 */
+  .edit-page{
+    width: 500px;
+    height: 800px;
+  }
+
+  .edit-btn {
+    display: block;
+  }
+  .edit-btn button {
+    margin:30px auto;
+  }
+  /* 通報画面 */
+  .report-btn {
+    display: block;
+  }
+
+  .report-btn button {
+    margin:30px auto;
+  }
     /* ページネーション機能 */
   .prev-link {
     font-size: 18px;
@@ -1375,6 +1507,17 @@ main {
   /* 投稿内容*/
   .post-example-contents {
     padding: 20px;
+  }
+  .post-basic-information-top {
+    display: block;
+    padding-bottom: 30px;
+  }
+
+  .post-basic-information-bottom {
+    display: block;
+  }
+  .post-basic-information-bottom p {
+    text-align: center;
   }
 
   .post-title p {
@@ -1403,12 +1546,14 @@ main {
     width: 60%;
     height: auto;
   }
-
-  .post-basic-information-bottom {
-    display: block;
+    /* 編集画面 */
+  .edit-page {
+    width: 300px;
   }
-  .post-basic-information-bottom p {
-    text-align: center;
+
+  .edit-btn button {
+    font-size: 16px;
+    width: 200px;
   }
 
   .post-evaluation p {
@@ -1421,7 +1566,20 @@ main {
   .evaluation-btn {
     margin: 0 3px;
   }
-
+    /* 通報画面 */
+  .report-post-title p {
+    text-align: center;
+    font-size: 16px;
+  }
+  .report-post-text p {
+    font-size: 14px;
+  }
+    /*通報の理由*/
+  .report-btn button {
+    font-size: 16px;
+    width: 200px;
+  }
+  /* ログアウト/アカウント削除ボタン */
   .mypage-contents h2 {
     font-size: 18px;
   }
