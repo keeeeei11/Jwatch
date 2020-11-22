@@ -17,16 +17,6 @@ module.exports = {
     // template is inferred to be `public/subpage.html`
     // and falls back to `public/index.html` if not found.
     // Output filename is inferred to be `subpage.html`.
-    answerquestion: {
-      entry:"src/pages/answerquestion/main.js",
-      filename:"answerquestion/index.html",
-      title:"質問に答える！ Jwatch Jリーグ観戦情報サイト"
-    },
-    answerreception: {
-      entry:"src/pages/answerreception/main.js",
-      filename:"answerreception/index.html",
-      title:"回答受付中の質問一覧 Jwatch Jリーグ観戦情報サイト",
-    },
     deleteAccount: {
       entry:"src/pages/deleteAccount/main.js",
       filename:"deleteAccount/index.html",
