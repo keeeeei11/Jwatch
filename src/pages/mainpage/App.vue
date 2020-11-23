@@ -59,7 +59,7 @@
                 <a href="https://jwatch-8411c.web.app/posting/index.html">
                   <h3>観戦情報を投稿する</h3>
                   <img
-                    src="../../assets/812491_s.jpg"
+                    src="../../assets/student-849825_640.jpg"
                     alt="女性がスマートフォンで観戦情報を投稿している画像。"
                     loading="lazy"
                   />
@@ -170,7 +170,7 @@ main {
 
 .usage-primary-introduction {
   display: flex;
-  margin: auto;
+  justify-content: space-around;
 }
 
 .usage-primary-introduction a {
@@ -189,10 +189,7 @@ main {
 }
 
 .usage-primary-introduction img {
-  height: auto;
-  width: 70%;
   height: 300px;
-  margin: auto 100px;
 }
 
 .usage-primary-introduction p {
@@ -284,8 +281,7 @@ detail-usage-nav-discription p {
 
   .usage-primary-introduction img {
     width: 60%;
-    margin: auto;
-    height: 300px;
+    height: auto;
   }
 }
 
@@ -324,8 +320,7 @@ detail-usage-nav-discription p {
 
   .usage-primary-introduction img {
     width: 80%;
-    margin: auto;
-    height: 250px;
+    height: auto;
   }
 
   .usage-secondary-introduction {
