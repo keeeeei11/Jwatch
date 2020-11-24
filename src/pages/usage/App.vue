@@ -12,48 +12,25 @@
           title="How to use"
           description="観戦情報の閲覧と投稿、情報のの方法を記載しています"
         ></PageTitle>
-        <div class="search-contents">
-          <div class="search-title">
-            <h2>How to Search</h2>
-            <p>観戦情報の閲覧方法</p>
-          </div>
-          <div class="search-discription">
-            <div class="search-primary-discription">
-              <p>①スタジアムを選択してください。</p>
-              <p>②カテゴリーを選択してください。</p>
-            </div>
-            <div class="search-secondary-discription">
-              <p>
-                ※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。
-              </p>
-            </div>
-          </div>
-        </div>
+        <UsageDescription
+        titleEn="How to Search"
+        titleJa="観戦情報の閲覧方法"
+        descriptionFirst="①スタジアムを選択してください。"
+        descriptionSecond="②カテゴリーを選択してください。"
+        supplement="※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。"
+        ></UsageDescription>
         <Induction
           url="https://jwatch-8411c.web.app/searchinformation/index.html"
           title="Let’s search!"
           description="観戦情報を探す！"
           ></Induction>
-        <div class="post-contents">
-          <div class="post-title">
-            <h2>How to post</h2>
-            <p>観戦情報の投稿方法</p>
-          </div>
-          <div class="post-discription">
-            <div class="post-primary-discription">
-              <p>①観戦情報を投稿する！をクリックします</p>
-              <p>
-                ②投稿フォームが表示されるのでスタジアム名とカテゴリーを選択してください。
-              </p>
-              <p>③投稿したい内容を入力してください</p>
-            </div>
-            <div class="post-secondary-discription">
-              <p>
-                ※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。
-              </p>
-            </div>
-          </div>
-        </div>
+        <UsageDescription
+          titleEn="How to post"
+          titleJa="観戦情報の投稿方法"
+          descriptionFirst="①観戦情報を投稿する！をクリックします"
+          descriptionSecond="②スタジアム名とカテゴリー,投稿したい内容を入力してください。"
+          supplement="※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。"
+        ></UsageDescription>
         <div class="post-example">
           <h3>投稿例</h3>
           <div class="post-example-contents">
@@ -117,6 +94,7 @@
 <script>
 import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
+import UsageDescription from "../../components/UsageDescription";
 import Induction from "../../components/Induction";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
@@ -126,6 +104,7 @@ export default {
   components: {
     Jheader,
     PageTitle,
+    UsageDescription,
     MoveTopBtn,
     Induction,
     Jfooter,
@@ -143,55 +122,6 @@ export default {
 
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
-}
-/*観戦情報の探し方*/
-
-.search-contents {
-  margin-top: 100px;
-  margin-left: 10%;
-  padding: 100px 80px;
-  background-color: #f2f2f2;
-}
-
-.search-contents h2 {
-  font-size: 32px;
-}
-
-.search-contents p {
-  font-size: 18px;
-}
-
-.search-discription {
-  padding-left: 10%;
-}
-
-.search-discription p {
-  line-height: 2.5em;
-}
-
-/*観戦情報の投稿方法*/
-.post-contents {
-  margin-top: 100px;
-  margin-left: 10%;
-  padding: 100px 80px;
-  background-color: #f2f2f2;
-}
-
-.post-title h2 {
-  font-size: 32px;
-}
-
-.post-title p {
-  font-size: 18px;
-}
-
-.post-discription {
-  margin-top: 50px;
-}
-
-.post-discription p {
-  font-size: 18px;
-  line-height: 2.5em;
 }
 
 .post-example h3 {
@@ -287,28 +217,6 @@ main {
 
 @media (max-width: 959px) {
   /* メイン */
-  /*観戦情報の探し方*/
-  .search-contents {
-    margin-left: 0%;
-  }
-
-  .search-title {
-    text-align: center;
-  }
-
-  .search-discription {
-    padding-left: 0%;
-  }
-
-  /*観戦情報の投稿方法*/
-  .post-contents {
-    margin-left: 0%;
-  }
-
-  .post-title {
-    text-align: center;
-  }
-
   /* 投稿内容 */
   .post-example-contents {
     width: 80%;
@@ -334,40 +242,12 @@ main {
 
 @media (max-width: 559px) {
   /* メイン */
-  /*観戦情報の探し方*/
-  .search-contents {
-    padding: 50px 40px;
-  }
-
-  .search-contents h2 {
-    font-size: 28px;
-  }
-
-  .search-contents p {
-    font-size: 16px;
-  }
-  /*観戦情報の投稿方法*/
-  .post-contents {
-    padding: 50px 40px;
-  }
-
-  .post-title h2 {
-    font-size: 28px;
-  }
-
-  .post-title p {
-    font-size: 16px;
-  }
-
-  .post-discription p {
-    font-size: 16px;
-  }
+  /* 投稿例 */
 
   .post-example h3 {
     font-size: 18px;
   }
 
-  /* 投稿例 */
   .post-example-contents {
     padding: 20px;
   }
