@@ -79,7 +79,12 @@
               </p>
             </div>
           </div>
-          <div class="detail-usage-nav">
+          <Induction
+          url="https://jwatch-8411c.web.app/usage/index.html"
+          title="Detailed discription"
+          description="使い方のより詳しい説明はこちら"
+          ></Induction>
+          <!-- <div class="detail-usage-nav">
             <a href="https://jwatch-8411c.web.app/usage/index.html">
               <div class="detail-usage-nav-contants">
                 <div class="detail-usage-nav-title">
@@ -90,7 +95,7 @@
                 </div>
               </div>
             </a>
-          </div>
+          </div> -->
         </div>
         <MoveTopBtn></MoveTopBtn>
       </main>
@@ -103,6 +108,7 @@
 import myFirstMixin from "../../mixin/myFirstMixin";
 import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
+import Induction from "../../components/Induction";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
 export default {
@@ -110,6 +116,7 @@ export default {
     Jheader,
     PageTitle,
     MoveTopBtn,
+    Induction,
     Jfooter,
   },
   mixins: [myFirstMixin],
@@ -255,9 +262,6 @@ main {
 .detail-usage-nav-title p {
   font-size: 21px;
 }
-detail-usage-nav-discription p {
-  font-size: 18px;
-}
 
 @media (max-width: 959px) {
   /* メイン */
@@ -340,7 +344,7 @@ detail-usage-nav-discription p {
   .detail-usage-nav-title p {
     font-size: 18px;
   }
-  detail-usage-nav-discription p {
+  .detail-usage-nav-discription p {
     font-size: 16px;
   }
 }

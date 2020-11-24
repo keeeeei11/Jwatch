@@ -27,21 +27,11 @@
               <p>健全なサイト運営にご協力よろしくお願い致します。</p>
             </div>
           </div>
-          <div class="contact-nav">
-            <h3>
-              当サイトについてご不明な点がございましたら以下よりお尋ねください。
-            </h3>
-            <a href="https://jwatch-8411c.web.app/inquiry/index.html">
-              <div class="contact-nav-contents">
-                <div class="contact-nav-ja">
-                  <p>ご意見＆ご要望はこちらから</p>
-                </div>
-                <div class="contact-nav-en">
-                  <p>Contact</p>
-                </div>
-              </div>
-            </a>
-          </div>
+        <Induction
+          url="https://jwatch-8411c.web.app/inquiry/index.html"
+          title="Contact"
+          description="ご意見＆ご要望はこちらから"
+          ></Induction>
         </div>
         <MoveTopBtn></MoveTopBtn>
       </main>
@@ -54,6 +44,7 @@
 <script>
 import Jheader from "../../components/Jheader.vue";
 import PageTitle from "../../components/PageTitle.vue";
+import Induction from "../../components/Induction";
 import MoveTopBtn from "../../components/MoveTopBtn.vue";
 import Jfooter from "../../components/Jfooter.vue";
 import myFirstMixin from "../../mixin/myFirstMixin";
@@ -63,6 +54,7 @@ export default {
     Jheader,
     PageTitle,
     MoveTopBtn,
+    Induction,
     Jfooter,
   },
   mixins: [myFirstMixin],
@@ -98,36 +90,6 @@ main {
   text-align: center;
   font-size: 18px;
 }
-/*問いかけ部分*/
-.contact-nav h3 {
-  text-align: center;
-  font-weight: normal;
-  font-size: 18px;
-}
-
-.contact-nav a {
-  width: 100vw;
-  height: 300px;
-  margin-top: 50px;
-  background-color: #323232;
-  color: #ffffff;
-  line-height: 2.5em;
-  transition: background-color 0.4s linear;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  text-decoration: none;
-}
-
-.contact-nav a:hover {
-  background-color: #202020;
-}
-
-.contact-nav-contants {
-  display: block;
-  font-size: 18px;
-}
 
 @media (max-width: 959px) {
   /*警告の詳細*/
@@ -145,26 +107,11 @@ main {
 @media (max-width: 559px) {
   /* メイン */
   /* 警告内容 */
-
   .discription p {
     font-size: 16px;
   }
 
   .warning-please {
-    padding: 0 10px;
-    font-size: 16px;
-  }
-
-  /*問いかけ部分*/
-  .contact-nav h3 {
-    font-size: 16px;
-  }
-
-  .contact-nav a {
-    height: 200px;
-  }
-
-  .contact-nav-contants {
     padding: 0 10px;
     font-size: 16px;
   }

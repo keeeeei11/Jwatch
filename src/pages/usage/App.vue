@@ -29,18 +29,11 @@
             </div>
           </div>
         </div>
-        <div class="search-nav">
-          <a href="https://jwatch-8411c.web.app/searchinformation/index.html">
-            <div class="search-nav-contents nav">
-              <div class="search-nav-ja">
-                <p>観戦情報を探す！</p>
-              </div>
-              <div class="search-nav-en">
-                <p>Let’s search!</p>
-              </div>
-            </div>
-          </a>
-        </div>
+        <Induction
+          url="https://jwatch-8411c.web.app/searchinformation/index.html"
+          title="Let’s search!"
+          description="観戦情報を探す！"
+          ></Induction>
         <div class="post-contents">
           <div class="post-title">
             <h2>How to post</h2>
@@ -108,18 +101,11 @@
             </div>
           </div>
         </div>
-        <div class="post-nav">
-          <a href="https://jwatch-8411c.web.app/posting/index.html">
-            <div class="post-nav-contents nav">
-              <div class="post-nav-ja">
-                <p>観戦情報を投稿する！</p>
-              </div>
-              <div class="post-nav-en">
-                <p>Let’s post!</p>
-              </div>
-            </div>
-          </a>
-        </div>
+        <Induction
+          url="https://jwatch-8411c.web.app/posting/index.html"
+          title="Let’s post!"
+          description="観戦情報を投稿する！"
+          ></Induction>
         <MoveTopBtn></MoveTopBtn>
       </main>
       <!--以下フッター-->
@@ -131,6 +117,7 @@
 <script>
 import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
+import Induction from "../../components/Induction";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
 import myFirstMixin from "../../mixin/myFirstMixin";
@@ -140,6 +127,7 @@ export default {
     Jheader,
     PageTitle,
     MoveTopBtn,
+    Induction,
     Jfooter,
   },
   mixins: [myFirstMixin],
@@ -179,31 +167,6 @@ main {
 
 .search-discription p {
   line-height: 2.5em;
-}
-
-/* 探すボタン */
-.search-nav a {
-  width: 100vw;
-  height: 300px;
-  margin-top: 100px;
-  background-color: #323232;
-  color: #ffffff;
-  line-height: 2.5em;
-  transition: background-color 0.4s linear;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  text-decoration: none;
-}
-
-.search-nav a:hover {
-  background-color: #202020;
-}
-
-.search-nav-contants {
-  display: block;
-  font-size: 18px;
 }
 
 /*観戦情報の投稿方法*/
@@ -322,31 +285,6 @@ main {
   margin: 0 10px;
 }
 
-/* 投稿するボタン */
-.post-nav a {
-  width: 100vw;
-  height: 300px;
-  margin-top: 100px;
-  background-color: #323232;
-  color: #ffffff;
-  line-height: 2.5em;
-  transition: background-color 0.4s linear;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  text-decoration: none;
-}
-
-.post-nav a:hover {
-  background-color: #202020;
-}
-
-.post-nav-contants {
-  display: block;
-  font-size: 18px;
-}
-
 @media (max-width: 959px) {
   /* メイン */
   /*観戦情報の探し方*/
@@ -408,14 +346,6 @@ main {
   .search-contents p {
     font-size: 16px;
   }
-  /* 探すボタン */
-  .search-nav a {
-    height: 200px;
-  }
-
-  .search-nav-contants {
-    font-size: 16px;
-  }
   /*観戦情報の投稿方法*/
   .post-contents {
     padding: 50px 40px;
@@ -460,7 +390,6 @@ main {
   }
 
   .post-img {
-    /* display: block; */
     flex-direction: column;
   }
 
@@ -479,14 +408,6 @@ main {
 
   .post-evaluation p {
     font-size: 14px;
-  }
-
-  .post-nav a {
-    height: 200px;
-  }
-
-  .post-nav-contants {
-    font-size: 16px;
   }
 }
 </style>
