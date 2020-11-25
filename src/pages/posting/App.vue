@@ -430,7 +430,7 @@ export default {
         if (!user) {
           location.href = "https://jwatch-8411c.web.app/login/index.html";
         } else {
-          return;
+          return
         }
       });
     },
@@ -465,9 +465,9 @@ export default {
           console.error(error);
         });
     },
-    mounted: function() {
-      this.redirect();
-    },
+  },
+  mounted: function() {
+    this.redirect();
   },
 };
 </script>
