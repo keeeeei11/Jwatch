@@ -35,16 +35,17 @@
               </InputCategory>
             </div>
             <div class="post-title-information">
-              <InputTitle
+              <InputBox
               v-model="title"
+              subject="タイトル"
               type="text"
-              name="subject"
-              ></InputTitle>
+              ></InputBox>
             </div>
             <div class="post-text-information">
-              <InputBody
+              <TextareaBox
                 v-model="body"
-              ></InputBody>
+                subject="本文"
+              ></TextareaBox>
               <br />
               <h3>画像(3枚まで)</h3>
               <div class="post-picture">
@@ -111,8 +112,8 @@ import PageTitle from "../../components/PageTitle";
 import PointToNote from "../../components/PointToNote";
 import InputStadium from "../../components/InputStadium";
 import InputCategory from "../../components/InputCategory";
-import InputTitle from "../../components/InputTitle";
-import InputBody from "../../components/InputBody";
+import InputBox from "../../components/InputBox";
+import TextareaBox from "../../components/TextareaBox";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
 export default {
@@ -136,8 +137,8 @@ export default {
     PointToNote,
     InputStadium,
     InputCategory,
-    InputTitle,
-    InputBody,
+    InputBox,
+    TextareaBox,
     MoveTopBtn,
     Jfooter,
   },
