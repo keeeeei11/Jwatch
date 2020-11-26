@@ -34,7 +34,7 @@
             <div class="post-contents" v-else>
               <h2>過去の投稿</h2>
               <div
-                v-for="(postSingleData, index) in getItems"
+                v-for="postSingleData in getItems"
                 :key="postSingleData.id"
               >
                 <div class="post-example-contents">
@@ -73,7 +73,7 @@
                       <div class="good-count evaluation-btn">
                         <button
                           @click="
-                            likedData(index)
+                            likedData(postSingleData)
                           "
                         >
                           いいね！ {{ postSingleData.likedCounter }}
@@ -840,15 +840,20 @@ export default {
         (this.deleteShow = false),
         (this.coverShow = false);
     },
-    likedData: function(index) {
+    likedData: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
-        const likedUsers = this.postMultipleData[index].likedUsers
+        const likedUsers = postSingleData.likedUsers
         if (!likedUsers.includes(user.uid)) {
-          const likedCounter = this.postMultipleData[index].likedCounter+=1
+          const likedCounter = postSingleData.likedCounter+=1
           likedUsers.push(user.uid)
-          this.$set(this.postMultipleData[index], 'likedCounter', likedCounter)
-          this.$set(this.postMultipleData[index], 'likedUsers', likedUsers)
-          // TODO: firebaseのデータを更新する
+          for(let i; i < this.postMultipleData.length; i++) {
+            if (postSingleData.id === this.postMultipleData[i].id) {
+              this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+              this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
+              // TODO: firebaseのデータを更新する
+              break;
+            }
+          }
         }
       })
     }
