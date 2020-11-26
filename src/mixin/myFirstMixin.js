@@ -1,12 +1,8 @@
-// mixinを使って全ページ共通のものを作成する
-// 必要なものを各ページに渡していくイメージ
-// firebaseの導入とログイン情報の保持
 import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 export default {
-  // data内には最初に変数を定義する(初期値)
   data() {
     return {
       visitorName: "",
