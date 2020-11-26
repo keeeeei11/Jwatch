@@ -34,34 +34,34 @@
             <div class="post-contents" v-else>
               <h2>過去の投稿</h2>
               <div
-                v-for="postSingleData in getItems"
-                :key="postSingleData.index"
+                v-for="(postSingleData, index) in getItems"
+                :key="postSingleData.id"
               >
                 <div class="post-example-contents">
                   <div class="post-basic-information">
                     <div class="post-basic-information-top">
                       <div class="post-name">
-                        <p>{{ postSingleData.data().contributorName }} さん</p>
+                        <p>{{ postSingleData.contributorName }} さん</p>
                       </div>
                       <div class="post-date">
-                        <p>{{ postSingleData.data().created }}</p>
+                        <p>{{ postSingleData.created }}</p>
                       </div>
                     </div>
                     <div class="post-basic-information-bottom">
                       <div class="post-stadium">
-                        <p>{{ postSingleData.data().stadium }}</p>
+                        <p>{{ postSingleData.stadium }}</p>
                       </div>
                       <div class="post-category">
-                        <p>{{ postSingleData.data().category }}</p>
+                        <p>{{ postSingleData.category }}</p>
                       </div>
                     </div>
                   </div>
                   <div class="post-main-content">
                     <div class="post-title">
-                      <p>{{ postSingleData.data().title }}</p>
+                      <p>{{ postSingleData.title }}</p>
                     </div>
                     <div class="post-text">
-                      <p>{{ postSingleData.data().body }}</p>
+                      <p>{{ postSingleData.body }}</p>
                     </div>
                     <div class="post-img">
                       <!-- <img src="../../assets/3602761_s.jpg" alt=""> -->
@@ -73,17 +73,17 @@
                       <div class="good-count evaluation-btn">
                         <button
                           @click="
-                            likedData(postSingleData.data(), postSingleData.id)
+                            likedData(index)
                           "
                         >
-                          いいね！ {{ postSingleData.data().likedCounter }}
+                          いいね！ {{ postSingleData.likedCounter }}
                         </button>
                       </div>
                       <!-- 投稿者と閲覧者が同じである時 -->
                       <div
                         class="allow-manage"
                         v-if="
-                          postSingleData.data().contributorUid == visitorUid
+                          postSingleData.contributorUid == visitorUid
                         "
                       >
                         <div class="deleting evaluation-btn">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="editing evaluation-btn">
                           <button
-                            @click="triggerEditShow(postSingleData.data())"
+                            @click="triggerEditShow(postSingleData)"
                           >
                             編集する
                           </button>
@@ -445,7 +445,7 @@
                       <button @click="triggerEditHide()">戻る</button>
                       <button
                         @click="
-                          editData(postSingleData.data(), postSingleData.id)
+                          editData(postSingleData, postSingleData.id)
                         "
                       >
                         編集する
@@ -460,10 +460,10 @@
                     <h3>通報画面</h3>
                       <div class="report-post-main-content">
                         <div class="report-post-title">
-                          <p>{{ postSingleData.data().title }}</p>
+                          <p>{{ postSingleData.title }}</p>
                         </div>
                         <div class="report-post-text">
-                          <p>{{ postSingleData.data().body }}</p>
+                          <p>{{ postSingleData.body }}</p>
                         </div>
                       </div>
                     <!-- 通報理由 -->
@@ -493,7 +493,7 @@
                       </button>
                       <button
                         class="report"
-                        @click="reportData(postSingleData.data())">通報する</button>
+                        @click="reportData(postSingleData)">通報する</button>
                     </div>
                   </section>
                   <div class="reconfirmation-cover"></div>
@@ -659,7 +659,7 @@ export default {
           .then((querySnapshot) => {
             this.noData = false;
             querySnapshot.forEach((doc) => {
-              this.postMultipleData.push(doc);
+              this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
           })
@@ -840,6 +840,18 @@ export default {
         (this.deleteShow = false),
         (this.coverShow = false);
     },
+    likedData: function(index) {
+      firebase.auth().onAuthStateChanged((user) => {
+        const likedUsers = this.postMultipleData[index].likedUsers
+        if (!likedUsers.includes(user.uid)) {
+          const likedCounter = this.postMultipleData[index].likedCounter+=1
+          likedUsers.push(user.uid)
+          this.$set(this.postMultipleData[index], 'likedCounter', likedCounter)
+          this.$set(this.postMultipleData[index], 'likedUsers', likedUsers)
+          // TODO: firebaseのデータを更新する
+        }
+      })
+    }
   },
   computed: {
     getItems: function() {
