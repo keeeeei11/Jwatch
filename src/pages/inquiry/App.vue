@@ -23,48 +23,29 @@
           </p>
         </div>
         <div class="inquiry-form">
-          <form class="name">
-            <p>お名前(任意)<br /></p>
-            <input
-              type="text"
+            <InputBox
               v-model="name"
-              name="name"
-              class="inquiry-name-form"
-              maxlength="50"
-            />
-          </form>
-          <form class="email">
-            <p>メールアドレス(任意)<br /></p>
-            <input
+              subject="お名前(任意)"
               type="text"
+              placeholder=""
+            ></InputBox>
+            <InputBox
               v-model="mailAddress"
-              name="email"
-              class="inquiry-email-form"
-              maxlength="50"
-            />
-          </form>
-          <form class="inquiry-contents">
-            <p>タイトル<br /></p>
-            <input
+              placeholder=""
+              subject="メールアドレス(任意)"
               type="text"
+              maxlength="50"
+            ></InputBox>
+            <InputBox
               v-model="title"
-              name="email"
-              class="inquiry-title-form"
-              maxlength="20"
-              placeholder="20字以内で入力してください"
-            />
-            <p>お問い合わせ・ご意見の内容<br /></p>
-            <textarea
+              subject="タイトル"
+              type="text"
+            ></InputBox>
+            <TextareaBox
               v-model="body"
-              class="inquiry-body-information-box"
               placeholder="400字以内で入力してください"
-              maxlength="400"
-            ></textarea
-            ><br />
-            <div class="count-character">
-              <p>残り{{ 400 - body.length }}字です</p>
-            </div>
-          </form>
+              subject="本文"
+            ></TextareaBox>
           <p class="execute" @click="triggerPostPopupShow">送信する</p>
         </div>
         <!-- 再確認のポップアップ -->
@@ -107,6 +88,8 @@ import "firebase/firestore";
 import "firebase/storage";
 import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
+import InputBox from "../../components/InputBox";
+import TextareaBox from "../../components/TextareaBox";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
 import myFirstMixin from "../../mixin/myFirstMixin";
@@ -126,6 +109,8 @@ export default {
   components: {
     Jheader,
     PageTitle,
+    InputBox,
+    TextareaBox,
     MoveTopBtn,
     Jfooter,
   },
@@ -230,20 +215,6 @@ main {
   padding: 100px 80px;
   background-color: #f2f2f2;
   text-align: center;
-}
-.inquiry-form p {
-  font-size: 21px;
-  text-align: center;
-}
-.inquiry-form input {
-  width: 60%;
-  height: 40px;
-  font-size: 18px;
-}
-
-.inquiry-body-information-box {
-  width: 60%;
-  height: 400px;
 }
 
 /* 送信ボタン*/
@@ -402,26 +373,10 @@ main {
     margin-left: 0px;
     padding: 50px 40px;
   }
-
-  .inquiry-form input {
-    width: 90%;
-  }
-
-  .inquiry-body-information-box {
-    width: 90%;
-  }
 }
 
 /* スマホ */
 @media (max-width: 559px) {
-  /* ヘッダー */
-  .header-contents {
-    margin: auto 10px;
-  }
-
-  #menu a {
-    font-size: 18px;
-  }
   /* メイン */
   /*注意点の箇条書き*/
   .inquiry-discription p {
@@ -430,21 +385,6 @@ main {
 
   .inquiry-discription a {
     font-size: 16px;
-  }
-
-  /*各種情報入力部分*/
-  .inquiry-form p {
-    font-size: 18px;
-  }
-
-  /* メールアドレス */
-  input.email {
-    width: 350px;
-  }
-
-  /*質問内容の選択*/
-  .category {
-    width: 350px;
   }
 
   /* 送信ボタン*/
