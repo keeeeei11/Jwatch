@@ -525,11 +525,15 @@
           </div>
           <div class="mypage-contents">
             <div class="mypage-past-post">
-              <div class="logout">
+              <!-- <div class="logout">
                 <p class="logout-execute" @click="logoutPopupShow">
                   ログアウトする
                 </p>
-              </div>
+              </div> -->
+              <ExitBtn
+              execution="ログアウトする"
+              @click.native="logoutPopupShow"
+              ></ExitBtn>
               <div class="logout-popup" v-if="logoutShow">
                 <section class="logout-reconfirmation">
                   <p>ログアウトしてもよろしいですか？</p>
@@ -541,11 +545,15 @@
                   >
                 </section>
               </div>
-              <div class="delete-account">
+              <!-- <div class="delete-account">
                 <p class="delete-execute" @click="deletePopupShow">
                   アカウント削除する
                 </p>
-              </div>
+              </div> -->
+              <ExitBtn
+                execution="アカウント削除する"
+                @click.native="deletePopupShow"
+              ></ExitBtn>
               <div class="delete-popup" v-if="deleteShow">
                 <section class="delete-reconfirmation">
                   <p>アカウントを削除してもよろしいですか？</p>
@@ -582,6 +590,7 @@ import "firebase/storage";
 import Jheader from "../../components/Jheader";
 import Paginate from "vuejs-paginate";
 import MoveTopBtn from "../../components/MoveTopBtn";
+import ExitBtn from "../../components/ExitBtn";
 import Jfooter from "../../components/Jfooter";
 import myFirstMixin from "../../mixin/myFirstMixin";
 import { VueLoading } from "vue-loading-template";
@@ -623,6 +632,7 @@ export default {
   components: {
     Jheader,
     MoveTopBtn,
+    ExitBtn,
     Jfooter,
     Paginate,
     VueLoading,
@@ -851,6 +861,7 @@ export default {
               this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
               this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
               // TODO: firebaseのデータを更新する
+              // TODO: 過去に押されたか判断する(!likedUsers.includes(user.uid))
               break;
             }
           }
@@ -1336,30 +1347,6 @@ main {
   color: rgb(28.8%, 29.6%, 28.8%);
 }
 
-/* ログアウト */
-.logout-execute,
-.delete-execute {
-  font-size: 16px;
-  width: 250px;
-  text-align: center;
-  margin: 70px auto;
-  padding: 20px 45px;
-  color: #484b48;
-  text-decoration: none;
-  border: 2px solid #484b48;
-  background-color: #fff;
-  border-radius: 10px;
-  transition: background-color 0.3s linear;
-}
-
-.logout-execute:hover,
-.delete-execute:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
 /* 再確認のホップアップ */
 
 .delete-popup {
@@ -1601,23 +1588,9 @@ main {
     font-size: 18px;
   }
 
-  .logout-execute,
-  .delete-execute {
-    width: 200px;
-    margin:30px auto;
-  }
-
   /* 再確認のホップアップ */
   .logout-popup,
   .delete-popup {
-    font-size: 16px;
-  }
-
-  .logout-execute {
-    font-size: 16px;
-  }
-
-  .delete-execute {
     font-size: 16px;
   }
 
