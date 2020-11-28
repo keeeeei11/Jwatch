@@ -2,14 +2,19 @@ rules_version = '2';
   service cloud.firestore {
     match /databases/{database}/documents {
     function isAdminUser() {
+    // 管理者だけが実行できる
+    // adminsコレクションのドキュメントに記載のuidを参照する
       return exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
     // 投稿データへのアクセス制限
-      match /posts/{postID=**}{
+      match /posts/{post}{
         allow read: if true;
-        allow create: if request.auth.uid != null && request.auth.uid == request.resource.data.contributorUid;
-        allow update: if request.auth.uid != null && resource.data.contributorUid == request.resource.data.contributorUid;
-        allow delete: if request.auth.uid != null && request.auth.uid == request.data.contributorUid;
+        // ログインしているかつログインユーザーと投稿者ユーザーの一致
+        allow create: if request.auth.uid != null;
+        // ログインしている
+        allow update: if request.auth.uid != null && request.auth.uid == resource.data.contributorUid;
+        // ログインしている,かつログインユーザーと投稿者ユーザーが一致している
+        allow delete: if request.auth.uid != null && request.auth.uid == resource.data.contributorUid;
       }
       // お問い合わせデータへのアクセス制限
       match /inquiries/{inquiryID=**}{
