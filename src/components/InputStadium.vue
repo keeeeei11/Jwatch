@@ -244,7 +244,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h3 {
   font-size: 21px;
   font-weight: normal;

@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*観戦情報の探し方*/
 .usage-contents {
   margin-top: 100px;

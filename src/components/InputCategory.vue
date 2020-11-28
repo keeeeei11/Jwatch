@@ -28,7 +28,7 @@ export default {
   props:{
     value: { type: String, required: true },
   },
-  methods: {
+  methods:{
     inputCategory: function(e) {
       this.$emit("input", e.target.value);
     }
@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h3 {
   font-size: 21px;
   font-weight: normal;
