@@ -4,7 +4,7 @@ rules_version = '2';
     function isAdminUser() {
     // 管理者だけが実行できる
     // adminsコレクションのドキュメントに記載のuidを参照する
-      return exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+      return exists(/databases/$(database)/documents/admin/$(request.auth.uid));
     }
     // 投稿データへのアクセス制限
       match /posts/{post}{
