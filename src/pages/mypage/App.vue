@@ -70,7 +70,8 @@
                   </div>
                   <div class="post-evaluation">
                     <div class="post-evaluation-contents">
-                      <div class="good-count evaluation-btn">
+                      <div class="good-count evaluation-btn"
+                      :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
                         <button
                           @click="
                             likedData(postSingleData)
@@ -525,12 +526,8 @@
           </div>
           <div class="mypage-contents">
             <div class="mypage-past-post">
-              <!-- <div class="logout">
-                <p class="logout-execute" @click="logoutPopupShow">
-                  ログアウトする
-                </p>
-              </div> -->
               <ExitBtn
+              name="ログアウト"
               execution="ログアウトする"
               @click.native="logoutPopupShow"
               ></ExitBtn>
@@ -545,12 +542,8 @@
                   >
                 </section>
               </div>
-              <!-- <div class="delete-account">
-                <p class="delete-execute" @click="deletePopupShow">
-                  アカウント削除する
-                </p>
-              </div> -->
               <ExitBtn
+                name="アカウント削除"
                 execution="アカウント削除する"
                 @click.native="deletePopupShow"
               ></ExitBtn>
@@ -606,9 +599,6 @@ export default {
       allowDelete: false,
       // firestoreから取得したデータを保管する
       postMultipleData: [],
-      // いいねボタンが押されているか
-      isLiked: false,
-      liKedCount: 0,
       // ページネーション機能
       sortValue: sessionStorage.getItem("sortkey"),
       parPage: 5,
@@ -852,22 +842,57 @@ export default {
     },
     likedData: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
-        const likedUsers = postSingleData.likedUsers
-        if (!likedUsers.includes(user.uid)) {
-          const likedCounter = postSingleData.likedCounter+=1
-          likedUsers.push(user.uid)
-          for(let i; i < this.postMultipleData.length; i++) {
-            if (postSingleData.id === this.postMultipleData[i].id) {
-              this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
-              this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
-              // TODO: firebaseのデータを更新する
-              // TODO: 過去に押されたか判断する(!likedUsers.includes(user.uid))
-              break;
+        // ログインしているか判定
+        if(user){
+          if(postSingleData.contributorUid != user.uid){
+            const likedUsers = postSingleData.likedUsers
+            if (!likedUsers.includes(user.uid)) {
+              // 過去にいいねが押されていないときの処理
+              const likedCounter = postSingleData.likedCounter+=1
+              likedUsers.push(user.uid)
+              firebase.firestore().collection("posts").doc(postSingleData.id)
+              .update({
+                likedCounter: firebase.firestore.FieldValue.increment(1),
+                likedUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
+              })
+              for(let i; i < this.postMultipleData.length; i++) {
+                if (postSingleData.id === this.postMultipleData[i].id) {
+                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
+                  break;
+                }
+              }
+            } else {
+              // 過去にいいねが押されているときの処理
+              const likedCounter = postSingleData.likedCounter-=1
+              for(let i = 0; i < likedUsers.length; i++){
+                if(likedUsers[i] == user.uid){
+                  likedUsers.splice(i, 1)
+                }
+              }
+              firebase.firestore().collection("posts").doc(postSingleData.id)
+              .update({
+                likedCounter: firebase.firestore.FieldValue.increment(-1),
+                likedUsers: firebase.firestore.FieldValue.arrayRemove(user.uid)
+              })
+              for(let i; i < this.postMultipleData.length; i++) {
+                if (postSingleData.id === this.postMultipleData[i].id) {
+                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
+                  break;
+                }
+              }
             }
+          } else {
+            // 投稿者はいいねを押すことが出来ないことを知らせる
+            alert('投稿者はいいねを押すことが出来ません')
           }
+        } else {
+          // 非ログイン時はいいね機能が使えないことを知らせる
+          alert('いいね機能を使用するにはログインが必要です')
         }
       })
-    }
+    },
   },
   computed: {
     getItems: function() {
@@ -1037,6 +1062,7 @@ main {
   border-radius: 10px;
   padding: 5px 10px;
   transition: background-color 0.4s linear;
+  outline: none;
 }
 
 .evaluation-btn button:hover {
@@ -1333,20 +1359,6 @@ main {
   background-color: gray;
 }
 
-.mypage-contents {
-  text-align: center;
-}
-
-.mypage-contents h2 {
-  margin-left: 30px;
-  font-size: 21px;
-}
-
-.mypage-contents a {
-  text-decoration: none;
-  color: rgb(28.8%, 29.6%, 28.8%);
-}
-
 /* 再確認のホップアップ */
 
 .delete-popup {
@@ -1582,10 +1594,6 @@ main {
   .report-btn button {
     font-size: 16px;
     width: 200px;
-  }
-  /* ログアウト/アカウント削除ボタン */
-  .mypage-contents h2 {
-    font-size: 18px;
   }
 
   /* 再確認のホップアップ */
