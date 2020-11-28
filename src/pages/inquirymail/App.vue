@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrap">
-      <adminHeader></adminHeader>
+      <AdminHeader></AdminHeader>
       <main>
         <div class="inquiry-title">
           <h2>お問い合わせメール</h2>
@@ -24,31 +24,31 @@
         <div class="inquiry-data" v-else>
           <div
             v-for="inquirySingleData in getItems"
-            :key="inquirySingleData.index"
+            :key="inquirySingleData.id"
           >
             <div class="inquiry-contents">
               <div class="inquiry-example-contents">
                 <div class="inquiry-basic-information">
                   <div class="inquiry-basic-information-top">
                     <div class="inquiry-name">
-                      <p>{{ inquirySingleData.data().name }}</p>
+                      <p>{{ inquirySingleData.name }}</p>
                     </div>
                     <div class="inquiry-email">
-                      <p>{{ inquirySingleData.data().mailAddress }}</p>
+                      <p>{{ inquirySingleData.mailAddress }}</p>
                     </div>
                   </div>
                   <div class="inquiry-basic-information-bottom">
                     <div class="inquiry-date">
-                      <p>{{ inquirySingleData.data().created }}</p>
+                      <p>{{ inquirySingleData.created }}</p>
                     </div>
                   </div>
                 </div>
                 <div class="inquiry-main-content">
                   <div class="inquiry-title">
-                    <p>{{ inquirySingleData.data().title }}</p>
+                    <p>{{ inquirySingleData.title }}</p>
                   </div>
                   <div class="inquiry-text">
-                    <p>{{ inquirySingleData.data().body }}</p>
+                    <p>{{ inquirySingleData.body }}</p>
                   </div>
                 </div>
                 <div class="inquiry-evaluation">
@@ -90,7 +90,7 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import adminHeader from "../../components/adminHeader";
+import AdminHeader from "../../components/AdminHeader";
 import myFirstMixin from "../../mixin/myFirstMixin";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Paginate from "vuejs-paginate";
@@ -109,7 +109,7 @@ export default {
   },
   mixins: [myFirstMixin],
   components: {
-    adminHeader,
+    AdminHeader,
     MoveTopBtn,
     Paginate,
     VueLoading,
@@ -148,7 +148,7 @@ export default {
           .then((querySnapshot) => {
             // docにcloud firestoreからのデータが格納されている
             querySnapshot.forEach((doc) => {
-              this.inquiryMultipleData.push(doc);
+              this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
           })
@@ -163,7 +163,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              this.inquiryMultipleData.push(doc);
+              this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
           })
@@ -187,7 +187,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              this.inquiryMultipleData.push(doc);
+              this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
               sessionStorage.setItem("sortkey", this.sortValue);
             });
             this.isLoading = false;
@@ -208,7 +208,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              this.inquiryMultipleData.push(doc);
+              this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
               sessionStorage.setItem("sortkey", this.sortValue);
             });
             this.isLoading = false;

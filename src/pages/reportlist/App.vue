@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrap">
-      <adminHeader></adminHeader>
+      <AdminHeader></AdminHeader>
       <main>
         <div class="report-title">
           <h2>通報一覧</h2>
@@ -22,7 +22,7 @@
           <h4>{{ reportMultipleData.length }} 件あります</h4>
           <div
             v-for="reportSingleData in getItems"
-            :key="reportSingleData.index"
+            :key="reportSingleData.id"
           >
             <div class="report-example-contents">
               <div class="report-example-post-title">
@@ -31,40 +31,37 @@
               <div class="report-basic-information">
                 <div class="report-basic-information-top">
                   <div class="report-name">
-                    <p>{{ reportSingleData.data().postContributorName }}</p>
+                    <p>{{ reportSingleData.postContributorName }}</p>
                   </div>
                   <div class="report-uid">
-                    <p>{{ reportSingleData.data().postContributorUid }}</p>
+                    <p>{{ reportSingleData.postContributorUid }}</p>
                   </div>
                   <div class="report-date">
-                    <p>{{ reportSingleData.data().postCreated }}</p>
+                    <p>{{ reportSingleData.postCreated }}</p>
                   </div>
                 </div>
                 <div class="report-basic-information-bottom">
                   <div class="report-stadium">
-                    <p>{{ reportSingleData.data().postStadium }}</p>
+                    <p>{{ reportSingleData.postStadium }}</p>
                   </div>
                   <div class="report-category">
-                    <p>{{ reportSingleData.data().postCategory }}</p>
+                    <p>{{ reportSingleData.postCategory }}</p>
                   </div>
                 </div>
               </div>
               <div class="report-main-content">
                 <div class="report-title">
-                  <p>{{ reportSingleData.data().postTitle }}</p>
+                  <p>{{ reportSingleData.postTitle }}</p>
                 </div>
                 <div class="report-text">
-                  <p>{{ reportSingleData.data().postBody }}</p>
+                  <p>{{ reportSingleData.postBody }}</p>
                 </div>
               </div>
               <div class="report-example-warning">
                 <div class="report-example-warning-title">
                   <h3>通報理由</h3>
-                  <p>{{ reportSingleData.data().reportReason }}</p>
-                  <p>{{ reportSingleData.data().reportCreated }}</p>
-                </div>
-                <div class="report-example-warning-body">
-                  <p>{{ reportSingleData.data().reportBody }}</p>
+                  <p>{{ reportSingleData.reportReason }}</p>
+                  <p>{{ reportSingleData.reportCreated }}</p>
                 </div>
               </div>
               <div class="report-evaluation">
@@ -104,7 +101,7 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import adminHeader from "../../components/adminHeader";
+import AdminHeader from "../../components/AdminHeader";
 import myFirstMixin from "../../mixin/myFirstMixin";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Paginate from "vuejs-paginate";
@@ -123,7 +120,7 @@ export default {
   },
   mixins: [myFirstMixin],
   components: {
-    adminHeader,
+    AdminHeader,
     MoveTopBtn,
     Paginate,
     VueLoading,
@@ -162,7 +159,7 @@ export default {
           .then((querySnapshot) => {
             // docにcloud firestoreからのデータが格納されている
             querySnapshot.forEach((doc) => {
-              this.reportMultipleData.push(doc);
+              this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
           })
@@ -177,7 +174,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              this.reportMultipleData.push(doc);
+              this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
           })
@@ -203,7 +200,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              this.reportMultipleData.push(doc);
+              this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
               sessionStorage.setItem("sortkey", this.sortValue);
             });
             this.isLoading = false;
@@ -219,7 +216,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              this.reportMultipleData.push(doc);
+              this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
               sessionStorage.setItem("sortkey", this.sortValue);
             });
             this.isLoading = false;
@@ -270,7 +267,7 @@ export default {
     },
   },
   mounted: function() {
-    this.adminJudgment();
+    // this.adminJudgment();
     this.getData();
   },
 };
