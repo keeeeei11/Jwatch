@@ -14,272 +14,19 @@
             description="スタジアムとカテゴリーを選択すると情報が表示されます。"
           ></PageTitle>
           <div class="select-stadium">
-            <form>
               <h2>スタジアムとカテゴリーを選択してボタンを押してください</h2>
               <br />
-              <select
+              <InputStadium
                 v-model="stadium"
-                @change="noDataHide()"
-                class="stadium-list list"
-                size="1"
-                ><br />
-                <option value="" selected disabled
-                  >--スタジアム名を選択してください(必須)--</option
-                >
-                <option disabled>--北海道--</option>
-                <option value="テストスタジアム">テストスタジアム</option>
-                <option value="[コンサドーレ札幌] 札幌厚別公園競技場"
-                  >[コンサドーレ札幌] 札幌厚別公園競技場</option
-                >
-                <option value="[コンサドーレ札幌] 札幌ドーム"
-                  >[コンサドーレ札幌] 札幌ドーム</option
-                >
-                <option disabled>--東北--</option>
-                <option value="[ヴァンラーレ八戸] プライフーズスタジアム"
-                  >[ヴァンラーレ八戸] プライフーズスタジアム</option
-                >
-                <option value="[いわてグルージャ盛岡] いわぎんスタジアム"
-                  >[いわてグルージャ盛岡] いわぎんスタジアム</option
-                >
-                <option
-                  value="[いわてグルージャ盛岡] 北上総合運動公園北上陸上競技場"
-                  >[いわてグルージャ盛岡] 北上総合運動公園北上陸上競技場</option
-                >
-                <option value="[ベガルタ仙台] ユアテックスタジアム仙台"
-                  >[ベガルタ仙台] ユアテックスタジアム仙台</option
-                >
-                <option value="[ブラウブリッツ秋田] ソユースタジアム"
-                  >[ブラウブリッツ秋田] ソユースタジアム</option
-                >
-                <option value="[モンテディオ山形] ＮＤソフトスタジアム山形"
-                  >[モンテディオ山形] ＮＤソフトスタジアム山形</option
-                >
-                <option value="[福島ユナイテッドFC] 郡山西部サッカー場"
-                  >[福島ユナイテッドFC] 郡山西部サッカー場</option
-                >
-                <option
-                  value="[福島ユナイテッドFC] とうほう・みんなのスタジアム"
-                  >[福島ユナイテッドFC] とうほう・みんなのスタジアム</option
-                >
-                <option
-                  value="[福島ユナイテッドFC] 会津総合運動公園あいづ陸上競技場"
-                  >[福島ユナイテッドFC] 会津総合運動公園あいづ陸上競技場</option
-                >
-                <option disabled>--関東--</option>
-                <option value="[鹿島アントラーズ] 県立カシマサッカースタジアム"
-                  >[鹿島アントラーズ] 県立カシマサッカースタジアム</option
-                >
-                <option value="[水戸ホーリーホック] ケーズデンキスタジアム水戸"
-                  >[水戸ホーリーホック] ケーズデンキスタジアム水戸</option
-                >
-                <option value="[栃木SC] 栃木県グリーンスタジアム"
-                  >[栃木SC] 栃木県グリーンスタジアム</option
-                >
-                <option value="[栃木SC] カンセキスタジアムとちぎ"
-                  >[栃木SC] カンセキスタジアムとちぎ</option
-                >
-                <option value="[ザスパクサツ群馬] 正田醤油スタジアム群馬"
-                  >[ザスパクサツ群馬] 正田醤油スタジアム群馬</option
-                >
-                <option value="[浦和レッドダイヤモンズ] 浦和駒場スタジアム"
-                  >[浦和レッドダイヤモンズ] 浦和駒場スタジアム</option
-                >
-                <option value="[浦和レッドダイヤモンズ] 埼玉スタジアム２００２"
-                  >[浦和レッドダイヤモンズ] 埼玉スタジアム２００２</option
-                >
-                <option value="[大宮アルディージャ] ＮＡＣＫ５スタジアム大宮"
-                  >[大宮アルディージャ] ＮＡＣＫ５スタジアム大宮</option
-                >
-                <option value="[柏レイソル] 三協フロンテア柏スタジアム"
-                  >[柏レイソル] 三協フロンテア柏スタジアム</option
-                >
-                <option value="[ジェフユナイテッド千葉] フクダ電子アリーナ"
-                  >[ジェフユナイテッド千葉] フクダ電子アリーナ</option
-                >
-                <option value="[FC東京] 味の素スタジアム"
-                  >[FC東京] 味の素スタジアム</option
-                >
-                <option value="[東京ヴェルディ] 味の素スタジアム"
-                  >[東京ヴェルディ] 味の素スタジアム</option
-                >
-                <option value="[FC町田ゼルビア] 町田ＧＩＯＮスタジアム"
-                  >[FC町田ゼルビア] 町田ＧＩＯＮスタジアム</option
-                >
-                <option value="[東京ヴェルディ] 味の素フィールド西が丘"
-                  >[東京ヴェルディ] 味の素フィールド西が丘</option
-                >
-                <option value="[川崎フロンターレ] 等々力陸上競技場"
-                  >[川崎フロンターレ] 等々力陸上競技場</option
-                >
-                <option value="[横浜F・マリノス] 日産スタジアム"
-                  >[横浜F・マリノス] 日産スタジアム</option
-                >
-                <option
-                  value="[湘南ベルマーレ] Ｓｈｏｎａｎ ＢＭＷ スタジアム平塚"
-                  >[湘南ベルマーレ] Ｓｈｏｎａｎ ＢＭＷ スタジアム平塚</option
-                >
-                <option value="[横浜F・マリノス] ニッパツ三ツ沢球技場"
-                  >[横浜F・マリノス] ニッパツ三ツ沢球技場</option
-                >
-                <option value="[横浜FC] ニッパツ三ツ沢球技場"
-                  >[横浜FC] ニッパツ三ツ沢球技場</option
-                >
-                <option value="[Y.S.C.C. 横浜] ニッパツ三ツ沢球技場"
-                  >[Y.S.C.C. 横浜] ニッパツ三ツ沢球技場</option
-                >
-                <option value="[SC相模原] 相模原ギオンスタジアム"
-                  >[SC相模原] 相模原ギオンスタジアム</option
-                >
-                <option disabled>--北陸--</option>
-                <option
-                  value="[アルビレックス新潟] デンカビッグスワンスタジアム"
-                  >[アルビレックス新潟] デンカビッグスワンスタジアム</option
-                >
-                <option value="[カターレ富山] 富山県総合運動公園陸上競技場"
-                  >[カターレ富山] 富山県総合運動公園陸上競技場</option
-                >
-                <option>[ツエーゲン金沢] 石川県西部緑地公園陸上競技場</option>
-                <option value="[ツエーゲン金沢] 石川県西部緑地公園陸上競技場"
-                  >[カターレ富山] テクノポート福井スタジアム</option
-                >
-                <option disabled>--甲信越--</option>
-                <option value="[ヴァンフォーレ甲府] 山梨中銀スタジアム"
-                  >[ヴァンフォーレ甲府] 山梨中銀スタジアム</option
-                >
-                <option value="[松本山雅FC] サンプロ アルウィン"
-                  >[松本山雅FC] サンプロ アルウィン</option
-                >
-                <option value="[AC長野パルセイロ] 長野Ｕスタジアム"
-                  >[AC長野パルセイロ] 長野Ｕスタジアム</option
-                >
-                <option value="[FC岐阜] 岐阜メモリアルセンター長良川競技場"
-                  >[FC岐阜] 岐阜メモリアルセンター長良川競技場</option
-                >
-                <option disabled>--東海--</option>
-                <option value="[ジュビロ磐田] ヤマハスタジアム"
-                  >[ジュビロ磐田] ヤマハスタジアム</option
-                >
-                <option value="[清水エスパルス] ＩＡＩスタジアム日本平"
-                  >[清水エスパルス] ＩＡＩスタジアム日本平</option
-                >
-                <option value="[アスルクラロ沼津] 愛鷹広域公園多目的競技場"
-                  >[アスルクラロ沼津] 愛鷹広域公園多目的競技場</option
-                >
-                <option value="[藤枝MYFC] 藤枝総合運動公園サッカー場"
-                  >[藤枝MYFC] 藤枝総合運動公園サッカー場</option
-                >
-                <option value="[名古屋グランパス] 豊田スタジアム"
-                  >[名古屋グランパス] 豊田スタジアム</option
-                >
-                <option value="[名古屋グランパス] パロマ瑞穂スタジアム"
-                  >[名古屋グランパス] パロマ瑞穂スタジアム</option
-                >
-                <option disabled>--近畿--</option>
-                <option value="[京都サンガF.C.] たけびしスタジアム京都"
-                  >[京都サンガF.C.] たけびしスタジアム京都</option
-                >
-                <option
-                  value="[京都サンガF.C.] サンガスタジアム ｂｙ ＫＹＯＣＥＲＡ"
-                  >[京都サンガF.C.] サンガスタジアム ｂｙ ＫＹＯＣＥＲＡ</option
-                >
-                <option value="[セレッソ大阪] ヤンマースタジアム長居"
-                  >[セレッソ大阪] ヤンマースタジアム長居</option
-                >
-                <option value="[ガンバ大阪] パナソニック スタジアム 吹田"
-                  >[ガンバ大阪] パナソニック スタジアム 吹田</option
-                >
-                <option value="[ヴィッセル神戸] ノエビアスタジアム神戸"
-                  >[ヴィッセル神戸] ノエビアスタジアム神戸</option
-                >
-                <option disabled>--中国--</option>
-                <option value="[ガイナーレ鳥取] Ａｘｉｓバードスタジアム"
-                  >[ガイナーレ鳥取] Ａｘｉｓバードスタジアム</option
-                >
-                <option value="[ガイナーレ鳥取] チュウブＹＡＪＩＮスタジアム"
-                  >[ガイナーレ鳥取] チュウブＹＡＪＩＮスタジアム</option
-                >
-                <option value="[ファジアーノ岡山] シティライトスタジアム"
-                  >[ファジアーノ岡山] シティライトスタジアム</option
-                >
-                <option value="[サンフレッチェ広島] エディオンスタジアム広島<"
-                  >[サンフレッチェ広島] エディオンスタジアム広島</option
-                >
-                <option value="[レノファ山口FC] 維新みらいふスタジアム"
-                  >[レノファ山口FC] 維新みらいふスタジアム</option
-                >
-                <option value="[レノファ山口FC] セービング陸上競技場<"
-                  >[レノファ山口FC] セービング陸上競技場</option
-                >
-                <option disabled>--四国--</option>
-                <option
-                  value="[徳島ヴォルティス] 鳴門・大塚スポーツパーク ポカリスエットスタジアム"
-                  >[徳島ヴォルティス] 鳴門・大塚スポーツパーク
-                  ポカリスエットスタジアム</option
-                >
-                <option value="[カマタマーレ讃岐] Ｐｉｋａｒａスタジアム"
-                  >[カマタマーレ讃岐] Ｐｉｋａｒａスタジアム</option
-                >
-                <option value="[愛媛FC] ニンジニアスタジアム"
-                  >[愛媛FC] ニンジニアスタジアム</option
-                >
-                <option value="[FC今治] ありがとうサービス．夢スタジアム"
-                  >[FC今治] ありがとうサービス．夢スタジアム</option
-                >
-                <option disabled>--九州--</option>
-                <option value="[アビスパ福岡] ベスト電器スタジアム"
-                  >[アビスパ福岡] ベスト電器スタジアム</option
-                >
-                <option
-                  value="[ギラヴァンツ北九州] ミクニワールドスタジアム北九州"
-                  >[ギラヴァンツ北九州] ミクニワールドスタジアム北九州</option
-                >
-                <option value="[サガン鳥栖] 駅前不動産スタジアム"
-                  >[サガン鳥栖] 駅前不動産スタジアム</option
-                >
-                <option
-                  value="[V・ファーレン長崎] トランスコスモススタジアム長崎"
-                  >[V・ファーレン長崎] トランスコスモススタジアム長崎</option
-                >
-                <option value="[ロアッソ熊本] えがお健康スタジアム"
-                  >[ロアッソ熊本] えがお健康スタジアム</option
-                >
-                <option value="[大分トリニータ] 昭和電工ドーム大分"
-                  >[大分トリニータ] 昭和電工ドーム大分</option
-                >
-                <option value="[鹿児島ユナイテッドFC] 白波スタジアム"
-                  >[鹿児島ユナイテッドFC] 白波スタジアム</option
-                >
-                <option disabled>--沖縄--</option>
-                <option value="[FC琉球] タピック県総ひやごんスタジアム"
-                  >[FC琉球] タピック県総ひやごんスタジアム</option
-                >
-              </select>
-            </form>
-            <form class="post-category">
-              <select
-                v-model="category"
-                @change="noDataHide()"
-                class="category-list list"
-                size="1"
+                @change.native="noDataHide()"
               >
-                <option value="" selected disabled
-                  >--カテゴリーを選択してください(必須)--</option
-                >
-                <option value="スタジアムグルメ">スタジアムグルメ</option>
-                <option value="交通情報(駐車場や公共交通機関等)"
-                  >交通情報(駐車場や公共交通機関等)</option
-                >
-                <option value="座席(座席確保・座席の特徴・見やすさ)"
-                  >座席(座席確保・座席の特徴・見やすさ)</option
-                >
-                <option value="周辺情報(飲食店・ホテル・観光地等)"
-                  >周辺情報(飲食店・ホテル・観光地等)</option
-                >
-                <option value="チーム特有の情報(ダービーなど)"
-                  >チーム特有の情報(ダービーなど)</option
-                >
-                <option value="その他">その他</option>
-              </select>
+              </InputStadium>
+            <form class="post-category">
+              <InputCategory
+                v-model="category"
+                @change.native="noDataHide()"
+              >
+              </InputCategory>
             </form>
             <button @click="sortData(stadium, category)">情報を見る！</button>
           </div>
@@ -309,32 +56,32 @@
           </div>
           <!-- 選択したスタジアムとカテゴリーで投稿が1つ以上存在する時 -->
           <div class="post-contents" v-else>
-            <div v-for="postSingleData in getItems" :key="postSingleData.index">
+            <div v-for="postSingleData in getItems" :key="postSingleData.id">
               <div class="post-example-contents">
                 <div class="post-basic-information">
                   <div class="post-basic-information-top">
                     <div class="post-name">
-                      <p>{{ postSingleData.data().contributorName }} さん</p>
+                      <p>{{ postSingleData.contributorName }} さん</p>
                     </div>
                     <div class="post-date">
-                      <p>{{ postSingleData.data().created }}</p>
+                      <p>{{ postSingleData.created }}</p>
                     </div>
                   </div>
                   <div class="post-basic-information-bottom">
                     <div class="post-stadium">
-                      <p>{{ postSingleData.data().stadium }}</p>
+                      <p>{{ postSingleData.stadium }}</p>
                     </div>
                     <div class="post-category">
-                      <p>{{ postSingleData.data().category }}</p>
+                      <p>{{ postSingleData.category }}</p>
                     </div>
                   </div>
                 </div>
                 <div class="post-main-content">
                   <div class="post-title">
-                    <p>{{ postSingleData.data().title }}</p>
+                    <p>{{ postSingleData.title }}</p>
                   </div>
                   <div class="post-text">
-                    <p>{{ postSingleData.data().body }}</p>
+                    <p>{{ postSingleData.body }}</p>
                   </div>
                   <div class="post-img">
                     <!-- <img src="../../assets/3602761_s.jpg" alt=""> -->
@@ -343,19 +90,20 @@
                 </div>
                 <div class="post-evaluation">
                   <div class="post-evaluation-contents">
-                    <div class="good-count evaluation-btn">
+                    <div class="good-count evaluation-btn"
+                    :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
                       <button
                         @click="
-                          likedData(postSingleData.data(), postSingleData.id)
+                          likedData(postSingleData)
                         "
                       >
-                        いいね！ {{ postSingleData.data().likedCounter }}
+                        いいね！ {{ postSingleData.likedCounter }}
                       </button>
                     </div>
                     <!-- 投稿者と閲覧者が同じである時 -->
                     <div
                       class="allow-manage"
-                      v-if="postSingleData.data().contributorUid == visitorUid"
+                      v-if="postSingleData.contributorUid == visitorUid"
                     >
                       <div class="deleting evaluation-btn">
                         <button @click="deleteData(postSingleData.id)">
@@ -363,7 +111,7 @@
                         </button>
                       </div>
                       <div class="editing evaluation-btn">
-                        <button @click="triggerEditShow(postSingleData.data())">
+                        <button @click="triggerEditShow(postSingleData, postSingleData.id)">
                           編集する
                         </button>
                       </div>
@@ -702,7 +450,7 @@
                     <button @click="triggerEditHide()">戻る</button>
                     <button
                       @click="
-                        editData(postSingleData.data(), postSingleData.id)
+                        editData(postSingleData, postSingleData.id)
                       "
                     >
                       編集する
@@ -717,31 +465,18 @@
                   <h3>通報画面</h3>
                     <div class="report-post-main-content">
                       <div class="report-post-title">
-                        <p>{{ postSingleData.data().title }}</p>
+                        <p>{{ postSingleData.title }}</p>
                       </div>
                       <div class="report-post-text">
-                        <p>{{ postSingleData.data().body }}</p>
+                        <p>{{ postSingleData.body }}</p>
                       </div>
                     </div>
                   <!-- 通報理由 -->
                   <form class="report-reason">
-                    <select
+                    <InputReport
                       v-model="reportReason"
-                      class="report-reason-box"
-                      size="1"
                     >
-                      <option value="" disabled>--通報の理由(必須)--</option>
-                      <option value="特定のチーム、選手、サポーターへの誹謗中傷"
-                        >特定のチーム、選手、サポーターへの誹謗中傷</option
-                      >
-                      <option value="有害なサイトへの誘導"
-                        >有害なサイトへの誘導</option
-                      >
-                      <option value="重複する内容を過剰に連投する行為"
-                        >重複する内容を過剰に連投する行為</option
-                      >
-                      <option value="その他">その他</option>
-                    </select>
+                    </InputReport>
                   </form>
                   <!-- ボタン -->
                   <div class="report-btn">
@@ -750,7 +485,7 @@
                     </button>
                     <button
                       class="report"
-                      @click="reportData(postSingleData.data())">通報する</button>
+                      @click="reportData(postSingleData)">通報する</button>
                   </div>
                 </section>
                 <div class="reconfirmation-cover"></div>
@@ -803,6 +538,9 @@ import "firebase/firestore";
 import "firebase/storage";
 import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
+import InputStadium from "../../components/InputStadium";
+import InputCategory from "../../components/InputCategory";
+import InputReport from "../../components/InputReport";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Paginate from "vuejs-paginate";
 import Jfooter from "../../components/Jfooter";
@@ -843,6 +581,9 @@ export default {
   components: {
     Jheader,
     PageTitle,
+    InputStadium,
+    InputCategory,
+    InputReport,
     MoveTopBtn,
     Jfooter,
     Paginate,
@@ -871,7 +612,7 @@ export default {
             .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
-                this.postMultipleData.push(doc);
+              this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
                 sessionStorage.setItem("sortkey", this.sortValue);
                 // データが1件以上ある時はfalseにする
               });
@@ -893,7 +634,7 @@ export default {
             .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
-                this.postMultipleData.push(doc);
+              this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
                 sessionStorage.setItem("sortkey", this.sortValue);
               });
               this.isLoading = false;
@@ -914,7 +655,7 @@ export default {
             .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
-                this.postMultipleData.push(doc);
+              this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
                 sessionStorage.setItem("sortkey", this.sortValue);
               });
               this.isLoading = false;
@@ -941,35 +682,58 @@ export default {
         this.noData = true;
       }
     },
-    likedData: function(data, dataId) {
+    likedData: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
-        const db = firebase.firestore();
-        const postData = db.collection("posts").doc(dataId);
-        // DBのlikedUsersにuser.uidが存在するか判定する
-        const likedUser = data.likedUsers.some((param) => {
-          return param == user.uid;
-        });
-        if (likedUser == true) {
-          // いいねを取り消す処理
-          postData.update({
-            likedCounter: firebase.firestore.FieldValue.increment(-1),
-            likedUsers: firebase.firestore.FieldValue.arrayRemove(user.uid),
-          });
-          postData.onSnapshot(function(data) {
-            console.log(data);
-          });
-          // this.isLiked = false
-          console.log("存在する");
+        // ログインしているか判定
+        if(user){
+          if(postSingleData.contributorUid != user.uid){
+            const likedUsers = postSingleData.likedUsers
+            if (!likedUsers.includes(user.uid)) {
+              // 過去にいいねが押されていないときの処理
+              const likedCounter = postSingleData.likedCounter+=1
+              likedUsers.push(user.uid)
+              firebase.firestore().collection("posts").doc(postSingleData.id)
+              .update({
+                likedCounter: firebase.firestore.FieldValue.increment(1),
+                likedUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
+              })
+              for(let i; i < this.postMultipleData.length; i++) {
+                if (postSingleData.id === this.postMultipleData[i].id) {
+                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
+                  break;
+                }
+              }
+            } else {
+              // 過去にいいねが押されているときの処理
+              const likedCounter = postSingleData.likedCounter-=1
+              for(let i = 0; i < likedUsers.length; i++){
+                if(likedUsers[i] == user.uid){
+                  likedUsers.splice(i, 1)
+                }
+              }
+              firebase.firestore().collection("posts").doc(postSingleData.id)
+              .update({
+                likedCounter: firebase.firestore.FieldValue.increment(-1),
+                likedUsers: firebase.firestore.FieldValue.arrayRemove(user.uid)
+              })
+              for(let i; i < this.postMultipleData.length; i++) {
+                if (postSingleData.id === this.postMultipleData[i].id) {
+                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
+                  break;
+                }
+              }
+            }
+          } else {
+            // 投稿者はいいねを押すことが出来ないことを知らせる
+            alert('投稿者はいいねを押すことが出来ません')
+          }
         } else {
-          // いいねを増やす処理
-          console.log("存在しない");
-          postData.update({
-            likedCounter: firebase.firestore.FieldValue.increment(1),
-            likedUsers: firebase.firestore.FieldValue.arrayUnion(user.uid),
-          });
-          // this.isLiked = true
+          // 非ログイン時はいいね機能が使えないことを知らせる
+          alert('いいね機能を使用するにはログインが必要です')
         }
-      });
+      })
     },
     // 編集画面の表示/非表示
     triggerEditShow: function(data) {
@@ -1364,6 +1128,7 @@ main {
   border-radius: 10px;
   padding: 5px 10px;
   transition: background-color 0.4s linear;
+  outline: none;
 }
 
 .evaluation-btn button:hover {
@@ -1371,6 +1136,11 @@ main {
   cursor: pointer;
   background-color: #484b48;
   transition: 0.4s;
+}
+
+.liked button {
+  background-color: #484b48;
+  color: #fff;
 }
 
 .allow-manage {
@@ -1440,10 +1210,6 @@ main {
   cursor: pointer;
 }
 
-.liked button {
-  background-color: #484b48;
-  color: #fff;
-}
 
 /* 編集完了画面 */
 .edit-complete {
@@ -1522,18 +1288,6 @@ main {
 
 .report-reason {
   margin: 30px 0;
-}
-
-.report-reason-box {
-  height: 30px;
-  width: 50%;
-  font-size: 18px;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  border-radius: 10px;
-}
-
-.report-reason p {
-  font-size: 18px;
 }
 
 /* ボタン */

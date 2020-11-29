@@ -36,32 +36,32 @@
             >
           </div>
           <div class="post-contents" v-else>
-            <div v-for="postSingleData in getItems" :key="postSingleData.index">
+            <div v-for="postSingleData in getItems" :key="postSingleData.id">
               <div class="post-example-contents">
                 <div class="post-basic-information">
                   <div class="post-basic-information-top">
                     <div class="post-name">
-                      <p>{{ postSingleData.data().contributorName }} さん</p>
+                      <p>{{ postSingleData.contributorName }} さん</p>
                     </div>
                     <div class="post-date">
-                      <p>{{ postSingleData.data().created }}</p>
+                      <p>{{ postSingleData.created }}</p>
                     </div>
                   </div>
                   <div class="post-basic-information-bottom">
                     <div class="post-stadium">
-                      <p>{{ postSingleData.data().stadium }}</p>
+                      <p>{{ postSingleData.stadium }}</p>
                     </div>
                     <div class="post-category">
-                      <p>{{ postSingleData.data().category }}</p>
+                      <p>{{ postSingleData.category }}</p>
                     </div>
                   </div>
                 </div>
                 <div class="post-main-content">
                   <div class="post-title">
-                    <p>{{ postSingleData.data().title }}</p>
+                    <p>{{ postSingleData.title }}</p>
                   </div>
                   <div class="post-text">
-                    <p>{{ postSingleData.data().body }}</p>
+                    <p>{{ postSingleData.body }}</p>
                   </div>
                   <div class="post-img">
                     <!-- <img src="../../assets/3602761_s.jpg" alt=""> -->
@@ -70,15 +70,16 @@
                 </div>
                 <div class="post-evaluation">
                   <div class="post-evaluation-contents">
-                    <div class="good-count evaluation-btn">
-                      <button>
-                        いいね！ {{ postSingleData.data().likedCounter }}
+                    <div class="good-count evaluation-btn"
+                    :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
+                      <button @click="likedData(postSingleData)">
+                        いいね！ {{ postSingleData.likedCounter }}
                       </button>
                     </div>
                     <!-- 投稿者と閲覧者が同じである時 -->
                     <div
                       class="allow-manage"
-                      v-if="postSingleData.data().contributorUid == visitorUid"
+                      v-if="postSingleData.contributorUid == visitorUid"
                     >
                       <div class="deleting evaluation-btn">
                         <button @click="deleteData(postSingleData.id)">
@@ -86,7 +87,7 @@
                         </button>
                       </div>
                       <div class="editing evaluation-btn">
-                        <button @click="triggerEditShow(postSingleData.data())">
+                        <button @click="triggerEditShow(postSingleData)">
                           編集する
                         </button>
                       </div>
@@ -439,7 +440,7 @@
                     <button @click="triggerEditHide()">戻る</button>
                     <button
                       @click="
-                        editData(postSingleData.data(), postSingleData.id)
+                        editData(postSingleData, postSingleData.id)
                       "
                     >
                       編集する
@@ -454,31 +455,18 @@
                   <h3>通報画面</h3>
                     <div class="report-post-main-content">
                       <div class="report-post-title">
-                        <p>{{ postSingleData.data().title }}</p>
+                        <p>{{ postSingleData.title }}</p>
                       </div>
                       <div class="report-post-text">
-                        <p>{{ postSingleData.data().body }}</p>
+                        <p>{{ postSingleData.body }}</p>
                       </div>
                     </div>
                   <!-- 通報理由 -->
                   <form class="report-reason">
-                    <select
+                    <InputReport
                       v-model="reportReason"
-                      class="report-reason-box"
-                      size="1"
                     >
-                      <option value="" disabled>--通報の理由(必須)--</option>
-                      <option value="特定のチーム、選手、サポーターへの誹謗中傷"
-                        >特定のチーム、選手、サポーターへの誹謗中傷</option
-                      >
-                      <option value="有害なサイトへの誘導"
-                        >有害なサイトへの誘導</option
-                      >
-                      <option value="重複する内容を過剰に連投する行為"
-                        >重複する内容を過剰に連投する行為</option
-                      >
-                      <option value="その他">その他</option>
-                    </select>
+                    </InputReport>
                   </form>
                   <!-- ボタン -->
                   <div class="report-btn">
@@ -487,7 +475,7 @@
                     </button>
                     <button
                       class="report"
-                      @click="reportData(postSingleData.data())">通報する</button>
+                      @click="reportData(postSingleData)">通報する</button>
                   </div>
                 </section>
                 <div class="reconfirmation-cover"></div>
@@ -540,6 +528,7 @@ import "firebase/storage";
 import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
 import InputStadium from "../../components/InputStadium";
+import InputReport from "../../components/InputReport";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Paginate from "vuejs-paginate";
 import Jfooter from "../../components/Jfooter";
@@ -579,6 +568,7 @@ export default {
     Jheader,
     PageTitle,
     InputStadium,
+    InputReport,
     MoveTopBtn,
     Paginate,
     Jfooter,
@@ -599,7 +589,7 @@ export default {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              this.postMultipleData.push(doc);
+              this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
               sessionStorage.setItem("sortkey", this.sortValue);
               // データが1件以上ある時はfalseにする
             });
@@ -615,6 +605,59 @@ export default {
             console.log(displayData);
           });
       // }
+    },
+    likedData: function(postSingleData) {
+      firebase.auth().onAuthStateChanged((user) => {
+        // ログインしているか判定
+        if(user){
+          if(postSingleData.contributorUid != user.uid){
+            const likedUsers = postSingleData.likedUsers
+            if (!likedUsers.includes(user.uid)) {
+              // 過去にいいねが押されていないときの処理
+              const likedCounter = postSingleData.likedCounter+=1
+              likedUsers.push(user.uid)
+              firebase.firestore().collection("posts").doc(postSingleData.id)
+              .update({
+                likedCounter: firebase.firestore.FieldValue.increment(1),
+                likedUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
+              })
+              for(let i; i < this.postMultipleData.length; i++) {
+                if (postSingleData.id === this.postMultipleData[i].id) {
+                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
+                  break;
+                }
+              }
+            } else {
+              // 過去にいいねが押されているときの処理
+              const likedCounter = postSingleData.likedCounter-=1
+              for(let i = 0; i < likedUsers.length; i++){
+                if(likedUsers[i] == user.uid){
+                  likedUsers.splice(i, 1)
+                }
+              }
+              firebase.firestore().collection("posts").doc(postSingleData.id)
+              .update({
+                likedCounter: firebase.firestore.FieldValue.increment(-1),
+                likedUsers: firebase.firestore.FieldValue.arrayRemove(user.uid)
+              })
+              for(let i; i < this.postMultipleData.length; i++) {
+                if (postSingleData.id === this.postMultipleData[i].id) {
+                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
+                  break;
+                }
+              }
+            }
+          } else {
+            // 投稿者はいいねを押すことが出来ないことを知らせる
+            alert('投稿者はいいねを押すことが出来ません')
+          }
+        } else {
+          // 非ログイン時はいいね機能が使えないことを知らせる
+          alert('いいね機能を使用するにはログインが必要です')
+        }
+      })
     },
     // 編集画面の表示/非表示
     triggerEditShow: function (data) {
@@ -936,6 +979,11 @@ main {
   transition: 0.4s;
 }
 
+.liked button {
+  background-color: #484b48;
+  color: #fff;
+}
+
 .allow-manage {
   display: flex;
 }
@@ -1078,18 +1126,6 @@ main {
 /*通報の理由*/
 .report-reason {
   margin: 30px 0;
-}
-
-.report-reason-box {
-  height: 30px;
-  width: 50%;
-  font-size: 18px;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  border-radius: 10px;
-}
-
-.report-reason p {
-  font-size: 18px;
 }
 
 /* ボタン */
