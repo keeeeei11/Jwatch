@@ -3,7 +3,7 @@ rules_version = '2';
     match /databases/{database}/documents {
     function isAdminUser() {
     // 管理者だけが実行できる
-    // adminsコレクションのドキュメントに記載のuidを参照する
+    // adminsコレクションのドキュメントに記載のuidを参照している
       return exists(/databases/$(database)/documents/admin/$(request.auth.uid));
     }
     // 投稿データへのアクセス制限
@@ -17,7 +17,9 @@ rules_version = '2';
         allow delete: if request.auth.uid != null && request.auth.uid == resource.data.contributorUid;
       }
       // お問い合わせデータへのアクセス制限
-      match /inquiries/{inquiryID=**}{
+      match /inquiries/{inquiryID}{
+        // 読み取りと消去は管理ユーザーのみ
+        // 作成は誰でも可能、更新は不可
         allow read: if isAdminUser();
         allow create: if true;
         allow update: if false;
@@ -25,6 +27,8 @@ rules_version = '2';
       }
       // 通報データへのアクセス制限
       match /reports/{reportID}{
+        // 読み取りと消去は管理ユーザーのみ
+        // 作成は誰でも可能、更新は不可
         allow read:	if isAdminUser();
         allow create: if true;
         allow update: if false;
