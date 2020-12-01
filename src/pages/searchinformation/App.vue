@@ -111,7 +111,7 @@
                         </button>
                       </div>
                       <div class="editing evaluation-btn">
-                        <button @click="triggerEditShow(postSingleData, postSingleData.id)">
+                        <button @click="triggerEditShow(postSingleData)">
                           編集する
                         </button>
                       </div>
@@ -130,7 +130,10 @@
                 <section class="edit-page">
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
-                    <h3>スタジアム</h3>
+                    <EditStadium
+
+                    ></EditStadium>
+                    <!-- <h3>スタジアム</h3>
                     <select
                       name="stadiumlist"
                       v-model="editStadium"
@@ -390,7 +393,7 @@
                       <option value="[FC琉球] タピック県総ひやごんスタジアム"
                         >[FC琉球] タピック県総ひやごんスタジアム</option
                       >
-                    </select>
+                    </select> -->
                   </form>
                   <form class="edit-category">
                     <h3>カテゴリー</h3>
@@ -540,6 +543,7 @@ import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
 import InputStadium from "../../components/InputStadium";
 import InputCategory from "../../components/InputCategory";
+import EditStadium from "../../components/EditStadium";
 import InputReport from "../../components/InputReport";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Paginate from "vuejs-paginate";
@@ -576,6 +580,7 @@ export default {
       reportReason: "",
       // ローディング画面
       isLoading: false,
+      postedStadium:this.editStadium,
     };
   },
   components: {
@@ -583,6 +588,7 @@ export default {
     PageTitle,
     InputStadium,
     InputCategory,
+    EditStadium,
     InputReport,
     MoveTopBtn,
     Jfooter,
@@ -798,7 +804,7 @@ export default {
             )
             .then(() => {
               this.triggerEditedShow();
-              console.log(this.body);
+              // console.log(this.body);
             })
             .catch(function(error) {
               console.error(error);
@@ -852,8 +858,8 @@ export default {
           ("0" + now.getDate()).slice(-2),
       };
       if (this.reportReason.length > 0) {
-        const reportData = db.collection("reports");
-        reportData
+        const reportPost = db.collection("reports");
+        reportPost
           .add(inputData)
           .then(() => {
             this.triggerReportHide();
@@ -1113,14 +1119,14 @@ main {
   justify-content: center;
 }
 
-.evaluation-btn {
+.evaluation-btn{
   text-align: center;
   border-radius: 10px;
   padding: 5px;
   margin: 0 10px;
 }
 
-.evaluation-btn button {
+.evaluation-btn button{
   color: #484b48;
   font-size: 16px;
   background-color: #ffffff;
@@ -1131,16 +1137,28 @@ main {
   outline: none;
 }
 
-.evaluation-btn button:hover {
+.deleting button:hover, .editing button:hover, .reporting button:hover {
   color: #ffffff;
   cursor: pointer;
   background-color: #484b48;
   transition: 0.4s;
 }
 
+.good-count button:active{
+  cursor: pointer;
+}
+
+.good-count button:active{
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #484b48;
+}
+
 .liked button {
   background-color: #484b48;
   color: #fff;
+  transition: 0.4s;
+  cursor: pointer;
 }
 
 .allow-manage {

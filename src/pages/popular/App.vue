@@ -955,14 +955,14 @@ main {
   justify-content: center;
 }
 
-.evaluation-btn {
+.evaluation-btn{
   text-align: center;
   border-radius: 10px;
   padding: 5px;
   margin: 0 10px;
 }
 
-.evaluation-btn button {
+.evaluation-btn button{
   color: #484b48;
   font-size: 16px;
   background-color: #ffffff;
@@ -970,18 +970,31 @@ main {
   border-radius: 10px;
   padding: 5px 10px;
   transition: background-color 0.4s linear;
+  outline: none;
 }
 
-.evaluation-btn button:hover {
+.deleting button:hover, .editing button:hover, .reporting button:hover {
   color: #ffffff;
   cursor: pointer;
   background-color: #484b48;
   transition: 0.4s;
 }
 
+.good-count button:active{
+  cursor: pointer;
+}
+
+.good-count button:active{
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #484b48;
+}
+
 .liked button {
   background-color: #484b48;
   color: #fff;
+  transition: 0.4s;
+  cursor: pointer;
 }
 
 .allow-manage {
