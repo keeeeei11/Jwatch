@@ -14,8 +14,8 @@
             description="スタジアムとカテゴリーを選択すると情報が表示されます。"
           ></PageTitle>
           <div class="select-stadium">
-              <h2>スタジアムとカテゴリーを選択してボタンを押してください</h2>
-              <br />
+            <h2>スタジアムとカテゴリーを選択してボタンを押してください</h2>
+            <br />
               <InputStadium
                 v-model="stadium"
                 @change.native="noDataHide()"
@@ -31,29 +31,24 @@
             <button @click="sortData(stadium, category)">情報を見る！</button>
           </div>
           <div class="post-sort">
-            <select @change="sortData(stadium, category)" v-model="sortValue">
-              <option value="newest" selected>日時が新しい順</option>
-              <option value="oldest">日時が古い順</option>
-              <option value="good">いいねが多い順</option>
+            <select @change = "sortData(stadium, category)" v-model="sortValue">
+              <option value= "newest" selected>日時が新しい順</option>
+              <option value= "oldest">日時が古い順</option>
+              <option value= "good">いいねが多い順</option>
             </select>
           </div>
           <VueLoading
-            v-if="isLoading"
-            type="spiningDubbles"
-            color="#aaa"
-            :size="{ width: '100px', height: '100px' }"
+            v-if = "isLoading"
+            type = "spiningDubbles"
+            color = "#aaa"
+            :size= "{ width: '100px', height: '100px' }"
           ></VueLoading>
           <!-- 選択したスタジアムとカテゴリーで投稿がない時 -->
-          <div class="post-no-contents" v-if="noData">
-            <p>{{ stadium }}の{{ category }}に関する投稿はまだありません…</p>
-            <p>知っている情報があれば投稿して共有してみませんか？</p>
-            <p>
-              ※GoogleまたはTwitterアカウントによるログイン,もしくは匿名ログインが必要です。
-            </p>
-            <a href="https://jwatch-8411c.web.app/posting/index.html"
-              >観戦情報を投稿する！</a
-            >
-          </div>
+          <DisplayNoData
+          v-if="noData"
+          :stadium="stadium"
+          :category="category"
+          ></DisplayNoData>
           <!-- 選択したスタジアムとカテゴリーで投稿が1つ以上存在する時 -->
           <div class="post-contents" v-else>
             <div v-for="postSingleData in getItems" :key="postSingleData.id">
@@ -131,7 +126,7 @@
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
                     <EditStadium
-
+                    
                     ></EditStadium>
                     <!-- <h3>スタジアム</h3>
                     <select
@@ -543,6 +538,7 @@ import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
 import InputStadium from "../../components/InputStadium";
 import InputCategory from "../../components/InputCategory";
+import DisplayNoData from "../../components/DisplayNoData";
 import EditStadium from "../../components/EditStadium";
 import InputReport from "../../components/InputReport";
 import MoveTopBtn from "../../components/MoveTopBtn";
@@ -580,7 +576,7 @@ export default {
       reportReason: "",
       // ローディング画面
       isLoading: false,
-      postedStadium:this.editStadium,
+      // postedStadium:this.editStadium,
     };
   },
   components: {
@@ -588,6 +584,7 @@ export default {
     PageTitle,
     InputStadium,
     InputCategory,
+    DisplayNoData,
     EditStadium,
     InputReport,
     MoveTopBtn,
@@ -742,13 +739,13 @@ export default {
       })
     },
     // 編集画面の表示/非表示
-    triggerEditShow: function(data) {
+    triggerEditShow: function(postData) {
       this.editForm = true;
       // 既に入力されているデータを表示する
-      this.editStadium = data.stadium;
-      this.editCategory = data.category;
-      this.editTitle = data.title;
-      this.editBody = data.body;
+      this.editStadium = postData.stadium;
+      this.editCategory = postData.category;
+      this.editTitle = postData.title;
+      this.editBody = postData.body;
     },
     triggerEditHide: function() {
       this.editForm = false;
@@ -1004,37 +1001,6 @@ main {
 }
 
 .post-sort select:hover {
-  cursor: pointer;
-}
-
-/* 投稿が0件の時に表示する */
-.post-no-contents {
-  text-align: center;
-}
-
-.post-no-contents p {
-  font-size: 18px;
-}
-
-.post-no-contents a {
-  display: block;
-  width: 200px;
-  font-size: 18px;
-  font-weight: 500;
-  color: #484b48;
-  text-decoration: none;
-  border: 2px solid #484b48;
-  background-color: #fff;
-  margin: 30px auto 30px;
-  padding: 15px 20px;
-  border-radius: 10px;
-  transition: background-color 0.4s linear;
-}
-
-.post-no-contents a:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
   cursor: pointer;
 }
 

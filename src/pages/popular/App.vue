@@ -25,16 +25,11 @@
           :size="{ width: '100px', height: '100px' }"
         ></VueLoading>
         <div class="popular-posts">
-          <div class="post-no-contents" v-if="noData">
-            <p>{{ stadium }}に関する投稿はまだありません…</p>
-            <p>知っている情報があれば投稿して共有してみませんか？</p>
-            <p>
-              ※GoogleまたはTwitterアカウントによるログイン,もしくは匿名ログインが必要です。
-            </p>
-            <a href="https://jwatch-8411c.web.app/posting/index.html"
-              >観戦情報を投稿する！</a
-            >
-          </div>
+          <DisplayNoData
+            v-if="noData"
+            :stadium="stadium"
+            category="観戦情報"
+          ></DisplayNoData>
           <div class="post-contents" v-else>
             <div v-for="postSingleData in getItems" :key="postSingleData.id">
               <div class="post-example-contents">
@@ -528,6 +523,7 @@ import "firebase/storage";
 import Jheader from "../../components/Jheader";
 import PageTitle from "../../components/PageTitle";
 import InputStadium from "../../components/InputStadium";
+import DisplayNoData from "../../components/DisplayNoData";
 import InputReport from "../../components/InputReport";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Paginate from "vuejs-paginate";
@@ -540,6 +536,7 @@ export default {
     return {
       noData: false,
       stadium: "",
+      category: "",
       // trueで削除ボタンが表示される
       allowDelete: false,
       // 配列の取得
@@ -568,6 +565,7 @@ export default {
     Jheader,
     PageTitle,
     InputStadium,
+    DisplayNoData,
     InputReport,
     MoveTopBtn,
     Paginate,
@@ -845,37 +843,6 @@ main {
 
 .popular-posts {
   margin: 50px 0;
-}
-
-/* 投稿が0件の時に表示する */
-.post-no-contents {
-  text-align: center;
-}
-
-.post-no-contents p {
-  font-size: 18px;
-}
-
-.post-no-contents a {
-  display: block;
-  width: 200px;
-  font-size: 18px;
-  font-weight: 500;
-  color: #484b48;
-  text-decoration: none;
-  border: 2px solid #484b48;
-  background-color: #fff;
-  margin: 30px auto 30px;
-  padding: 15px 20px;
-  border-radius: 10px;
-  transition: background-color 0.4s linear;
-}
-
-.post-no-contents a:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
 }
 
 /* 投稿を表示する部分 */
