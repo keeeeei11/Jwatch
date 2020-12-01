@@ -1,8 +1,8 @@
 <template>
   <div class="input-category">
     <h3>カテゴリー</h3>
-    <select @change="inputCategory" size="1">
-      <option value="" selected disabled
+    <select @change="inputCategory" size="1" v-model="value">
+      <option value="" disabled
         >--カテゴリーを選択してください(必須)--</option
       >
       <option value="スタジアムグルメ">スタジアムグルメ</option>
@@ -26,7 +26,7 @@
 <script>
 export default {
   props:{
-    value: { type: String, required: true },
+    value: { type: String, required: true }
   },
   methods:{
     inputCategory: function(e) {
@@ -44,7 +44,7 @@ h3 {
 
 select {
   width: 60%;
-  height: 0px;
+  height: 30px;
 }
 @media (max-width: 959px) {
 }

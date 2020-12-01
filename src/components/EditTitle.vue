@@ -7,6 +7,7 @@
    :placeholder= "placeholder"
    :maxlength= "maxlength"
    @input="inputValue"
+   v-model="value"
    >
    </div>
 </template>
@@ -17,7 +18,8 @@ export default {
     type:{type:String, required:false},
     name:{type:String, required:false},
     placeholder:{type:String, default:"20字以内で入力してください"},
-    maxlength:{type:String, default:"20"}
+    maxlength:{type:String, default:"20"},
+    value: { type: String, required: true }
   },
   methods:{
     inputValue: function(e){
@@ -36,8 +38,8 @@ export default {
 
   input{
     width: 60%;
-    height: 40px;
-    font-size: 18px;
+    height: 30px;
+    font-size: 16px;
   }
 
 @media (max-width: 959px) {

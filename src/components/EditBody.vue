@@ -2,13 +2,13 @@
   <div class="edit-body">
     <h3>本文</h3>
     <textarea
-    v-model="count"
     :placeholder= "placeholder"
     :maxlength= "maxlength"
     @input="inputValue"
+    v-model="value"
     ></textarea>
     <div class="count-character">
-      <p>残り{{ 400 - count.length }}字です</p>
+      <p>残り{{ 400 - value.length }}字です</p>
     </div>
   </div>
 </template>
@@ -22,7 +22,8 @@ export default {
   },
   props:{
     placeholder:{type:String, default:"400字以内で入力してください"},
-    maxlength:{type:String, default:"400"}
+    maxlength:{type:String, default:"400"},
+    value: { type: String, required: true }
   },
   methods:{
     inputValue: function(e){

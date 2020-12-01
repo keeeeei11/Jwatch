@@ -1,7 +1,7 @@
 <template>
   <div class="input-stadium">
     <h3>スタジアム</h3>
-      <select @change="inputStadium" size="1">
+      <select @change="inputStadium" size="1" v-model="value">
       <option value="" disabled
         >--スタジアム名を選択してください(必須)--</option
       >
@@ -234,7 +234,7 @@
 <script>
 export default {
   props:{
-    value: { type: String, required: true},
+    value:{ type: String, required: true}
   },
   methods: {
     inputStadium: function(e) {
@@ -252,7 +252,7 @@ h3 {
 
 select {
   width: 60%;
-  height: 0px;
+  height: 30px;
 }
 @media (max-width: 959px) {
 }
