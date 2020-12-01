@@ -267,7 +267,7 @@ export default {
     },
   },
   mounted: function() {
-    // this.adminJudgment();
+    this.adminJudgment();
     this.getData();
   },
 };
