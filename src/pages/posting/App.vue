@@ -24,21 +24,21 @@
           <form>
             <div class="post-stadium">
               <InputStadium
-              v-model="stadium"
+                v-model="stadium"
               >
               </InputStadium>
             </div>
             <div class="post-category">
               <InputCategory
-              v-model="category"
+                v-model="category"
               >
               </InputCategory>
             </div>
             <div class="post-title-information">
               <InputBox
-              v-model="title"
-              subject="タイトル"
-              type="text"
+                v-model="title"
+                subject="タイトル"
+                type="text"
               ></InputBox>
             </div>
             <div class="post-text-information">
@@ -46,41 +46,25 @@
                 v-model="body"
                 subject="本文"
               ></TextareaBox>
-              <br />
-              <h3>画像(3枚まで)</h3>
-              <div class="post-picture">
-                <input type="file" class="picture" multiple /><br />
-              </div>
               <p class="execute" @click="triggerPostPopupShow">投稿する！</p>
             </div>
           </form>
           <!-- 再確認のポップアップ -->
-          <section class="reconfirmation" v-if="confirmationPopupShow">
-            <p>投稿してもよろしいですか？</p>
-            <p class="cancel" @click="triggerPostPopupHide">戻る</p>
-            <button @click="sendData" class="post-btn">投稿する！</button>
-          </section>
-          <div
-            class="reconfirmation-cover"
-            v-if="confirmationCoverShow"
-            @click="triggerPostPopupHide"
-          ></div>
+          <ReconfirmationPopup
+            v-if="confirmationPopupShow"
+            message="投稿してもよろしいですか？"
+            process="投稿する!"
+            @reconfirmationPopupHide="triggerPostPopupHide"
+            @sendData="sendPostData"
+          ></ReconfirmationPopup>
           <!-- 投稿完了を伝えるポップアップ -->
-          <section class="complete" v-if="completePopupShow">
-            <p>投稿が完了しました！</p>
-            <a
-              href="https://jwatch-8411c.web.app/posting"
-              @click="triggerPostedPopupHide"
-              >続けて投稿する</a
-            >
-            <a href="https://jwatch-8411c.web.app/mainpage/index.html"
-              >トップページへ</a
-            >
-            <a href="https://jwatch-8411c.web.app/mypage/index.html"
-              >マイページへ</a
-            >
-          </section>
-          <div class="complete-cover" v-if="completeCoverShow"></div>
+          <CompletePopup
+            v-if="completePopupShow"
+            message="投稿が完了しました！"
+            back="続けて投稿する"
+            url="https://jwatch-8411c.web.app/mypage/index.html"
+            movePage="マイページへ"
+          ></CompletePopup>
           <div class="post-warning">
             <p>
               ※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br />
@@ -114,6 +98,8 @@ import InputStadium from "../../components/InputStadium";
 import InputCategory from "../../components/InputCategory";
 import InputBox from "../../components/InputBox";
 import TextareaBox from "../../components/TextareaBox";
+import ReconfirmationPopup from "../../components/ReconfirmationPopup";
+import CompletePopup from "../../components/CompletePopup";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
 export default {
@@ -139,6 +125,8 @@ export default {
     InputCategory,
     InputBox,
     TextareaBox,
+    ReconfirmationPopup,
+    CompletePopup,
     MoveTopBtn,
     Jfooter,
   },
@@ -180,7 +168,7 @@ export default {
         }
       });
     },
-    sendData: function() {
+    sendPostData: function() {
       const db = firebase.firestore();
       const postdata = db.collection("posts");
       const now = new Date();
@@ -254,14 +242,6 @@ main {
   text-align: center;
 }
 
-/*画像を挿入*/
-.post-picture {
-  display: flex;
-}
-.picture {
-  margin: auto;
-}
-
 /* 送信ボタン*/
 .execute {
   width: 150px;
@@ -278,124 +258,6 @@ main {
 }
 
 .execute:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-/* 再確認のホップアップ */
-.reconfirmation {
-  opacity: 1;
-  width: 450px;
-  height: 200px;
-  position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
-}
-
-.cancel {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.cancel:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.post-btn {
-  font-size: 18px;
-  border: none;
-  padding: 10px;
-  text-align: center;
-  width: 370px;
-  outline: none;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.post-btn:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.reconfirmation-cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: gainsboro;
-  z-index: 2;
-  opacity: 0.8;
-}
-
-/* 投稿完了のポップアップ */
-.complete {
-  opacity: 1;
-  width: 450px;
-  height: 300px;
-  position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
-}
-
-.complete-cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: gainsboro;
-  z-index: 2;
-  opacity: 0.8;
-}
-
-.complete a {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.complete a:hover {
   background-color: #484b48;
   color: #fff;
   transition: 0.4s;
@@ -444,15 +306,6 @@ main {
   .post-form-title {
     text-align: center;
   }
-
-  /*画像を挿入*/
-  .post-picture {
-    display: block;
-  }
-
-  .picture {
-    margin: 20px auto;
-  }
 }
 
 @media (max-width: 559px) {
@@ -472,27 +325,6 @@ main {
 
   /* 送信ボタン*/
   .execute {
-    font-size: 16px;
-  }
-
-  /* 再確認のホップアップ */
-  .reconfirmation {
-    width: 350px;
-  }
-
-  .reconfirmation p {
-    font-size: 16px;
-  }
-
-  .cancel {
-    width: 300px;
-  }
-
-  .post_btn {
-    width: 320px;
-  }
-
-  .post_btn p {
     font-size: 16px;
   }
   /* 注意喚起 */

@@ -58,10 +58,6 @@
                   <div class="post-text">
                     <p>{{ postSingleData.body }}</p>
                   </div>
-                  <div class="post-img">
-                    <!-- <img src="../../assets/3602761_s.jpg" alt=""> -->
-                    <!-- <img src="../../assets/2396379_s.jpg" alt=""> -->
-                  </div>
                 </div>
                 <div class="post-evaluation">
                   <div class="post-evaluation-contents">
@@ -166,21 +162,19 @@
               </div>
             </div>
             <!-- 編集完了画面 -->
-            <div class="edit-complete" v-if="edited">
-              <section>
-                <p>編集が完了しました</p>
-                <button @click="triggerEditedHide()">戻る</button>
-              </section>
-            </div>
-            <div class="complete-cover" v-if="edited"></div>
+            <CompletePopup
+              v-if="edited"
+              message="編集が完了しました"
+              url="https://jwatch-8411c.web.app/mypage/index.html"
+              movePage="マイページへ"
+            ></CompletePopup>
             <!-- 通報完了画面 -->
-            <div class="report-complete" v-if="reported">
-              <section>
-                <p>通報が完了しました</p>
-                <button @click="triggerReportedHide()">戻る</button>
-              </section>
-            </div>
-            <div class="complete-cover" v-if="reported"></div>
+            <CompletePopup
+              v-if="reported"
+              message="通報が完了しました"
+              url="https://jwatch-8411c.web.app/mainpage/index.html"
+              movePage="トップページへ"
+            ></CompletePopup>
           </div>
           <Paginate
             :page-count="getPageCount"
@@ -218,6 +212,7 @@ import EditCategory from "../../components/EditCategory";
 import EditTitle from "../../components/EditTitle";
 import EditBody from "../../components/EditBody";
 import InputReport from "../../components/InputReport";
+import CompletePopup from "../../components/CompletePopup";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import Paginate from "vuejs-paginate";
 import Jfooter from "../../components/Jfooter";
@@ -264,6 +259,7 @@ export default {
     EditTitle,
     EditBody,
     InputReport,
+    CompletePopup,
     MoveTopBtn,
     Paginate,
     Jfooter,
@@ -363,17 +359,10 @@ export default {
       this.editTitle = data.title;
       this.editBody = data.body;
     },
-    triggerEditHide: function () {
-      this.editForm = false;
-    },
     // 編集完了画面の表示/非表示
     triggerEditedShow: function () {
       this.editForm = false;
       this.edited = true;
-    },
-    triggerEditedHide: function () {
-      this.edited = false;
-      location.reload();
     },
     editData: function (data, individualId) {
       const db = firebase.firestore();
@@ -710,44 +699,6 @@ main {
   cursor: pointer;
 }
 
-/* 編集完了画面 */
-.edit-complete {
-  opacity: 1;
-  width: 450px;
-  height: 150px;
-  position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
-}
-
-.edit-complete button {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.edit-complete button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
 /* 通報画面 */
 .report-page {
   opacity: 1;
@@ -807,55 +758,6 @@ main {
 }
 
 .report-btn button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.reconfirmation-cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: gainsboro;
-  z-index: 2;
-  opacity: 0.8;
-}
-
-/* 通報完了画面 */
-.report-complete {
-  opacity: 1;
-  width: 450px;
-  height: 150px;
-  position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
-}
-
-.report-complete button {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.report-complete button:hover {
   background-color: #484b48;
   color: #fff;
   transition: 0.4s;

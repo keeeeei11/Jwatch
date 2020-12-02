@@ -95,12 +95,6 @@
                           </button>
                         </div>
                       </div>
-                      <!-- 投稿者と閲覧者が異なる時 -->
-                      <div class="disallow-manage" v-else>
-                        <div class="reporting evaluation-btn">
-                          <button @click="triggerReportShow()">通報する</button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -142,7 +136,7 @@
                       </button>
                     </div>
                   </section>
-                  <div class="reconfirmation-cover"></div>
+                  <div class="reconfirmation-background"></div>
                 </div>
                 <!-- 通報画面 -->
                 <div class="report" v-if="reportForm">
@@ -176,15 +170,16 @@
                   <div class="reconfirmation-cover"></div>
                 </div>
               </div>
-              <!-- 編集完了画面 -->
-              <div class="edit-complete" v-if="edited">
-                <section>
-                  <p>編集が完了しました</p>
-                  <button @click="triggerEditedHide()">戻る</button>
-                </section>
-              </div>
-              <div class="complete-cover" v-if="edited"></div>
-            </div>
+              <!-- 編集&投稿完了画面 -->
+              <CompletePopup
+                v-if="edited"
+                message="編集が完了しました"
+                @completePopupHide="triggerEditedHide"
+              ></CompletePopup>
+              <CompletePopup
+                v-if="reported"
+                message="通報が完了しました"
+              ></CompletePopup>
             <Paginate
               :page-count="getPageCount"
               :page-range="3"
@@ -201,47 +196,34 @@
             ></Paginate>
           </div>
           <div class="mypage-contents">
-            <div class="mypage-past-post">
-              <ExitBtn
-              name="ログアウト"
-              execution="ログアウトする"
-              @click.native="logoutPopupShow"
-              ></ExitBtn>
-              <div class="logout-popup" v-if="logoutShow">
-                <section class="logout-reconfirmation">
-                  <p>ログアウトしてもよろしいですか？</p>
-                  <p class="logout-cancel" @click="logoutPopupHide">戻る</p>
-                  <a
-                    href="https://jwatch-8411c.web.app/logout/index.html"
-                    class="logout-btn"
-                    >ログアウトする</a
-                  >
-                </section>
-              </div>
-              <ExitBtn
-                name="アカウント削除"
-                execution="アカウント削除する"
-                @click.native="deletePopupShow"
-              ></ExitBtn>
-              <div class="delete-popup" v-if="deleteShow">
-                <section class="delete-reconfirmation">
-                  <p>アカウントを削除してもよろしいですか？</p>
-                  <p>一度削除すると元に戻せません</p>
-                  <p class="delete-cancel" @click="deletePopupHide">戻る</p>
-                  <a
-                    href="https://jwatch-8411c.web.app/deleteAccount/index.html"
-                    class="delete-btn"
-                    >削除する</a
-                  >
-                </section>
-              </div>
-              <div
-                class="reconfirmation-cover"
-                v-if="coverShow"
-                @click="popupHide"
-              ></div>
-            </div>
+            <!-- ログアウト関連 -->
+            <ExitBtn
+            name="ログアウト"
+            execution="ログアウトする"
+            @click.native="logoutPopupShow"
+            ></ExitBtn>
+            <ExitPopup
+              v-if="logoutShow"
+              message="ログアウトしてもよろしいですか？"
+              url="https://jwatch-8411c.web.app/logout/index.html"
+              process="ログアウトする"
+              @exitPopupHide="logoutPopupHide"
+            ></ExitPopup>
+            <!-- アカウント削除関連 -->
+            <ExitBtn
+              name="アカウント削除"
+              execution="アカウント削除する"
+              @click.native="deletePopupShow"
+            ></ExitBtn>
+            <ExitPopup
+              v-if="deleteShow"
+              message="アカウントを削除してもよろしいですか？(投稿も削除されます)"
+              url="https://jwatch-8411c.web.app/deleteAccount/index.html"
+              process="削除する"
+              @exitPopupHide="deletePopupHide"
+            ></ExitPopup>
           </div>
+        </div>
         </div>
         <MoveTopBtn></MoveTopBtn>
       </main>
@@ -263,8 +245,10 @@ import EditStadium from "../../components/EditStadium";
 import EditCategory from "../../components/EditCategory";
 import EditTitle from "../../components/EditTitle";
 import EditBody from "../../components/EditBody";
+import CompletePopup from "../../components/CompletePopup";
 import MoveTopBtn from "../../components/MoveTopBtn";
 import ExitBtn from "../../components/ExitBtn";
+import ExitPopup from "../../components/ExitPopup";
 import Jfooter from "../../components/Jfooter";
 import myFirstMixin from "../../mixin/myFirstMixin";
 import { VueLoading } from "vue-loading-template";
@@ -295,20 +279,21 @@ export default {
       // 通報画面
       reportForm: false,
       reported: false,
-      reportReason: "",
       // ローディング画面
       isLoading: false,
     };
   },
   components: {
     Jheader,
-    MoveTopBtn,
     DisplayNoData,
     EditStadium,
     EditCategory,
     EditTitle,
     EditBody,
+    CompletePopup,
+    MoveTopBtn,
     ExitBtn,
+    ExitPopup,
     Jfooter,
     Paginate,
     VueLoading,
@@ -802,42 +787,15 @@ main {
   color: #fff;
 }
 
-/* 編集完了画面 */
-.edit-complete {
-  opacity: 1;
-  width: 450px;
-  height: 150px;
+.reconfirmation-background {
   position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
-}
-
-.edit-complete button {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.edit-complete button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: gainsboro;
+  z-index: 2;
+  opacity: 0.8;
 }
 
 /* 通報画面 */
@@ -919,66 +877,6 @@ main {
   cursor: pointer;
 }
 
-.reconfirmation-cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: gainsboro;
-  z-index: 2;
-  opacity: 0.8;
-}
-
-/* 通報完了画面 */
-.report-complete {
-  opacity: 1;
-  width: 450px;
-  height: 150px;
-  position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
-}
-
-.report-complete button {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.report-complete button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.complete-cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: gainsboro;
-  z-index: 2;
-  opacity: 0.8;
-}
-
 /* ページネーション */
 .paginate {
   margin: 100px 0px;
@@ -1017,101 +915,6 @@ main {
   background-color: gray;
 }
 
-/* 再確認のホップアップ */
-
-.delete-popup {
-  font-size: 18px;
-}
-
-.logout-reconfirmation,
-.delete-reconfirmation {
-  opacity: 1;
-  position: fixed;
-  background: #ffffff;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  text-align: center;
-  transition: 0.4s;
-  z-index: 3;
-}
-
-.logout-cancel,
-.delete-cancel {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px 0px;
-  margin: 28px auto 30px;
-  background-color: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-  transition: background-color 0.4s linear;
-}
-
-.logout-cancel:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.delete-cancel:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.logout-btn,
-.delete-btn {
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px 0px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.logout-btn:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.delete-btn:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.reconfirmation-cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: gainsboro;
-  z-index: 2;
-  opacity: 0.8;
-}
-
-.reconfirmation-cover.hidden {
-  transition: 0.4s;
-  display: none;
-}
-
 @media (max-width: 959px) {
   /* メイン */
   /* 投稿内容 */
@@ -1144,6 +947,7 @@ main {
   .edit-btn {
     display: block;
   }
+
   .edit-btn button {
     margin:30px auto;
   }
@@ -1256,19 +1060,6 @@ main {
   .report-btn button {
     font-size: 16px;
     width: 200px;
-  }
-
-  /* 再確認のホップアップ */
-  .logout-popup,
-  .delete-popup {
-    font-size: 16px;
-  }
-
-  .logout-btn,
-  .delete-btn {
-    font-size: 16px;
-    padding: 10px 0;
-    width: 350px;
   }
 }
 </style>
