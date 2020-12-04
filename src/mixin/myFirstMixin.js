@@ -6,11 +6,11 @@ export default {
   data() {
     return {
       visitorName: "",
+      visiorUid: "",
       email: "",
       emailVerified: "",
       photoURL: "",
       isAnonymous: "",
-      visiorUid: "",
       providerData: "",
       isLogin: false,
     };
@@ -50,6 +50,10 @@ export default {
             this.isAnonymous,
             this.providerData
           );
+        }
+        // 匿名ユーザーが投稿した時にユーザー名を「匿名」と表示する
+        if(this.isAnonymous == true){
+          this.visitorName = "匿名"
         }
       });
     }
