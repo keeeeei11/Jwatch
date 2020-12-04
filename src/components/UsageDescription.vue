@@ -31,29 +31,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /*観戦情報の探し方*/
 .usage-contents {
   margin-top: 100px;
   margin-left: 10%;
   padding: 100px 80px;
   background-color: #f2f2f2;
-}
-
-.usage-contents h2 {
-  font-size: 32px;
-}
-
-.usage-contents p {
-  font-size: 18px;
+  h2 {
+    font-size: 32px;
+  }
+  p {
+    font-size: 18px;
+  }
 }
 
 .usage-description {
   padding-left: 10%;
-}
-
-.usage-description p {
-  line-height: 2.5em;
+  p {
+    line-height: 2.5em;
+  }
 }
 
 @media (max-width: 959px) {
@@ -77,14 +74,12 @@ export default {
   /*観戦情報の探し方*/
   .usage-contents {
     padding: 50px 40px;
-  }
-
-  .usage-contents h2 {
-    font-size: 28px;
-  }
-
-  .usage-contents p {
-    font-size: 16px;
+    h2 {
+      font-size: 28px;
+    }
+    p {
+      font-size: 16px;
+    }
   }
 }
 </style>

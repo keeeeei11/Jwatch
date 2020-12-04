@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="input-box">
     <h3> {{ subject }}</h3>
-   <input
-   :type= "type"
-   :name= "name"
-   :placeholder= "placeholder"
-   :maxlength= "maxlength"
-   @input="inputValue"
-   >
+    <input
+      :type= "type"
+      :name= "name"
+      :placeholder= "placeholder"
+      :maxlength= "maxlength"
+      @input="inputValue"
+    >
    </div>
 </template>
 
@@ -29,29 +29,35 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   /* 題名 */
-  h3 {
-    font-size: 21px;
-    font-weight: normal;
-  }
-
-  input{
-    width: 60%;
-    height: 40px;
-    font-size: 18px;
+  .input-box{
+    h3 {
+      font-size: 21px;
+      font-weight: normal;
+    }
+  
+    input{
+      width: 60%;
+      height: 40px;
+      font-size: 18px;
+    }
   }
 
 @media (max-width: 959px) {
    /* 題名 */
-  input{
-    width: 90%;
+  .input-box{
+    input{
+      width: 90%;
+    }
   }
 }
 
 @media (max-width: 559px) {
-  h3 {
-    font-size: 18px;
+  .input-box{
+    h3 {
+      font-size: 18px;
+    }
   }
 }
 </style>

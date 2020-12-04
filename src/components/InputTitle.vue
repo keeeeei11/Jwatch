@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="input-title">
     <h3>タイトル</h3>
    <input
    :type= "type"
@@ -27,29 +27,34 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   /* 題名 */
-  h3 {
-    font-size: 21px;
-    font-weight: normal;
-  }
-
-  input{
-    width: 60%;
-    height: 40px;
-    font-size: 18px;
+  .input-title{
+    h3 {
+      font-size: 21px;
+      font-weight: normal;
+    }
+    input{
+      width: 60%;
+      height: 40px;
+      font-size: 18px;
+    }
   }
 
 @media (max-width: 959px) {
    /* 題名 */
-  input{
-    width: 90%;
+  .input-title{
+    input{
+      width: 90%;
+    }
   }
 }
 
 @media (max-width: 559px) {
-  h3 {
-    font-size: 18px;
+  .input-title{
+    h3 {
+      font-size: 18px;
+    }
   }
 }
 </style>

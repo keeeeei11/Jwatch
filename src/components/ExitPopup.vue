@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .reconfirmation {
   opacity: 1;
   position: fixed;
@@ -53,13 +53,12 @@ export default {
   border-radius: 10px;
   border: 2px solid #484b48;
   transition: background-color 0.4s linear;
-}
-
-.cancel:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  :hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 .process {
@@ -73,13 +72,12 @@ export default {
   color: #484b48;
   border-radius: 10px;
   border: 2px solid #484b48;
-}
-
-.process:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  :hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 .reconfirmation-background {

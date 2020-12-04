@@ -36,22 +36,23 @@ export default {
 }
 </script>
 
-<style scoped>
-h3 {
-  font-size: 18px;
-  font-weight: normal;
-}
-
-select {
-  width: 60%;
-  height: 30px;
-}
-@media (max-width: 959px) {
+<style lang="scss" scoped>
+.input-category{
+  h3 {
+    font-size: 18px;
+    font-weight: normal;
+  }
+  select {
+    width: 60%;
+    height: 30px;
+  }
 }
 
 @media (max-width: 559px) {
-h3 {
-  font-size: 16px;
-}
+  .input-category{
+    h3 {
+      font-size: 16px;
+    }
+  }
 }
 </style>

@@ -23,28 +23,26 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .induction {
   margin: 0px;
   text-align: center;
-}
-
-.induction a {
-  width: 100vw;
-  height: 300px;
-  margin-top: 50px;
-  background-color: #323232;
-  color: #ffffff;
-  line-height: 2.5em;
-  transition: background-color 0.4s linear;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-}
-
-.induction a:hover {
-  background-color: #202020;
+  a {
+    width: 100vw;
+    height: 300px;
+    margin-top: 50px;
+    background-color: #323232;
+    color: #ffffff;
+    line-height: 2.5em;
+    transition: background-color 0.4s linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  a:hover {
+    background-color: #202020;
+  }
 }
 
 .induction-contants {

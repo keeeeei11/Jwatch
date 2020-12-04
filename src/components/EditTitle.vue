@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="edit-title">
     <h3>タイトル</h3>
    <input
    :type= "type"
    :name= "name"
    :placeholder= "placeholder"
    :maxlength= "maxlength"
-   @input="inputValue"
-   v-model="value"
+   @input="$emit('update:editTitle', $event.target.value)"
+   :value="editTitle"
    >
    </div>
 </template>
@@ -19,35 +19,36 @@ export default {
     name:{type:String, required:false},
     placeholder:{type:String, default:"20字以内で入力してください"},
     maxlength:{type:String, default:"20"},
-    value: { type: String, required: true }
+    value: { type: String, required: true },
+    editTitle: { type: String, required: true },
   },
   methods:{
-    inputValue: function(e){
-      this.$emit("input", e.target.value)
-    }
+    // inputValue: function(e){
+    //   this.$emit("input", e.target.value)
+    // }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   /* 題名 */
-  h3 {
-    font-size: 18px;
-    font-weight: normal;
+  .edit-title{
+    h3 {
+      font-size: 18px;
+      font-weight: normal;
+    }
+    input{
+      width: 60%;
+      height: 30px;
+      font-size: 16px;
+    }
   }
-
-  input{
-    width: 60%;
-    height: 30px;
-    font-size: 16px;
-  }
-
-@media (max-width: 959px) {
-}
 
 @media (max-width: 559px) {
-  h3 {
-    font-size: 16px;
+  .edit-title{
+    h3 {
+      font-size: 16px;
+    }
   }
 }
 </style>

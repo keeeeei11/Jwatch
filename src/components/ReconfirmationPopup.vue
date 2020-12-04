@@ -26,7 +26,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 /* 再確認のホップアップ */
 .reconfirmation {
   opacity: 1;
@@ -57,13 +57,12 @@ export default {
   color: #484b48;
   border-radius: 10px;
   border: 2px solid #484b48;
-}
-
-.cancel:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  :hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 .process-btn {
@@ -77,13 +76,12 @@ export default {
   color: #484b48;
   border-radius: 10px;
   border: 2px solid #484b48;
-}
-
-.process-btn:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  :hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 .reconfirmation-background {
@@ -101,10 +99,9 @@ export default {
     /* 再確認のホップアップ */
   .reconfirmation {
     width: 250px;
-  }
-
-  .reconfirmation p {
-    font-size: 16px;
+    p {
+      font-size: 16px;
+    }
   }
 
   .cancel {

@@ -30,14 +30,7 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style scoped>
+<style lang="scss" scoped>
 /*注意点*/
 .attention {
   margin-top: 100px;
@@ -47,12 +40,13 @@ export default {
   background-color: #f2f2f2;
 }
 
-.attention-title h2 {
-  font-size: 32px;
-}
-
-.attention-title p {
-  font-size: 18px;
+.attention-title {
+  h2 {
+    font-size: 32px;
+  }
+  p {
+    font-size: 18px;
+  }
 }
 
 .attention-discriptions {

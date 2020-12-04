@@ -93,7 +93,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 /*以下ヘッダー*/
 header {
   width: 100%;
@@ -118,13 +118,13 @@ header {
 .header-title {
   margin-left: 2%;
   margin-right: 10px;
-}
-.header-title a {
-  text-decoration: none;
-}
-.header-title h1 {
-  color: black;
-  font-weight: normal;
+  a {
+    text-decoration: none;
+  }
+  h1 {
+    color: black;
+    font-weight: normal;
+  }
 }
 /* ログイン時のユーザー名 */
 .header-username {
@@ -144,82 +144,78 @@ header {
 
 .header-menu {
   margin-top: 35px;
-}
-
-.header-menu a {
-  color: rgb(28.8%, 29.6%, 28.8%);
-  margin-right: 30px;
-  font-size: 14px;
-  position: relative;
-  display: inline-block;
-  text-decoration: none;
-}
-.header-menu a::after {
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  content: "";
-  width: 100%;
-  height: 2px;
-  background: #333;
-  transform: scale(0, 1);
-  transform-origin: center top;
-  transition: transform 0.3s;
-}
-.header-menu a:hover::after {
-  transform: scale(1, 1);
+  a {
+    color: rgb(28.8%, 29.6%, 28.8%);
+    margin-right: 30px;
+    font-size: 14px;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+  }
+  a::after {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #333;
+    transform: scale(0, 1);
+    transform-origin: center top;
+    transition: transform 0.3s;
+  }
+  a:hover::after {
+    transform: scale(1, 1);
+  }
 }
 /*ヘッダーのログインボタン*/
 
 .header-login {
   margin: 25px 10px 0px 0px;
   text-align: center;
-}
+  a {
+    text-decoration: none;
+    color: rgb(28.8%, 29.6%, 28.8%);
+    transition: color 0.4s linear;
+  }
 
-.header-login a {
-  text-decoration: none;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  transition: color 0.4s linear;
-}
-
-.header-login a:hover {
-  color: gray;
-  transition: 0.4s;
-}
-.header-login i {
-  font-size: 36px;
-  margin: 0;
-}
-.header-login p {
-  font-size: 12px;
-  font-weight: bold;
-  /* aタグとpタグの間の空白を適切に調整 */
-  line-height: 0.1em;
+  a:hover {
+    color: gray;
+    transition: 0.4s;
+  }
+  i {
+    font-size: 36px;
+    margin: 0;
+  }
+  p {
+    font-size: 12px;
+    font-weight: bold;
+    /* aタグとpタグの間の空白を適切に調整 */
+    line-height: 0.1em;
+  }
 }
 /* マイページ */
 .header-mypage {
   margin: 25px 10px 0px 0px;
   text-align: center;
-}
-
-.header-mypage a {
-  text-decoration: none;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  transition: color 0.4s linear;
-}
-
-.header-mypage a:hover {
-  color: gray;
-  transition: 0.4s;
-}
-.header-mypage i {
-  font-size: 36px;
-}
-.header-mypage p {
-  font-size: 12px;
-  font-weight: bold;
-  /* aタグとpタグの間の空白を適切に調整 */
-  line-height: 0.1em;
+  a{
+    text-decoration: none;
+    color: rgb(28.8%, 29.6%, 28.8%);
+    transition: color 0.4s linear;
+  }
+  a:hover {
+    color: gray;
+    transition: 0.4s;
+  }
+  i{
+    font-size: 36px;
+  }
+  p{
+    font-size: 12px;
+    font-weight: bold;
+    /* aタグとpタグの間の空白を適切に調整 */
+    line-height: 0.1em;
+  }
 }
 
 /* ハンバーガーメニュー(980px以上は非表示) */
@@ -233,12 +229,11 @@ header {
   padding-left: 10px;
   margin-left: 10px;
   cursor: pointer;
-}
-
-#show p {
-  font-size: 12px;
-  margin: 0;
-  padding-top: 5px;
+  p {
+    font-size: 12px;
+    margin: 0;
+    padding-top: 5px;
+  }
 }
 
 #cover {
@@ -265,24 +260,21 @@ header {
   z-index: 2;
   transition: 0.4s;
   right: 0;
-}
-
-#menu ul {
-  margin: 90px 5px 0px 5px;
-  padding: 10px;
-}
-
-#menu li {
-  padding: 20px 0px;
-  text-align: center;
-  list-style: none;
-}
-
-#menu a {
-  color: #efefef;
-  font-size: 21px;
-  text-decoration: none;
-  line-height: 2.5em;
+  ul {
+    margin: 90px 5px 0px 5px;
+    padding: 10px;
+  }
+  li {
+    padding: 20px 0px;
+    text-align: center;
+    list-style: none;
+  }
+  a {
+    color: #efefef;
+    font-size: 21px;
+    text-decoration: none;
+    line-height: 2.5em;
+  }
 }
 
 #hide {

@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 p{
   font-size: 16px;
   width: 250px;
@@ -28,13 +28,12 @@ p{
   background-color: #fff;
   border-radius: 10px;
   transition: background-color 0.3s linear;
-}
-
-p:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.3s;
-  cursor: pointer;
+  :hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.3s;
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 559px) {

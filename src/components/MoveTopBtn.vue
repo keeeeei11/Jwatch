@@ -24,11 +24,10 @@
   }
  }
 </script>
-<style scoped>
-#move_top{
-    user-select: none;
-}
+<style lang="scss" scoped>
+// TODO:ネストした時に矢印を表示させる
 .arrow{
+    user-select: none;
     cursor: pointer;
     position: fixed;
     right: 45px;
@@ -40,11 +39,11 @@
     transition: all 0.2s ease-in-out;
 }
 .arrow:hover{
-    opacity: 0.8s;
+  opacity: 0.8s;
     bottom:55px;
 }
 .arrow:before{
-    content:"";
+  content:"";
     width: 12px;
     height: 12px;
     border-top: 4px solid #ffffff;
@@ -55,7 +54,7 @@
     top: 17px;
 }
 .arrow:after{
-    content:"";
+  content:"";
     width: 12px;
     height: 12px;
     border-top: 4px solid #ffffff;
@@ -67,7 +66,7 @@
 }
 /* PC以外では非表示 */
 @media (max-width:959px){
-#move_top{
+.arrow{
   display: none;
 }
 }

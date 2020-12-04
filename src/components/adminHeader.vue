@@ -12,7 +12,7 @@
     </header>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 header{
   width: 100%;
   position: fixed;
@@ -26,19 +26,14 @@ header{
   display: flex;
   margin: auto 50px;
   justify-content: space-around;
-}
+  a{
+    text-decoration: none;
+    color: #484b48;
+    margin: 0 30px;
+  }
 
-.header-contents{
-  margin-top: 30px;
-}
-
-.header-contents a{
-  text-decoration: none;
-  color: #484b48;
-  margin: 0 30px;
-}
-
-.header-contents a:hover{
-  color: gray;
+  a:hover{
+    color: gray;
+  }
 }
 </style>

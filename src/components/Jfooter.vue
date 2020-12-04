@@ -40,7 +40,7 @@
   </footer>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 /*以下フッター*/
 footer{
   background-color:#f2f2f2;
@@ -57,45 +57,42 @@ footer{
   height: 150px;
   padding: 0;
   margin: 0;
-}
-
-.footer-title h3{
-  font-size: 36px;
-  font-weight: 700;
-}
-
-.footer-title p{
-  font-size: 16px;
+  h3{
+    font-size: 36px;
+    font-weight: 700;
+  }
+  p{
+    font-size: 16px;
+  }
 }
 
 .link{
   width: 250px;
   margin-left: 30%;
-}
-
-.link a{
-  color: rgb(28.8%, 29.6%, 28.8%);
-  font-size: 16px;
-  margin-left: 20px;
-  margin-bottom: 40px;
-  position: relative;
-  display: inline-block;
-  text-decoration: none;
-}
-.link a::after{
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  content: '';
-  width: 100%;
-  height: 2px;
-  background: #333;
-  transform: scale(0, 1);
-  transform-origin: center top;
-  transition: transform 0.3s;
-}
-.link a:hover::after{
-  transform: scale(1,1);
+  a{
+    color: rgb(28.8%, 29.6%, 28.8%);
+    font-size: 16px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+  }
+  a::after{
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #333;
+    transform: scale(0, 1);
+    transform-origin: center top;
+    transition: transform 0.3s;
+  }
+  a:hover::after{
+    transform: scale(1,1);
+  }
 }
 
 /*以下SNS連携*/
@@ -104,35 +101,31 @@ footer{
   display: flex;
   margin-bottom: 10px;
   margin-left: 10%;
-}
-
-.sns a{
-  display: flex;
-  margin: 0px 10px;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  text-decoration: none;
-  padding: 0 10px;
-  transition:color 0.4s linear;
-}
-
-.sns a:hover{
-  color: gray;
-  transition: 0.4s;
-}
-
-.sns i {
-  font-size: 26px;
-  padding-bottom: 20px;
+  a{
+    display: flex;
+    margin: 0px 10px;
+    color: rgb(28.8%, 29.6%, 28.8%);
+    text-decoration: none;
+    padding: 0 10px;
+    transition:color 0.4s linear;
+  }
+  a:hover{
+    color: gray;
+    transition: 0.4s;
+  }
+  i {
+    font-size: 26px;
+    padding-bottom: 20px;
+  }
 }
 
 .icon-title{
   margin-right: 10px;
-}
-
-.icon-title p{
-  color: #484b48;
-  font-size: 16px;
-  margin-block-start: 0em;
+  p{
+    color: #484b48;
+    font-size: 16px;
+    margin-block-start: 0em;
+  }
 }
 
 .icon-img{
@@ -161,18 +154,16 @@ footer{
 
     .link{
         margin-left: 0em;
-    }
-    .link a{
-    margin-left:0;
+      a{
+        margin-left:0;
+      }
     }
 
     .sns{
         margin-left: 0em;
-    }
-
-    .sns{
         padding: 0em;
     }
+
     .icon-img{
         display: flex;
     }

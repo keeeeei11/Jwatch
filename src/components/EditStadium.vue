@@ -244,22 +244,26 @@ export default {
 }
 </script>
 
-<style scoped>
-h3 {
-  font-size: 18px;
-  font-weight: normal;
-}
-
-select {
-  width: 60%;
-  height: 30px;
+<style lang="scss" scoped>
+.input-stadium{
+  h3 {
+    font-size: 18px;
+    font-weight: normal;
+  }
+  
+  select {
+    width: 60%;
+    height: 30px;
+  }
 }
 @media (max-width: 959px) {
 }
 
 @media (max-width: 559px) {
-  h3 {
-    font-size: 16px;
+  .input-stadium{
+    h3 {
+      font-size: 16px;
+    }
   }
 }
 </style>

@@ -32,34 +32,38 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   /* 題名 */
-h3 {
-  font-size: 21px;
-  font-weight: normal;
-}
-
-textarea {
-  width: 60%;
-  height: 400px;
-}
-
-.count-character p{
-  font-size: 18px;
+.input-body{
+  h3 {
+    font-size: 21px;
+    font-weight: normal;
+  }
+  textarea {
+    width: 60%;
+    height: 400px;
+  }
+  p{
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 959px) {
-  textarea {
-    width: 90%;
+  .input-body{
+    textarea {
+      width: 90%;
+    }
   }
 }
 
 @media (max-width: 559px) {
-  h3 {
-    font-size: 18px;
-  }
-  .count-character p{
-    font-size: 16px;
+  .input-body{
+    h3 {
+      font-size: 18px;
+    }
+    p{
+      font-size: 16px;
+    }
   }
 }
 </style>

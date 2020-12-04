@@ -25,7 +25,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .complete {
   opacity: 1;
   width: 450px;
@@ -41,48 +41,44 @@ export default {
   text-align: center;
   transition: 0.4s;
   z-index: 3;
-}
-
-.complete button {
-  width: 350px;
-  font-size: 18px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.complete button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.complete a {
-  width: 330px;
-  font-size: 18px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: 28px auto 30px;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.complete a:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  button {
+    width: 350px;
+    font-size: 18px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 28px auto 30px;
+    background: #ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+  }
+  button:hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
+  a {
+    width: 330px;
+    font-size: 18px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 28px auto 30px;
+    background: #ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+  }
+  a:hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 .complete-background {
@@ -99,16 +95,14 @@ export default {
 @media (max-width: 559px) {
   .complete {
     width: 250px;
-  }
-
-  .complete button{
-    width: 200px;
-    font-size: 16px;
-  }
-
-  .complete a{
-    width: 180px;
-    font-size: 16px;
+    button{
+      width: 200px;
+      font-size: 16px;
+    }
+    a{
+      width: 180px;
+      font-size: 16px;
+    }
   }
 }
 </style>

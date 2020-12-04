@@ -16,7 +16,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .page-title{
     margin-left: 20%;
     margin-top: 250px;
@@ -43,12 +43,15 @@ export default {
 
 @media (max-width:559px)
 {
-.page-title h1{
-    font-size: 36px;
-}
+  .page-title{
+    padding:0 30px;
+  }
+  .page-title h1{
+      font-size: 36px;
+  }
 
-.page-title p{
-    font-size: 18px;
-}
+  .page-title p{
+      font-size: 18px;
+  }
 }
 </style>
