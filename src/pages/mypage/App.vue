@@ -89,7 +89,7 @@
                         </div>
                         <div class="editing evaluation-btn">
                           <button
-                            @click="triggerEditShow(postSingleData)"
+                            @click="triggerEditShow(postSingleData, postSingleData.id)"
                           >
                             編集する
                           </button>
@@ -129,7 +129,7 @@
                       <button @click="triggerEditHide()">戻る</button>
                       <button
                         @click="
-                          editData(postSingleData, postSingleData.id)
+                          editData(postSingleData, editId)
                         "
                       >
                         編集する
@@ -144,10 +144,10 @@
                     <h3>通報画面</h3>
                       <div class="report-post-main-content">
                         <div class="report-post-title">
-                          <p>{{ postSingleData.title }}</p>
+                          <p>{{ reportTitle }}</p>
                         </div>
                         <div class="report-post-text">
-                          <p>{{ postSingleData.body }}</p>
+                          <p>{{ reportBody }}</p>
                         </div>
                       </div>
                     <!-- 通報理由 -->
@@ -164,7 +164,7 @@
                       </button>
                       <button
                         class="report"
-                        @click="reportData(postSingleData)">通報する</button>
+                        @click="reportData()">通報する</button>
                     </div>
                   </section>
                   <div class="reconfirmation-cover"></div>
@@ -175,6 +175,8 @@
                 v-if="edited"
                 message="編集が完了しました"
                 @completePopupHide="triggerEditedHide"
+                url="https://jwatch-8411c.web.app/mypage/index.html"
+                movePage="マイページへ"
               ></CompletePopup>
               <CompletePopup
                 v-if="reported"
@@ -346,13 +348,14 @@ export default {
           });
       });
     },
-    triggerEditShow: function(data) {
+    triggerEditShow: function(postData, postDataId) {
       this.editForm = true;
       // 既に入力されているデータを表示する
-      this.editStadium = data.stadium;
-      this.editCategory = data.category;
-      this.editTitle = data.title;
-      this.editBody = data.body;
+      this.editId = postDataId;
+      this.editStadium = postData.stadium;
+      this.editCategory = postData.category;
+      this.editTitle = postData.title;
+      this.editBody = postData.body;
     },
     triggerEditHide: function() {
       this.editForm = false;
@@ -362,38 +365,30 @@ export default {
       this.editForm = false;
       this.edited = true;
     },
-    triggerEditedHide: function() {
-      this.edited = false;
-      location.reload();
-    },
     // 編集処理
-    editData: function(data, individualId) {
+    editData: function(postSingleData, postSingleDataId) {
       const db = firebase.firestore();
       const postdata = db.collection("posts");
       const now = new Date();
-      const unchangeData = data;
-      const inputdata = {
-        stadium: this.editStadium,
-        category: this.editCategory,
-        title: this.editTitle,
-        body: this.editBody,
-        updated:
-          now.getFullYear() +
-          "/" +
-          ("0" + (now.getMonth() + 1)).slice(-2) +
-          "/" +
-          ("0" + now.getDate()).slice(-2),
-        contributorName: this.visitorName,
-        likedCounter: unchangeData.likedCounter,
-        likedUsers: unchangeData.likedUsers,
-      };
       // スタジアムとカテゴリーが入力されているか判定する
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
           postdata
-            .doc(individualId)
-            .set(inputdata, { merge: true })
+            .doc(postSingleDataId)
+            .update({
+                stadium: this.editStadium,
+                category: this.editCategory,
+                title: this.editTitle,
+                body: this.editBody,
+                updated:
+                now.getFullYear() +
+                "/" +
+                ("0" + (now.getMonth() + 1)).slice(-2) +
+                "/" +
+                ("0" + now.getDate()).slice(-2),
+                contributorName: this.visitorName,
+            })
             .then(() => {
               this.triggerEditedShow();
             })
@@ -408,8 +403,17 @@ export default {
       }
     },
     // 通報画面の表示/非表示
-    triggerReportShow: function() {
+    triggerReportShow: function(postData, postDataId) {
       this.reportForm = true;
+      this.reportStadium = postData.stadium
+      this.reportCategory = postData.category
+      this.reportTitle = postData.title
+      this.reportBody = postData.body
+      this.reportId = postDataId
+      this.reportCreated = postData.created
+      this.reportContributorName = postData.contributorName
+      this.reportContributorUid = postData.contributorUid
+      this.updated = postData.updated
     },
     triggerReportHide: function() {
       this.reportForm = false;
@@ -423,30 +427,23 @@ export default {
       this.reported = false;
     },
     // 通報データの追加
-    reportData: function(data) {
+    reportData: function() {
       const db = firebase.firestore();
       const now = new Date();
-      const postData = data;
       const inputData = {
         // 通報対象の投稿データ
-        postStadium: postData.stadium,
-        postCategory: postData.category,
-        postTitle: postData.title,
-        postBody: postData.body,
-        postCreated: postData.created,
-        postContributorName: postData.contributorName,
-        postContributorUid: postData.contributorUid,
-        postUpdated: postData.updated,
-        postLikedCounter: postData.likedCounter,
-        postlikedUsers: postData.likedUsers,
+        postStadium: this.reportStadium,
+        postCategory: this.reportCategory,
+        postTitle: this.reportTitle,
+        postBody: this.reportBody,
+        postCreated: this.reportCreated,
+        postContributorName: this.reportContributorName,
+        postContributorUid: this.reportContributorUid,
+        postUpdated: this.updated,
         // 通報理由
         reportReason: this.reportReason,
-        reportCreated:
-          now.getFullYear() +
-          "/" +
-          ("0" + (now.getMonth() + 1)).slice(-2) +
-          "/" +
-          ("0" + now.getDate()).slice(-2),
+        reportCreated: now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2)
+         + "/" + ("0" + now.getDate()).slice(-2),
       };
       if (this.reportReason.length > 0) {
         const reportData = db.collection("reports");
