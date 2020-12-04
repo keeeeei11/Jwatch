@@ -61,10 +61,6 @@
                   ここの唐揚げは出来たてを提供してくれます。また値段も低価格で観戦の際はいつも購入しています！是非購入してみてください！
                 </p>
               </div>
-              <div class="post-img">
-                <img src="../../assets/3602761_s.jpg" alt="" />
-                <img src="../../assets/2396379_s.jpg" alt="" />
-              </div>
             </div>
             <div class="post-evaluation">
               <div class="post-evaluation-contents">
@@ -113,7 +109,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /*以下ヘッダー*/
 .wrap {
   overflow: hidden;
@@ -179,20 +175,9 @@ main {
   margin: 25px 0;
   padding: 0 30px;
   text-align: left;
-}
-
-.post-text p {
-  font-size: 18px;
-}
-
-.post-img {
-  display: flex;
-}
-
-.post-img img {
-  margin: 30px auto 20px;
-  width: 30%;
-  height: auto;
+  p {
+    font-size: 18px;
+  }
 }
 
 .post-evaluation p {
@@ -256,34 +241,24 @@ main {
     text-align: center;
     font-size: 18px;
   }
+  
   .post-text {
     margin: 10px 0;
     padding: 0 10px;
+    p {
+      font-size: 16px;
+    }
   }
 
   .post-name {
     font-size: 18px;
   }
 
-  .post-text p {
-    font-size: 16px;
-  }
-
-  .post-img {
-    flex-direction: column;
-  }
-
-  .post-img img {
-    margin: 20px auto;
-    width: 60%;
-    height: auto;
-  }
-
   .post-basic-information-bottom {
     display: block;
-  }
-  .post-basic-information-bottom p {
-    text-align: center;
+    p {
+      text-align: center;
+    }
   }
 
   .post-evaluation p {

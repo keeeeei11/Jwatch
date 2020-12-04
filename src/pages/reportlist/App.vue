@@ -273,7 +273,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .wrap {
   overflow: hidden;
 }
@@ -288,17 +288,15 @@ main {
 
 .report-sort {
   text-align: center;
-}
-
-.report-sort select {
-  margin: 30px auto;
-  padding: 10px 0;
-  width: 500px;
-  font-size: 18px;
-}
-
-.report-sort select:hover {
-  cursor: pointer;
+  select {
+    margin: 30px auto;
+    padding: 10px 0;
+    width: 500px;
+    font-size: 18px;
+  }
+  select:hover {
+    cursor: pointer;
+  }
 }
 
 .report-contents {
@@ -361,10 +359,9 @@ main {
   margin: 25px 0;
   padding: 0 30px;
   text-align: left;
-}
-
-.report-text p {
-  font-size: 18px;
+  p {
+    font-size: 18px;
+  }
 }
 
 /* 通報理由 */
@@ -372,13 +369,13 @@ main {
   text-align: center;
   margin: 50px auto;
 }
-
-.report-example-warning-title h3 {
-  font-size: 21px;
-}
-
-.report-example-warning-title p {
-  font-size: 18px;
+.report-example-warning-title{
+  h3 {
+    font-size: 21px;
+  }
+  p {
+    font-size: 18px;
+  }
 }
 
 .report-example-warning-body {
@@ -402,11 +399,10 @@ main {
   border-radius: 10px;
   padding: 5px 10px;
   margin: 0 10px;
-}
-
-.report-delete:hover {
-  color: gray;
-  cursor: pointer;
+  :hover {
+    color: gray;
+    cursor: pointer;
+  }
 }
 
 /* ページネーション */

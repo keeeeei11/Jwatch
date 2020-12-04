@@ -108,7 +108,7 @@
                   </form>
                   <form class="edit-title-information">
                     <EditTitle
-                      v-model="editTitle"
+                      :editTitle.sync="editTitle"
                       type="text"
                     ></EditTitle>
                   </form>
@@ -364,6 +364,9 @@ export default {
       this.editTitle = postData.title;
       this.editBody = postData.body;
     },
+    triggerEditHide: function() {
+      this.editForm = false;
+    },
     // 編集完了画面の表示/非表示
     triggerEditedShow: function () {
       this.editForm = false;
@@ -507,7 +510,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .wrap {
   overflow: hidden;
 }
@@ -586,20 +589,9 @@ main {
   margin: 25px 0;
   padding: 0 30px;
   text-align: left;
-}
-
-.post-text p {
-  font-size: 18px;
-}
-
-.post-img {
-  display: flex;
-}
-
-.post-img img {
-  margin: 30px auto 20px;
-  width: 30%;
-  height: auto;
+  p {
+    font-size: 18px;
+  }
 }
 
 .post-evaluation p {
@@ -618,17 +610,16 @@ main {
   border-radius: 10px;
   padding: 5px;
   margin: 0 10px;
-}
-
-.evaluation-btn button{
-  color: #484b48;
-  font-size: 16px;
-  background-color: #ffffff;
-  border: 2px solid #484b48;
-  border-radius: 10px;
-  padding: 5px 10px;
-  transition: background-color 0.4s linear;
-  outline: none;
+  button{
+    color: #484b48;
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 2px solid #484b48;
+    border-radius: 10px;
+    padding: 5px 10px;
+    transition: background-color 0.4s linear;
+    outline: none;
+  }
 }
 
 .deleting button:hover, .editing button:hover, .reporting button:hover {
@@ -638,14 +629,15 @@ main {
   transition: 0.4s;
 }
 
-.good-count button:active{
-  cursor: pointer;
-}
-
-.good-count button:active{
-  color: #ffffff;
-  cursor: pointer;
-  background-color: #484b48;
+.good-count{
+  button:active{
+      cursor: pointer;
+  }
+  button:active{
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #484b48;
+  }
 }
 
 .liked button {
@@ -681,27 +673,25 @@ main {
 .edit-btn {
   display: flex;
   margin:10px 0;
-}
-
-.edit-btn button {
-  font-size: 18px;
-  width: 300px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: auto;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.edit-btn button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  button {
+    font-size: 18px;
+    width: 300px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    background: #ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+  }
+  button:hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 /* 通報画面 */
@@ -732,10 +722,9 @@ main {
   margin: 25px 0;
   padding: 0 30px;
   text-align: left;
-}
-
-.report-post-text p {
-  font-size: 18px;
+  p {
+    font-size: 18px;
+  }
 }
 
 /*通報の理由*/
@@ -746,27 +735,25 @@ main {
 /* ボタン */
 .report-btn {
   display: flex;
-}
-
-.report-btn button {
-  font-size: 18px;
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: auto;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.report-btn button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  button {
+    font-size: 18px;
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    background: #ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+  }
+  button:hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 .complete-cover {
@@ -849,17 +836,16 @@ main {
 
   .edit-btn {
     display: block;
-  }
-  .edit-btn button {
-    margin:30px auto;
+    button {
+      margin:30px auto;
+    }
   }
     /* 通報画面 */
   .report-btn {
     display: block;
-  }
-
-  .report-btn button {
-    margin:30px auto;
+    button {
+      margin:30px auto;
+    }
   }
   /* ページネーション機能 */
   .prev-link {
@@ -897,9 +883,9 @@ main {
 
   .post-basic-information-bottom {
     display: block;
-  }
-  .post-basic-information-bottom p {
-    text-align: center;
+    p {
+      text-align: center;
+    }
   }
 
   .post-title p {
@@ -909,10 +895,9 @@ main {
   .post-text {
     margin: 10px 0;
     padding: 0 10px;
-  }
-
-  .post-text p {
-    font-size: 16px;
+    p {
+      font-size: 16px;
+    }
   }
 
   .post-name {
@@ -932,10 +917,9 @@ main {
 
   .evaluation-btn {
     margin: 0 3px;
-  }
-
-  .evaluation-btn button {
-    font-size: 14px;
+    button {
+      font-size: 14px;
+    }
   }
     /* 編集画面 */
   .edit-page {

@@ -84,18 +84,6 @@
           title="Detailed discription"
           description="使い方のより詳しい説明はこちら"
           ></Induction>
-          <!-- <div class="detail-usage-nav">
-            <a href="https://jwatch-8411c.web.app/usage/index.html">
-              <div class="detail-usage-nav-contants">
-                <div class="detail-usage-nav-title">
-                  <p>Detailed discription</p>
-                </div>
-                <div class="detail-usage-nav-discription">
-                  <p>使い方のより詳しい説明はこちら</p>
-                </div>
-              </div>
-            </a>
-          </div> -->
         </div>
         <MoveTopBtn></MoveTopBtn>
       </main>
@@ -123,7 +111,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 body {
   font-family: "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3",
     "Hiragino Kaku Gothic Pro", Arial, メイリオ, Meiryo, Osaka,
@@ -156,13 +144,11 @@ main {
 .about-discriptions {
   margin: 80px auto 0;
   text-align: left;
+  p{
+    font-size: 18px;
+    line-height: 2.5em;
+  }
 }
-
-.about-discriptions p {
-  font-size: 18px;
-  line-height: 2.5em;
-}
-
 /*サイトの使い方*/
 
 .usage {
@@ -178,89 +164,56 @@ main {
 .usage-primary-introduction {
   display: flex;
   justify-content: space-around;
-}
+  a{
+    text-decoration: none;
+    color: rgb(28.8%, 29.6%, 28.8%);
+    transition: color 0.4s linear;
+  }
+  a:hover{
+    color: gray;
+    transition: 0.4s;
+  }
 
-.usage-primary-introduction a {
-  text-decoration: none;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  transition: color 0.4s linear;
-}
+  h3{
+    font-size: 21px;
+  }
 
-.usage-primary-introduction a:hover {
-  color: gray;
-  transition: 0.4s;
-}
+  img{
+    height: 300px;
+  }
 
-.usage-primary-introduction h3 {
-  font-size: 21px;
-}
-
-.usage-primary-introduction img {
-  height: 300px;
-}
-
-.usage-primary-introduction p {
-  font-size: 18px;
-  width: 70%;
-  margin: 10px auto;
+  p{
+    font-size: 18px;
+    width: 70%;
+    margin: 10px auto;
+  }
 }
 /*観戦情報を探す*/
-
-.usage-secondary-introduction p {
-  font-size: 18px;
-}
-
-.usage-secondary-introduction a {
-  text-decoration: none;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  position: relative;
-  z-index: 1;
-}
-
-.usage-secondary-introduction a::after {
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  content: "";
-  width: 100%;
-  height: 2px;
-  background: #333;
-  transform: scale(0, 1);
-  transform-origin: center top;
-  transition: transform 0.3s;
-}
-.usage-secondary-introduction a:hover::after {
-  transform: scale(1, 1);
-}
-
-.detail-usage-nav {
-  margin: 0px;
-}
-
-.detail-usage-nav a {
-  width: 100vw;
-  height: 300px;
-  margin-top: 50px;
-  background-color: #323232;
-  color: #ffffff;
-  line-height: 2.5em;
-  transition: background-color 0.4s linear;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-}
-
-.detail-usage-nav a:hover {
-  background-color: #202020;
-}
-
-.detail-usage-nav-contants {
-  display: block;
-}
-
-.detail-usage-nav-title p {
-  font-size: 21px;
+.usage-secondary-introduction {
+  p{
+    font-size: 18px;
+  }
+  a{
+    text-decoration: none;
+    color: rgb(28.8%, 29.6%, 28.8%);
+    position: relative;
+    z-index: 1;
+  }
+  a::after {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #333;
+    transform: scale(0, 1);
+    transform-origin: center top;
+    transition: transform 0.3s;
+  }
+  a:hover::after {
+    transform: scale(1, 1);
+  }
 }
 
 @media (max-width: 959px) {
@@ -281,11 +234,10 @@ main {
 
   .usage-primary-introduction {
     display: block;
-  }
-
-  .usage-primary-introduction img {
-    width: 60%;
-    height: auto;
+    img {
+      width: 60%;
+      height: auto;
+    }
   }
 }
 
@@ -302,10 +254,9 @@ main {
 
   .about-discriptions {
     margin: 40px auto 0;
-  }
-
-  .about-discriptions p {
-    font-size: 16px;
+    p{
+      font-size: 16px;
+    }
   }
 
   /*サイトの使い方*/
@@ -313,39 +264,26 @@ main {
   .usage-title h1 {
     font-size: 28px;
   }
-
-  .usage-primary-introduction h3 {
-    font-size: 18px;
+  .usage-primary-introduction{
+    h3 {
+      font-size: 18px;
+    }
+    p {
+      font-size: 16px;
+    }
+    img {
+      width: 80%;
+      height: auto;
+    }
   }
 
-  .usage-primary-introduction p {
-    font-size: 16px;
-  }
-
-  .usage-primary-introduction img {
-    width: 80%;
-    height: auto;
-  }
-
+    /*観戦情報を探す*/
   .usage-secondary-introduction {
     width: 70%;
     margin: auto;
-  }
-
-  /*観戦情報を探す*/
-  .usage-secondary-introduction p {
-    font-size: 16px;
-  }
-
-  .detail-usage-nav a {
-    height: 200px;
-  }
-
-  .detail-usage-nav-title p {
-    font-size: 18px;
-  }
-  .detail-usage-nav-discription p {
-    font-size: 16px;
+    p {
+      font-size: 16px;
+    }
   }
 }
 </style>

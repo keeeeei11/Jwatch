@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /*以下ヘッダー*/
 .wrap {
   overflow: hidden;
@@ -96,11 +96,10 @@ main {
 
   .warning-discription {
     text-align: center;
-  }
-
-  .warning-discription p {
-    display: inline-block;
-    text-align: left;
+    p {
+      display: inline-block;
+      text-align: left;
+    }
   }
 }
 

@@ -74,13 +74,7 @@ export default {
 };
 </script>
 
-<style scoped>
-body {
-  font-family: "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3",
-    "Hiragino Kaku Gothic Pro", Arial, メイリオ, Meiryo, Osaka,
-    "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-}
-
+<style lang="scss" scoped>
 .wrap {
   overflow: hidden;
 }
@@ -101,14 +95,12 @@ main {
 
 .reason-title {
   margin-bottom: 30px;
-}
-
-.reason-title h2 {
-  font-size: 32px;
-}
-
-.reason-title p {
-  font-size: 18px;
+  h2 {
+    font-size: 32px;
+  }
+  p {
+    font-size: 18px;
+  }
 }
 
 .reason-text p {
@@ -139,17 +131,16 @@ main {
   /* メイン */
   .reason {
     padding: 50px 40px;
-  }
-  .reason p {
-    font-size: 16px;
+    p {
+      font-size: 16px;
+    }
   }
   /* タイトル */
   .introduction-title h1 {
     font-size: 36px;
-  }
-
-  .introduction-title p {
-    font-size: 18px;
+    p {
+      font-size: 18px;
+    }
   }
   /* Jwatchの作成理由 */
   .reason-title h2 {

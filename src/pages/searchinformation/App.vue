@@ -607,7 +607,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .wrap {
   overflow: hidden;
 }
@@ -625,59 +625,52 @@ main {
   background-color: #f2f2f2;
   text-align: center;
   display: block;
-}
-
-.select-stadium h2 {
-  font-size: 24px;
-  font-weight: normal;
-}
-
-.select-stadium button {
-  font-size: 18px;
-  font-weight: 500;
-  color: #484b48;
-  text-decoration: none;
-  border: 2px solid #484b48;
-  background-color: #fff;
-  margin: 30px auto;
-  padding: 10px 20px;
-  border-radius: 10px;
-  transition: background-color 0.4s linear;
-}
-
-.select-stadium button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.select-stadium button:focus {
-  outline: none;
+  h2 {
+    font-size: 24px;
+    font-weight: normal;
+  }
+  button {
+    font-size: 18px;
+    font-weight: 500;
+    color: #484b48;
+    text-decoration: none;
+    border: 2px solid #484b48;
+    background-color: #fff;
+    margin: 30px auto;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.4s linear;
+  }
+  button:hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
+  button:focus {
+    outline: none;
+  }
 }
 
 .stadium-basic-information {
   margin: 30px auto;
   text-align: center;
-}
-
-.stadium-basic-information p {
-  font-size: 24px;
+  p {
+    font-size: 24px;
+  }
 }
 
 .post-sort {
   text-align: center;
-}
-
-.post-sort select {
-  margin: 30px auto;
-  padding: 10px 0;
-  width: 500px;
-  font-size: 18px;
-}
-
-.post-sort select:hover {
-  cursor: pointer;
+  select {
+    margin: 30px auto;
+    padding: 10px 0;
+    width: 500px;
+    font-size: 18px;
+  }
+  select:hover {
+    cursor: pointer;
+  }
 }
 
 /* 投稿を表示する部分 */
@@ -734,20 +727,9 @@ main {
   margin: 25px 0;
   padding: 0 30px;
   text-align: left;
-}
-
-.post-text p {
-  font-size: 18px;
-}
-
-.post-img {
-  display: flex;
-}
-
-.post-img img {
-  margin: 30px auto 20px;
-  width: 30%;
-  height: auto;
+  p {
+    font-size: 18px;
+  }
 }
 
 .post-evaluation p {
@@ -766,17 +748,16 @@ main {
   border-radius: 10px;
   padding: 5px;
   margin: 0 10px;
-}
-
-.evaluation-btn button{
-  color: #484b48;
-  font-size: 16px;
-  background-color: #ffffff;
-  border: 2px solid #484b48;
-  border-radius: 10px;
-  padding: 5px 10px;
-  transition: background-color 0.4s linear;
-  outline: none;
+  button{
+    color: #484b48;
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 2px solid #484b48;
+    border-radius: 10px;
+    padding: 5px 10px;
+    transition: background-color 0.4s linear;
+    outline: none;
+  }
 }
 
 .deleting button:hover, .editing button:hover, .reporting button:hover {
@@ -785,15 +766,15 @@ main {
   background-color: #484b48;
   transition: 0.4s;
 }
-
-.good-count button:active{
-  cursor: pointer;
-}
-
-.good-count button:active{
-  color: #ffffff;
-  cursor: pointer;
-  background-color: #484b48;
+.good-count{
+  button:active{
+    cursor: pointer;
+  }
+  button:active{
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #484b48;
+  }
 }
 
 .liked button {
@@ -829,27 +810,25 @@ main {
 .edit-btn {
   display: flex;
   margin:10px 0;
-}
-
-.edit-btn button {
-  font-size: 18px;
-  width: 300px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: auto;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.edit-btn button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  button {
+    font-size: 18px;
+    width: 300px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    background: #ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+  }
+  button:hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 /* 通報画面 */
@@ -881,10 +860,9 @@ main {
   margin: 25px 0;
   padding: 0 30px;
   text-align: left;
-}
-
-.report-post-text p {
-  font-size: 18px;
+  p {
+    font-size: 18px;
+  }
 }
 
 /*通報の理由*/
@@ -896,27 +874,25 @@ main {
 /* ボタン */
 .report-btn {
   display: flex;
-}
-
-.report-btn button {
-  font-size: 18px;
-  width: 350px;
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  margin: auto;
-  background: #ffffff;
-  color: #484b48;
-  border-radius: 10px;
-  border: 2px solid #484b48;
-}
-
-.report-btn button:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  button {
+    font-size: 18px;
+    width: 350px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    background: #ffffff;
+    color: #484b48;
+    border-radius: 10px;
+    border: 2px solid #484b48;
+  }
+  button:hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 /* ページネーション */
@@ -1001,17 +977,16 @@ main {
 
   .edit-btn {
     display: block;
-  }
-  .edit-btn button {
-    margin:30px auto;
+    button {
+      margin:30px auto;
+    }
   }
   /* 通報画面 */
   .report-btn {
     display: block;
-  }
-
-  .report-btn button {
-    margin:30px auto;
+    button {
+      margin:30px auto;
+    }
   }
   /* ページネーション機能 */
   .prev-link {
@@ -1035,10 +1010,9 @@ main {
   /* スタジアム選択 */
   .select-stadium {
     padding: 50px 40px;
-  }
-
-  .select-stadium h2 {
-    font-size: 18px;
+    h2 {
+      font-size: 18px;
+    }
   }
 
   /* 投稿内容*/
@@ -1053,9 +1027,9 @@ main {
 
   .post-basic-information-bottom {
     display: block;
-  }
-  .post-basic-information-bottom p {
-    text-align: center;
+    p {
+      text-align: center;
+    }
   }
 
   .post-title p {
@@ -1065,44 +1039,33 @@ main {
   .post-text {
     margin: 10px 0;
     padding: 0 10px;
+    p {
+      font-size: 16px;
+    }
   }
 
   .post-name {
     font-size: 18px;
   }
 
-  .post-text p {
-    font-size: 16px;
-  }
-
-  .post-img {
-    flex-direction: column;
-  }
-
-  .post-img img {
-    margin: 20px auto;
-    width: 60%;
-    height: auto;
-  }
 
   .post-evaluation p {
     font-size: 14px;
   }
 
-  .evaluation-btn button {
-    font-size: 14px;
-  }
   .evaluation-btn {
-    margin: 0 3px;
+      margin: 0 3px;
+    button {
+      font-size: 14px;
+    }
   }
   /* 編集画面 */
   .edit-page {
     width: 300px;
-  }
-
-  .edit-btn button {
-    font-size: 16px;
-    width: 200px;
+    button {
+      font-size: 16px;
+      width: 200px;
+    }
   }
   /* 通報画面 */
   .report-post-title p {

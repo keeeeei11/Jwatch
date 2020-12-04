@@ -75,7 +75,6 @@
 <script>
 // DBと繋いだ時にで有効にする
 import firebase from "firebase";
-import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
@@ -159,7 +158,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrap {
   overflow: hidden;
 }
@@ -172,34 +171,34 @@ main {
 .inquiry-discription {
   margin-left: 20%;
   margin-top: 100px;
-}
-.inquiry-discription p {
-  line-height: 1em;
-  font-size: 18px;
-}
-.inquiry-discription a {
-  color: rgb(28.8%, 29.6%, 28.8%);
-  font-size: 18px;
-  margin-left: 20px;
-  margin-bottom: 40px;
-  position: relative;
-  display: inline-block;
-  text-decoration: none;
-}
-.inquiry-discription a::after {
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  content: "";
-  width: 100%;
-  height: 2px;
-  background: #333;
-  transform: scale(0, 1);
-  transform-origin: center top;
-  transition: transform 0.3s;
-}
-.inquiry-discription a:hover::after {
-  transform: scale(1, 1);
+  p {
+    line-height: 1em;
+    font-size: 18px;
+  }
+  a {
+    color: rgb(28.8%, 29.6%, 28.8%);
+    font-size: 18px;
+    margin-left: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+  }
+  a::after {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #333;
+    transform: scale(0, 1);
+    transform-origin: center top;
+    transition: transform 0.3s;
+  }
+  a:hover::after {
+    transform: scale(1, 1);
+  }
 }
 /*各種情報入力部分*/
 .inquiry-form {
@@ -224,13 +223,12 @@ main {
   border-radius: 10px;
   background-color: #fff;
   transition: background-color 0.4s linear;
-}
-
-.execute:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  :hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 959px) {
@@ -252,12 +250,13 @@ main {
 @media (max-width: 559px) {
   /* メイン */
   /*注意点の箇条書き*/
-  .inquiry-discription p {
-    font-size: 16px;
-  }
-
-  .inquiry-discription a {
-    font-size: 16px;
+  .inquiry-discription {
+    p {
+      font-size: 16px;
+    }
+    a {
+      font-size: 16px;
+    }
   }
 
   /* 送信ボタン*/

@@ -13,8 +13,6 @@
             <option value="oldest">日時が古い順</option>
           </select>
         </div>
-        <!-- inquirySingleData = doc である。-->
-        <!-- getItemsにinquiryMultipleDataが格納されている -->
         <VueLoading
           v-if="isLoading"
           type="spiningDubbles"
@@ -267,7 +265,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .wrap {
   overflow: hidden;
 }
@@ -282,17 +280,15 @@ main {
 
 .inquiry-sort {
   text-align: center;
-}
-
-.inquiry-sort select {
-  margin: 30px auto;
-  padding: 10px 0;
-  width: 500px;
-  font-size: 18px;
-}
-
-.inquiry-sort select:hover {
-  cursor: pointer;
+  select {
+    margin: 30px auto;
+    padding: 10px 0;
+    width: 500px;
+    font-size: 18px;
+  }
+  select:hover {
+    cursor: pointer;
+  }
 }
 
 /*お問い合わせのフォーム*/
@@ -345,10 +341,9 @@ main {
   margin: 25px 0;
   padding: 0 30px;
   text-align: left;
-}
-
-.inquiry-text p {
-  font-size: 18px;
+  p {
+    font-size: 18px;
+  }
 }
 
 .inquiry-evaluation p {
@@ -367,23 +362,21 @@ main {
   border-radius: 10px;
   padding: 5px;
   margin: 0 10px;
-}
-
-.inquiry-delete button {
-  color: #484b48;
-  font-size: 16px;
-  background-color: #ffffff;
-  border: 2px solid #484b48;
-  border-radius: 10px;
-  padding: 5px 10px;
-  transition: background-color 0.4s linear;
-}
-
-.inquiry-delete button:hover {
-  color: #ffffff;
-  cursor: pointer;
-  background-color: #484b48;
-  transition: 0.4s;
+  button {
+    color: #484b48;
+    font-size: 16px;
+    background-color: #ffffff;
+    border: 2px solid #484b48;
+    border-radius: 10px;
+    padding: 5px 10px;
+    transition: background-color 0.4s linear;
+  }
+  button:hover {
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #484b48;
+    transition: 0.4s;
+  }
 }
 
 /* ページネーション */

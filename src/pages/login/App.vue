@@ -130,7 +130,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrap {
   overflow: hidden;
 }
@@ -143,14 +143,12 @@ main {
 .login-title {
   margin-left: 20%;
   margin-top: 250px;
-}
-
-.login-title h1 {
-  font-size: 48px;
-}
-
-.login-title p {
-  font-size: 21px;
+  h1 {
+    font-size: 48px;
+  }
+  p {
+    font-size: 21px;
+  }
 }
 
 .login-contents {
@@ -160,15 +158,14 @@ main {
   padding: 100px 80px;
   background-color: #f2f2f2;
   text-align: center;
-}
-； .login-contents h2 {
-  text-align: center;
-  font-size: 21px;
-}
-
-.login-contents p {
-  text-align: center;
-  font-size: 18px;
+  h2 {
+    text-align: center;
+    font-size: 21px;
+  }
+  p {
+    text-align: center;
+    font-size: 18px;
+  }
 }
 
 
@@ -201,19 +198,17 @@ main {
 /* スマホ */
 @media (max-width: 559px) {
   /* メイン */
-  .login-contents {
-    padding: 50px 0px;
-  }
   .login-title p {
     font-size: 18px;
   }
-
-  .login-contents h2 {
-    font-size: 18px;
-  }
-
-  .login-contents p {
-    font-size: 14px;
+  .login-contents {
+    padding: 50px 0px;
+    h2 {
+      font-size: 18px;
+    }
+    p {
+      font-size: 14px;
+    }
   }
 }
 </style>

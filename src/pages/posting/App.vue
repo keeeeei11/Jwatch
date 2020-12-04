@@ -21,6 +21,7 @@
             <p>入力フォーム</p>
             <br />
           </div>
+          <!-- 観戦情報の投稿 -->
           <form>
             <div class="post-stadium">
               <InputStadium
@@ -206,7 +207,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrap {
   overflow: hidden;
 }
@@ -228,14 +229,12 @@ main {
 
 .post-form-title {
   text-align: left;
-}
-
-.post-form-title h2 {
-  font-size: 32px;
-}
-
-.post-form-title p {
-  font-size: 18px;
+  h2 {
+    font-size: 32px;
+  }
+  p {
+    font-size: 18px;
+  }
 }
 
 .post-stadium {
@@ -255,46 +254,43 @@ main {
   padding: 10px 20px;
   border-radius: 10px;
   transition: background-color 0.4s linear;
-}
-
-.execute:hover {
-  background-color: #484b48;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
+  :hover {
+    background-color: #484b48;
+    color: #fff;
+    transition: 0.4s;
+    cursor: pointer;
+  }
 }
 
 /*注意喚起*/
-
-.post-warning p {
-  font-size: 18px;
-  text-align: center;
-  line-height: 2em;
-}
-
-.post-warning a {
-  text-decoration: none;
-  color: rgb(28.8%, 29.6%, 28.8%);
-  position: relative;
-  display: inline-block;
-}
-
-.post-warning a::after {
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  content: "";
-  width: 100%;
-  height: 2px;
-  background: #333;
-  transform: scale(0, 1);
-  transform-origin: center top;
-  transition: transform 0.3s;
-}
-
-.post-warning a:hover::after {
-  color: gray;
-  transform: scale(1, 1);
+.post-warning{
+   p {
+    font-size: 18px;
+    text-align: center;
+    line-height: 2em;
+  }
+   a {
+    text-decoration: none;
+    color: rgb(28.8%, 29.6%, 28.8%);
+    position: relative;
+    display: inline-block;
+  }
+   a::after {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #333;
+    transform: scale(0, 1);
+    transform-origin: center top;
+    transition: transform 0.3s;
+  }
+   a:hover::after {
+    color: gray;
+    transform: scale(1, 1);
+  }
 }
 @media (max-width: 959px) {
   /* メイン */
@@ -315,12 +311,13 @@ main {
     padding: 50px 40px;
   }
 
-  .post-form-title h2 {
-    font-size: 28px;
-  }
-
-  .post-form-title p {
-    font-size: 16px;
+  .post-form-title{
+    h2 {
+      font-size: 28px;
+    }
+    p {
+      font-size: 16px;
+    }
   }
 
   /* 送信ボタン*/
