@@ -50,6 +50,9 @@ export default {
             this.isAnonymous,
             this.providerData
           );
+        } else {
+          this.visitorName = null;
+          this.visitorUid = null
         }
         // 匿名ユーザーが投稿した時にユーザー名を「匿名」と表示する
         if(this.isAnonymous == true){
