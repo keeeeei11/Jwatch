@@ -41,7 +41,6 @@
 </template>
 
 <style lang="scss" scoped>
-/*以下フッター*/
 footer{
   background-color:#f2f2f2;
   border-top: 1.5px solid #efefef;
@@ -95,8 +94,6 @@ footer{
   }
 }
 
-/*以下SNS連携*/
-
 .sns{
   display: flex;
   margin-bottom: 10px;
@@ -147,33 +144,31 @@ footer{
 
 @media (max-width:959px)
 {
-      /* フッター */
-    .footer-contants{
-        display: block;
-    }
+  .footer-contants{
+      display: block;
+  }
 
-    .link{
-        margin-left: 0em;
-      a{
-        margin-left:0;
-      }
+  .link{
+      margin-left: 0em;
+    a{
+      margin-left:0;
     }
+  }
 
-    .sns{
-        margin-left: 0em;
-        padding: 0em;
-    }
+  .sns{
+      margin-left: 0em;
+      padding: 0em;
+  }
 
-    .icon-img{
-        display: flex;
-    }
+  .icon-img{
+      display: flex;
+  }
 }
 
 @media (max-width:559px)
 {
-    /* フッター */
-    .footer-contants{
-        padding: 20px 30px;
-    }
+  .footer-contants{
+      padding: 20px 30px;
+  }
 }
 </style>

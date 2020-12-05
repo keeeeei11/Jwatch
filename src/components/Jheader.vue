@@ -8,7 +8,7 @@
               <h1>Jwatch</h1>
             </a>
           </div>
-          <!-- ログイン時に表示 -->
+          <!-- ログイン時に名前を表示 -->
           <div class="header-username" v-if="isLogin">
             <p v-if="!isAnonymous">こんにちは {{ visitorName }} さん！</p>
             <p v-else>こんにちは 匿名 さん！</p>
@@ -23,7 +23,7 @@
             <a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a>
             <a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
           </div>
-          <!-- ログインしていない時 -->
+          <!-- 非ログイン時にログインページへのリンクを表示する -->
           <div class="header-login" v-if="!isLogin">
             <a href="https://jwatch-8411c.web.app/login/index.html">
               <i class="fas fa-door-open">
@@ -31,7 +31,7 @@
               </i>
             </a>
           </div>
-          <!-- ログインしている時 -->
+          <!-- ログイン時にマイページへのリンクを表示する -->
           <div class="header-mypage" v-else>
             <a href="https://jwatch-8411c.web.app/mypage/index.html">
               <i class="fas fa-user-edit">
@@ -94,7 +94,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/*以下ヘッダー*/
 header {
   width: 100%;
   position: fixed;
@@ -103,10 +102,10 @@ header {
   border-bottom: 1px solid #efefef;
   z-index: 2;
 }
+
 .header-contents {
   display: flex;
   margin: 0 30px;
-  /* height: auto; */
   overflow-x: hidden;
 }
 
@@ -114,7 +113,7 @@ header {
   display: flex;
   margin: 0 auto 0 0;
 }
-/*ヘッダーのタイトル*/
+
 .header-title {
   margin-left: 2%;
   margin-right: 10px;
@@ -126,7 +125,7 @@ header {
     font-weight: normal;
   }
 }
-/* ログイン時のユーザー名 */
+
 .header-username {
   width: 300px;
   margin-left: 10px;
@@ -137,7 +136,7 @@ header {
 .header-contents-right {
   margin: 0 0 0 auto;
 }
-/*ヘッダーのリンク*/
+
 .header-right-shortcut {
   display: flex;
 }
@@ -168,7 +167,6 @@ header {
     transform: scale(1, 1);
   }
 }
-/*ヘッダーのログインボタン*/
 
 .header-login {
   margin: 25px 10px 0px 0px;
@@ -190,11 +188,10 @@ header {
   p {
     font-size: 12px;
     font-weight: bold;
-    /* aタグとpタグの間の空白を適切に調整 */
     line-height: 0.1em;
   }
 }
-/* マイページ */
+
 .header-mypage {
   margin: 25px 10px 0px 0px;
   text-align: center;
@@ -213,7 +210,6 @@ header {
   p{
     font-size: 12px;
     font-weight: bold;
-    /* aタグとpタグの間の空白を適切に調整 */
     line-height: 0.1em;
   }
 }
@@ -290,8 +286,7 @@ header {
   margin: 0;
 }
 
-/* タブレット対応 */
-@media (max-width: 1190px) {
+@media (max-width: 1080px) {
   /* ヘッダー */
   .header-menu {
     display: none;
@@ -300,6 +295,7 @@ header {
   .header-login {
     margin-top: 19px;
   }
+
   .header-mypage {
     margin-top: 19px;
   }
@@ -319,12 +315,12 @@ header {
     cursor: pointer;
   }
 }
-/* スマホ対応 */
+
 @media (max-width: 559px) {
-  /* ヘッダー */
   .header-contents {
     margin: auto 20px;
   }
+
   .header-left-shortcut {
     display: block;
   }
@@ -336,9 +332,11 @@ header {
   .header-login i {
     font-size: 28px;
   }
+
   .header-mypage i {
     font-size: 28px;
   }
+
   #show {
     font-size: 28px;
   }

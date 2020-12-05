@@ -19,7 +19,7 @@ export default {
     url: String,
     title: String,
     description: String,
-  },
+  }
 }
 </script>
 
@@ -54,7 +54,6 @@ export default {
 }
 
 @media (max-width: 559px) {
-
   .induction a {
     height: 200px;
   }
