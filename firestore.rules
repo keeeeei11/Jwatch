@@ -12,7 +12,7 @@ rules_version = '2';
         // ログインしているかつログインユーザーと投稿者ユーザーの一致
         allow create: if request.auth.uid != null;
         // ログインしている
-        allow update: if request.auth.uid != null && request.auth.uid == resource.data.contributorUid;
+        allow update: if request.auth.uid != null;
         // ログインしている,かつログインユーザーと投稿者ユーザーが一致している
         allow delete: if request.auth.uid != null && request.auth.uid == resource.data.contributorUid;
       }
