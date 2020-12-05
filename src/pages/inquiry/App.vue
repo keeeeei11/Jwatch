@@ -4,14 +4,12 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
+        :isAnonymous="isAnonymous"/>
       <!--以下メイン-->
       <main>
         <PageTitle
           title="Contact"
-          description="ご意見＆ご要望入力フォーム"
-        ></PageTitle>
+          description="ご意見＆ご要望入力フォーム"/>
         <div class="inquiry-discription">
           <p>
             <a
@@ -27,26 +25,22 @@
               v-model="name"
               subject="お名前(任意)"
               type="text"
-              placeholder=""
-            ></InputBox>
+              placeholder=""/>
             <InputBox
               v-model="mailAddress"
               placeholder=""
               subject="メールアドレス(任意)"
               type="text"
-              maxlength="50"
-            ></InputBox>
+              maxlength="50"/>
             <InputBox
               v-model="title"
               subject="タイトル"
-              type="text"
-            ></InputBox>
+              type="text"/>
             <TextareaBox
               v-model="body"
               placeholder="400字以内で入力してください"
-              subject="本文"
-            ></TextareaBox>
-          <p class="execute" @click="triggerPostPopupShow">送信する</p>
+              subject="本文"/>
+            <p class="execute" @click="triggerPostPopupShow">送信する</p>
         </div>
         <!-- 再確認のポップアップ -->
         <div class="inquiry-execute">
@@ -55,19 +49,17 @@
             message="送信してもよろしいですか？"
             process="送信する"
             @reconfirmationPopupHide="triggerPostPopupHide"
-            @sendData="sendInquiryData"
-          ></ReconfirmationPopup>
+            @sendData="sendInquiryData"/>
           <!-- 投稿完了のポップアップ -->
           <CompletePopup
             v-if="completePopupShow"
             message="正常に送信されました。"
             url="https://jwatch-8411c.web.app/mainpage/index.html"
-            movePage="トップページへ"
-          ></CompletePopup>
+            movePage="トップページへ"/>
         </div>
-        <MoveTopBtn></MoveTopBtn>
+        <MoveTopBtn/>
       </main>
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>

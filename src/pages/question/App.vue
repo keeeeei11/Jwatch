@@ -4,14 +4,12 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
+        :isAnonymous="isAnonymous"/>
       <!--以下メイン-->
       <main>
         <PageTitle
           title="Q&A"
-          description="よくある質問が記載されております"
-        ></PageTitle>
+          description="よくある質問が記載されております"/>
         <div class="question-contents">
           <div class="note">
             <p>質問は随時こちらに掲載いたします。</p>
@@ -20,13 +18,11 @@
         <Induction
           url="https://jwatch-8411c.web.app/inquiry/index.html"
           title="Contact"
-          description="ご意見＆ご要望はこちらから"
-          ></Induction>
-        <MoveTopBtn></MoveTopBtn>
+          description="ご意見＆ご要望はこちらから"/>
+        <MoveTopBtn/>
       </main>
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
-    ï
   </div>
 </template>
 

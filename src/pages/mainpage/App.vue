@@ -4,16 +4,11 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
-      <!-- 以下メイン-->
+        :isAnonymous="isAnonymous"/>
       <main>
-        <!--サイト名-->
         <PageTitle
           title="Jwatch"
-          description="〜全ての人にサッカー観戦の楽しみを〜"
-        ></PageTitle>
-        <!--メッセージ-->
+          description="〜全ての人にサッカー観戦の楽しみを〜"/>
         <div class="about">
           <div class="about-title">
             <h1>About</h1>
@@ -33,7 +28,6 @@
             </div>
           </div>
         </div>
-        <!--サイトの使い方-->
         <div class="usage">
           <div class="usage-title">
             <h1>How to use</h1>
@@ -82,12 +76,11 @@
           <Induction
           url="https://jwatch-8411c.web.app/usage/index.html"
           title="Detailed discription"
-          description="使い方のより詳しい説明はこちら"
-          ></Induction>
+          description="使い方のより詳しい説明はこちら"/>
         </div>
-        <MoveTopBtn></MoveTopBtn>
+        <MoveTopBtn/>
       </main>
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>
@@ -122,13 +115,10 @@ body {
   overflow: hidden;
 }
 
-/*以下メイン*/
-
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
 }
 
-/*メッセージ*/
 .about {
   display: flex;
   margin-top: 100px;
@@ -149,7 +139,6 @@ main {
     line-height: 2.5em;
   }
 }
-/*サイトの使い方*/
 
 .usage {
   margin-top: 50px;
@@ -188,7 +177,7 @@ main {
     margin: 10px auto;
   }
 }
-/*観戦情報を探す*/
+
 .usage-secondary-introduction {
   p{
     font-size: 18px;
@@ -217,16 +206,16 @@ main {
 }
 
 @media (max-width: 959px) {
-  /* メイン */
   .about {
     display: block;
     text-align: center;
     margin: 100px auto auto;
   }
-  /* サイトの使い方 */
+
   .usage {
     text-align: center;
   }
+
   .usage-title {
     margin: auto;
     text-align: center;
@@ -242,8 +231,6 @@ main {
 }
 
 @media (max-width: 559px) {
-  /* メイン */
-  /*メッセージ*/
   .about {
     padding: 50px 40px;
   }
@@ -259,11 +246,10 @@ main {
     }
   }
 
-  /*サイトの使い方*/
-
   .usage-title h1 {
     font-size: 28px;
   }
+
   .usage-primary-introduction{
     h3 {
       font-size: 18px;
@@ -277,7 +263,6 @@ main {
     }
   }
 
-    /*観戦情報を探す*/
   .usage-secondary-introduction {
     width: 70%;
     margin: auto;

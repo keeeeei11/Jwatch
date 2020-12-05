@@ -2,46 +2,38 @@
   <div id="app">
     <div class="normal-page" v-if="!isLoading">
       <div class="wrap">
-        <Jheader></Jheader>
+        <Jheader/>
         <!--メイン-->
         <main>
             <PageTitle
               title="Login Page"
-              description="観戦情報の投稿はログインが必要です。"
-            ></PageTitle>
+              description="観戦情報の投稿はログインが必要です。"/>
             <div class="login-contents">
               <h2>ログイン方法を選択してください</h2>
               <LoginBtn
               name="google"
               loginMethod="Googleアカウントでログイン"
-              @click.native="googleLogin"
-              >
-              </LoginBtn>
+              @click.native="googleLogin"/>
               <LoginBtn
               name="twitter"
               loginMethod="Twitterアカウントでログイン"
-              @click.native="twitterLogin"
-              >
-              </LoginBtn>
+              @click.native="twitterLogin"/>
               <LoginBtn
               name="anonymous"
               loginMethod="簡単(匿名)ログイン"
-              @click.native="anonymousLogin"
-              >
-              </LoginBtn>
+              @click.native="anonymousLogin"/>
               <p>ログイン完了後、マイページに移動します</p>
             </div>
-          <MoveTopBtn></MoveTopBtn>
+          <MoveTopBtn/>
         </main>
-        <Jfooter></Jfooter>
+        <Jfooter/>
       </div>
     </div>
     <div class="loading-page" v-else>
       <VueLoading
         type="spiningDubbles"
         color="#aaa"
-        :size="{ width: '100px', height: '100px' }"
-      ></VueLoading>
+        :size="{ width: '100px', height: '100px' }"/>
     </div>
   </div>
 </template>

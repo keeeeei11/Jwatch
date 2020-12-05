@@ -5,14 +5,13 @@
         :visitorName="visitorName"
         :isLogin="isLogin"
         :isAnonymous="isAnonymous"
-      ></Jheader>
+      />
       <!-- 以下メイン-->
       <main>
         <div class="introduction">
           <PageTitle
             title="About 管理人"
-            description="管理人からのメッセージ"
-          ></PageTitle>
+            description="管理人からのメッセージ"/>
           <div class="reason">
             <div class="reason-title">
               <h2>Reason</h2>
@@ -49,9 +48,9 @@
             </div>
           </div>
         </div>
-        <MoveTopBtn></MoveTopBtn>
+        <MoveTopBtn/>
       </main>
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>

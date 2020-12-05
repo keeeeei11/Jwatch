@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrap">
-      <AdminHeader></AdminHeader>
+      <AdminHeader/>
       <main>
         <div class="report-title">
           <h2>通報一覧</h2>
@@ -16,8 +16,7 @@
           v-if="isLoading"
           type="spiningDubbles"
           color="#aaa"
-          :size="{ width: '100px', height: '100px' }"
-        ></VueLoading>
+          :size="{ width: '100px', height: '100px' }"/>
         <div class="report-contents" v-else>
           <h4>{{ reportMultipleData.length }} 件あります</h4>
           <div
@@ -88,9 +87,8 @@
           :prev-link-class="'prev-link'"
           :page-link-class="'page-link'"
           :next-link-class="'next-link'"
-          :active-class="'active-page-link'"
-        ></Paginate>
-        <MoveTopBtn></MoveTopBtn>
+          :active-class="'active-page-link'"/>
+        <MoveTopBtn/>
       </main>
     </div>
   </div>

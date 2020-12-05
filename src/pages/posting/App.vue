@@ -4,49 +4,40 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
+        :isAnonymous="isAnonymous"/>
       <main>
         <div class="post-imformation">
           <PageTitle
             title="Post informations"
-            description="観戦情報を投稿しましょう！"
-          ></PageTitle>
+            description="観戦情報を投稿しましょう！"/>
         </div>
         <!-- 注意点 -->
-        <PointToNote></PointToNote>
+        <PointToNote/>
         <div class="post-form">
           <div class="post-form-title">
             <h2>Input form</h2>
             <p>入力フォーム</p>
-            <br />
           </div>
           <!-- 観戦情報の投稿 -->
           <form>
             <div class="post-stadium">
               <InputStadium
-                v-model="stadium"
-              >
-              </InputStadium>
+                v-model="stadium"/>
             </div>
             <div class="post-category">
               <InputCategory
-                v-model="category"
-              >
-              </InputCategory>
+                v-model="category"/>
             </div>
             <div class="post-title-information">
               <InputBox
                 v-model="title"
                 subject="タイトル"
-                type="text"
-              ></InputBox>
+                type="text"/>
             </div>
             <div class="post-text-information">
               <TextareaBox
                 v-model="body"
-                subject="本文"
-              ></TextareaBox>
+                subject="本文"/>
               <p class="execute" @click="triggerPostPopupShow">投稿する！</p>
             </div>
           </form>
@@ -56,19 +47,17 @@
             message="投稿してもよろしいですか？"
             process="投稿する!"
             @reconfirmationPopupHide="triggerPostPopupHide"
-            @sendData="sendPostData"
-          ></ReconfirmationPopup>
+            @sendData="sendPostData"/>
           <!-- 投稿完了を伝えるポップアップ -->
           <CompletePopup
             v-if="completePopupShow"
             message="投稿が完了しました！"
             back="続けて投稿する"
             url="https://jwatch-8411c.web.app/mypage/index.html"
-            movePage="マイページへ"
-          ></CompletePopup>
+            movePage="マイページへ"/>
           <div class="post-warning">
             <p>
-              ※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br />
+              ※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br/>
               警告対象となる行為は<a
                 href="https://jwatch-8411c.web.app/warning/index.html"
                 target="_brank"
@@ -78,10 +67,9 @@
             </p>
           </div>
         </div>
-        <MoveTopBtn></MoveTopBtn>
+        <MoveTopBtn/>
       </main>
-      <!--以下フッター-->
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>

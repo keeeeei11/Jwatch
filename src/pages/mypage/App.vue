@@ -4,9 +4,7 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
-      <!-- 以下メイン-->
+        :isAnonymous="isAnonymous"/>
       <main>
         <div class="mypage">
           <div class="mypage-title">
@@ -20,182 +18,169 @@
             v-if="isLoading"
             type="spiningDubbles"
             color="#aaa"
-            :size="{ width: '100px', height: '100px' }"
-          ></VueLoading>
+            :size="{ width: '100px', height: '100px' }"/>
           <div class="past-posts" v-else>
-            <!-- ユーザーの投稿が存在しない時 -->
-            <DisplayNoData
-              v-if="noData"
-              stadium="あなた"
-              category="観戦情報"
-            ></DisplayNoData>
-            <!-- ユーザーの投稿が1つ以上存在する時 -->
-            <div class="post-contents" v-else>
-              <h2>過去の投稿</h2>
-              <div
-                v-for="postSingleData in getItems"
-                :key="postSingleData.id"
-              >
-                <div class="post-example-contents">
-                  <div class="post-basic-information">
-                    <div class="post-basic-information-top">
-                      <div class="post-name">
-                        <p>{{ postSingleData.contributorName }} さん</p>
+              <!-- ユーザーの投稿が存在しない時 -->
+              <DisplayNoData
+                v-if="noData"
+                stadium="あなた"
+                category="観戦情報"/>
+              <!-- ユーザーの投稿が1つ以上存在する時 -->
+              <div class="post-contents" v-else>
+                <h2>過去の投稿</h2>
+                <div
+                  v-for="postSingleData in getItems"
+                  :key="postSingleData.id"
+                >
+                  <div class="post-example-contents">
+                    <div class="post-basic-information">
+                      <div class="post-basic-information-top">
+                        <div class="post-name">
+                          <p>{{ postSingleData.contributorName }} さん</p>
+                        </div>
+                        <div class="post-date">
+                          <p>{{ postSingleData.created }}</p>
+                        </div>
                       </div>
-                      <div class="post-date">
-                        <p>{{ postSingleData.created }}</p>
+                      <div class="post-basic-information-bottom">
+                        <div class="post-stadium">
+                          <p>{{ postSingleData.stadium }}</p>
+                        </div>
+                        <div class="post-category">
+                          <p>{{ postSingleData.category }}</p>
+                        </div>
                       </div>
                     </div>
-                    <div class="post-basic-information-bottom">
-                      <div class="post-stadium">
-                        <p>{{ postSingleData.stadium }}</p>
+                    <div class="post-main-content">
+                      <div class="post-title">
+                        <p>{{ postSingleData.title }}</p>
                       </div>
-                      <div class="post-category">
-                        <p>{{ postSingleData.category }}</p>
+                      <div class="post-text">
+                        <p>{{ postSingleData.body }}</p>
                       </div>
                     </div>
-                  </div>
-                  <div class="post-main-content">
-                    <div class="post-title">
-                      <p>{{ postSingleData.title }}</p>
-                    </div>
-                    <div class="post-text">
-                      <p>{{ postSingleData.body }}</p>
-                    </div>
-                  </div>
-                  <div class="post-evaluation">
-                    <div class="post-evaluation-contents">
-                      <div class="good-count evaluation-btn"
-                      :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
-                        <button
-                          @click="
-                            likedData(postSingleData)
+                    <div class="post-evaluation">
+                      <div class="post-evaluation-contents">
+                        <div class="good-count evaluation-btn"
+                        :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
+                          <button
+                            @click="
+                              likedData(postSingleData)
+                            "
+                          >
+                            いいね！ {{ postSingleData.likedCounter }}
+                          </button>
+                        </div>
+                        <!-- 投稿者と閲覧者が同じである時 -->
+                        <div
+                          class="allow-manage"
+                          v-if="
+                            postSingleData.contributorUid == visitorUid
                           "
                         >
-                          いいね！ {{ postSingleData.likedCounter }}
-                        </button>
-                      </div>
-                      <!-- 投稿者と閲覧者が同じである時 -->
-                      <div
-                        class="allow-manage"
-                        v-if="
-                          postSingleData.contributorUid == visitorUid
-                        "
-                      >
-                        <div class="deleting evaluation-btn">
-                          <button @click="deleteData(postSingleData.id)">
-                            削除する
-                          </button>
-                        </div>
-                        <div class="editing evaluation-btn">
-                          <button
-                            @click="triggerEditShow(postSingleData, postSingleData.id)"
-                          >
-                            編集する
-                          </button>
+                          <div class="deleting evaluation-btn">
+                            <button @click="deleteData(postSingleData.id)">
+                              削除する
+                            </button>
+                          </div>
+                          <div class="editing evaluation-btn">
+                            <button
+                              @click="triggerEditShow(postSingleData, postSingleData.id)"
+                            >
+                              編集する
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <!-- 編集画面 -->
+                  <div class="edit" v-if="editForm">
+                    <section class="edit-page">
+                      <h3>編集画面</h3>
+                      <form class="edit-stadium">
+                      <EditStadium
+                        v-model="editStadium"/>
+                      </form>
+                      <form class="edit-category">
+                        <EditCategory
+                          v-model="editCategory"/>
+                      </form>
+                      <form class="edit-title-information">
+                        <EditTitle
+                          v-model="editTitle"
+                          type="text"/>
+                      </form>
+                      <form class="edit-text-information">
+                        <EditBody
+                          v-model="editBody"
+                          type="text"/>
+                      </form>
+                      <!-- ボタン -->
+                      <div class="edit-btn">
+                        <button @click="triggerEditHide()">戻る</button>
+                        <button
+                          @click="
+                            editData(postSingleData, editId)
+                          "
+                        >
+                          編集する
+                        </button>
+                      </div>
+                    </section>
+                    <div class="background"></div>
+                  </div>
                 </div>
-                <!-- 編集画面 -->
-                <div class="edit" v-if="editForm">
-                  <section class="edit-page">
-                    <h3>編集画面</h3>
-                    <form class="edit-stadium">
-                    <EditStadium
-                      v-model="editStadium"
-                    ></EditStadium>
-                    </form>
-                    <form class="edit-category">
-                      <EditCategory
-                        v-model="editCategory"
-                      ></EditCategory>
-                    </form>
-                    <form class="edit-title-information">
-                      <EditTitle
-                        v-model="editTitle"
-                        type="text"
-                      ></EditTitle>
-                    </form>
-                    <form class="edit-text-information">
-                      <EditBody
-                        v-model="editBody"
-                        type="text"
-                      ></EditBody>
-                    </form>
-                    <!-- ボタン -->
-                    <div class="edit-btn">
-                      <button @click="triggerEditHide()">戻る</button>
-                      <button
-                        @click="
-                          editData(postSingleData, editId)
-                        "
-                      >
-                        編集する
-                      </button>
-                    </div>
-                  </section>
-                  <div class="reconfirmation-background"></div>
-                </div>
-              </div>
-              <!-- 編集&投稿完了画面 -->
-              <CompletePopup
-                v-if="edited"
-                message="編集が完了しました"
-                @completePopupHide="triggerEditedHide"
-                url="https://jwatch-8411c.web.app/mypage/index.html"
-                movePage="マイページへ"
-              ></CompletePopup>
-            <Paginate
-              :page-count="getPageCount"
-              :page-range="3"
-              :margin-pages="2"
-              :click-handler="clickCallback"
-              :prev-text="'<<'"
-              :next-text="'>>'"
-              :no-li-surround="true"
-              :container-class="'paginate'"
-              :prev-link-class="'prev-link'"
-              :page-link-class="'page-link'"
-              :next-link-class="'next-link'"
-              :active-class="'active-page-link'"
-            ></Paginate>
-          </div>
-          <div class="mypage-contents">
-            <!-- ログアウト関連 -->
-            <ExitBtn
-            name="ログアウト"
-            execution="ログアウトする"
-            @click.native="logoutPopupShow"
-            ></ExitBtn>
-            <ExitPopup
-              v-if="logoutShow"
-              message="ログアウトしてもよろしいですか？"
-              url="https://jwatch-8411c.web.app/logout/index.html"
-              process="ログアウトする"
-              @exitPopupHide="logoutPopupHide"
-            ></ExitPopup>
-            <!-- アカウント削除関連 -->
-            <ExitBtn
-              name="アカウント削除"
-              execution="アカウント削除する"
-              @click.native="deletePopupShow"
-            ></ExitBtn>
-            <ExitPopup
-              v-if="deleteShow"
-              message="アカウントを削除してもよろしいですか？(投稿も削除されます)"
-              url="https://jwatch-8411c.web.app/deleteAccount/index.html"
-              process="削除する"
-              @exitPopupHide="deletePopupHide"
-            ></ExitPopup>
+                <!-- 編集&投稿完了画面 -->
+                <CompletePopup
+                  v-if="edited"
+                  message="編集が完了しました"
+                  @completePopupHide="triggerEditedHide"
+                  url="https://jwatch-8411c.web.app/mypage/index.html"
+                  movePage="マイページへ"/>
+              <Paginate
+                :page-count="getPageCount"
+                :page-range="3"
+                :margin-pages="2"
+                :click-handler="clickCallback"
+                :prev-text="'<<'"
+                :next-text="'>>'"
+                :no-li-surround="true"
+                :container-class="'paginate'"
+                :prev-link-class="'prev-link'"
+                :page-link-class="'page-link'"
+                :next-link-class="'next-link'"
+                :active-class="'active-page-link'"/>
+            </div>
+            <div class="mypage-contents">
+              <!-- ログアウト関連 -->
+              <ExitBtn
+              name="ログアウト"
+              execution="ログアウトする"
+              @click.native="logoutPopupShow"/>
+              <ExitPopup
+                v-if="logoutShow"
+                message="ログアウトしてもよろしいですか？"
+                url="https://jwatch-8411c.web.app/logout/index.html"
+                process="ログアウトする"
+                @exitPopupHide="logoutPopupHide"/>
+              <!-- アカウント削除関連 -->
+              <ExitBtn
+                name="アカウント削除"
+                execution="アカウント削除する"
+                @click.native="deletePopupShow"/>
+              <ExitPopup
+                v-if="deleteShow"
+                message="アカウントを削除してもよろしいですか？(投稿も削除されます)"
+                url="https://jwatch-8411c.web.app/deleteAccount/index.html"
+                process="削除する"
+                @exitPopupHide="deletePopupHide"/>
+            </div>
           </div>
         </div>
-        </div>
-        <MoveTopBtn></MoveTopBtn>
+        <MoveTopBtn/>
       </main>
-      <!--以下フッター-->
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>
@@ -668,7 +653,7 @@ main {
   }
 }
 
-.reconfirmation-background {
+.background {
   position: fixed;
   top: 0;
   left: 0;

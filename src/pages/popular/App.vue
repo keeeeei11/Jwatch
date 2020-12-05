@@ -4,32 +4,26 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
+        :isAnonymous="isAnonymous"/>
       <div class="popular">
         <PageTitle
           title="Popular posts"
-          description="人気のある投稿が記載されています。チームごとに情報を絞ることも可能です。"
-        ></PageTitle>
+          description="人気のある投稿が記載されています。チームごとに情報を絞ることも可能です。"/>
         <div class="choose-stadium">
             <InputStadium
               v-model="stadium"
-              @change.native="getData(stadium)"
-              >
-            </InputStadium>
+              @change.native="getData(stadium)"/>
         </div>
         <VueLoading
           v-if="isLoading"
           type="spiningDubbles"
           color="#aaa"
-          :size="{ width: '100px', height: '100px' }"
-        ></VueLoading>
+          :size="{ width: '100px', height: '100px' }"/>
         <div class="popular-posts">
           <DisplayNoData
             v-if="noData"
             :stadium="stadium"
-            category="観戦情報"
-          ></DisplayNoData>
+            category="観戦情報"/>
           <div class="post-contents" v-else>
             <div v-for="postSingleData in getItems" :key="postSingleData.id">
               <div class="post-example-contents">
@@ -98,25 +92,21 @@
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
                     <EditStadium
-                      v-model="editStadium"
-                    ></EditStadium>
+                      v-model="editStadium"/>
                   </form>
                   <form class="edit-category">
                     <EditCategory
-                      v-model="editCategory"
-                    ></EditCategory>
+                      v-model="editCategory"/>
                   </form>
                   <form class="edit-title-information">
                     <EditTitle
-                      :editTitle.sync="editTitle"
-                      type="text"
-                    ></EditTitle>
+                      v-model="editTitle"
+                      type="text"/>
                   </form>
                   <form class="edit-text-information">
                     <EditBody
                       v-model="editBody"
-                      type="text"
-                    ></EditBody>
+                      type="text"/>
                   </form>
                   <!-- ボタン -->
                   <div class="edit-btn">
@@ -130,7 +120,7 @@
                     </button>
                   </div>
                 </section>
-                <div class="reconfirmation-cover"></div>
+                <div class="background"></div>
               </div>
               <!-- 通報画面 -->
                <div class="report" v-if="reportForm">
@@ -148,9 +138,7 @@
                   <!-- 通報理由 -->
                   <form class="report-reason">
                     <InputReport
-                      v-model="reportReason"
-                    >
-                    </InputReport>
+                      v-model="reportReason"/>
                   </form>
                   <!-- ボタン -->
                   <div class="report-btn">
@@ -162,7 +150,7 @@
                       @click="reportData()">通報する</button>
                   </div>
                 </section>
-                <div class="reconfirmation-cover"></div>
+                <div class="background"></div>
               </div>
             </div>
             <!-- 編集完了画面 -->
@@ -170,15 +158,13 @@
               v-if="edited"
               message="編集が完了しました"
               url="https://jwatch-8411c.web.app/mypage/index.html"
-              movePage="マイページへ"
-            ></CompletePopup>
+              movePage="マイページへ"/>
             <!-- 通報完了画面 -->
             <CompletePopup
               v-if="reported"
               message="通報が完了しました"
               url="https://jwatch-8411c.web.app/mainpage/index.html"
-              movePage="トップページへ"
-            ></CompletePopup>
+              movePage="トップページへ"/>
           </div>
           <Paginate
             :page-count="getPageCount"
@@ -192,12 +178,11 @@
             :prev-link-class="'prev-link'"
             :page-link-class="'page-link'"
             :next-link-class="'next-link'"
-            :active-class="'active-page-link'"
-          ></Paginate>
+            :active-class="'active-page-link'"/>
         </div>
-        <MoveTopBtn></MoveTopBtn>
+        <MoveTopBtn/>
       </div>
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>
@@ -240,11 +225,6 @@ export default {
       // 編集画面
       editForm: false,
       edited: false,
-      // 編集データ
-      editStadium: "",
-      editCategory: "",
-      editTitle: "",
-      editBody: "",
       // 通報画面
       reportForm: false,
       reported: false,
@@ -756,7 +736,7 @@ main {
   }
 }
 
-.complete-cover {
+.background {
   position: fixed;
   top: 0;
   left: 0;

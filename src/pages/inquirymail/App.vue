@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrap">
-      <AdminHeader></AdminHeader>
+      <AdminHeader/>
       <main>
         <div class="inquiry-title">
           <h2>お問い合わせメール</h2>
@@ -17,8 +17,7 @@
           v-if="isLoading"
           type="spiningDubbles"
           color="#aaa"
-          :size="{ width: '100px', height: '100px' }"
-        ></VueLoading>
+          :size="{ width: '100px', height: '100px' }"/>
         <div class="inquiry-data" v-else>
           <div
             v-for="inquirySingleData in getItems"
@@ -74,9 +73,8 @@
           :prev-link-class="'prev-link'"
           :page-link-class="'page-link'"
           :next-link-class="'next-link'"
-          :active-class="'active-page-link'"
-        ></Paginate>
-        <MoveTopBtn></MoveTopBtn>
+          :active-class="'active-page-link'"/>
+        <MoveTopBtn/>
       </main>
     </div>
   </div>

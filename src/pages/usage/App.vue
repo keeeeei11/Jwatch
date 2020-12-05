@@ -4,33 +4,27 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
-      <!-- 以下メイン-->
+        :isAnonymous="isAnonymous"/>
       <main>
         <PageTitle
           title="How to use"
-          description="観戦情報の閲覧と投稿、情報のの方法を記載しています"
-        ></PageTitle>
+          description="観戦情報の閲覧と投稿、情報のの方法を記載しています"/>
         <UsageDescription
         titleEn="How to Search"
         titleJa="観戦情報の閲覧方法"
         descriptionFirst="①スタジアムを選択してください。"
         descriptionSecond="②カテゴリーを選択してください。"
-        supplement="※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。"
-        ></UsageDescription>
+        supplement="※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。"/>
         <Induction
           url="https://jwatch-8411c.web.app/searchinformation/index.html"
           title="Let’s search!"
-          description="観戦情報を探す！"
-          ></Induction>
+          description="観戦情報を探す！"/>
         <UsageDescription
           titleEn="How to post"
           titleJa="観戦情報の投稿方法"
           descriptionFirst="①観戦情報を投稿する！をクリックします"
           descriptionSecond="②スタジアム名とカテゴリー,投稿したい内容を入力してください。"
-          supplement="※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。"
-        ></UsageDescription>
+          supplement="※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。"/>
         <div class="post-example">
           <h3>投稿例</h3>
           <div class="post-example-contents">
@@ -77,12 +71,10 @@
         <Induction
           url="https://jwatch-8411c.web.app/posting/index.html"
           title="Let’s post!"
-          description="観戦情報を投稿する！"
-          ></Induction>
-        <MoveTopBtn></MoveTopBtn>
+          description="観戦情報を投稿する！"/>
+        <MoveTopBtn/>
       </main>
-      <!--以下フッター-->
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>

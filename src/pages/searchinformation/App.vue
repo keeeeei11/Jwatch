@@ -4,29 +4,21 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      ></Jheader>
-      <!-- 以下メイン-->
+        :isAnonymous="isAnonymous"/>
       <main>
         <div class="search-information">
           <PageTitle
             title="Search informations"
-            description="スタジアムとカテゴリーを選択すると情報が表示されます。"
-          ></PageTitle>
+            description="スタジアムとカテゴリーを選択すると情報が表示されます。"/>
           <div class="select-stadium">
             <h2>スタジアムとカテゴリーを選択してボタンを押してください</h2>
-            <br />
               <InputStadium
                 v-model="stadium"
-                @change.native="noDataHide()"
-              >
-              </InputStadium>
+                @change.native="noDataHide()"/>
             <form class="post-category">
               <InputCategory
                 v-model="category"
-                @change.native="noDataHide()"
-              >
-              </InputCategory>
+                @change.native="noDataHide()"/>
             </form>
             <button @click="sortData(stadium, category)">情報を見る！</button>
           </div>
@@ -41,14 +33,12 @@
             v-if = "isLoading"
             type = "spiningDubbles"
             color = "#aaa"
-            :size= "{ width: '100px', height: '100px' }"
-          ></VueLoading>
+            :size= "{ width: '100px', height: '100px' }"/>
           <!-- 選択したスタジアムとカテゴリーで投稿がない時 -->
           <DisplayNoData
           v-if="noData"
           :stadium="stadium"
-          :category="category"
-          ></DisplayNoData>
+          :category="category"/>
           <!-- 選択したスタジアムとカテゴリーで投稿が1つ以上存在する時 -->
           <div class="post-contents" v-else>
             <div v-for="postSingleData in getItems" :key="postSingleData.id">
@@ -118,25 +108,21 @@
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
                     <EditStadium
-                     v-model="editStadium"
-                    ></EditStadium>
+                     v-model="editStadium"/>
                   </form>
                   <form class="edit-category">
                     <EditCategory
-                     v-model="editCategory"
-                    ></EditCategory>
+                     v-model="editCategory"/>
                   </form>
                   <form class="edit-title-information">
                     <EditTitle
                      v-model="editTitle"
-                     type="text"
-                    ></EditTitle>
+                     type="text"/>
                   </form>
                   <form class="edit-text-information">
                     <EditBody
                      v-model="editBody"
-                     type="text"
-                    ></EditBody>
+                     type="text"/>
                   </form>
                   <!-- ボタン -->
                   <div class="edit-btn">
@@ -145,7 +131,7 @@
                       @click="editData(postSingleData, editId)">編集する</button>
                   </div>
                 </section>
-                <div class="reconfirmation-cover"></div>
+                <div class="background"></div>
               </div>
               <!-- 通報画面 -->
               <div class="report" v-if="reportForm">
@@ -163,9 +149,7 @@
                   <!-- 通報理由 -->
                   <form class="report-reason">
                     <InputReport
-                      v-model="reportReason"
-                    >
-                    </InputReport>
+                      v-model="reportReason"/>
                   </form>
                   <!-- ボタン -->
                   <div class="report-btn">
@@ -177,7 +161,7 @@
                       @click="reportData()">通報する</button>
                   </div>
                 </section>
-                <div class="reconfirmation-cover"></div>
+                <div class="background"></div>
               </div>
             </div>
             <!-- 編集完了画面 -->
@@ -185,15 +169,13 @@
               v-if="edited"
               message="編集が完了しました"
               url="https://jwatch-8411c.web.app/mypage/index.html"
-              movePage="マイページへ"
-            ></CompletePopup>
+              movePage="マイページへ"/>
             <!-- 通報完了画面 -->
             <CompletePopup
               v-if="reported"
               message="通報が完了しました"
               url="https://jwatch-8411c.web.app/mainpage/index.html"
-              movePage="トップページへ"
-            ></CompletePopup>
+              movePage="トップページへ"/>
           </div>
           <Paginate
             :page-count="getPageCount"
@@ -207,12 +189,11 @@
             :prev-link-class="'prev-link'"
             :page-link-class="'page-link'"
             :next-link-class="'next-link'"
-            :active-class="'active-page-link'"
-          ></Paginate>
+            :active-class="'active-page-link'"/>
         </div>
-        <MoveTopBtn></MoveTopBtn>
+        <MoveTopBtn/>
       </main>
-      <Jfooter></Jfooter>
+      <Jfooter/>
     </div>
   </div>
 </template>
@@ -893,6 +874,17 @@ main {
     transition: 0.4s;
     cursor: pointer;
   }
+}
+
+.background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: gainsboro;
+  z-index: 2;
+  opacity: 0.8;
 }
 
 /* ページネーション */
