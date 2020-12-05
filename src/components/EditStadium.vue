@@ -1,7 +1,7 @@
 <template>
   <div class="input-stadium">
     <h3>スタジアム</h3>
-      <select @change="inputStadium" size="1" v-model="value">
+      <select @change="inputValue" size="1" :value="editStadium">
       <option value="" disabled
         >--スタジアム名を選択してください(必須)--</option
       >
@@ -233,12 +233,18 @@
 </template>
 <script>
 export default {
+  data(){
+    return {
+      editStadium: this.value
+    }
+  },
   props:{
     value:{ type: String, required: true}
   },
-  methods: {
-    inputStadium: function(e) {
-      this.$emit("input", e.target.value);
+  methods:{
+    inputValue: function(e){
+      this.editStadium = e.target.value
+      this.$emit('input', this.editStadium)
     }
   },
 }
@@ -250,7 +256,7 @@ export default {
     font-size: 18px;
     font-weight: normal;
   }
-  
+
   select {
     width: 60%;
     height: 30px;

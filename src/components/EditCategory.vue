@@ -1,7 +1,7 @@
 <template>
   <div class="input-category">
     <h3>カテゴリー</h3>
-    <select @change="inputCategory" size="1" v-model="value">
+    <select @change="inputValue" size="1" :value="editCategory">
       <option value="" disabled
         >--カテゴリーを選択してください(必須)--</option
       >
@@ -25,12 +25,18 @@
 
 <script>
 export default {
+  data(){
+    return {
+      editCategory: this.value
+    }
+  },
   props:{
     value: { type: String, required: true }
   },
   methods:{
-    inputCategory: function(e) {
-      this.$emit("input", e.target.value);
+    inputValue: function(e){
+      this.editCategory = e.target.value
+      this.$emit('input', this.editCategory)
     }
   },
 }

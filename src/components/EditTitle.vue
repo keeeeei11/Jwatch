@@ -2,31 +2,36 @@
   <div class="edit-title">
     <h3>タイトル</h3>
    <input
-   :type= "type"
-   :name= "name"
-   :placeholder= "placeholder"
-   :maxlength= "maxlength"
-   @input="$emit('update:editTitle', $event.target.value)"
-   :value="editTitle"
+    :type= "type"
+    :name= "name"
+    :placeholder= "placeholder"
+    :maxlength= "maxlength"
+    @input="inputValue"
+    :value="editTitle"
    >
    </div>
 </template>
 
 <script>
 export default {
+  data(){
+    return {
+      editTitle: this.value
+    }
+  },
   props:{
     type:{type:String, required:false},
     name:{type:String, required:false},
     placeholder:{type:String, default:"20字以内で入力してください"},
     maxlength:{type:String, default:"20"},
-    value: { type: String, required: true },
-    editTitle: { type: String, required: true },
+    value:{type:String, required: true}
   },
   methods:{
-    // inputValue: function(e){
-    //   this.$emit("input", e.target.value)
-    // }
-  }
+    inputValue: function(e){
+      this.editTitle = e.target.value
+      this.$emit('input', this.editTitle)
+    }
+  },
 }
 </script>
 

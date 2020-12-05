@@ -5,7 +5,7 @@
     :placeholder= "placeholder"
     :maxlength= "maxlength"
     @input="inputValue"
-    v-model="value"
+    :value="editBody"
     ></textarea>
     <div class="count-character">
       <p>残り{{ 400 - value.length }}字です</p>
@@ -18,6 +18,7 @@ export default {
   data(){
     return {
       count:"",
+      editBody: this.value
     }
   },
   props:{
@@ -27,7 +28,8 @@ export default {
   },
   methods:{
     inputValue: function(e){
-      this.$emit("input", e.target.value)
+       this.editBody = e.target.value
+      this.$emit('input', this.editBody)
     }
   }
 }
