@@ -2,11 +2,11 @@
   <div class="input-title">
     <h3>タイトル</h3>
    <input
-   :type= "type"
+   :maxlength= "maxlength"
    :name= "name"
    :placeholder= "placeholder"
-   :maxlength= "maxlength"
-   @input="inputValue"
+   :type= "type"
+   @input="inputTitleValue"
    >
    </div>
 </template>
@@ -14,13 +14,13 @@
 <script>
 export default {
   props:{
-    type:{type:String, required:false},
+    maxlength:{type:String, default:"20"},
     name:{type:String, required:false},
     placeholder:{type:String, default:"20字以内で入力してください"},
-    maxlength:{type:String, default:"20"}
+    type:{type:String, required:false}
   },
   methods:{
-    inputValue: function(e){
+    inputTitleValue: function(e){
       this.$emit("input", e.target.value)
     }
   }

@@ -1,7 +1,10 @@
 <template>
   <div class="input-category">
     <h3>カテゴリー</h3>
-    <select @change="inputValue" size="1" :value="editCategory">
+    <select
+      size="1"
+      :value="editCategory"
+      @change="inputCategoryValue">
       <option value="" disabled
         >--カテゴリーを選択してください(必須)--</option
       >
@@ -34,7 +37,7 @@ export default {
     value: { type: String, required: true }
   },
   methods:{
-    inputValue: function(e){
+    inputCategoryValue: function(e){
       this.editCategory = e.target.value
       this.$emit('input', this.editCategory)
     }

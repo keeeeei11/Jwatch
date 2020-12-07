@@ -2,12 +2,12 @@
   <div class="edit-title">
     <h3>タイトル</h3>
    <input
-    :type= "type"
+    :maxlength= "maxlength"
     :name= "name"
     :placeholder= "placeholder"
-    :maxlength= "maxlength"
-    @input="inputValue"
+    :type= "type"
     :value="editTitle"
+    @input="inputTitleValue"
    >
    </div>
 </template>
@@ -20,14 +20,14 @@ export default {
     }
   },
   props:{
-    type:{type:String, required:false},
-    name:{type:String, required:false},
-    placeholder:{type:String, default:"20字以内で入力してください"},
-    maxlength:{type:String, default:"20"},
-    value:{type:String, required: true}
+    maxlength:{ type:String, default:"20" },
+    name:{ type:String, required:false },
+    placeholder:{ type:String, default:"20字以内で入力してください" },
+    type:{ type:String, required:false },
+    value:{ type:String, required: true }
   },
   methods:{
-    inputValue: function(e){
+    inputTitleValue: function(e){
       this.editTitle = e.target.value
       this.$emit('input', this.editTitle)
     }

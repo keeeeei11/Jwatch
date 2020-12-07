@@ -16,9 +16,9 @@
 <script>
 export default {
   props: {
-    url: String,
-    title: String,
     description: String,
+    title: String,
+    url: String
   }
 }
 </script>

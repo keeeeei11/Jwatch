@@ -1,7 +1,7 @@
 <template>
   <div class="input-stadium">
     <h3>スタジアム</h3>
-      <select @change="inputStadium" size="1">
+      <select @change="inputStadiumValue" size="1">
       <option value="" selected disabled
         >--スタジアム名を選択してください(必須)--</option
       >
@@ -237,7 +237,7 @@ export default {
     value: { type: String, required: true },
   },
   methods: {
-    inputStadium: function(e) {
+    inputStadiumValue: function(e) {
       this.$emit("input", e.target.value);
     }
   },

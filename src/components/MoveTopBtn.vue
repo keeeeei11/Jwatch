@@ -1,16 +1,16 @@
 <template>
-    <div id="move_top" class="arrow" @click="moveTop" v-if="show"></div>
+    <div id="move_top" class="arrow" @click="moveToTop" v-if="showBtn"></div>
 </template>
 
 <script>
  export default {
   data(){
     return {
-      show:false,
+      showBtn:false,
     }
   },
   methods:{
-    moveTop:function(){
+    moveToTop:function(){
       window.scrollTo({
         top:0,
         behavior:"smooth",
@@ -19,7 +19,7 @@
   },
   mounted: function(){
     window.addEventListener('scroll', ()=>{
-      this.show = (window.scrollY > 150);
+      this.showBtn = (window.scrollY > 150);
     });
   }
  }

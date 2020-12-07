@@ -1,7 +1,7 @@
 <template>
   <select
     size="1"
-    @change="inputReport"
+    @change="inputReportValue"
   >
     <option value="" disabled selected>--通報の理由(必須)--</option>
     <option value="特定のチーム、選手、サポーターへの誹謗中傷"
@@ -23,7 +23,7 @@ export default {
     value: { type: String, required: true }
   },
   methods:{
-    inputReport: function(e) {
+    inputReportValue: function(e) {
       this.$emit("input", e.target.value);
     }
   },

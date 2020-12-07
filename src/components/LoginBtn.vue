@@ -7,8 +7,8 @@
 <script>
 export default {
   props:{
-    name:String,
-    loginMethod:String
+    loginMethod:String,
+    name:String
   }
 }
 </script>

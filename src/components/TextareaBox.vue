@@ -3,9 +3,9 @@
     <h3>{{ subject }}</h3>
     <textarea
     v-model="count"
-    :placeholder= "placeholder"
     :maxlength= "maxlength"
-    @input="inputValue"
+    :placeholder= "placeholder"
+    @input="inputBodyValue"
     ></textarea>
     <div class="count-character">
       <p>残り{{ 400 - count.length }}字です</p>
@@ -21,13 +21,12 @@ export default {
     }
   },
   props:{
-    subject:{type:String, required:false},
+    maxlength:{type:String, default:"400"},
     placeholder:{type:String, default:"400字以内で入力してください"},
-    // 字数調整はdefault内で行う
-    maxlength:{type:String, default:"400"}
+    subject:{type:String, required:false}
   },
   methods:{
-    inputValue: function(e){
+    inputBodyValue: function(e){
       this.$emit("input", e.target.value)
     }
   }

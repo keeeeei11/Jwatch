@@ -21,11 +21,11 @@
 <script>
 export default {
   props:{
-    titleEn:String,
-    titleJa:String,
     descriptionFirst:String,
     descriptionSecond:String,
-    supplement:String
+    supplement:String,
+    titleEn:String,
+    titleJa:String
   }
 
 }

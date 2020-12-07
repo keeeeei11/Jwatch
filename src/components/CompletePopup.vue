@@ -13,10 +13,10 @@
 <script>
 export default {
   props:{
-    message:String,
     back:{type:String, default:"戻る"},
-    url:String,
-    movePage:String
+    message:String,
+    movePage:String,
+    url:String
   },
     methods:{
       reload:function(){

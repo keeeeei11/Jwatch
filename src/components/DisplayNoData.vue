@@ -14,8 +14,8 @@
 <script>
 export default {
   props:{
-    stadium:String,
-    category:String
+    category:String,
+    stadium:String
   }
 }
 </script>

@@ -24,7 +24,14 @@
             <a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
           </div>
           <!-- 非ログイン時にログインページへのリンクを表示する -->
-          <div class="header-login" v-if="!isLogin">
+          <div class="header-mypage" v-if="isLogin">
+            <a href="https://jwatch-8411c.web.app/mypage/index.html">
+              <i class="fas fa-user-edit">
+                <p>Mypage</p>
+              </i>
+            </a>
+          </div>
+          <div class="header-login" v-else>
             <a href="https://jwatch-8411c.web.app/login/index.html">
               <i class="fas fa-door-open">
                 <p>Login</p>
@@ -32,21 +39,14 @@
             </a>
           </div>
           <!-- ログイン時にマイページへのリンクを表示する -->
-          <div class="header-mypage" v-else>
-            <a href="https://jwatch-8411c.web.app/mypage/index.html">
-              <i class="fas fa-user-edit">
-                <p>Mypage</p>
-              </i>
-            </a>
-          </div>
           <div class="humburgar">
-            <div class="menu-bar" @click="humburgarShow">
+            <div class="menu-bar" @click="showHumburgarMenu">
               <i class="fas fa-bars" id="show">
                 <p>menu</p>
               </i>
             </div>
-            <div class="menu-content" id="menu" v-if="humburgarMenu">
-              <i class="fa fa-times" id="hide" @click="humburgarHide">
+            <div class="menu-content" id="menu" v-if="isShowHumburgar">
+              <i class="fa fa-times" id="hide" @click="hideHumburgarMenu">
                 <p>close</p>
               </i>
               <ul>
@@ -72,23 +72,22 @@
 </template>
 <script>
 export default {
-  // 文字を外部から受け取る(子要素)
   props: {
-    visitorName: String,
-    isLogin: Boolean,
     isAnonymous: Boolean,
+    isLogin: Boolean,
+    visitorName: String,
   },
   data() {
     return {
-      humburgarMenu: false,
+      isShowHumburgar: false,
     };
   },
   methods: {
-    humburgarShow: function() {
-      this.humburgarMenu = true;
+    showHumburgarMenu: function() {
+      this.isShowHumburgar = true;
     },
-    humburgarHide: function() {
-      this.humburgarMenu = false;
+    hideHumburgarMenu: function() {
+      this.isShowHumburgar = false;
     },
   },
 };

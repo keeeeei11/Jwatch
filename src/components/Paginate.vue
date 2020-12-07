@@ -1,8 +1,8 @@
 <template>
   <Paginate
+    :margin-pages="marginPages"
     :page-count="getPageCount"
-    :page-range="3"
-    :margin-pages="2"
+    :page-range="pageRange"
     :click-handler="clickCallback"
     :prev-text="'<<'"
     :next-text="'>>'"
@@ -12,14 +12,22 @@
     :page-link-class="'page-link'"
     :next-link-class="'next-link'"
     :active-class="'active-page-link'"
-  ></Paginate>
+  />
 </template>
 
 <script>
 import Paginate from "vuejs-paginate";
 export default {
   data(){
-
+    return {
+      currentPage: 1,
+      parPage: 10,
+    }
+  },
+  props:{
+    marginPages:{ type: Number, default:3 },
+    pageRange:{ type: Number, default:2 },
+    postMultipleData:{ type: Array },
   },
   methods:{
     clickCallback: function (pageNum) {
@@ -29,6 +37,15 @@ export default {
         behavior: "instant",
       });
     },
+    sendGetItems: function () {
+      this.$emit("catchGetItems", this.getItems)
+    },
+    sendGetCounts: function(){
+      this.$emit("catchGetCount", this.getPageCount)
+    }
+  },
+  components:{
+    Paginate,
   },
   computed: {
     getItems: function () {
@@ -46,7 +63,7 @@ export default {
 <style>
 /* ページネーション */
 .paginate {
-  margin-top: 100px;
+  margin:100px auto;
   text-align: center;
 }
 
