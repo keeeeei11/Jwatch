@@ -2,9 +2,9 @@
   <div id="app">
     <div class="wrap">
       <Jheader
-        :visitorName="visitorName"
+        :isAnonymous="isAnonymous"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName="visitorName"/>
       <main>
         <div class="warning">
           <PageTitle
@@ -36,20 +36,20 @@
 </template>
 
 <script>
-import Jheader from "../../components/Jheader.vue";
-import PageTitle from "../../components/PageTitle.vue";
 import Induction from "../../components/Induction";
-import MoveTopBtn from "../../components/MoveTopBtn.vue";
 import Jfooter from "../../components/Jfooter.vue";
+import Jheader from "../../components/Jheader.vue";
+import MoveTopBtn from "../../components/MoveTopBtn.vue";
 import myFirstMixin from "../../mixin/myFirstMixin";
+import PageTitle from "../../components/PageTitle.vue";
 
 export default {
   components: {
-    Jheader,
-    PageTitle,
-    MoveTopBtn,
     Induction,
     Jfooter,
+    Jheader,
+    MoveTopBtn,
+    PageTitle,
   },
   mixins: [myFirstMixin],
 };

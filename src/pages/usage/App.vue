@@ -2,9 +2,9 @@
   <div id="app">
     <div class="wrap">
       <Jheader
-        :visitorName="visitorName"
+        :isAnonymous="isAnonymous"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName="visitorName"/>
       <main>
         <PageTitle
           title="How to use"
@@ -80,22 +80,22 @@
 </template>
 
 <script>
+import Induction from "../../components/Induction";
+import Jfooter from "../../components/Jfooter";
 import Jheader from "../../components/Jheader";
+import MoveTopBtn from "../../components/MoveTopBtn";
+import myFirstMixin from "../../mixin/myFirstMixin";
 import PageTitle from "../../components/PageTitle";
 import UsageDescription from "../../components/UsageDescription";
-import Induction from "../../components/Induction";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import Jfooter from "../../components/Jfooter";
-import myFirstMixin from "../../mixin/myFirstMixin";
 
 export default {
   components: {
-    Jheader,
-    PageTitle,
-    UsageDescription,
-    MoveTopBtn,
     Induction,
     Jfooter,
+    Jheader,
+    MoveTopBtn,
+    PageTitle,
+    UsageDescription,
   },
   mixins: [myFirstMixin],
 };

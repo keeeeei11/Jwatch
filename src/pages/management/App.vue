@@ -28,14 +28,11 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-// Add the Firebase products that you want to use
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   mixins: [myFirstMixin],
   methods: {
-    // 管理者かどうかを判断する
-    adminJudgment: function() {
-      // ログインしていない時でもfirebase.auth()は実行される
+    judgeAdmin: function() {
       firebase.auth().onAuthStateChanged((user) => {
         // ログインしていないユーザーを強制的にトップページに飛ばす
         if (!user) {
@@ -57,7 +54,7 @@ export default {
     },
   },
   mounted: function() {
-    // this.adminJudgment();
+    this.judgeAdmin();
   },
 };
 </script>

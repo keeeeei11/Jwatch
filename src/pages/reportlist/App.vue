@@ -66,7 +66,7 @@
               <div class="report-evaluation">
                 <div class="report-evaluation-contents">
                   <div class="report-delete">
-                    <button @click="deleteData(reportSingleData.id)">
+                    <button @click="deleteSelectData(reportSingleData.id)">
                       削除する
                     </button>
                   </div>
@@ -100,8 +100,8 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import AdminHeader from "../../components/AdminHeader";
-import myFirstMixin from "../../mixin/myFirstMixin";
 import MoveTopBtn from "../../components/MoveTopBtn";
+import myFirstMixin from "../../mixin/myFirstMixin";
 import Paginate from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
@@ -124,7 +124,7 @@ export default {
     VueLoading,
   },
   methods: {
-    adminJudgment: function() {
+    judgeAdmin: function() {
       // ログインしていない時でもfirebase.auth()は実行される
       firebase.auth().onAuthStateChanged((user) => {
         // ログインしていないユーザーを強制的にトップページに飛ばす
@@ -145,7 +145,7 @@ export default {
         }
       });
     },
-    getData: function() {
+    loadDataFromDB: function() {
       this.isLoading = true;
       this.postMultipleData = [];
       const db = firebase.firestore();
@@ -162,8 +162,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            console.log(displayData);
+            console.log("Error getting documents: ", error, displayData);
             this.isLoading = false;
           });
       } else if (this.sortValue === "oldest") {
@@ -177,8 +176,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            console.log(oldestDisplayData);
+            console.log("Error getting documents: ", error, oldestDisplayData);
             this.isLoading = false;
           });
       } else {
@@ -204,8 +202,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            console.log(newestDisplayData);
+            console.log("Error getting documents: ", error, newestDisplayData);
             this.isLoading = false;
           });
       } else if (this.sortValue === "oldest") {
@@ -220,15 +217,14 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            console.log(oldestDisplayData);
+            console.log("Error getting documents: ", error, oldestDisplayData);
             this.isLoading = false;
           });
       } else {
         console.log("sortError!");
       }
     },
-    deleteData: function(id) {
+    deleteSelectData: function(id) {
       if (
         confirm("この通報内容を削除しますか？一度削除すると2度と戻せません。")
       ) {
@@ -265,8 +261,8 @@ export default {
     },
   },
   mounted: function() {
-    this.adminJudgment();
-    this.getData();
+    this.judgeAdmin();
+    this.loadDataFromDB();
   },
 };
 </script>

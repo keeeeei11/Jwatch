@@ -13,15 +13,15 @@
               <LoginBtn
               name="google"
               loginMethod="Googleアカウントでログイン"
-              @click.native="googleLogin"/>
+              @click.native="loginGoogle"/>
               <LoginBtn
               name="twitter"
               loginMethod="Twitterアカウントでログイン"
-              @click.native="twitterLogin"/>
+              @click.native="loginTwitter"/>
               <LoginBtn
               name="anonymous"
               loginMethod="簡単(匿名)ログイン"
-              @click.native="anonymousLogin"/>
+              @click.native="loginAnonymous"/>
               <p>ログイン完了後、マイページに移動します</p>
             </div>
           <MoveTopBtn/>
@@ -44,20 +44,20 @@ import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import myFirstMixin from "../../mixin/myFirstMixin";
+import Jfooter from "../../components/Jfooter";
 import Jheader from "../../components/Jheader";
-import PageTitle from "../../components/PageTitle";
 import LoginBtn from "../../components/LoginBtn";
 import MoveTopBtn from "../../components/MoveTopBtn";
-import Jfooter from "../../components/Jfooter";
+import myFirstMixin from "../../mixin/myFirstMixin";
+import PageTitle from "../../components/PageTitle";
 import { VueLoading } from "vue-loading-template";
 export default {
   components: {
+    Jfooter,
     Jheader,
-    PageTitle,
     LoginBtn,
     MoveTopBtn,
-    Jfooter,
+    PageTitle,
     VueLoading,
   },
   mixins: [myFirstMixin],
@@ -68,7 +68,7 @@ export default {
     };
   },
   methods: {
-    redirect: function() {
+    moveToMypage: function() {
       firebase.auth().onAuthStateChanged(function(user) {
         // ログイン時はマイページへ
         if (user) {
@@ -79,19 +79,19 @@ export default {
         }
       });
     },
-    googleLogin: function() {
+    loginGoogle: function() {
       firebase
         .auth()
         .signInWithRedirect(new firebase.auth.GoogleAuthProvider());
       sessionStorage.setItem("loading", this.isLoading);
     },
-    twitterLogin: function() {
+    loginTwitter: function() {
       firebase
         .auth()
         .signInWithRedirect(new firebase.auth.TwitterAuthProvider());
       sessionStorage.setItem("loading", this.isLoading);
     },
-    anonymousLogin: function() {
+    loginAnonymous: function() {
       firebase
         .auth()
         .signInAnonymously()
@@ -105,7 +105,7 @@ export default {
           });
         });
     },
-    loginJudgment: function(){
+    judgeAlreadyLogin: function(){
       firebase.auth().onAuthStateChanged((user) => {
        if(user){
          this.isLoading = true;
@@ -116,8 +116,8 @@ export default {
     }
   },
   mounted: function(){
-    this.loginJudgment();
-    this.redirect();
+    this.judgeAlreadyLogin();
+    this.moveToMypage();
   },
 };
 </script>

@@ -56,18 +56,17 @@
 </template>
 
 <script>
-// Add the Firebase products that you want to use
-import myFirstMixin from "../../mixin/myFirstMixin";
-import Jheader from "../../components/Jheader";
-import PageTitle from "../../components/PageTitle";
-import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
+import Jheader from "../../components/Jheader";
+import MoveTopBtn from "../../components/MoveTopBtn";
+import myFirstMixin from "../../mixin/myFirstMixin";
+import PageTitle from "../../components/PageTitle";
 export default {
   components: {
-    Jheader,
-    PageTitle,
-    MoveTopBtn,
     Jfooter,
+    Jheader,
+    MoveTopBtn,
+    PageTitle,
   },
   mixins: [myFirstMixin],
 };

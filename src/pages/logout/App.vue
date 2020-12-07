@@ -7,14 +7,13 @@
 
 <script>
 import firebase from "firebase";
-import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   methods: {
-    logout: function() {
+    logoutUser: function() {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           firebase
@@ -31,7 +30,7 @@ export default {
   },
   mixins: [myFirstMixin],
   mounted: function() {
-    this.logout();
+    this.logoutUser();
   },
 };
 </script>

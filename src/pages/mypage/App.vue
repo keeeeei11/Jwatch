@@ -2,9 +2,9 @@
   <div id="app">
     <div class="wrap">
       <Jheader
-        :visitorName="visitorName"
+        :isAnonymous="isAnonymous"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName="visitorName"/>
       <main>
         <div class="mypage">
           <div class="mypage-title">
@@ -22,7 +22,7 @@
           <div class="past-posts" v-else>
               <!-- ユーザーの投稿が存在しない時 -->
               <DisplayNoData
-                v-if="noData"
+                v-if="isNothingData"
                 stadium="あなた"
                 category="観戦情報"/>
               <!-- ユーザーの投稿が1つ以上存在する時 -->
@@ -65,7 +65,7 @@
                         :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
                           <button
                             @click="
-                              likedData(postSingleData)
+                              switchLikeCounter(postSingleData)
                             "
                           >
                             いいね！ {{ postSingleData.likedCounter }}
@@ -79,13 +79,13 @@
                           "
                         >
                           <div class="deleting evaluation-btn">
-                            <button @click="deleteData(postSingleData.id)">
+                            <button @click="deleteSelectData(postSingleData.id)">
                               削除する
                             </button>
                           </div>
                           <div class="editing evaluation-btn">
                             <button
-                              @click="triggerEditShow(postSingleData, postSingleData.id)"
+                              @click="showEditPage(postSingleData, postSingleData.id)"
                             >
                               編集する
                             </button>
@@ -95,7 +95,7 @@
                     </div>
                   </div>
                   <!-- 編集画面 -->
-                  <div class="edit" v-if="editForm">
+                  <div class="edit" v-if="isEditing">
                     <section class="edit-page">
                       <h3>編集画面</h3>
                       <form class="edit-stadium">
@@ -106,7 +106,7 @@
                         <EditCategory
                           v-model="editCategory"/>
                       </form>
-                      <form class="edit-title-information">
+                      <form class="edit-title-information" @submit.prevent>
                         <EditTitle
                           v-model="editTitle"
                           type="text"/>
@@ -121,7 +121,7 @@
                         <button @click="triggerEditHide()">戻る</button>
                         <button
                           @click="
-                            editData(postSingleData, editId)
+                            editSelectData(postSingleData, editId)
                           "
                         >
                           編集する
@@ -133,7 +133,7 @@
                 </div>
                 <!-- 編集&投稿完了画面 -->
                 <CompletePopup
-                  v-if="edited"
+                  v-if="isCompleteEdit"
                   message="編集が完了しました"
                   @completePopupHide="triggerEditedHide"
                   url="https://jwatch-8411c.web.app/mypage/index.html"
@@ -157,24 +157,24 @@
               <ExitBtn
               name="ログアウト"
               execution="ログアウトする"
-              @click.native="logoutPopupShow"/>
+              @click.native="showLogoutPopup"/>
               <ExitPopup
-                v-if="logoutShow"
+                v-if="isReconfirmLogout"
                 message="ログアウトしてもよろしいですか？"
                 url="https://jwatch-8411c.web.app/logout/index.html"
                 process="ログアウトする"
-                @exitPopupHide="logoutPopupHide"/>
+                @exitPopupHide="hideLogoutPopup"/>
               <!-- アカウント削除関連 -->
               <ExitBtn
                 name="アカウント削除"
                 execution="アカウント削除する"
-                @click.native="deletePopupShow"/>
+                @click.native="showDeletePopup"/>
               <ExitPopup
-                v-if="deleteShow"
+                v-if="isReconfirmDelete"
                 message="アカウントを削除してもよろしいですか？(投稿も削除されます)"
                 url="https://jwatch-8411c.web.app/deleteAccount/index.html"
                 process="削除する"
-                @exitPopupHide="deletePopupHide"/>
+                @exitPopupHide="hideDeletePopup"/>
             </div>
           </div>
         </div>
@@ -190,30 +190,28 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import Jheader from "../../components/Jheader";
-import Paginate from "vuejs-paginate";
-import DisplayNoData from "../../components/DisplayNoData";
-import EditStadium from "../../components/EditStadium";
-import EditCategory from "../../components/EditCategory";
-import EditTitle from "../../components/EditTitle";
-import EditBody from "../../components/EditBody";
 import CompletePopup from "../../components/CompletePopup";
-import MoveTopBtn from "../../components/MoveTopBtn";
+import DisplayNoData from "../../components/DisplayNoData";
+import EditBody from "../../components/EditBody";
+import EditCategory from "../../components/EditCategory";
+import EditStadium from "../../components/EditStadium";
+import EditTitle from "../../components/EditTitle";
 import ExitBtn from "../../components/ExitBtn";
 import ExitPopup from "../../components/ExitPopup";
 import Jfooter from "../../components/Jfooter";
+import Jheader from "../../components/Jheader";
+import MoveTopBtn from "../../components/MoveTopBtn";
 import myFirstMixin from "../../mixin/myFirstMixin";
+import Paginate from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
   data() {
     return {
       visitorUid: String,
-      logoutShow: false,
-      deleteShow: false,
+      isReconfirmLogout: false,
+      isReconfirmDelete: false,
       coverShow: false,
-      noData: false,
-      // trueで削除ボタンが表示される(投稿者と閲覧者の一致)
-      allowDelete: false,
+      isNothingData: false,
       // firestoreから取得したデータを保管する
       postMultipleData: [],
       // ページネーション機能
@@ -221,35 +219,30 @@ export default {
       parPage: 5,
       currentPage: 1,
       // 編集画面
-      editForm: false,
-      edited: false,
-      // 編集データ
-      editStadium: "",
-      editCategory: "",
-      editTitle: "",
-      editBody: "",
+      isEditing: false,
+      isCompleteEdit: false,
       // ローディング画面
       isLoading: false,
     };
   },
   components: {
-    Jheader,
-    DisplayNoData,
-    EditStadium,
-    EditCategory,
-    EditTitle,
-    EditBody,
     CompletePopup,
-    MoveTopBtn,
+    DisplayNoData,
+    EditBody,
+    EditCategory,
+    EditStadium,
+    EditTitle,
     ExitBtn,
     ExitPopup,
     Jfooter,
+    Jheader,
+    MoveTopBtn,
     Paginate,
     VueLoading,
   },
   mixins: [myFirstMixin],
   methods: {
-    adminJudgment: function() {
+    judgeAdmin: function() {
       firebase.auth().onAuthStateChanged((user) => {
         const db = firebase.firestore();
         const admin = db.collection("admin");
@@ -265,38 +258,38 @@ export default {
         });
       });
     },
-    getData: function() {
+    loadDataFromDB: function() {
       this.isLoading = true;
       firebase.auth().onAuthStateChanged((user) => {
-        this.noData = true;
+        this.isNothingData = true;
         const db = firebase.firestore();
         const postData = db.collection("posts");
         const displayData = postData
           .where("contributorUid", "==", user.uid)
           .orderBy("created", "desc")
           .get()
-          // 0件の場合はforEachが実行されないのでthis.noData = trueのままで処理が完了する。
+          // 0件の場合はforEachが実行されないのでthis.isNothingData = trueのままで処理が完了する。
           .then((querySnapshot) => {
-            this.noData = false;
+            this.isNothingData = false;
             querySnapshot.forEach((doc) => {
               this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
              if (this.postMultipleData.length == 0) {
-                this.noData = true;
+                this.isNothingData = true;
               } else {
-                this.noData = false;
+                this.isNothingData = false;
               }
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            console.log(displayData);
+            console.log("Error getting documents: ", error, displayData);
             this.isLoading = false;
           });
       });
     },
-    triggerEditShow: function(postData, postDataId) {
-      this.editForm = true;
+      // 編集処理
+    showEditPage: function(postData, postDataId) {
+      this.isEditing = true;
       // 既に入力されているデータを表示する
       this.editId = postDataId;
       this.editStadium = postData.stadium;
@@ -304,16 +297,15 @@ export default {
       this.editTitle = postData.title;
       this.editBody = postData.body;
     },
-    triggerEditHide: function() {
-      this.editForm = false;
+    hideEditPage: function() {
+      this.isEditing = false;
     },
     // 編集完了画面の表示/非表示
-    triggerEditedShow: function() {
-      this.editForm = false;
-      this.edited = true;
+    showEditedPage: function() {
+      this.isEditing = false;
+      this.isCompleteEdit = true;
     },
-    // 編集処理
-    editData: function(postSingleData, postSingleDataId) {
+    editSelectData: function(postSingleData, postSingleDataId) {
       const db = firebase.firestore();
       const postdata = db.collection("posts");
       const now = new Date();
@@ -337,7 +329,7 @@ export default {
                 contributorName: this.visitorName,
             })
             .then(() => {
-              this.triggerEditedShow();
+              this.showEditedPage();
             })
             .catch(function(error) {
               console.error(error);
@@ -350,7 +342,7 @@ export default {
       }
     },
     // 選択した投稿を削除する
-    deleteData: function(id) {
+    deleteSelectData: function(id) {
       if (confirm("この投稿を削除しますか？一度削除すると2度と戻せません。")) {
         const db = firebase.firestore();
         const postData = db.collection("posts");
@@ -376,33 +368,28 @@ export default {
     },
     // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、
     // 情報がないと誤表示するのを防ぐ役割
-    noDataHide: function() {
-      this.noData = false;
+    hideNothingData: function() {
+      this.isNothingData = false;
     },
     // ログアウト確認ポップアップの表示
-    logoutPopupShow: function() {
-      this.logoutShow = true;
+    showLogoutPopup: function() {
+      this.isReconfirmLogout = true;
       this.coverShow = true;
     },
-    logoutPopupHide: function() {
-      this.logoutShow = false;
+    hideLogoutPopup: function() {
+      this.isReconfirmLogout = false;
       this.coverShow = false;
     },
     // アカウント削除確認ポップアップの表示
-    deletePopupShow: function() {
-      this.deleteShow = true;
+    showDeletePopup: function() {
+      this.isReconfirmDelete = true;
       this.coverShow = true;
     },
-    deletePopupHide: function() {
-      this.deleteShow = false;
+    hideDeletePopup: function() {
+      this.isReconfirmDelete = false;
       this.coverShow = false;
     },
-    popupHide: function() {
-      (this.logoutShow = false),
-        (this.deleteShow = false),
-        (this.coverShow = false);
-    },
-    likedData: function(postSingleData) {
+    switchLikeCounter: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
         // ログインしているか判定
         if(user){
@@ -467,8 +454,8 @@ export default {
     },
   },
   mounted: function() {
-    this.adminJudgment();
-    this.getData();
+    this.judgeAdmin();
+    this.loadDataFromDB();
   },
 };
 </script>

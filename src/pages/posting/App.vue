@@ -2,9 +2,9 @@
   <div id="app">
     <div class="wrap">
       <Jheader
-        :visitorName="visitorName"
+        :isAnonymous="isAnonymous"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName="visitorName"/>
       <main>
         <div class="post-imformation">
           <PageTitle
@@ -20,37 +20,37 @@
           </div>
           <!-- 観戦情報の投稿 -->
           <form>
-            <div class="post-stadium">
+            <form class="post-stadium">
               <InputStadium
                 v-model="stadium"/>
-            </div>
-            <div class="post-category">
+            </form>
+            <form class="post-category">
               <InputCategory
                 v-model="category"/>
-            </div>
-            <div class="post-title-information">
+            </form>
+            <form class="post-title-information" @submit.prevent>
               <InputBox
                 v-model="title"
                 subject="タイトル"
                 type="text"/>
-            </div>
-            <div class="post-text-information">
+            </form>
+            <form class="post-text-information">
               <TextareaBox
                 v-model="body"
                 subject="本文"/>
-              <p class="execute" @click="triggerPostPopupShow">投稿する！</p>
-            </div>
+              <p class="execute" @click="showReconfirmationPopup">投稿する！</p>
+            </form>
           </form>
           <!-- 再確認のポップアップ -->
           <ReconfirmationPopup
-            v-if="confirmationPopupShow"
+            v-if="isReconfirmPost"
             message="投稿してもよろしいですか？"
             process="投稿する!"
-            @reconfirmationPopupHide="triggerPostPopupHide"
+            @reconfirmationPopupHide="hideReconfirmationPopup"
             @sendData="sendPostData"/>
           <!-- 投稿完了を伝えるポップアップ -->
           <CompletePopup
-            v-if="completePopupShow"
+            v-if="isRecompletePost"
             message="投稿が完了しました！"
             back="続けて投稿する"
             url="https://jwatch-8411c.web.app/mypage/index.html"
@@ -79,25 +79,25 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import myFirstMixin from "../../mixin/myFirstMixin";
+import CompletePopup from "../../components/CompletePopup";
+import InputBox from "../../components/InputBox";
+import InputCategory from "../../components/InputCategory";
+import InputStadium from "../../components/InputStadium";
+import Jfooter from "../../components/Jfooter";
 import Jheader from "../../components/Jheader";
+import MoveTopBtn from "../../components/MoveTopBtn";
+import myFirstMixin from "../../mixin/myFirstMixin";
 import PageTitle from "../../components/PageTitle";
 import PointToNote from "../../components/PointToNote";
-import InputStadium from "../../components/InputStadium";
-import InputCategory from "../../components/InputCategory";
-import InputBox from "../../components/InputBox";
-import TextareaBox from "../../components/TextareaBox";
 import ReconfirmationPopup from "../../components/ReconfirmationPopup";
-import CompletePopup from "../../components/CompletePopup";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import Jfooter from "../../components/Jfooter";
+import TextareaBox from "../../components/TextareaBox";
 export default {
   data() {
     return {
       // 再確認のポップアップの表示設定
-      confirmationPopupShow: false,
+      isReconfirmPost: false,
       confirmationCoverShow: false,
-      completePopupShow: false,
+      isRecompletePost: false,
       completeCoverShow: false,
       // 投稿データ
       stadium: "",
@@ -107,28 +107,28 @@ export default {
     };
   },
   components: {
+    CompletePopup,
+    InputBox,
+    InputCategory,
+    InputStadium,
+    Jfooter,
     Jheader,
+    MoveTopBtn,
     PageTitle,
     PointToNote,
-    InputStadium,
-    InputCategory,
-    InputBox,
-    TextareaBox,
     ReconfirmationPopup,
-    CompletePopup,
-    MoveTopBtn,
-    Jfooter,
+    TextareaBox,
   },
   mixins: [myFirstMixin],
   methods: {
     // ポップアップ表示・非表示
-    triggerPostPopupShow: function() {
+    showReconfirmationPopup: function() {
       // this.stadiumとthis.categoryはvalueの値を受け取っている
       // スタジアムとカテゴリーが選択されているか判定する
       if (this.stadium.length > 0 && this.category.length > 0) {
         // タイトルと本文が入力されているか判定する
         if (this.title.length > 0 && this.body.length > 0) {
-          (this.confirmationPopupShow = true),
+          (this.isReconfirmPost = true),
             (this.confirmationCoverShow = true);
         } else {
           alert("タイトルと本文を入力してください。");
@@ -137,18 +137,15 @@ export default {
         alert("スタジアム名とカテゴリー名を選択してください。");
       }
     },
-    triggerPostPopupHide: function() {
-      (this.confirmationPopupShow = false),
+    hideReconfirmationPopup: function() {
+      (this.isReconfirmPost = false),
         (this.confirmationCoverShow = false);
     },
-    triggerPostedPopupShow: function() {
-      (this.completePopupShow = true), (this.completeCoverShow = true);
-    },
-    triggerPostedPopupHide: function() {
-      (this.completePopupShow = false), (this.completeCoverShow = false);
+    showPostedPopup: function() {
+      (this.isRecompletePost = true), (this.completeCoverShow = true);
     },
     // 非ログイン時はログイン画面にリダイレクトする
-    redirect: function() {
+    moveToToppage: function() {
       firebase.auth().onAuthStateChanged(function(user) {
         if (!user) {
           location.href = "https://jwatch-8411c.web.app/login/index.html";
@@ -181,8 +178,8 @@ export default {
       postdata
         .add(inputdata)
         .then(() => {
-          this.triggerPostPopupHide();
-          this.triggerPostedPopupShow();
+          this.hideReconfirmationPopup();
+          this.showPostedPopup();
         })
         .catch(function(error) {
           console.error(error);
@@ -190,7 +187,7 @@ export default {
     },
   },
   mounted: function() {
-    this.redirect();
+    this.moveToToppage();
   },
 };
 </script>

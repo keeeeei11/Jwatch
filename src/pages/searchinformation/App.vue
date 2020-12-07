@@ -2,9 +2,9 @@
   <div id="app">
     <div class="wrap">
       <Jheader
-        :visitorName="visitorName"
+        :isAnonymous="isAnonymous"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName="visitorName"/>
       <main>
         <div class="search-information">
           <PageTitle
@@ -14,31 +14,31 @@
             <h2>スタジアムとカテゴリーを選択してボタンを押してください</h2>
               <InputStadium
                 v-model="stadium"
-                @change.native="noDataHide()"/>
+                @change.native="hideNothingDisplay"/>
             <form class="post-category">
               <InputCategory
                 v-model="category"
-                @change.native="noDataHide()"/>
+                @change.native="hideNothingDisplay"/>
             </form>
-            <button @click="sortData(stadium, category)">情報を見る！</button>
+            <button @click="loadDataFromDB(stadium, category)">情報を見る！</button>
           </div>
           <div class="post-sort">
-            <select @change = "sortData(stadium, category)" v-model="sortValue">
+            <select @change = "loadDataFromDB(stadium, category)" v-model="sortValue">
               <option value= "newest" selected>日時が新しい順</option>
               <option value= "oldest">日時が古い順</option>
               <option value= "good">いいねが多い順</option>
             </select>
           </div>
           <VueLoading
-            v-if = "isLoading"
-            type = "spiningDubbles"
-            color = "#aaa"
-            :size= "{ width: '100px', height: '100px' }"/>
+            v-if="isLoading"
+            type="spiningDubbles"
+            color="#aaa"
+            :size="{ width: '100px', height: '100px' }"/>
           <!-- 選択したスタジアムとカテゴリーで投稿がない時 -->
           <DisplayNoData
-          v-if="noData"
-          :stadium="stadium"
-          :category="category"/>
+            v-if="isNothingData"
+            :stadium="stadium"
+            :category="category"/>
           <!-- 選択したスタジアムとカテゴリーで投稿が1つ以上存在する時 -->
           <div class="post-contents" v-else>
             <div v-for="postSingleData in getItems" :key="postSingleData.id">
@@ -73,7 +73,7 @@
                   <div class="post-evaluation-contents">
                     <div class="good-count evaluation-btn"
                         :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
-                      <button @click="likedData(postSingleData)">
+                      <button @click="switchLikeCounter(postSingleData)">
                         いいね！ {{ postSingleData.likedCounter }}
                       </button>
                     </div>
@@ -83,12 +83,12 @@
                       v-if="postSingleData.contributorUid == visitorUid"
                     >
                       <div class="deleting evaluation-btn">
-                        <button @click="deleteData(postSingleData.id)">
+                        <button @click="deleteSelectData(postSingleData.id)">
                           削除する
                         </button>
                       </div>
                       <div class="editing evaluation-btn">
-                        <button @click="triggerEditShow(postSingleData, postSingleData.id)">
+                        <button @click="showEditPage(postSingleData, postSingleData.id)">
                           編集する
                         </button>
                       </div>
@@ -96,14 +96,14 @@
                     <!-- 投稿者と閲覧者が異なる時 -->
                     <div class="disallow-manage" v-else>
                       <div class="reporting evaluation-btn">
-                        <button @click="triggerReportShow(postSingleData, postSingleData.id)">通報する</button>
+                        <button @click="showReportPage(postSingleData, postSingleData.id)">通報する</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- 編集画面 -->
-              <div class="edit" v-if="editForm">
+              <div class="edit" v-if="isEditing">
                 <section class="edit-page">
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
@@ -114,7 +114,7 @@
                     <EditCategory
                      v-model="editCategory"/>
                   </form>
-                  <form class="edit-title-information">
+                  <form class="edit-title-information" @submit.prevent>
                     <EditTitle
                      v-model="editTitle"
                      type="text"/>
@@ -126,15 +126,15 @@
                   </form>
                   <!-- ボタン -->
                   <div class="edit-btn">
-                    <button @click="triggerEditHide()">戻る</button>
+                    <button @click="hideEditPage()">戻る</button>
                     <button
-                      @click="editData(postSingleData, editId)">編集する</button>
+                      @click="editSelectData(postSingleData, editId)">編集する</button>
                   </div>
                 </section>
                 <div class="background"></div>
               </div>
               <!-- 通報画面 -->
-              <div class="report" v-if="reportForm">
+              <div class="report" v-if="isReporting">
                 <section class="report-page">
                   <h3>通報画面</h3>
                     <div class="report-post-main-content">
@@ -142,7 +142,6 @@
                         <p>{{ reportTitle }}</p>
                       </div>
                       <div class="report-post-text">
-                        <p>{{ reportId }}</p>
                         <p>{{ reportBody }}</p>
                       </div>
                     </div>
@@ -153,12 +152,12 @@
                   </form>
                   <!-- ボタン -->
                   <div class="report-btn">
-                    <button class="cancel" @click="triggerReportHide()">
+                    <button class="cancel" @click="hideReportPage()">
                       戻る
                     </button>
                     <button
                       class="report"
-                      @click="reportData()">通報する</button>
+                      @click="reportSelectData()">通報する</button>
                   </div>
                 </section>
                 <div class="background"></div>
@@ -166,13 +165,13 @@
             </div>
             <!-- 編集完了画面 -->
             <CompletePopup
-              v-if="edited"
+              v-if="isCompleteEdit"
               message="編集が完了しました"
               url="https://jwatch-8411c.web.app/mypage/index.html"
               movePage="マイページへ"/>
             <!-- 通報完了画面 -->
             <CompletePopup
-              v-if="reported"
+              v-if="isCompleteReport"
               message="通報が完了しました"
               url="https://jwatch-8411c.web.app/mainpage/index.html"
               movePage="トップページへ"/>
@@ -204,75 +203,66 @@ import "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import Jheader from "../../components/Jheader";
-import PageTitle from "../../components/PageTitle";
-import InputStadium from "../../components/InputStadium";
-import InputCategory from "../../components/InputCategory";
-import DisplayNoData from "../../components/DisplayNoData";
-import EditStadium from "../../components/EditStadium";
-import EditCategory from "../../components/EditCategory";
-import EditTitle from "../../components/EditTitle";
-import EditBody from "../../components/EditBody";
-import InputReport from "../../components/InputReport";
 import CompletePopup from "../../components/CompletePopup";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import Paginate from "vuejs-paginate";
+import DisplayNoData from "../../components/DisplayNoData";
+import EditBody from "../../components/EditBody";
+import EditCategory from "../../components/EditCategory";
+import EditStadium from "../../components/EditStadium";
+import EditTitle from "../../components/EditTitle";
+import InputCategory from "../../components/InputCategory";
+import InputReport from "../../components/InputReport";
+import InputStadium from "../../components/InputStadium";
 import Jfooter from "../../components/Jfooter";
+import Jheader from "../../components/Jheader";
+import MoveTopBtn from "../../components/MoveTopBtn";
 import myFirstMixin from "../../mixin/myFirstMixin";
+import PageTitle from "../../components/PageTitle";
+import Paginate from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
   data() {
     return {
-      // スタジアムとカテゴリーの選択
+      isNothingData: false,
       stadium: "",
       category: "",
-      noData: false,
-      // trueで削除ボタンが表示される(投稿者と閲覧者の一致)
-      allowDelete: false,
       // firestoreから取得したデータを保管する
       postMultipleData: [],
-      isLiked: false,
-      // ページネーション機能
       sortValue: sessionStorage.getItem("sortkey"),
+      // ページネーション機能
       parPage: 10,
       currentPage: 1,
       // 編集画面
-      editForm: false,
-      edited: false,
-      // 編集データ
-      editStadium: "",
-      editCategory: "",
-      editTitle: "",
-      editBody: "",
+      isEditing: false,
+      isCompleteEdit: false,
       // 通報画面
-      reportForm: false,
-      reported: false,
+      isReporting: false,
+      isCompleteReport: false,
       reportReason: "",
       // ローディング画面
       isLoading: false,
     };
   },
   components: {
-    Jheader,
-    PageTitle,
-    InputStadium,
-    InputCategory,
-    DisplayNoData,
-    EditStadium,
-    EditCategory,
-    EditTitle,
-    EditBody,
-    InputReport,
     CompletePopup,
-    MoveTopBtn,
+    DisplayNoData,
+    EditBody,
+    EditCategory,
+    EditStadium,
+    EditTitle,
+    InputCategory,
+    InputReport,
+    InputStadium,
     Jfooter,
+    Jheader,
+    MoveTopBtn,
+    PageTitle,
     Paginate,
     VueLoading,
   },
-  mixins: [myFirstMixin],
+  mixins:[myFirstMixin],
   methods: {
     // 選択された情報を元にデータを取得する
-    sortData: function(stadium, category) {
+    loadDataFromDB: function(stadium, category) {
       // スタジアムとカテゴリーが入力されているかチェック
       if (this.stadium.length > 0 && this.category.length > 0) {
         // 一度配列を空にしないと前の検索結果が残ったままになる。
@@ -284,7 +274,7 @@ export default {
         const displayData = postData
           .where("stadium", "==", stadium)
           .where("category", "==", category);
-        // 0件の場合はforEachが実行されないのでthis.noData = trueのままで処理が完了する。
+        // 0件の場合はforEachが実行されないのでthis.isNothingData = trueのままで処理が完了する。
         // 新しい順が選択されている時
         if (this.sortValue === "newest") {
           const newestDisplayData = displayData
@@ -298,14 +288,13 @@ export default {
               });
               this.isLoading = false;
               if (this.postMultipleData.length == 0) {
-                this.noData = true;
+                this.isNothingData = true;
               } else {
-                this.noData = false;
+                this.isNothingData = false;
               }
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error);
-              console.log(newestDisplayData);
+              console.log("Error getting documents: ", error, newestDisplayData);
             });
           // 古い順が選択されている時
         } else if (this.sortValue === "oldest") {
@@ -319,14 +308,13 @@ export default {
               });
               this.isLoading = false;
               if (this.postMultipleData.length == 0) {
-                this.noData = true;
+                this.isNothingData = true;
               } else {
-                this.noData = false;
+                this.isNothingData = false;
               }
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error);
-              console.log(oldestDisplayData);
+              console.log("Error getting documents: ", error, oldestDisplayData);
             });
           // いいねが多い順が選択されている時
         } else if (this.sortValue === "good") {
@@ -340,29 +328,22 @@ export default {
               });
               this.isLoading = false;
               if (this.postMultipleData.length == 0) {
-                this.noData = true;
+                this.isNothingData = true;
               } else {
-                this.noData = false;
+                this.isNothingData = false;
               }
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error);
-              console.log(goodDisplayData);
+              console.log("Error getting documents: ", error, goodDisplayData);
             });
         } else {
           console.log("sortError!");
         }
-        // スタジアムとカテゴリーが選択されていない時に伝える
       } else {
         return alert("スタジアム名とカテゴリーを選択してください。");
       }
     },
-    countData: function() {
-      if (this.postMultipleData < 1) {
-        this.noData = true;
-      }
-    },
-    likedData: function(postSingleData) {
+    switchLikeCounter: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
         // ログインしているか判定
         if(user){
@@ -395,11 +376,13 @@ export default {
                   likedUsers.splice(i, 1)
                 }
               }
+              // Firebase上のデータの更新
               firebase.firestore().collection("posts").doc(postSingleData.id)
               .update({
                 likedCounter: firebase.firestore.FieldValue.increment(-1),
                 likedUsers: firebase.firestore.FieldValue.arrayRemove(user.uid)
               })
+              // 見た目上の更新
               for(let i; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
@@ -409,18 +392,16 @@ export default {
               }
             }
           } else {
-            // 投稿者はいいねを押すことが出来ないことを知らせる
             alert('投稿者はいいねを押すことが出来ません')
           }
         } else {
-          // 非ログイン時はいいね機能が使えないことを知らせる
           alert('いいね機能を使用するにはログインが必要です')
         }
       })
     },
     // 編集画面の表示/非表示
-    triggerEditShow: function(postData, postDataId){
-      this.editForm = true;
+    showEditPage: function(postData, postDataId){
+      this.isEditing = true;
       // 既に入力されているデータを表示する
       this.editId = postDataId;
       this.editStadium = postData.stadium;
@@ -428,20 +409,16 @@ export default {
       this.editTitle = postData.title;
       this.editBody = postData.body;
     },
-    triggerEditHide: function() {
-      this.editForm = false;
+    hideEditPage: function() {
+      this.isEditing = false;
     },
     // 編集完了画面の表示/非表示
-    triggerEditedShow: function() {
-      this.editForm = false;
-      this.edited = true;
-    },
-    triggerEditedHide: function() {
-      this.edited = false;
-      location.reload();
+    showEditedPage: function() {
+      this.isEditing = false;
+      this.isCompleteEdit = true;
     },
     // 編集処理
-    editData: function(postSingleData, postSingleDataId) {
+    editSelectData: function(postSingleData, postSingleDataId) {
       const db = firebase.firestore();
       const postdata = db.collection("posts");
       const now = new Date();
@@ -467,7 +444,7 @@ export default {
               },
             )
             .then(() => {
-              this.triggerEditedShow();
+              this.showEditedPage();
             })
             .catch(function(error) {
               console.error(error);
@@ -480,8 +457,8 @@ export default {
       }
     },
     // 通報画面の表示/非表示
-    triggerReportShow: function(postData, postDataId) {
-      this.reportForm = true;
+    showReportPage: function(postData, postDataId) {
+      this.isReporting = true;
       this.reportStadium = postData.stadium
       this.reportCategory = postData.category
       this.reportTitle = postData.title
@@ -492,19 +469,16 @@ export default {
       this.reportContributorUid = postData.contributorUid
       this.updated = postData.updated
     },
-    triggerReportHide: function() {
-      this.reportForm = false;
+    hideReportPage: function() {
+      this.isReporting = false;
     },
     // 通報完了画面の表示/非表示
-    triggerReportedShow: function() {
-      this.reportForm = false;
-      this.reported = true;
-    },
-    triggerReportedHide: function() {
-      this.reported = false;
+    showReportedPopup: function() {
+      this.isReporting = false;
+      this.isCompleteReport = true;
     },
     // 通報データの追加
-    reportData: function() {
+    reportSelectData: function() {
       const db = firebase.firestore();
       const now = new Date();
       const inputData = {
@@ -527,8 +501,8 @@ export default {
         reportPost
           .add(inputData)
           .then(() => {
-            this.triggerReportHide();
-            this.triggerReportedShow();
+            this.hideReportPage();
+            this.showReportedPopup();
           })
           .catch(function(error) {
             console.error(error);
@@ -538,7 +512,7 @@ export default {
       }
     },
     // 選択した投稿を削除する
-    deleteData: function(id) {
+    deleteSelectData: function(id) {
       if (confirm("この投稿を削除しますか？一度削除すると2度と戻せません。")) {
         const db = firebase.firestore();
         const postData = db.collection("posts");
@@ -564,8 +538,8 @@ export default {
     },
     // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、
     // 情報がないと誤表示するのを防ぐ役割
-    noDataHide: function() {
-      this.noData = false;
+    hideNothingDisplay: function() {
+      this.isNothingData = false;
     },
   },
   computed: {

@@ -2,17 +2,15 @@
   <div id="app">
     <div class="wrap">
       <Jheader
-        :visitorName="visitorName"
+        :isAnonymous="isAnonymous"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName="visitorName"/>
       <div class="popular">
         <PageTitle
           title="Popular posts"
           description="人気のある投稿が記載されています。チームごとに情報を絞ることも可能です。"/>
         <div class="choose-stadium">
-            <InputStadium
-              v-model="stadium"
-              @change.native="getData(stadium)"/>
+            <InputStadium v-model="stadium" @change.native="loadDataFromDB(stadium)"/>
         </div>
         <VueLoading
           v-if="isLoading"
@@ -21,7 +19,7 @@
           :size="{ width: '100px', height: '100px' }"/>
         <div class="popular-posts">
           <DisplayNoData
-            v-if="noData"
+            v-if="isNothingData"
             :stadium="stadium"
             category="観戦情報"/>
           <div class="post-contents" v-else>
@@ -57,37 +55,30 @@
                   <div class="post-evaluation-contents">
                     <div class="good-count evaluation-btn"
                     :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
-                      <button @click="likedData(postSingleData)">
+                      <button @click="switchLikeCounter(postSingleData)">
                         いいね！ {{ postSingleData.likedCounter }}
                       </button>
                     </div>
                     <!-- 投稿者と閲覧者が同じである時 -->
-                    <div
-                      class="allow-manage"
-                      v-if="postSingleData.contributorUid == visitorUid"
-                    >
+                    <div class="allow-manage" v-if="postSingleData.contributorUid == visitorUid">
                       <div class="deleting evaluation-btn">
-                        <button @click="deleteData(postSingleData.id)">
-                          削除する
-                        </button>
+                        <button @click="deleteSelectData(postSingleData.id)">削除する</button>
                       </div>
                       <div class="editing evaluation-btn">
-                        <button @click="triggerEditShow(postSingleData, postSingleData.id)">
-                          編集する
-                        </button>
+                        <button @click="showEditPage(postSingleData, postSingleData.id)">編集する</button>
                       </div>
                     </div>
                     <!-- 投稿者と閲覧者が異なる時 -->
                     <div class="disallow-manage" v-else>
                       <div class="reporting evaluation-btn">
-                        <button @click="triggerReportShow(postSingleData, postSingleData.id)">通報する</button>
+                        <button @click="showReportPage(postSingleData, postSingleData.id)">通報する</button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- 編集画面 -->
-              <div class="edit" v-if="editForm">
+              <div class="edit" v-if="isEditing">
                 <section class="edit-page">
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
@@ -98,7 +89,7 @@
                     <EditCategory
                       v-model="editCategory"/>
                   </form>
-                  <form class="edit-title-information">
+                  <form class="edit-title-information" @submit.prevent>
                     <EditTitle
                       v-model="editTitle"
                       type="text"/>
@@ -110,20 +101,14 @@
                   </form>
                   <!-- ボタン -->
                   <div class="edit-btn">
-                    <button @click="triggerEditHide()">戻る</button>
-                    <button
-                      @click="
-                        editData(postSingleData, editId)
-                      "
-                    >
-                      編集する
-                    </button>
+                    <button @click="hideEditPage()">戻る</button>
+                    <button @click="editSelectData(postSingleData, editId)">編集する</button>
                   </div>
                 </section>
                 <div class="background"></div>
               </div>
               <!-- 通報画面 -->
-               <div class="report" v-if="reportForm">
+               <div class="report" v-if="isReporting">
                 <section class="report-page">
                   <h3>通報画面</h3>
                     <div class="report-post-main-content">
@@ -131,7 +116,6 @@
                         <p>{{ reportTitle }}</p>
                       </div>
                       <div class="report-post-text">
-                        <p>{{ reportId }}</p>
                         <p>{{ reportBody }}</p>
                       </div>
                     </div>
@@ -142,9 +126,7 @@
                   </form>
                   <!-- ボタン -->
                   <div class="report-btn">
-                    <button class="cancel" @click="triggerReportHide()">
-                      戻る
-                    </button>
+                    <button class="cancel" @click="hideReportPage()">戻る</button>
                     <button
                       class="report"
                       @click="reportData()">通報する</button>
@@ -155,13 +137,13 @@
             </div>
             <!-- 編集完了画面 -->
             <CompletePopup
-              v-if="edited"
+              v-if="isCompleteEdit"
               message="編集が完了しました"
               url="https://jwatch-8411c.web.app/mypage/index.html"
               movePage="マイページへ"/>
             <!-- 通報完了画面 -->
             <CompletePopup
-              v-if="reported"
+              v-if="isCompleteReport"
               message="通報が完了しました"
               url="https://jwatch-8411c.web.app/mainpage/index.html"
               movePage="トップページへ"/>
@@ -192,30 +174,28 @@ import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import Jheader from "../../components/Jheader";
-import PageTitle from "../../components/PageTitle";
-import InputStadium from "../../components/InputStadium";
-import DisplayNoData from "../../components/DisplayNoData";
-import EditStadium from "../../components/EditStadium";
-import EditCategory from "../../components/EditCategory";
-import EditTitle from "../../components/EditTitle";
-import EditBody from "../../components/EditBody";
-import InputReport from "../../components/InputReport";
 import CompletePopup from "../../components/CompletePopup";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import Paginate from "vuejs-paginate";
+import DisplayNoData from "../../components/DisplayNoData";
+import EditBody from "../../components/EditBody";
+import EditCategory from "../../components/EditCategory";
+import EditStadium from "../../components/EditStadium";
+import EditTitle from "../../components/EditTitle";
+import InputReport from "../../components/InputReport";
+import InputStadium from "../../components/InputStadium";
 import Jfooter from "../../components/Jfooter";
+import Jheader from "../../components/Jheader";
+import MoveTopBtn from "../../components/MoveTopBtn";
 import myFirstMixin from "../../mixin/myFirstMixin";
+import PageTitle from "../../components/PageTitle";
+import Paginate from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 
 export default {
   data() {
     return {
-      noData: false,
+      isNothingData: false,
       stadium: "",
       category: "",
-      // trueで削除ボタンが表示される
-      allowDelete: false,
       // 配列の取得
       postMultipleData: [],
       // ページネーション機能
@@ -223,42 +203,42 @@ export default {
       parPage: 10,
       currentPage: 1,
       // 編集画面
-      editForm: false,
-      edited: false,
+      isEditing: false,
+      isCompleteEdit: false,
       // 通報画面
-      reportForm: false,
-      reported: false,
+      isReporting: false,
+      isCompleteReport: false,
       reportReason: "",
       // ローディング機能
       isLoading: false,
     };
   },
   components: {
-    Jheader,
-    PageTitle,
-    InputStadium,
-    DisplayNoData,
-    EditStadium,
-    EditCategory,
-    EditTitle,
-    EditBody,
-    InputReport,
     CompletePopup,
-    MoveTopBtn,
-    Paginate,
+    DisplayNoData,
+    EditBody,
+    EditCategory,
+    EditStadium,
+    EditTitle,
+    InputReport,
+    InputStadium,
     Jfooter,
+    Jheader,
+    MoveTopBtn,
+    PageTitle,
+    Paginate,
     VueLoading,
   },
   mixins: [myFirstMixin],
   methods: {
-    getData: function (stadium) {
+    loadDataFromDB: function (selectStadium) {
       this.isLoading = true;
       this.postMultipleData = [];
       // データの取得
       const db = firebase.firestore();
       const postData = db.collection("posts");
         // 個別のスタジアム情報を取得する時
-        const inputData = postData.where("stadium", "==", stadium);
+        const inputData = postData.where("stadium", "==", selectStadium);
         const displayData = inputData
           .orderBy("likedCounter", "desc")
           .get()
@@ -270,18 +250,17 @@ export default {
             });
             this.isLoading = false;
             if (this.postMultipleData.length == 0) {
-              this.noData = true;
+              this.isNothingData = true;
             } else {
-              this.noData = false;
+              this.isNothingData = false;
             }
           })
           .catch(function (error) {
-            console.log("Error getting documents: ", error);
-            console.log(displayData);
+            console.log("Error getting documents: ", error, displayData);
           });
       // }
     },
-    likedData: function(postSingleData) {
+    switchLikeCounter: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
         // ログインしているか判定
         if(user){
@@ -335,24 +314,24 @@ export default {
       })
     },
     // 編集画面の表示/非表示
-    triggerEditShow: function (postData, postDataId) {
-      this.editForm = true;
+    showEditPage: function (selectPostData, selectPostDataId) {
+      this.isEditing = true;
       // 既に入力されているデータを表示する
-      this.editId = postDataId;
-      this.editStadium = postData.stadium;
-      this.editCategory = postData.category;
-      this.editTitle = postData.title;
-      this.editBody = postData.body;
+      this.editId = selectPostDataId;
+      this.editStadium = selectPostData.stadium;
+      this.editCategory = selectPostData.category;
+      this.editTitle = selectPostData.title;
+      this.editBody = selectPostData.body;
     },
-    triggerEditHide: function() {
-      this.editForm = false;
+    hideEditPage: function() {
+      this.isEditing = false;
     },
     // 編集完了画面の表示/非表示
-    triggerEditedShow: function () {
-      this.editForm = false;
-      this.edited = true;
+    showEditedPage: function () {
+      this.isEditing = false;
+      this.isCompleteEdit = true;
     },
-    editData: function (postSingleData, postSingleDataId) {
+    editSelectData: function (postSingleData, postSingleDataId) {
       const db = firebase.firestore();
       const postdata = db.collection("posts");
       const now = new Date();
@@ -377,8 +356,8 @@ export default {
               },
             )
             .then(() => {
-              // this.triggerEditHide();
-              this.triggerEditedShow();
+              // this.hideEditPage();
+              this.showEditedPage();
             })
             .catch(function (error) {
               console.error(error);
@@ -391,8 +370,8 @@ export default {
       }
     },
     // 通報画面の表示/非表示
-    triggerReportShow: function (postData, postDataId) {
-      this.reportForm = true;
+    showReportPage: function (postData, postDataId) {
+      this.isReporting = true;
       this.reportStadium = postData.stadium
       this.reportCategory = postData.category
       this.reportTitle = postData.title
@@ -403,16 +382,13 @@ export default {
       this.reportContributorUid = postData.contributorUid
       this.updated = postData.updated
     },
-    triggerReportHide: function () {
-      this.reportForm = false;
+    hideReportPage: function () {
+      this.isReporting = false;
     },
     // 通報完了画面の表示/非表示
-    triggerReportedShow: function () {
-      this.reportForm = false;
-      this.reported = true;
-    },
-    triggerReportedHide: function () {
-      this.reported = false;
+    showReportedPopup: function () {
+      this.isReporting = false;
+      this.isCompleteReport = true;
     },
     // 通報データの追加
     reportData: function () {
@@ -438,8 +414,8 @@ export default {
         reportData
           .add(inputData)
           .then(() => {
-            this.triggerReportHide();
-            this.triggerReportedShow();
+            this.hideReportPage();
+            this.showReportedPopup();
           })
           .catch(function (error) {
             console.error(error);
@@ -448,8 +424,7 @@ export default {
         alert("通報理由を選択してください");
       }
     },
-    deleteData: function (id) {
-      console.log(id);
+    deleteSelectData: function (id) {
       if (
         confirm(
           "このお問い合わせを削除しますか？一度削除すると2度と戻せません。"
@@ -494,7 +469,7 @@ export default {
 .wrap {
   overflow: hidden;
 }
-/*以下メイン*/
+
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
   margin: auto 50px;
@@ -503,7 +478,6 @@ main {
   margin-top: 100px;
   text-align: center;
 }
-/*人気の投稿*/
 
 .stadium-list {
   width: 70%;
@@ -519,7 +493,6 @@ main {
   margin: 50px 0;
 }
 
-/* 投稿を表示する部分 */
 .post-example-contents {
   width: 80%;
   margin: 30px auto;

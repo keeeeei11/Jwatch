@@ -2,9 +2,9 @@
   <div id="app">
     <div class="wrap">
       <Jheader
-        :visitorName="visitorName"
+        :isAnonymous="isAnonymous"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName="visitorName"/>
       <!--以下メイン-->
       <main>
         <PageTitle
@@ -27,19 +27,19 @@
 </template>
 
 <script>
-import myFirstMixin from "../../mixin/myFirstMixin";
-import Jheader from "../../components/Jheader";
-import PageTitle from "../../components/PageTitle";
 import Induction from "../../components/Induction";
-import MoveTopBtn from "../../components/MoveTopBtn";
 import Jfooter from "../../components/Jfooter";
+import Jheader from "../../components/Jheader";
+import MoveTopBtn from "../../components/MoveTopBtn";
+import myFirstMixin from "../../mixin/myFirstMixin";
+import PageTitle from "../../components/PageTitle";
 export default {
   components: {
-    Jheader,
-    PageTitle,
-    MoveTopBtn,
     Induction,
     Jfooter,
+    Jheader,
+    MoveTopBtn,
+    PageTitle,
   },
   mixins: [myFirstMixin],
 };

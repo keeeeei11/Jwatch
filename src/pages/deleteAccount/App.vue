@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div>アカウント削除中…</div>
     <div>
-      アカウント削除が完了しない場合は、再度ログインを行ってからもう一度アカウント削除を実行してください。
-    </div>
+      <p>アカウント削除中…</p>
+      <p>アカウント削除が完了しない場合は、再度ログインを行ってからもう一度アカウント削除を実行してください。</p>
+      </div>
   </div>
 </template>
 
@@ -17,23 +17,20 @@ import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   mixins: [myFirstMixin],
   methods: {
-    delete: function() {
+    deleteUserInformation: function() {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           // ユーザーが投稿した情報を削除する
           this.deleteUid = user.uid;
           const db = firebase.firestore();
-          const getData = db
-            .collection("posts")
-            .where("contributorUid", "==", this.deleteUid);
-          getData.get().then(function(querySnapshot) {
+          const userPostedData = db.collection("posts").where("contributorUid", "==", this.deleteUid);
+          userPostedData.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
               doc.ref.delete();
             });
           });
           // ユーザー情報の削除
-          user
-            .delete()
+          user.delete()
             .then(function() {
               location.href =
                 "https://jwatch-8411c.web.app/mainpage/index.html";
@@ -45,7 +42,6 @@ export default {
             })
             .catch(function(error) {
               console.log("エラーが発生しました", error);
-              console.log(getData);
             });
         } else {
           return;
@@ -54,7 +50,7 @@ export default {
     },
   },
   mounted: function() {
-    this.delete();
+    this.deleteUserInformation();
   },
 };
 </script>
