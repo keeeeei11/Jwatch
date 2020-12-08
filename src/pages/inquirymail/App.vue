@@ -15,8 +15,8 @@
         </div>
         <VueLoading
           v-if="isLoading"
-          type="spiningDubbles"
           color="#aaa"
+          type="spiningDubbles"
           :size="{ width: '100px', height: '100px' }"/>
         <div class="inquiry-data" v-else>
           <div
@@ -81,25 +81,24 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import AdminHeader from "../../components/AdminHeader";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import myFirstMixin from "../../mixin/myFirstMixin";
-import Paginate from "vuejs-paginate";
+import firebase       from "firebase";
+import                     "firebase/auth";
+import                     "firebase/firestore";
+import                     "firebase/storage";
+import AdminHeader    from "../../components/AdminHeader";
+import MoveTopBtn     from "../../components/MoveTopBtn";
+import myFirstMixin   from "../../mixin/myFirstMixin";
+import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
   data() {
     return {
-      // お問い合わせのデータを格納
+      currentPage:         1,
       inquiryMultipleData: [],
-      sortValue: sessionStorage.getItem("sortkey"),
-      parPage: 5,
-      currentPage: 1,
+      parPage:             5,
+      sortValue:           sessionStorage.getItem("sortkey"),
       // ローディング画面
-      isLoading: false,
+      isLoading: false
     };
   },
   mixins: [myFirstMixin],
@@ -111,17 +110,13 @@ export default {
   },
   methods: {
     judgeAdmin: function() {
-      // ログインしていない時でもfirebase.auth()は実行される
       firebase.auth().onAuthStateChanged((user) => {
-        // ログインしていないユーザーを強制的にトップページに飛ばす
         if (!user) {
           location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         } else {
-          const db = firebase.firestore();
-          const admin = db.collection("admin");
+          const admin = firebase.firestore().collection("admin");
           admin.get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              // 管理者以外のユーザーを強制的にトップページに飛ばす
               if (doc.id != user.uid) {
                 location.href =
                   "https://jwatch-8411c.web.app/mainpage/index.html";
@@ -131,11 +126,9 @@ export default {
         }
       });
     },
-    // 初回訪問時&ページ更新時にデータを取得する
     loadDataFromDB: function() {
       this.isLoading = true;
-      const db = firebase.firestore();
-      const inquiryData = db.collection("inquiries");
+      const inquiryData = firebase.firestore().collection("inquiries");
       if (this.sortValue === "newest") {
         const displayData = inquiryData
           .orderBy("created", "desc")
@@ -172,8 +165,7 @@ export default {
     sortData: function() {
       this.isLoading = true;
       this.inquiryMultipleData = [];
-      const db = firebase.firestore();
-      const inquiryData = db.collection("inquiries");
+      const inquiryData = firebase.firestore().collection("inquiries");
       if (this.sortValue === "newest") {
         const newestDisplayData = inquiryData
           .orderBy("created", "desc")
@@ -219,8 +211,7 @@ export default {
           "このお問い合わせを削除しますか？一度削除すると2度と戻せません。"
         )
       ) {
-        const db = firebase.firestore();
-        const inquiryData = db.collection("inquiries");
+        const inquiryData = firebase.firestore().collection("inquiries");
         inquiryData
           .doc(id)
           .delete()
@@ -236,15 +227,15 @@ export default {
     clickCallback: function(pageNum) {
       this.currentPage = Number(pageNum);
       window.scrollTo({
-        top: 0,
         behavior: "instant",
+        top: 0,
       });
     },
   },
   computed: {
     getItems: function() {
-      let current = this.currentPage * this.parPage;
-      let start = current - this.parPage;
+      const current = this.currentPage * this.parPage;
+      const start   = current - this.parPage;
       return this.inquiryMultipleData.slice(start, current);
     },
     getPageCount: function() {

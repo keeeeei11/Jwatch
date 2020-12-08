@@ -10,11 +10,11 @@
           title="How to use"
           description="観戦情報の閲覧と投稿、情報のの方法を記載しています"/>
         <UsageDescription
-        titleEn="How to Search"
-        titleJa="観戦情報の閲覧方法"
-        descriptionFirst="①スタジアムを選択してください。"
-        descriptionSecond="②カテゴリーを選択してください。"
-        supplement="※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。"/>
+          titleEn="How to Search"
+          titleJa="観戦情報の閲覧方法"
+          descriptionFirst="①スタジアムを選択してください。"
+          descriptionSecond="②カテゴリーを選択してください。"
+          supplement="※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。"/>
         <Induction
           url="https://jwatch-8411c.web.app/searchinformation/index.html"
           title="Let’s search!"
@@ -69,9 +69,9 @@
           </div>
         </div>
         <Induction
-          url="https://jwatch-8411c.web.app/posting/index.html"
+          description="観戦情報を投稿する！"
           title="Let’s post!"
-          description="観戦情報を投稿する！"/>
+          url="https://jwatch-8411c.web.app/posting/index.html"/>
         <MoveTopBtn/>
       </main>
       <Jfooter/>
@@ -80,12 +80,12 @@
 </template>
 
 <script>
-import Induction from "../../components/Induction";
-import Jfooter from "../../components/Jfooter";
-import Jheader from "../../components/Jheader";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle";
+import Induction        from "../../components/Induction";
+import Jfooter          from "../../components/Jfooter";
+import Jheader          from "../../components/Jheader";
+import MoveTopBtn       from "../../components/MoveTopBtn";
+import myFirstMixin     from "../../mixin/myFirstMixin";
+import PageTitle        from "../../components/PageTitle";
 import UsageDescription from "../../components/UsageDescription";
 
 export default {

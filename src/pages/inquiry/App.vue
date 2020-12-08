@@ -8,38 +8,38 @@
       <!--以下メイン-->
       <main>
         <PageTitle
-          title="Contact"
-          description="ご意見＆ご要望入力フォーム"/>
+          description="ご意見＆ご要望入力フォーム"
+          title="Contact"/>
         <div class="inquiry-discription">
           <p>
             <a
               href="https://jwatch-8411c.web.app/question/index.html"
-              target="_brank"
               rel="nofollow noopener noreferrer"
+              target="_brank"
               >Q&A</a
             >にも情報がありますのでそちらも参考にしてください。
           </p>
         </div>
         <form class="inquiry-form">
             <InputBox
-              v-model="name"
+              placeholder=""
               subject="お名前(任意)"
               type="text"
-              placeholder=""/>
+              v-model="name"/>
             <InputBox
-              v-model="mailAddress"
+              maxlength="50"
               placeholder=""
               subject="メールアドレス(任意)"
               type="text"
-              maxlength="50"/>
+              v-model="mailAddress"/>
             <InputBox
-              v-model="title"
               subject="タイトル"
-              type="text"/>
+              type="text"
+              v-model="title"/>
             <TextareaBox
-              v-model="body"
               placeholder="400字以内で入力してください"
-              subject="本文"/>
+              subject="本文"
+              v-model="body"/>
             <p class="execute" @click="showReconfirmationPopup">送信する</p>
         </form>
         <!-- 再確認のポップアップ -->
@@ -54,8 +54,8 @@
           <CompletePopup
             v-if="isCompletePopup"
             message="正常に送信されました。"
-            url="https://jwatch-8411c.web.app/mainpage/index.html"
-            movePage="トップページへ"/>
+            movePage="トップページへ"
+            url="https://jwatch-8411c.web.app/mainpage/index.html"/>
         </div>
         <MoveTopBtn/>
       </main>
@@ -66,30 +66,31 @@
 
 <script>
 // DBと繋いだ時にで有効にする
-import firebase from "firebase";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import CompletePopup from "../../components/CompletePopup";
-import InputBox from "../../components/InputBox";
-import Jfooter from "../../components/Jfooter";
-import Jheader from "../../components/Jheader";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle";
+import firebase            from "firebase";
+import                          "firebase/auth";
+import                          "firebase/firestore";
+import                          "firebase/storage";
+import CompletePopup       from "../../components/CompletePopup";
+import InputBox            from "../../components/InputBox";
+import Jfooter             from "../../components/Jfooter";
+import Jheader             from "../../components/Jheader";
+import MoveTopBtn          from "../../components/MoveTopBtn";
+import myFirstMixin        from "../../mixin/myFirstMixin";
+import PageTitle           from "../../components/PageTitle";
 import ReconfirmationPopup from "../../components/ReconfirmationPopup";
-import TextareaBox from "../../components/TextareaBox";
+import TextareaBox         from "../../components/TextareaBox";
 export default {
   data() {
     return {
-      isCompleteCover: false,
-      isCompletePopup: false,
+      isCompleteCover:       false,
+      isCompletePopup:       false,
       isReconfirmationCover: false,
       isReconfirmationPopup: false,
-      body: "",
+      // お問い合わせフォームの入力内容
+      body:        "",
       mailAddress: "",
-      name: "",
-      title: "",
+      name:        "",
+      title:       ""
     };
   },
   components: {
@@ -100,47 +101,40 @@ export default {
     MoveTopBtn,
     PageTitle,
     ReconfirmationPopup,
-    TextareaBox,
+    TextareaBox
   },
   mixins: [myFirstMixin],
   methods: {
     showReconfirmationPopup: function() {
       // タイトルと本文が入力されているか判定する
       if (this.title.length > 0 && this.body.length > 0) {
-        (this.isReconfirmationPopup = true),
-          (this.isReconfirmationCover = true);
+        (this.isReconfirmationPopup = true), (this.isReconfirmationCover = true);
       } else {
         alert("タイトルと本文を入力してください。");
       }
     },
     hideReconfirmationPopup: function() {
-      (this.isReconfirmationPopup = false),
-        (this.isReconfirmationCover = false);
+      (this.isReconfirmationPopup = false), (this.isReconfirmationCover = false);
     },
     showCompletePopup: function() {
       (this.isCompletePopup = true), (this.isCompleteCover = true);
     },
     sendInquiryData: function() {
-      const db = firebase.firestore();
-      const postdata = db.collection("inquiries");
+      const postdata = firebase.firestore().collection("inquiries");
       const now = new Date();
       const inputdata = {
-        name: this.name,
+        body:        this.body,
+        created:     now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) +
+                     "/" + ("0" + now.getDate()).slice(-2),
         mailAddress: this.mailAddress,
-        title: this.title,
-        body: this.body,
-        created:
-          now.getFullYear() +
-          "/" +
-          ("0" + (now.getMonth() + 1)).slice(-2) +
-          "/" +
-          ("0" + now.getDate()).slice(-2),
+        name:        this.name,
+        title:       this.title
       };
       postdata
         .add(inputdata)
         .then(() => {
-          this.showCompletePopup();
           this.hideReconfirmationPopup();
+          this.showCompletePopup();
         })
         .catch(function(error) {
           console.error(error);

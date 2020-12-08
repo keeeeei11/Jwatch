@@ -2,26 +2,28 @@
   <div id="app">
     <div class="normal-page" v-if="!isLoading">
       <div class="wrap">
-        <Jheader/>
-        <!--メイン-->
+        <Jheader
+          :isAnonymous="isAnonymous"
+          :isLogin="isLogin"
+          :visitorName="visitorName"/>
         <main>
             <PageTitle
-              title="Login Page"
-              description="観戦情報の投稿はログインが必要です。"/>
+              description="観戦情報の投稿はログインが必要です。"
+              title="Login Page"/>
             <div class="login-contents">
               <h2>ログイン方法を選択してください</h2>
               <LoginBtn
-              name="google"
-              loginMethod="Googleアカウントでログイン"
-              @click.native="loginGoogle"/>
+                @click.native="loginGoogle"
+                loginMethod="Googleアカウントでログイン"
+                name="google"/>
               <LoginBtn
-              name="twitter"
-              loginMethod="Twitterアカウントでログイン"
-              @click.native="loginTwitter"/>
+                loginMethod="Twitterアカウントでログイン"
+                @click.native="loginTwitter"
+                name="twitter"/>
               <LoginBtn
-              name="anonymous"
-              loginMethod="簡単(匿名)ログイン"
-              @click.native="loginAnonymous"/>
+                loginMethod="簡単(匿名)ログイン"
+                @click.native="loginAnonymous"
+                name="anonymous"/>
               <p>ログイン完了後、マイページに移動します</p>
             </div>
           <MoveTopBtn/>
@@ -31,25 +33,24 @@
     </div>
     <div class="loading-page" v-else>
       <VueLoading
-        type="spiningDubbles"
         color="#aaa"
+        type="spiningDubbles"
         :size="{ width: '100px', height: '100px' }"/>
     </div>
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import Jfooter from "../../components/Jfooter";
-import Jheader from "../../components/Jheader";
-import LoginBtn from "../../components/LoginBtn";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle";
+import firebase       from "firebase";
+import                     "firebase/auth";
+import                     "firebase/firestore";
+import                     "firebase/storage";
+import Jfooter        from "../../components/Jfooter";
+import Jheader        from "../../components/Jheader";
+import LoginBtn       from "../../components/LoginBtn";
+import MoveTopBtn     from "../../components/MoveTopBtn";
+import myFirstMixin   from "../../mixin/myFirstMixin";
+import PageTitle      from "../../components/PageTitle";
 import { VueLoading } from "vue-loading-template";
 export default {
   components: {
@@ -58,24 +59,22 @@ export default {
     LoginBtn,
     MoveTopBtn,
     PageTitle,
-    VueLoading,
+    VueLoading
   },
   mixins: [myFirstMixin],
   data() {
     return {
-      // 初期値はtrueにして非ログイン時はloginJudgment()でfalseへ
       isLoading:true,
     };
   },
   methods: {
     moveToMypage: function() {
       firebase.auth().onAuthStateChanged(function(user) {
-        // ログイン時はマイページへ
         if (user) {
           sessionStorage.removeItem("loading");
           location.href = "https://jwatch-8411c.web.app/mypage/index.html";
         } else {
-          return;
+          return
         }
       });
     },

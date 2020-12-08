@@ -14,8 +14,8 @@
         </div>
         <VueLoading
           v-if="isLoading"
-          type="spiningDubbles"
           color="#aaa"
+          type="spiningDubbles"
           :size="{ width: '100px', height: '100px' }"/>
         <div class="report-contents" v-else>
           <h4>{{ reportMultipleData.length }} 件あります</h4>
@@ -95,25 +95,25 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import AdminHeader from "../../components/AdminHeader";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import myFirstMixin from "../../mixin/myFirstMixin";
-import Paginate from "vuejs-paginate";
+import firebase       from "firebase";
+import                     "firebase/auth";
+import                     "firebase/firestore";
+import                     "firebase/storage";
+import AdminHeader    from "../../components/AdminHeader";
+import MoveTopBtn     from "../../components/MoveTopBtn";
+import myFirstMixin   from "../../mixin/myFirstMixin";
+import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
   data() {
     return {
       // お問い合わせのデータを格納
+      currentPage:        1,
+      parPage:            5,
       reportMultipleData: [],
-      sortValue: sessionStorage.getItem("sortkey"),
-      parPage: 5,
-      currentPage: 1,
+      sortValue:          sessionStorage.getItem("sortkey"),
       // ローディング画面
-      isLoading: false,
+      isLoading: false
     };
   },
   mixins: [myFirstMixin],
@@ -121,7 +121,7 @@ export default {
     AdminHeader,
     MoveTopBtn,
     Paginate,
-    VueLoading,
+    VueLoading
   },
   methods: {
     judgeAdmin: function() {
@@ -131,8 +131,7 @@ export default {
         if (!user) {
           location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         } else {
-          const db = firebase.firestore();
-          const admin = db.collection("admin");
+          const admin = firebase.firestore().collection("admin");
           admin.get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               // 管理者以外のユーザーを強制的にトップページに飛ばす
@@ -148,14 +147,12 @@ export default {
     loadDataFromDB: function() {
       this.isLoading = true;
       this.postMultipleData = [];
-      const db = firebase.firestore();
-      const reportData = db.collection("reports");
+      const reportData = firebase.firestore().collection("reports");
       if (this.sortValue === "newest") {
         const displayData = reportData
           .orderBy("reportCreated", "desc")
           .get()
           .then((querySnapshot) => {
-            // docにcloud firestoreからのデータが格納されている
             querySnapshot.forEach((doc) => {
               this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
@@ -188,8 +185,7 @@ export default {
     sortData: function() {
       this.isLoading = true;
       this.reportMultipleData = [];
-      const db = firebase.firestore();
-      const reportData = db.collection("reports");
+      const reportData = firebase.firestore().collection("reports");
       if (this.sortValue === "newest") {
         const newestDisplayData = reportData
           .orderBy("reportCreated", "desc")
@@ -228,8 +224,7 @@ export default {
       if (
         confirm("この通報内容を削除しますか？一度削除すると2度と戻せません。")
       ) {
-        const db = firebase.firestore();
-        const reportData = db.collection("reports");
+        const reportData = firebase.firestore().collection("reports");
         reportData
           .doc(id)
           .delete()
@@ -245,15 +240,15 @@ export default {
     clickCallback: function(pageNum) {
       this.currentPage = Number(pageNum);
       window.scrollTo({
-        top: 0,
         behavior: "instant",
+        top: 0,
       });
     },
   },
   computed: {
     getItems: function() {
-      let current = this.currentPage * this.parPage;
-      let start = current - this.parPage;
+      const current = this.currentPage * this.parPage;
+      const start   = current - this.parPage;
       return this.reportMultipleData.slice(start, current);
     },
     getPageCount: function() {

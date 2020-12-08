@@ -8,11 +8,10 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+import firebase     from "firebase";
+import                   "firebase/auth";
+import                   "firebase/firestore";
+import                   "firebase/storage";
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   mixins: [myFirstMixin],
@@ -22,14 +21,13 @@ export default {
         if (user) {
           // ユーザーが投稿した情報を削除する
           this.deleteUid = user.uid;
-          const db = firebase.firestore();
-          const userPostedData = db.collection("posts").where("contributorUid", "==", this.deleteUid);
+          const userPostedData = firebase.firestore().collection("posts").where("contributorUid", "==", this.deleteUid);
           userPostedData.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
               doc.ref.delete();
             });
           });
-          // ユーザー情報の削除
+          // ユーザーアカウントの削除
           user.delete()
             .then(function() {
               location.href =

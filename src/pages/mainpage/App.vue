@@ -7,8 +7,8 @@
         :visitorName="visitorName"/>
       <main>
         <PageTitle
-          title="Jwatch"
-          description="〜全ての人にサッカー観戦の楽しみを〜"/>
+          description="〜全ての人にサッカー観戦の楽しみを〜"
+          title="Jwatch"/>
         <div class="about">
           <div class="about-title">
             <h1>About</h1>
@@ -74,9 +74,9 @@
             </div>
           </div>
           <Induction
-          url="https://jwatch-8411c.web.app/usage/index.html"
+          description="使い方のより詳しい説明はこちら"
           title="Detailed discription"
-          description="使い方のより詳しい説明はこちら"/>
+          url="https://jwatch-8411c.web.app/usage/index.html"/>
         </div>
         <MoveTopBtn/>
       </main>
@@ -86,12 +86,12 @@
 </template>
 
 <script>
-import Induction from "../../components/Induction";
-import Jfooter from "../../components/Jfooter";
-import Jheader from "../../components/Jheader";
-import MoveTopBtn from "../../components/MoveTopBtn";
+import Induction    from "../../components/Induction";
+import Jfooter      from "../../components/Jfooter";
+import Jheader      from "../../components/Jheader";
+import MoveTopBtn   from "../../components/MoveTopBtn";
 import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle";
+import PageTitle    from "../../components/PageTitle";
 export default {
   components: {
     Induction,

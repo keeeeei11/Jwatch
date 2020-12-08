@@ -4,14 +4,12 @@
       <Jheader
         :visitorName="visitorName"
         :isLogin="isLogin"
-        :isAnonymous="isAnonymous"
-      />
-      <!-- 以下メイン-->
+        :isAnonymous="isAnonymous"/>
       <main>
         <div class="introduction">
           <PageTitle
-            title="About 管理人"
-            description="管理人からのメッセージ"/>
+            description="管理人からのメッセージ"
+            title="About 管理人"/>
           <div class="reason">
             <div class="reason-title">
               <h2>Reason</h2>
@@ -56,11 +54,11 @@
 </template>
 
 <script>
-import Jfooter from "../../components/Jfooter";
-import Jheader from "../../components/Jheader";
-import MoveTopBtn from "../../components/MoveTopBtn";
+import Jfooter      from "../../components/Jfooter";
+import Jheader      from "../../components/Jheader";
+import MoveTopBtn   from "../../components/MoveTopBtn";
 import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle";
+import PageTitle    from "../../components/PageTitle";
 export default {
   components: {
     Jfooter,

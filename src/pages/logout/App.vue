@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+import firebase     from "firebase";
+import                   "firebase/auth";
+import                   "firebase/firestore";
+import                   "firebase/storage";
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   methods: {
@@ -17,8 +17,7 @@ export default {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           firebase
-            .auth()
-            .signOut()
+            .auth().signOut()
             .then(function() {
               // 正常にアカウント削除が完了した時
               location.href =

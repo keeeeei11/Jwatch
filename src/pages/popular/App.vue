@@ -7,15 +7,15 @@
         :visitorName="visitorName"/>
       <div class="popular">
         <PageTitle
-          title="Popular posts"
-          description="人気のある投稿が記載されています。チームごとに情報を絞ることも可能です。"/>
+          description="人気のある投稿が記載されています。チームごとに情報を絞ることも可能です。"
+          title="Popular posts"/>
         <div class="choose-stadium">
             <InputStadium v-model="stadium" @change.native="loadDataFromDB(stadium)"/>
         </div>
         <VueLoading
           v-if="isLoading"
-          type="spiningDubbles"
           color="#aaa"
+          type="spiningDubbles"
           :size="{ width: '100px', height: '100px' }"/>
         <div class="popular-posts">
           <DisplayNoData
@@ -139,14 +139,14 @@
             <CompletePopup
               v-if="isCompleteEdit"
               message="編集が完了しました"
-              url="https://jwatch-8411c.web.app/mypage/index.html"
-              movePage="マイページへ"/>
+              movePage="マイページへ"
+              url="https://jwatch-8411c.web.app/mypage/index.html"/>
             <!-- 通報完了画面 -->
             <CompletePopup
               v-if="isCompleteReport"
               message="通報が完了しました"
-              url="https://jwatch-8411c.web.app/mainpage/index.html"
-              movePage="トップページへ"/>
+              movePage="トップページへ"
+              url="https://jwatch-8411c.web.app/mainpage/index.html"/>
           </div>
           <Paginate
             :page-count="getPageCount"
@@ -170,45 +170,45 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
-import CompletePopup from "../../components/CompletePopup";
-import DisplayNoData from "../../components/DisplayNoData";
-import EditBody from "../../components/EditBody";
-import EditCategory from "../../components/EditCategory";
-import EditStadium from "../../components/EditStadium";
-import EditTitle from "../../components/EditTitle";
-import InputReport from "../../components/InputReport";
-import InputStadium from "../../components/InputStadium";
-import Jfooter from "../../components/Jfooter";
-import Jheader from "../../components/Jheader";
-import MoveTopBtn from "../../components/MoveTopBtn";
-import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle";
-import Paginate from "vuejs-paginate";
+import firebase       from "firebase";
+import                "firebase/auth";
+import                "firebase/firestore";
+import                "firebase/storage";
+import CompletePopup  from "../../components/CompletePopup";
+import DisplayNoData  from "../../components/DisplayNoData";
+import EditBody       from "../../components/EditBody";
+import EditCategory   from "../../components/EditCategory";
+import EditStadium    from "../../components/EditStadium";
+import EditTitle      from "../../components/EditTitle";
+import InputReport    from "../../components/InputReport";
+import InputStadium   from "../../components/InputStadium";
+import Jfooter        from "../../components/Jfooter";
+import Jheader        from "../../components/Jheader";
+import MoveTopBtn     from "../../components/MoveTopBtn";
+import myFirstMixin   from "../../mixin/myFirstMixin";
+import PageTitle      from "../../components/PageTitle";
+import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 
 export default {
   data() {
     return {
       isNothingData: false,
-      stadium: "",
-      category: "",
+      category:      "",
+      stadium:       "",
       // 配列の取得
       postMultipleData: [],
       // ページネーション機能
-      sortValue: sessionStorage.getItem("sortkey"),
-      parPage: 10,
       currentPage: 1,
+      parPage:     10,
+      sortValue:   sessionStorage.getItem("sortkey"),
       // 編集画面
-      isEditing: false,
       isCompleteEdit: false,
+      isEditing:      false,
       // 通報画面
-      isReporting: false,
       isCompleteReport: false,
-      reportReason: "",
+      isReporting:      false,
+      reportReason:     "",
       // ローディング機能
       isLoading: false,
     };
@@ -233,11 +233,10 @@ export default {
   methods: {
     loadDataFromDB: function (selectStadium) {
       this.isLoading = true;
+        // 一度配列を空にしないと前の検索結果が残ったままになる。
       this.postMultipleData = [];
       // データの取得
-      const db = firebase.firestore();
-      const postData = db.collection("posts");
-        // 個別のスタジアム情報を取得する時
+        const postData = firebase.firestore().collection("posts");
         const inputData = postData.where("stadium", "==", selectStadium);
         const displayData = inputData
           .orderBy("likedCounter", "desc")
@@ -249,6 +248,7 @@ export default {
               // データが1件以上ある時はfalseにする
             });
             this.isLoading = false;
+
             if (this.postMultipleData.length == 0) {
               this.isNothingData = true;
             } else {
@@ -258,82 +258,86 @@ export default {
           .catch(function (error) {
             console.log("Error getting documents: ", error, displayData);
           });
-      // }
     },
     switchLikeCounter: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
-        // ログインしているか判定
         if(user){
           if(postSingleData.contributorUid != user.uid){
             const likedUsers = postSingleData.likedUsers
-            if (!likedUsers.includes(user.uid)) {
-              // 過去にいいねが押されていないときの処理
-              const likedCounter = postSingleData.likedCounter+=1
-              likedUsers.push(user.uid)
-              firebase.firestore().collection("posts").doc(postSingleData.id)
-              .update({
-                likedCounter: firebase.firestore.FieldValue.increment(1),
-                likedUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
-              })
-              for(let i; i < this.postMultipleData.length; i++) {
-                if (postSingleData.id === this.postMultipleData[i].id) {
-                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
-                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
-                  break;
-                }
-              }
-            } else {
-              // 過去にいいねが押されているときの処理
+
+            if (likedUsers.includes(user.uid)) {
+              // いいね数を-1する、いいねしたユーザーから解除する
               const likedCounter = postSingleData.likedCounter-=1
               for(let i = 0; i < likedUsers.length; i++){
                 if(likedUsers[i] == user.uid){
                   likedUsers.splice(i, 1)
                 }
               }
+
+              // Firebase上のデータの更新
               firebase.firestore().collection("posts").doc(postSingleData.id)
               .update({
                 likedCounter: firebase.firestore.FieldValue.increment(-1),
-                likedUsers: firebase.firestore.FieldValue.arrayRemove(user.uid)
+                likedUsers:   firebase.firestore.FieldValue.arrayRemove(user.uid)
               })
+
+              // 見た目上の更新
               for(let i; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
-                  this.$set(this.postMultipleData[i], 'likedUsers', likedUsers)
-                  break;
+                  this.$set(this.postMultipleData[i], 'likedUsers',   likedUsers)
+                  break
                 }
               }
-            }
+            } else {
+              // いいね数を＋1する、いいねしたユーザーとして登録する
+              const likedCounter = postSingleData.likedCounter+=1
+              likedUsers.push(user.uid)
+
+              // Firebase上のデータの更新
+              firebase.firestore().collection("posts").doc(postSingleData.id)
+              .update({
+                likedCounter: firebase.firestore.FieldValue.increment(1),
+                likedUsers:   firebase.firestore.FieldValue.arrayUnion(user.uid)
+              })
+
+              // 見た目上の更新
+              for(let i; i < this.postMultipleData.length; i++) {
+                if (postSingleData.id === this.postMultipleData[i].id) {
+                  this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
+                  this.$set(this.postMultipleData[i], 'likedUsers',   likedUsers)
+                  break
+                }
+              }
+              }
           } else {
-            // 投稿者はいいねを押すことが出来ないことを知らせる
             alert('投稿者はいいねを押すことが出来ません')
           }
         } else {
-          // 非ログイン時はいいね機能が使えないことを知らせる
           alert('いいね機能を使用するにはログインが必要です')
         }
       })
     },
     // 編集画面の表示/非表示
     showEditPage: function (selectPostData, selectPostDataId) {
-      this.isEditing = true;
+      this.isEditing    = true;
       // 既に入力されているデータを表示する
-      this.editId = selectPostDataId;
-      this.editStadium = selectPostData.stadium;
+      this.editId       = selectPostDataId;
+      this.editStadium  = selectPostData.stadium;
       this.editCategory = selectPostData.category;
-      this.editTitle = selectPostData.title;
-      this.editBody = selectPostData.body;
+      this.editTitle    = selectPostData.title;
+      this.editBody     = selectPostData.body;
     },
     hideEditPage: function() {
       this.isEditing = false;
     },
     // 編集完了画面の表示/非表示
     showEditedPage: function () {
-      this.isEditing = false;
       this.isCompleteEdit = true;
+      this.isEditing      = false;
     },
     editSelectData: function (postSingleData, postSingleDataId) {
-      const db = firebase.firestore();
-      const postdata = db.collection("posts");
+      const postdata = firebase.firestore().collection("posts");
       const now = new Date();
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
@@ -342,21 +346,16 @@ export default {
             .doc(postSingleDataId)
             .update(
               {
-                stadium: this.editStadium,
-                category: this.editCategory,
-                title: this.editTitle,
-                body: this.editBody,
-                updated:
-                  now.getFullYear() +
-                  "/" +
-                  ("0" + (now.getMonth() + 1)).slice(-2) +
-                  "/" +
-                  ("0" + now.getDate()).slice(-2),
+                body:            this.editBody,
+                category:        this.editCategory,
                 contributorName: this.visitorName,
+                stadium:         this.editStadium,
+                title:           this.editTitle,
+                updated:         now.getFullYear() + "/" +("0" + (now.getMonth() + 1)).slice(-2) +
+                                 "/" +("0" + now.getDate()).slice(-2),
               },
             )
             .then(() => {
-              // this.hideEditPage();
               this.showEditedPage();
             })
             .catch(function (error) {
@@ -371,46 +370,44 @@ export default {
     },
     // 通報画面の表示/非表示
     showReportPage: function (postData, postDataId) {
-      this.isReporting = true;
-      this.reportStadium = postData.stadium
-      this.reportCategory = postData.category
-      this.reportTitle = postData.title
-      this.reportBody = postData.body
-      this.reportId = postDataId
-      this.reportCreated = postData.created
+      this.isReporting           = true;
+      this.reportBody            = postData.body
+      this.reportCategory        = postData.category
       this.reportContributorName = postData.contributorName
-      this.reportContributorUid = postData.contributorUid
-      this.updated = postData.updated
+      this.reportContributorUid  = postData.contributorUid
+      this.reportCreated         = postData.created
+      this.reportId              = postDataId
+      this.reportStadium         = postData.stadium
+      this.reportTitle           = postData.title
+      this.updated               = postData.updated
     },
     hideReportPage: function () {
       this.isReporting = false;
     },
     // 通報完了画面の表示/非表示
     showReportedPopup: function () {
-      this.isReporting = false;
       this.isCompleteReport = true;
+      this.isReporting      = false;
     },
     // 通報データの追加
     reportData: function () {
-      const db = firebase.firestore();
       const now = new Date();
       const inputData = {
         // 通報対象の投稿データ
-        postStadium: this.reportStadium,
-        postCategory: this.reportCategory,
-        postTitle: this.reportTitle,
-        postBody: this.reportBody,
-        postCreated: this.reportCreated,
+        postBody:            this.reportBody,
+        postCategory:        this.reportCategory,
         postContributorName: this.reportContributorName,
-        postContributorUid: this.reportContributorUid,
-        postUpdated: this.updated,
-        // 通報理由
-        reportReason: this.reportReason,
-        reportCreated: now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2)
-         + "/" + ("0" + now.getDate()).slice(-2),
+        postContributorUid:  this.reportContributorUid,
+        postCreated:         this.reportCreated,
+        postStadium:         this.reportStadium,
+        postTitle:           this.reportTitle,
+        postUpdated:         this.updated,
+        reportCreated:       now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2)
+                             + "/" + ("0" + now.getDate()).slice(-2),
+        reportReason:        this.reportReason,
       };
       if (this.reportReason.length > 0) {
-        const reportData = db.collection("reports");
+        const reportData = firebase.firestore().collection("reports");
         reportData
           .add(inputData)
           .then(() => {
@@ -425,13 +422,8 @@ export default {
       }
     },
     deleteSelectData: function (id) {
-      if (
-        confirm(
-          "このお問い合わせを削除しますか？一度削除すると2度と戻せません。"
-        )
-      ) {
-        const db = firebase.firestore();
-        const postData = db.collection("posts");
+      if (confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")) {
+        const postData = firebase.firestore().collection("posts");
         postData
           .doc(id)
           .delete()
@@ -447,15 +439,15 @@ export default {
     clickCallback: function (pageNum) {
       this.currentPage = Number(pageNum);
       window.scrollTo({
-        top: 0,
         behavior: "instant",
+        top: 0,
       });
     },
   },
   computed: {
     getItems: function () {
-      let current = this.currentPage * this.parPage;
-      let start = current - this.parPage;
+      const current = this.currentPage * this.parPage;
+      const start   = current - this.parPage;
       return this.postMultipleData.slice(start, current);
     },
     getPageCount: function () {

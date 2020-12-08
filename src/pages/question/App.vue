@@ -8,17 +8,17 @@
       <!--以下メイン-->
       <main>
         <PageTitle
-          title="Q&A"
-          description="よくある質問が記載されております"/>
+          description="よくある質問が記載されております"
+          title="Q&A"/>
         <div class="question-contents">
           <div class="note">
             <p>質問は随時こちらに掲載いたします。</p>
           </div>
         </div>
         <Induction
-          url="https://jwatch-8411c.web.app/inquiry/index.html"
+          description="ご意見＆ご要望はこちらから"
           title="Contact"
-          description="ご意見＆ご要望はこちらから"/>
+          url="https://jwatch-8411c.web.app/inquiry/index.html"/>
         <MoveTopBtn/>
       </main>
       <Jfooter/>
@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import Induction from "../../components/Induction";
-import Jfooter from "../../components/Jfooter";
-import Jheader from "../../components/Jheader";
-import MoveTopBtn from "../../components/MoveTopBtn";
+import Induction    from "../../components/Induction";
+import Jfooter      from "../../components/Jfooter";
+import Jheader      from "../../components/Jheader";
+import MoveTopBtn   from "../../components/MoveTopBtn";
 import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle";
+import PageTitle    from "../../components/PageTitle";
 export default {
   components: {
     Induction,

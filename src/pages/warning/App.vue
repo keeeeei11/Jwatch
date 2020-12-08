@@ -8,8 +8,8 @@
       <main>
         <div class="warning">
           <PageTitle
-            title="About warning"
-            description="投稿禁止対象に関する情報が記載されています"/>
+            description="投稿禁止対象に関する情報が記載されています"
+            title="About warning"/>
           <div class="warning-contents">
               <div class="warning-discription">
                 <p>
@@ -24,9 +24,9 @@
             </div>
           </div>
         <Induction
-          url="https://jwatch-8411c.web.app/inquiry/index.html"
+          description="ご意見＆ご要望はこちらから"
           title="Contact"
-          description="ご意見＆ご要望はこちらから"/>
+          url="https://jwatch-8411c.web.app/inquiry/index.html"/>
         </div>
         <MoveTopBtn/>
       </main>
@@ -36,12 +36,12 @@
 </template>
 
 <script>
-import Induction from "../../components/Induction";
-import Jfooter from "../../components/Jfooter.vue";
-import Jheader from "../../components/Jheader.vue";
-import MoveTopBtn from "../../components/MoveTopBtn.vue";
+import Induction    from "../../components/Induction";
+import Jfooter      from "../../components/Jfooter.vue";
+import Jheader      from "../../components/Jheader.vue";
+import MoveTopBtn   from "../../components/MoveTopBtn.vue";
 import myFirstMixin from "../../mixin/myFirstMixin";
-import PageTitle from "../../components/PageTitle.vue";
+import PageTitle    from "../../components/PageTitle.vue";
 
 export default {
   components: {
