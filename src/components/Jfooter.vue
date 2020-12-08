@@ -4,6 +4,9 @@
       <div class="footer-title">
           <h3>Jwatch</h3>
           <p>〜全ての人にサッカー観戦の楽しみを〜</p>
+          <div class="footer-copyrights">
+            <p>©2020 Keigo Takai</p>
+          </div>
       </div>
       <div class="link">
         <a href="https://jwatch-8411c.web.app/inquiry/index.html">ご要望＆ご意見はこちら</a><br>
@@ -63,6 +66,11 @@ footer{
   p{
     font-size: 16px;
   }
+}
+
+.footer-copyrights p{
+  font-size: 12px;
+  color: gray;
 }
 
 .link{
