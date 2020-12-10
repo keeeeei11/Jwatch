@@ -95,7 +95,7 @@
                     </div>
                   </div>
                   <!-- 編集画面 -->
-                  <div class="edit" v-if="isEditing">
+                  <div class="edit" v-if="editId == postSingleData.id">
                     <section class="edit-page">
                       <h3>編集画面</h3>
                       <form class="edit-stadium">
@@ -118,7 +118,7 @@
                       </form>
                       <!-- ボタン -->
                       <div class="edit-btn">
-                        <button @click="triggerEditHide()">戻る</button>
+                        <button @click="hideEditPage()">戻る</button>
                         <button
                           @click="
                             editSelectData(postSingleData, editId)
@@ -135,7 +135,6 @@
                 <CompletePopup
                   v-if="isCompleteEdit"
                   message="編集が完了しました"
-                  @completePopupHide="triggerEditedHide"
                   url="https://jwatch-8411c.web.app/mypage/index.html"
                   movePage="マイページへ"/>
               <Paginate
@@ -220,7 +219,11 @@ export default {
       sortValue:   sessionStorage.getItem("sortkey"),
       // 編集画面
       isCompleteEdit: false,
-      isEditing:      false,
+      editBody:     "",
+      editCategory: "",
+      editId:       "",
+      editStadium:  "",
+      editTitle:    "",
       // ローディング画面
       isLoading: false
     }
@@ -287,7 +290,6 @@ export default {
     },
       // 編集処理
     showEditPage: function(postData, postDataId) {
-      this.isEditing    = true;
       // 既に入力されているデータを表示する
       this.editBody     = postData.body;
       this.editCategory = postData.category;
@@ -296,12 +298,12 @@ export default {
       this.editTitle    = postData.title;
     },
     hideEditPage: function() {
-      this.isEditing = false;
+      this.editId = "";
     },
     // 編集完了画面の表示/非表示
     showEditedPage: function() {
       this.isCompleteEdit = true;
-      this.isEditing      = false;
+      this.editId         = "";
     },
     editSelectData: function(postSingleData, postSingleDataId) {
       const postdata = firebase.firestore().collection("posts");
@@ -444,15 +446,15 @@ export default {
     getItems: function() {
       const current = this.currentPage * this.parPage;
       const start   = current - this.parPage;
-      return this.postMultipleData.slice(start, current);
+      return this.postMultipleData.slice(start, current)
     },
     getPageCount: function() {
-      return Math.ceil(this.postMultipleData.length / this.parPage);
+      return Math.ceil(this.postMultipleData.length / this.parPage)
     },
   },
   mounted: function() {
     this.judgeAdmin();
-    this.loadDataFromDB();
+    this.loadDataFromDB()
   },
 };
 </script>

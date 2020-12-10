@@ -78,7 +78,7 @@
                 </div>
               </div>
               <!-- 編集画面 -->
-              <div class="edit" v-if="isEditing">
+              <div class="edit" v-if="editId == postSingleData.id">
                 <section class="edit-page">
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
@@ -108,7 +108,7 @@
                 <div class="background"></div>
               </div>
               <!-- 通報画面 -->
-               <div class="report" v-if="isReporting">
+               <div class="report" v-if="reportId == postSingleData.id">
                 <section class="report-page">
                   <h3>通報画面</h3>
                     <div class="report-post-main-content">
@@ -135,13 +135,11 @@
                 <div class="background"></div>
               </div>
             </div>
-            <!-- 編集完了画面 -->
             <CompletePopup
               v-if="isCompleteEdit"
               message="編集が完了しました"
               movePage="マイページへ"
               url="https://jwatch-8411c.web.app/mypage/index.html"/>
-            <!-- 通報完了画面 -->
             <CompletePopup
               v-if="isCompleteReport"
               message="通報が完了しました"
@@ -204,13 +202,17 @@ export default {
       sortValue:   sessionStorage.getItem("sortkey"),
       // 編集画面
       isCompleteEdit: false,
-      isEditing:      false,
+      editBody:       "",
+      editCategory:   "",
+      editId:         "",
+      editStadium:    "",
+      editTitle:      "",
       // 通報画面
       isCompleteReport: false,
-      isReporting:      false,
+      reportId:         "",
       reportReason:     "",
-      // ローディング機能
-      isLoading: false,
+      // ローディング画面
+      isLoading: false
     };
   },
   components: {
@@ -320,21 +322,19 @@ export default {
     },
     // 編集画面の表示/非表示
     showEditPage: function (selectPostData, selectPostDataId) {
-      this.isEditing    = true;
-      // 既に入力されているデータを表示する
+      this.editBody     = selectPostData.body;
+      this.editCategory = selectPostData.category;
       this.editId       = selectPostDataId;
       this.editStadium  = selectPostData.stadium;
-      this.editCategory = selectPostData.category;
       this.editTitle    = selectPostData.title;
-      this.editBody     = selectPostData.body;
     },
     hideEditPage: function() {
-      this.isEditing = false;
+      this.editId = "";
     },
     // 編集完了画面の表示/非表示
     showEditedPage: function () {
       this.isCompleteEdit = true;
-      this.isEditing      = false;
+      this.editId         = "";
     },
     editSelectData: function (postSingleData, postSingleDataId) {
       const postdata = firebase.firestore().collection("posts");
@@ -370,7 +370,6 @@ export default {
     },
     // 通報画面の表示/非表示
     showReportPage: function (postData, postDataId) {
-      this.isReporting           = true;
       this.reportBody            = postData.body
       this.reportCategory        = postData.category
       this.reportContributorName = postData.contributorName
@@ -382,12 +381,12 @@ export default {
       this.updated               = postData.updated
     },
     hideReportPage: function () {
-      this.isReporting = false;
+      this.reportId = "";
     },
     // 通報完了画面の表示/非表示
     showReportedPopup: function () {
       this.isCompleteReport = true;
-      this.isReporting      = false;
+      this.reportId         = ""
     },
     // 通報データの追加
     reportData: function () {

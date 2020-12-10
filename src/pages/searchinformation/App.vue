@@ -39,7 +39,7 @@
             :stadium="stadium"
             :category="category"/>
           <div class="post-contents" v-else>
-            <div v-for="postSingleData in getItems" :key="postSingleData.id">
+            <div v-for="postSingleData in postMultipleData" :key="postSingleData.id">
               <div class="post-example-contents">
                 <div class="post-basic-information">
                   <div class="post-basic-information-top">
@@ -101,7 +101,7 @@
                 </div>
               </div>
               <!-- 編集画面 -->
-              <div class="edit" v-if="isEditing">
+              <div class="edit" v-if="editId == postSingleData.id">
                 <section class="edit-page">
                   <h3>編集画面</h3>
                   <form class="edit-stadium">
@@ -132,7 +132,7 @@
                 <div class="background"></div>
               </div>
               <!-- 通報画面 -->
-              <div class="report" v-if="isReporting">
+              <div class="report" v-if="reportId == postSingleData.id">
                 <section class="report-page">
                   <h3>通報画面</h3>
                     <div class="report-post-main-content">
@@ -161,20 +161,18 @@
                 <div class="background"></div>
               </div>
             </div>
-            <!-- 編集完了画面 -->
             <CompletePopup
               v-if="isCompleteEdit"
               message="編集が完了しました"
               movePage="マイページへ"
               url="https://jwatch-8411c.web.app/mypage/index.html"/>
-            <!-- 通報完了画面 -->
             <CompletePopup
               v-if="isCompleteReport"
               message="通報が完了しました"
               movePage="トップページへ"
               url="https://jwatch-8411c.web.app/mainpage/index.html"/>
           </div>
-          <Paginate
+          <!-- <Paginate
             :page-count="getPageCount"
             :page-range="3"
             :margin-pages="2"
@@ -186,7 +184,11 @@
             :prev-link-class="'prev-link'"
             :page-link-class="'page-link'"
             :next-link-class="'next-link'"
-            :active-class="'active-page-link'"/>
+            :active-class="'active-page-link'"/> -->
+             <Paginate
+             :postMultipleData="postMultipleData"
+             @catchGetItems="receiveGetItems"
+             />
         </div>
         <MoveTopBtn/>
       </main>
@@ -211,7 +213,8 @@ import Jheader        from "../../components/Jheader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
 import myFirstMixin   from "../../mixin/myFirstMixin";
 import PageTitle      from "../../components/PageTitle";
-import Paginate       from "vuejs-paginate";
+import Paginate       from "../../components/Paginate";
+// import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
   data() {
@@ -227,13 +230,17 @@ export default {
       sortValue:   sessionStorage.getItem("sortkey"),
       // 編集画面
       isCompleteEdit: false,
-      isEditing:      false,
+      editBody:       "",
+      editCategory:   "",
+      editId:         "",
+      editStadium:    "",
+      editTitle:      "",
       // 通報画面
       isCompleteReport: false,
-      isReporting:      false,
+      reportId:         "",
       reportReason:     "",
       // ローディング画面
-      isLoading: false,
+      isLoading: false
     }
   },
   components: {
@@ -255,6 +262,10 @@ export default {
   },
   mixins:[myFirstMixin],
   methods: {
+    receiveGetItems: function(data){
+      console.log(data)
+      // this.postMultipleData = data
+    },
     loadDataFromDB: function(stadium, category) {
       if (this.stadium.length > 0 && this.category.length > 0) {
         this.isLoading = true;
@@ -404,8 +415,6 @@ export default {
     },
     // 編集画面の表示/非表示
     showEditPage: function(postData, postDataId){
-      this.isEditing    = true;
-      // 既に入力されているデータを表示する
       this.editBody     = postData.body;
       this.editCategory = postData.category;
       this.editId       = postDataId;
@@ -413,12 +422,12 @@ export default {
       this.editTitle    = postData.title;
     },
     hideEditPage: function() {
-      this.isEditing = false;
+      this.editId = ""
     },
     // 編集完了画面の表示/非表示
     showEditedPage: function() {
       this.isCompleteEdit = true;
-      this.isEditing      = false;
+      this.editId         = "";
     },
     // 編集処理
     editSelectData: function(postSingleData, postSingleDataId) {
@@ -453,7 +462,6 @@ export default {
       }
     },
     showReportPage: function(postData, postDataId) {
-      this.isReporting           = true;
       this.reportBody            = postData.body
       this.reportCategory        = postData.category
       this.reportContributorName = postData.contributorName
@@ -465,12 +473,12 @@ export default {
       this.updated               = postData.updated
     },
     hideReportPage: function() {
-      this.isReporting = false
+      this.reportId = ""
     },
     // 通報完了画面の表示/非表示
     showReportedPopup: function() {
       this.isCompleteReport = true;
-      this.isReporting      = false
+      this.reportId         = ""
     },
     // 通報データの追加
     reportSelectData: function() {
@@ -520,29 +528,29 @@ export default {
       }
     },
     // ページネーション機能、押したページ数に移動する処理
-    clickCallback: function(pageNum) {
-      this.currentPage = Number(pageNum);
-      window.scrollTo({
-        behavior: "instant",
-        top: 0,
-      });
-    },
+    // clickCallback: function(pageNum) {
+    //   this.currentPage = Number(pageNum);
+    //   window.scrollTo({
+    //     behavior: "instant",
+    //     top: 0,
+    //   });
+    // },
     // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、
     // 情報がないと誤表示するのを防ぐ役割
     hideNothingDisplay: function() {
       this.isNothingData = false;
     },
   },
-  computed: {
-    getItems: function() {
-      const current = this.currentPage * this.parPage;
-      const start   = current - this.parPage;
-      return this.postMultipleData.slice(start, current);
-    },
-    getPageCount: function() {
-      return Math.ceil(this.postMultipleData.length / this.parPage);
-    },
-  },
+  // computed: {
+  //   getItems: function() {
+  //     const current = this.currentPage * this.parPage;
+  //     const start   = current - this.parPage;
+  //     return this.postMultipleData.slice(start, current);
+  //   },
+  //   getPageCount: function() {
+  //     return Math.ceil(this.postMultipleData.length / this.parPage);
+  //   },
+  // },
   mounted: function() {
     this.sortValue = "newest";
   },
