@@ -1,12 +1,12 @@
 <template>
-  <div class="input-box">
+  <div class = "input-box">
     <h3> {{ subject }}</h3>
     <input
-      :maxlength= "maxlength"
-      :name= "name"
-      :placeholder= "placeholder"
-      :type= "type"
-      @input="inputTitleValue"
+      :maxlength   = "maxlength"
+      :name        = "name"
+      :placeholder = "placeholder"
+      :type        = "type"
+      @input       = "inputTitleValue"
     >
    </div>
 </template>
@@ -14,11 +14,11 @@
 <script>
 export default {
   props:{
-    maxlength:{type:String, default:"20"},
-    name:{type:String, required:false},
-    placeholder:{type:String, default:"20字以内で入力してください"},
-    subject:{type:String, required:false},
-    type:{type:String, required:false}
+    maxlength:   { type:String, default:"20" },
+    name:        { type:String, required:false },
+    placeholder: { type:String, default:"20字以内で入力してください" },
+    subject:     { type:String, required:false },
+    type:        { type:String, required:false }
   },
   methods:{
     inputTitleValue: function(e){
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
   /* 題名 */
   .input-box{
     h3 {

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id = "app">
     <div>ログアウト中…</div>
     <div>画面が切り替わらない場合はページの更新を行ってください。</div>
   </div>

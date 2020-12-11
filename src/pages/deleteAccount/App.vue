@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id = "app">
     <div>
       <p>アカウント削除中…</p>
       <p>アカウント削除が完了しない場合は、再度ログインを行ってからもう一度アカウント削除を実行してください。</p>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
     deleteUserInformation: function() {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          // ユーザーが投稿した情報を削除する
+          // ユーザーが投稿したデータを削除してからアカウントを削除する
           this.deleteUid = user.uid;
           const userPostedData = firebase.firestore().collection("posts").where("contributorUid", "==", this.deleteUid);
           userPostedData.get().then(function(querySnapshot) {
@@ -27,7 +27,7 @@ export default {
               doc.ref.delete();
             });
           });
-          // ユーザーアカウントの削除
+
           user.delete()
             .then(function() {
               location.href =

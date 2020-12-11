@@ -1,13 +1,13 @@
 <template>
-  <div class="edit-body">
+  <div class = "edit-body">
     <h3>本文</h3>
     <textarea
-    :maxlength= "maxlength"
-    :placeholder= "placeholder"
-    :value="editBody"
-    @input="inputBodyValue"
+    :maxlength   =  "maxlength"
+    :placeholder =  "placeholder"
+    :value       =  "editBody"
+    @input       =  "inputBodyValue"
     ></textarea>
-    <div class="count-character">
+    <div class = "count-character">
       <p>残り{{ 400 - value.length }}字です</p>
     </div>
   </div>
@@ -17,25 +17,24 @@
 export default {
   data(){
     return {
-      count:"",
       editBody: this.value
     }
   },
   props:{
-    maxlength:{ type:String, default:"400" },
-    placeholder:{ type:String, default:"400字以内で入力してください" },
-    value: { type: String, required: true }
+    maxlength:   { type:String, default:"400" },
+    placeholder: { type:String, default:"400字以内で入力してください" },
+    value:       { type: String, required: true }
   },
   methods:{
     inputBodyValue: function(e){
-       this.editBody = e.target.value
+      this.editBody = e.target.value
       this.$emit('input', this.editBody)
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .edit-body{
   h3 {
     font-size: 18px;

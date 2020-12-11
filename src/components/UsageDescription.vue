@@ -21,17 +21,17 @@
 <script>
 export default {
   props:{
-    descriptionFirst:String,
-    descriptionSecond:String,
-    supplement:String,
-    titleEn:String,
-    titleJa:String
+    descriptionFirst:  String,
+    descriptionSecond: String,
+    supplement:        String,
+    titleEn:           String,
+    titleJa:           String
   }
 
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 /*観戦情報の探し方*/
 .usage-contents {
   margin-top: 100px;

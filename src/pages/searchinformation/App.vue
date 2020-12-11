@@ -1,194 +1,189 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :isAnonymous="isAnonymous"
-        :isLogin="isLogin"
-        :visitorName="visitorName"/>
+        :isAnonymous = "isAnonymous"
+        :isLogin     = "isLogin"
+        :visitorName = "visitorName"/>
       <main>
-        <div class="search-information">
+        <div class = "search-information">
           <PageTitle
-            title="Search informations"
-            description="スタジアムとカテゴリーを選択すると情報が表示されます。"/>
-          <div class="select-stadium">
+            title       = "Search informations"
+            description = "スタジアムとカテゴリーを選択すると情報が表示されます。"/>
+          <div class = "select-stadium">
             <h2>スタジアムとカテゴリーを選択してボタンを押してください</h2>
               <InputStadium
-                v-model="stadium"
-                @change.native="hideNothingDisplay"/>
-            <form class="post-category">
+                v-model        = "stadium"
+                @change.native = "hideNothingDisplay"/>
+            <form class = "post-category">
               <InputCategory
-                v-model="category"
-                @change.native="hideNothingDisplay"/>
+                v-model        = "category"
+                @change.native = "hideNothingDisplay"/>
             </form>
-            <button @click="loadDataFromDB(stadium, category)">情報を見る！</button>
+            <button @click = "loadDataFromDB(stadium, category)">情報を見る！</button>
           </div>
-          <div class="post-sort">
+          <div class = "post-sort">
             <select @change = "loadDataFromDB(stadium, category)" v-model="sortValue">
-              <option value= "newest" selected>日時が新しい順</option>
-              <option value= "oldest">日時が古い順</option>
-              <option value= "good">いいねが多い順</option>
+              <option value = "newest" selected>日時が新しい順</option>
+              <option value = "oldest">日時が古い順</option>
+              <option value = "good">いいねが多い順</option>
             </select>
           </div>
           <VueLoading
-            v-if="isLoading"
-            type="spiningDubbles"
-            color="#aaa"
-            :size="{ width: '100px', height: '100px' }"/>
+            v-if  = "isLoading"
+            type  = "spiningDubbles"
+            color = "#aaa"
+            :size = "{ width: '100px', height: '100px' }"/>
           <DisplayNoData
-            v-if="isNothingData"
-            :stadium="stadium"
-            :category="category"/>
-          <div class="post-contents" v-else>
-            <div v-for="postSingleData in postMultipleData" :key="postSingleData.id">
-              <div class="post-example-contents">
-                <div class="post-basic-information">
-                  <div class="post-basic-information-top">
-                    <div class="post-name">
+            v-if      = "isNothingData"
+            :stadium  = "stadium"
+            :category = "category"/>
+          <div class = "post-contents" v-else>
+            <div v-for = "postSingleData in postMultipleData" :key = "postSingleData.id">
+              <div class = "post-example-contents">
+                <div class = "post-basic-information">
+                  <div class = "post-basic-information-top">
+                    <div class = "post-name">
                       <p>{{ postSingleData.contributorName }} さん</p>
                     </div>
-                    <div class="post-date">
+                    <div class = "post-date">
                       <p>{{ postSingleData.created }}</p>
                     </div>
                   </div>
-                  <div class="post-basic-information-bottom">
-                    <div class="post-stadium">
+                  <div class = "post-basic-information-bottom">
+                    <div class = "post-stadium">
                       <p>{{ postSingleData.stadium }}</p>
                     </div>
-                    <div class="post-category">
+                    <div class = "post-category">
                       <p>{{ postSingleData.category }}</p>
                     </div>
                   </div>
                 </div>
-                <div class="post-main-content">
-                  <div class="post-title">
+                <div class = "post-main-content">
+                  <div class = "post-title">
                     <p>{{ postSingleData.title }}</p>
                   </div>
-                  <div class="post-text">
+                  <div class = "post-text">
                     <p>{{ postSingleData.body }}</p>
                   </div>
                 </div>
-                <div class="post-evaluation">
-                  <div class="post-evaluation-contents">
-                    <div class="good-count evaluation-btn"
-                        :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
-                      <button @click="switchLikeCounter(postSingleData)">
+                <div class = "post-evaluation">
+                  <div class = "post-evaluation-contents">
+                    <div class = "good-count evaluation-btn"
+                        :class = "{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
+                      <button @click = "switchLikeCounter(postSingleData)">
                         いいね！ {{ postSingleData.likedCounter }}
                       </button>
                     </div>
-                    <!-- 投稿者と閲覧者が同じである時 -->
                     <div
-                      class="allow-manage"
-                      v-if="postSingleData.contributorUid == visitorUid"
+                      class = "allow-manage"
+                      v-if  = "postSingleData.contributorUid == visitorUid"
                     >
-                      <div class="deleting evaluation-btn">
-                        <button @click="deleteSelectData(postSingleData.id)">
+                      <div class = "deleting evaluation-btn">
+                        <button @click = "deleteSelectData(postSingleData.id)">
                           削除する
                         </button>
                       </div>
-                      <div class="editing evaluation-btn">
-                        <button @click="showEditPage(postSingleData, postSingleData.id)">
+                      <div class = "editing evaluation-btn">
+                        <button @click = "showEditPage(postSingleData, postSingleData.id)">
                           編集する
                         </button>
                       </div>
                     </div>
-                    <!-- 投稿者と閲覧者が異なる時 -->
-                    <div class="disallow-manage" v-else>
-                      <div class="reporting evaluation-btn">
-                        <button @click="showReportPage(postSingleData, postSingleData.id)">通報する</button>
+                    <div class = "disallow-report" v-else>
+                      <div class = "reporting evaluation-btn">
+                        <button @click = "showReportPage(postSingleData, postSingleData.id)">
+                          通報する
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- 編集画面 -->
-              <div class="edit" v-if="editId == postSingleData.id">
-                <section class="edit-page">
+              <!-- 編集ボタンが押された投稿のみ表示する -->
+              <div class = "edit" v-if = "editId == postSingleData.id">
+                <section class = "edit-page">
                   <h3>編集画面</h3>
-                  <form class="edit-stadium">
+                  <form class = "edit-stadium">
                     <EditStadium
-                     v-model="editStadium"/>
+                      v-model="editStadium"/>
                   </form>
-                  <form class="edit-category">
+                  <form class = "edit-category">
                     <EditCategory
-                     v-model="editCategory"/>
+                      v-model="editCategory"/>
                   </form>
-                  <form class="edit-title-information" @submit.prevent>
+                  <form class = "edit-title-information" @submit.prevent>
                     <EditTitle
                      v-model="editTitle"
-                     type="text"/>
+                     type   = "text"/>
                   </form>
-                  <form class="edit-text-information">
+                  <form class = "edit-text-information">
                     <EditBody
                      v-model="editBody"
-                     type="text"/>
+                     type   = "text"/>
                   </form>
-                  <!-- ボタン -->
-                  <div class="edit-btn">
-                    <button @click="hideEditPage()">戻る</button>
-                    <button
-                      @click="editSelectData(postSingleData, editId)">編集する</button>
+                  <div class = "edit-btn">
+                    <button @click = "hideEditPage()">戻る</button>
+                    <button @click = "editSelectData(postSingleData, editId)">編集する</button>
                   </div>
                 </section>
-                <div class="background"></div>
+                <div class = "background"></div>
               </div>
-              <!-- 通報画面 -->
-              <div class="report" v-if="reportId == postSingleData.id">
-                <section class="report-page">
+              <div class = "report" v-if = "reportId == postSingleData.id">
+                <section class = "report-page">
                   <h3>通報画面</h3>
-                    <div class="report-post-main-content">
-                      <div class="report-post-title">
+                    <div class = "report-post-main-content">
+                      <div class = "report-post-title">
                         <p>{{ reportTitle }}</p>
                       </div>
-                      <div class="report-post-text">
+                      <div class = "report-post-text">
                         <p>{{ reportBody }}</p>
                       </div>
                     </div>
-                  <!-- 通報理由 -->
-                  <form class="report-reason">
+                  <form class = "report-reason">
                     <InputReport
-                      v-model="reportReason"/>
+                      v-model = "reportReason"/>
                   </form>
-                  <!-- ボタン -->
-                  <div class="report-btn">
-                    <button class="cancel" @click="hideReportPage()">
+                  <div class = "report-btn">
+                    <button class = "cancel" @click = "hideReportPage()">
                       戻る
                     </button>
                     <button
-                      class="report"
-                      @click="reportSelectData()">通報する</button>
+                      class  = "report"
+                      @click = "reportSelectData()">通報する</button>
                   </div>
                 </section>
-                <div class="background"></div>
+                <div class = "background"></div>
               </div>
             </div>
             <CompletePopup
-              v-if="isCompleteEdit"
-              message="編集が完了しました"
-              movePage="マイページへ"
-              url="https://jwatch-8411c.web.app/mypage/index.html"/>
+              v-if     = "isCompleteEdit"
+              message  = "編集が完了しました"
+              movePage = "マイページへ"
+              url      = "https://jwatch-8411c.web.app/mypage/index.html"/>
             <CompletePopup
-              v-if="isCompleteReport"
-              message="通報が完了しました"
-              movePage="トップページへ"
-              url="https://jwatch-8411c.web.app/mainpage/index.html"/>
+              v-if     = "isCompleteReport"
+              message  = "通報が完了しました"
+              movePage = "トップページへ"
+              url      = "https://jwatch-8411c.web.app/mainpage/index.html"/>
           </div>
-          <!-- <Paginate
-            :page-count="getPageCount"
-            :page-range="3"
-            :margin-pages="2"
-            :click-handler="clickCallback"
-            :prev-text="'<<'"
-            :next-text="'>>'"
-            :no-li-surround="true"
-            :container-class="'paginate'"
-            :prev-link-class="'prev-link'"
-            :page-link-class="'page-link'"
-            :next-link-class="'next-link'"
-            :active-class="'active-page-link'"/> -->
-             <Paginate
+          <Paginate
+            :page-count      = "getPageCount"
+            :page-range      = "3"
+            :margin-pages    = "2"
+            :click-handler   = "clickCallback"
+            :prev-text       = "'<<'"
+            :next-text       = "'>>'"
+            :no-li-surround  = "true"
+            :container-class = "'paginate'"
+            :prev-link-class = "'prev-link'"
+            :page-link-class = "'page-link'"
+            :next-link-class = "'next-link'"
+            :active-class    = "'active-page-link'"/>
+             <!-- <Paginate
              :postMultipleData="postMultipleData"
              @catchGetItems="receiveGetItems"
-             />
+             /> -->
         </div>
         <MoveTopBtn/>
       </main>
@@ -213,34 +208,34 @@ import Jheader        from "../../components/Jheader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
 import myFirstMixin   from "../../mixin/myFirstMixin";
 import PageTitle      from "../../components/PageTitle";
-import Paginate       from "../../components/Paginate";
-// import Paginate       from "vuejs-paginate";
+// import Paginate       from "../../components/Paginate";
+import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
   data() {
     return {
-      isNothingData: false,
-      category:      "",
-      stadium:       "",
+      isNothingData:    false,
+      category:         "",
+      stadium:          "",
       // firestoreから取得したデータを保管する
       postMultipleData: [],
       // ページネーション機能
-      currentPage: 1,
-      parPage:     10,
-      sortValue:   sessionStorage.getItem("sortkey"),
+      currentPage:      1,
+      parPage:          10,
+      sortValue:        sessionStorage.getItem("sortkey"),
       // 編集画面
-      isCompleteEdit: false,
-      editBody:       "",
-      editCategory:   "",
-      editId:         "",
-      editStadium:    "",
-      editTitle:      "",
+      isCompleteEdit:   false,
+      editBody:         "",
+      editCategory:     "",
+      editId:           "",
+      editStadium:      "",
+      editTitle:        "",
       // 通報画面
       isCompleteReport: false,
       reportId:         "",
       reportReason:     "",
       // ローディング画面
-      isLoading: false
+      isLoading:        false
     }
   },
   components: {
@@ -258,7 +253,7 @@ export default {
     MoveTopBtn,
     PageTitle,
     Paginate,
-    VueLoading,
+    VueLoading
   },
   mixins:[myFirstMixin],
   methods: {
@@ -268,19 +263,62 @@ export default {
     },
     loadDataFromDB: function(stadium, category) {
       if (this.stadium.length > 0 && this.category.length > 0) {
-        this.isLoading = true;
+        this.isLoading        = true;
         // 一度配列を空にしないと前の検索結果が残ったままになる。
         this.postMultipleData = [];
-        // データの取得
-        const postData = firebase.firestore().collection("posts");
-        const displayData = postData
-          .where("stadium", "==", stadium)
-          .where("category", "==", category);
-        // 0件の場合はforEachが実行されないのでthis.isNothingData = trueのままで処理が完了する。
-
+        // 入力された値を元に投稿データを取得
+        const dataBeforeOrder = firebase.firestore().collection("posts")
+                                .where("stadium",  "==", stadium)
+                                .where("category", "==", category);
+            // 投稿を投稿日時の降順にソートして表示する
         if (this.sortValue === "newest") {
-          const newestDisplayData = displayData
+          const newOrder = dataBeforeOrder
             .orderBy("created", "desc")
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
+                sessionStorage.setItem("sortkey", this.sortValue);
+              });
+              this.isLoading = false;
+
+              if (this.postMultipleData.length == 0) {
+                this.isNothingData = true;
+              } else {
+                this.isNothingData = false;
+              }
+            })
+
+            .catch(function(error) {
+              console.log("Error getting documents: ", error, newOrder);
+            });
+            // 投稿を投稿日時の昇順にソートして表示する
+        } else if (this.sortValue === "oldest") {
+          const oldOrder = dataBeforeOrder
+            .orderBy("created")
+            .get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
+                sessionStorage.setItem("sortkey", this.sortValue);
+              });
+              this.isLoading = false;
+
+              if (this.postMultipleData.length == 0) {
+                this.isNothingData = true;
+              } else {
+                this.isNothingData = false;
+              }
+            })
+
+            .catch(function(error) {
+              console.log("Error getting documents: ", error, oldOrder);
+            });
+            // 投稿をいいねが多い順にソートして表示する
+        } else if (this.sortValue === "good") {
+           // TODO:goodDisplayDataを直感で理解できる名前に変える
+          const goodOrder = dataBeforeOrder
+            .orderBy("likedCounter", "desc")
             .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
@@ -297,52 +335,8 @@ export default {
 
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error, newestDisplayData);
+              console.log("Error getting documents: ", error, goodOrder);
             });
-        } else if (this.sortValue === "oldest") {
-
-            const oldestDisplayData = displayData
-            .orderBy("created")
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-              this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
-                sessionStorage.setItem("sortkey", this.sortValue);
-              });
-              this.isLoading = false;
-
-              if (this.postMultipleData.length == 0) {
-                this.isNothingData = true;
-              } else {
-                this.isNothingData = false;
-              }
-            })
-            .catch(function(error) {
-              console.log("Error getting documents: ", error, oldestDisplayData);
-            });
-        } else if (this.sortValue === "good") {
-            // TODO:goodDisplayDataを直感で理解できる名前に変える
-            const goodDisplayData = displayData
-            .orderBy("likedCounter", "desc")
-            .get()
-            .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-              this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
-                sessionStorage.setItem("sortkey", this.sortValue);
-              });
-              this.isLoading = false;
-
-              if (this.postMultipleData.length == 0) {
-                this.isNothingData = true;
-              } else {
-                this.isNothingData = false;
-              }
-            })
-            .catch(function(error) {
-              console.log("Error getting documents: ", error, goodDisplayData);
-            });
-        } else {
-          console.log("sortError!");
         }
       } else {
         return alert("スタジアム名とカテゴリーを選択してください。");
@@ -353,19 +347,11 @@ export default {
         if(user){
           if(postSingleData.contributorUid != user.uid){
             const likedUsers = postSingleData.likedUsers
-            // onSnapshotは投稿全体が更新され、既に表示されている投稿の下に追加されるため使用できない。
-            // また、updateしたデータはページの更新が行われるまでページ上に反映されない。
-            // そのためupdateでfirebase上のデータを更新するとともに、一時的にページ上の
+            // updateしたデータはページの更新が行われるまでページ上に反映されない
+            // そのため、updateでfirebase上のデータを更新するとともに、一時的にページ上の
             // いいねボタンを(表面的に)更新する。
             if (likedUsers.includes(user.uid)) {
               // いいね数を-1する、いいねしたユーザーから解除する
-              const likedCounter = postSingleData.likedCounter -= 1
-              for(let i = 0; i < likedUsers.length; i++){
-                if(likedUsers[i] == user.uid){
-                  likedUsers.splice(i, 1)
-                }
-              }
-
               // Firebase上のデータの更新
               firebase.firestore().collection("posts").doc(postSingleData.id)
               .update({
@@ -374,7 +360,13 @@ export default {
               })
 
               // 見た目上の更新
-              // HACK:あまり綺麗でないコード,改善の余地ある。
+              const likedCounter = postSingleData.likedCounter -= 1
+              for(let i = 0; i < likedUsers.length; i++){
+                if(likedUsers[i] == user.uid){
+                  likedUsers.splice(i, 1)
+                }
+              }
+
               for(let i = 0; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
@@ -383,11 +375,7 @@ export default {
                 }
               }
             } else {
-
               // いいね数を＋1する、いいねしたユーザーとして登録する
-              const likedCounter = postSingleData.likedCounter += 1
-              likedUsers.push(user.uid)
-
               // Firebase上のデータの更新
               firebase.firestore().collection("posts").doc(postSingleData.id)
               .update({
@@ -396,7 +384,9 @@ export default {
               })
 
               // 見た目上の更新
-              // HACK:あまり綺麗でないコード,改善の余地ある。
+              const likedCounter = postSingleData.likedCounter += 1
+              likedUsers.push(user.uid)
+
               for(let i; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
@@ -427,12 +417,12 @@ export default {
     // 編集完了画面の表示/非表示
     showEditedPage: function() {
       this.isCompleteEdit = true;
-      this.editId         = "";
+      this.editId         = ""
     },
     // 編集処理
     editSelectData: function(postSingleData, postSingleDataId) {
       const postdata = firebase.firestore().collection("posts");
-      const now = new Date();
+      const now      = new Date();
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
           postdata
@@ -482,8 +472,8 @@ export default {
     },
     // 通報データの追加
     reportSelectData: function() {
-      const now = new Date();
-      const inputData = {
+      const now       = new Date();
+      const dataReport = {
         postBody:            this.reportBody,
         postCategory:        this.reportCategory,
         postContributorName: this.reportContributorName,
@@ -497,61 +487,60 @@ export default {
                              + "/" + ("0" + now.getDate()).slice(-2)
       };
       if (this.reportReason.length > 0) {
-        const reportPost = firebase.firestore().collection("reports");
-        reportPost
-          .add(inputData)
+        const dataAddReportCollection = firebase.firestore().collection("reports")
+          .add(dataReport)
           .then(() => {
             this.hideReportPage();
             this.showReportedPopup();
           })
           .catch(function(error) {
-            console.error(error);
+            console.error(error, dataAddReportCollection);
           });
       } else {
         alert("通報理由を選択してください");
       }
     },
     // 選択した投稿を削除する
-    deleteSelectData: function(id) {
+    deleteSelectData: function(selectedPostId) {
       if (confirm("この投稿を削除しますか？一度削除すると2度と戻せません。")) {
-        const postData = firebase.firestore().collection("posts");
-        postData
-          .doc(id)
+        const datadelete = firebase.firestore().collection("posts")
+          .doc(selectedPostId)
           .delete()
           .then(function() {
             alert("削除できました。");
             return location.reload();
           })
           .catch(function(error) {
-            console.error("エラーが発生しました。: ", error);
+            console.error("エラーが発生しました。: ", error, datadelete);
           });
       }
     },
     // ページネーション機能、押したページ数に移動する処理
-    // clickCallback: function(pageNum) {
-    //   this.currentPage = Number(pageNum);
-    //   window.scrollTo({
-    //     behavior: "instant",
-    //     top: 0,
-    //   });
-    // },
+    clickCallback: function(pageNum) {
+      this.currentPage = Number(pageNum);
+      window.scrollTo({
+        behavior: "instant",
+        top: 0,
+      });
+    },
     // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、
     // 情報がないと誤表示するのを防ぐ役割
     hideNothingDisplay: function() {
       this.isNothingData = false;
     },
   },
-  // computed: {
-  //   getItems: function() {
-  //     const current = this.currentPage * this.parPage;
-  //     const start   = current - this.parPage;
-  //     return this.postMultipleData.slice(start, current);
-  //   },
-  //   getPageCount: function() {
-  //     return Math.ceil(this.postMultipleData.length / this.parPage);
-  //   },
-  // },
+  computed: {
+    getItems: function() {
+      const current = this.currentPage * this.parPage;
+      const start   = current - this.parPage;
+      return this.postMultipleData.slice(start, current);
+    },
+    getPageCount: function() {
+      return Math.ceil(this.postMultipleData.length / this.parPage);
+    },
+  },
   mounted: function() {
+    // ユーザーの初回訪問時に新しい順を表示しておく。この指定がないと選択バーが空白で表示される。
     this.sortValue = "newest";
   },
   beforeUpdate: function() {
@@ -560,7 +549,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang = "scss">
 .wrap {
   overflow: hidden;
 }

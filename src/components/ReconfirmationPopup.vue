@@ -1,20 +1,20 @@
 <template>
   <div>
-    <section class="reconfirmation">
+    <section class = "reconfirmation">
       <p> {{ message }}</p>
-      <p class="cancel" @click="hideReconfirmationPopup">{{ back }}</p>
-      <button @click="sendData" class="process-btn">{{ process }}</button>
+      <p class = "cancel" @click = "hideReconfirmationPopup">{{ back }}</p>
+      <button @click = "sendData" class = "process-btn">{{ process }}</button>
     </section>
-    <div class="reconfirmation-background" @click="hideReconfirmationPopup"></div>
+    <div class = "reconfirmation-background" @click = "hideReconfirmationPopup"></div>
   </div>
 </template>
 
 <script>
 export default {
   props:{
-    back:{ type:String, default:"戻る" },
-    message:{ type:String },
-    process:{ type:String }
+    back:    { type:String, default:"戻る" },
+    message: { type:String },
+    process: { type:String }
   },
   methods:{
     hideReconfirmationPopup:function(){
@@ -26,7 +26,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 /* 再確認のホップアップ */
 .reconfirmation {
   opacity: 1;

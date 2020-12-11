@@ -1,11 +1,11 @@
 <template>
-    <div class="induction">
-      <a :href=url>
-        <div class="induction-contants">
-          <div class="induction-title">
+    <div class = "induction">
+      <a :href = url>
+        <div class = "induction-contants">
+          <div class = "induction-title">
             <p>{{ title }}</p>
           </div>
-          <div class="induction-description">
+          <div class = "induction-description">
             <p>{{ description }}</p>
           </div>
         </div>
@@ -17,13 +17,13 @@
 export default {
   props: {
     description: String,
-    title: String,
-    url: String
+    title:       String,
+    url:         String
   }
 }
 </script>
 
-<style lang="scss">
+<style lang = "scss">
 .induction {
   margin: 0px;
   text-align: center;

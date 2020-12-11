@@ -1,21 +1,21 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :visitorName="visitorName"
-        :isLogin="isLogin"
-        :isAnonymous="isAnonymous"/>
+        :visitorName = "visitorName"
+        :isLogin     = "isLogin"
+        :isAnonymous = "isAnonymous"/>
       <main>
-        <div class="introduction">
+        <div class = "introduction">
           <PageTitle
-            description="管理人からのメッセージ"
-            title="About 管理人"/>
-          <div class="reason">
-            <div class="reason-title">
+            description = "管理人からのメッセージ"
+            title       = "About 管理人"/>
+          <div class = "reason">
+            <div class = "reason-title">
               <h2>Reason</h2>
               <p>Jwatch作成のきっかけ</p>
             </div>
-            <div class="reason-text">
+            <div class = "reason-text">
               <p>Jリーグってすごく魅力のあるリーグだと思います。</p>
               <p>魅力は本当に色々あるのですが、一つ挙げるとすれば</p>
               <p>
@@ -38,7 +38,7 @@
               </p>
               <p>皆さんのお力をお借りしていく形で</p>
               <p>試合観戦のハードルを下げるサイトを作りました。</p>
-              <div class="thought">
+              <div class = "thought">
                 <p>
                   Jwatchが少しでもJリーグの発展に貢献できればこんなに嬉しいことはありません。
                 </p>
@@ -70,7 +70,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .wrap {
   overflow: hidden;
 }

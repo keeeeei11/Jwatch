@@ -1,31 +1,31 @@
 <template>
   <div>
-    <div class="complete">
+    <div class = "complete">
       <section>
-        <p class="message">{{ message }}</p>
-        <button class="back" @click="reload">{{ back }}</button>
-        <a :href=url>{{ movePage }}</a>
+        <p class = "message">{{ message }}</p>
+        <button class = "back" @click = "reload">{{ back }}</button>
+        <a :href = url>{{ movePage }}</a>
       </section>
     </div>
-    <div class="complete-background"></div>
+    <div class = "complete-background"></div>
   </div>
 </template>
 <script>
 export default {
   props:{
-    back:{type:String, default:"戻る"},
-    message:String,
-    movePage:String,
-    url:String
+    back:     { type:String, default:"戻る" },
+    message:  { type:String },
+    movePage: { type:String },
+    url:      { type:String }
   },
-    methods:{
-      reload:function(){
-        location.reload()
-      }
+  methods:{
+    reload:function(){
+      location.reload()
+    }
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .complete {
   opacity: 1;
   width: 450px;

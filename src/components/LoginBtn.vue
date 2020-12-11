@@ -1,5 +1,5 @@
 <template>
-  <div class="login-btn" :name="name">
+  <div class = "login-btn" :name = "name">
     <button>{{ loginMethod }}</button>
   </div>
 </template>
@@ -7,13 +7,13 @@
 <script>
 export default {
   props:{
-    loginMethod:String,
-    name:String
+    loginMethod: String,
+    name:        String
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .login-btn{
   text-align: center;
   button {

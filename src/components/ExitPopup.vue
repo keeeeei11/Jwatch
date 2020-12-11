@@ -1,21 +1,21 @@
 <template>
   <div>
-    <section class="reconfirmation">
-      <p class="message">{{ message }}</p>
-      <p class="cancel" @click="hideExitPopup">{{ cancel }}</p>
-      <a :href=url class="process">{{ process }}</a>
+    <section class = "reconfirmation">
+      <p class = "message">{{ message }}</p>
+      <p class = "cancel" @click = "hideExitPopup">{{ cancel }}</p>
+      <a :href = url class = "process">{{ process }}</a>
     </section>
-    <div class="reconfirmation-background" @click="hideExitPopup"></div>
+    <div class = "reconfirmation-background" @click = "hideExitPopup"></div>
    </div>
 </template>
 
 <script>
 export default {
   props:{
-    cancel:{type:String, default:"戻る"},
-    message:String,
-    process:String,
-    url:String
+    cancel:  { type:String, default:"戻る"},
+    message: { type:String },
+    process: { type:String },
+    url:     { type:String }
   },
   methods:{
     hideExitPopup:function(){
@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang = "scss">
 .reconfirmation {
   opacity: 1;
   position: fixed;

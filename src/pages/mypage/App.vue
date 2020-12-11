@@ -1,91 +1,84 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :isAnonymous="isAnonymous"
-        :isLogin="isLogin"
-        :visitorName="visitorName"/>
+        :isAnonymous = "isAnonymous"
+        :isLogin = "isLogin"
+        :visitorName = "visitorName"/>
       <main>
-        <div class="mypage">
-          <div class="mypage-title">
-            <p v-if="!isAnonymous">{{ visitorName }} さんのマイページ</p>
+        <div class = "mypage">
+          <div class = "mypage-title">
+            <p v-if = "!isAnonymous">{{ visitorName }} さんのマイページ</p>
             <p v-else>
               匿名<span>{{ visitorUid.slice(0, 10) }}</span
               >さんのマイページ
             </p>
           </div>
           <VueLoading
-            v-if="isLoading"
-            type="spiningDubbles"
-            color="#aaa"
-            :size="{ width: '100px', height: '100px' }"/>
-          <div class="past-posts" v-else>
+            v-if = "isLoading"
+            type = "spiningDubbles"
+            color = "#aaa"
+            :size = "{ width: '100px', height: '100px' }"/>
+          <div class = "past-posts" v-else>
               <!-- ユーザーの投稿が存在しない時 -->
               <DisplayNoData
-                v-if="isNothingData"
-                stadium="あなた"
-                category="観戦情報"/>
+                v-if = "isNothingData"
+                stadium = "あなた"
+                category = "観戦情報"/>
               <!-- ユーザーの投稿が1つ以上存在する時 -->
-              <div class="post-contents" v-else>
+              <div class = "post-contents" v-else>
                 <h2>過去の投稿</h2>
                 <div
-                  v-for="postSingleData in getItems"
-                  :key="postSingleData.id"
+                  v-for = "postSingleData in getItems"
+                  :key = "postSingleData.id"
                 >
-                  <div class="post-example-contents">
-                    <div class="post-basic-information">
-                      <div class="post-basic-information-top">
-                        <div class="post-name">
+                  <div class = "post-example-contents">
+                    <div class = "post-basic-information">
+                      <div class = "post-basic-information-top">
+                        <div class = "post-name">
                           <p>{{ postSingleData.contributorName }} さん</p>
                         </div>
-                        <div class="post-date">
+                        <div class = "post-date">
                           <p>{{ postSingleData.created }}</p>
                         </div>
                       </div>
-                      <div class="post-basic-information-bottom">
-                        <div class="post-stadium">
+                      <div class = "post-basic-information-bottom">
+                        <div class = "post-stadium">
                           <p>{{ postSingleData.stadium }}</p>
                         </div>
-                        <div class="post-category">
+                        <div class = "post-category">
                           <p>{{ postSingleData.category }}</p>
                         </div>
                       </div>
                     </div>
-                    <div class="post-main-content">
-                      <div class="post-title">
+                    <div class = "post-main-content">
+                      <div class = "post-title">
                         <p>{{ postSingleData.title }}</p>
                       </div>
-                      <div class="post-text">
+                      <div class = "post-text">
                         <p>{{ postSingleData.body }}</p>
                       </div>
                     </div>
-                    <div class="post-evaluation">
-                      <div class="post-evaluation-contents">
-                        <div class="good-count evaluation-btn"
-                        :class="{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
+                    <div class = "post-evaluation">
+                      <div class = "post-evaluation-contents">
+                        <div class = "good-count evaluation-btn"
+                            :class = "{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
                           <button
-                            @click="
-                              switchLikeCounter(postSingleData)
-                            "
-                          >
+                            @click = "switchLikeCounter(postSingleData)">
                             いいね！ {{ postSingleData.likedCounter }}
                           </button>
                         </div>
-                        <!-- 投稿者と閲覧者が同じである時 -->
                         <div
-                          class="allow-manage"
-                          v-if="
-                            postSingleData.contributorUid == visitorUid
-                          "
-                        >
-                          <div class="deleting evaluation-btn">
+                          class = "allow-manage"
+                          v-if  = "postSingleData.contributorUid == visitorUid">
+                          <div class = "deleting evaluation-btn">
                             <button @click="deleteSelectData(postSingleData.id)">
                               削除する
                             </button>
                           </div>
-                          <div class="editing evaluation-btn">
+                          <div class = "editing evaluation-btn">
                             <button
-                              @click="showEditPage(postSingleData, postSingleData.id)"
+                              @click = "showEditPage(postSingleData, postSingleData.id)"
                             >
                               編集する
                             </button>
@@ -94,86 +87,75 @@
                       </div>
                     </div>
                   </div>
-                  <!-- 編集画面 -->
-                  <div class="edit" v-if="editId == postSingleData.id">
-                    <section class="edit-page">
+                  <div class = "edit" v-if = "editId == postSingleData.id">
+                    <section class = "edit-page">
                       <h3>編集画面</h3>
-                      <form class="edit-stadium">
-                      <EditStadium
-                        v-model="editStadium"/>
+                      <form class = "edit-stadium">
+                        <EditStadium
+                          v-model = "editStadium"/>
                       </form>
-                      <form class="edit-category">
+                      <form class = "edit-category">
                         <EditCategory
-                          v-model="editCategory"/>
+                          v-model = "editCategory"/>
                       </form>
-                      <form class="edit-title-information" @submit.prevent>
+                      <form class = "edit-title-information" @submit.prevent>
                         <EditTitle
-                          v-model="editTitle"
-                          type="text"/>
+                          v-model = "editTitle"
+                          type    = "text"/>
                       </form>
-                      <form class="edit-text-information">
+                      <form class = "edit-text-information">
                         <EditBody
-                          v-model="editBody"
-                          type="text"/>
+                          v-model = "editBody"
+                          type    = "text"/>
                       </form>
-                      <!-- ボタン -->
-                      <div class="edit-btn">
-                        <button @click="hideEditPage()">戻る</button>
-                        <button
-                          @click="
-                            editSelectData(postSingleData, editId)
-                          "
-                        >
-                          編集する
-                        </button>
+                      <div class = "edit-btn">
+                        <button @click = "hideEditPage()">戻る</button>
+                        <button @click = "editSelectData(postSingleData, editId)">編集する</button>
                       </div>
                     </section>
-                    <div class="background"></div>
+                    <div class = "background"></div>
                   </div>
                 </div>
-                <!-- 編集&投稿完了画面 -->
                 <CompletePopup
-                  v-if="isCompleteEdit"
-                  message="編集が完了しました"
-                  url="https://jwatch-8411c.web.app/mypage/index.html"
-                  movePage="マイページへ"/>
+                  v-if     = "isCompleteEdit"
+                  message  = "編集が完了しました"
+                  url      = "https://jwatch-8411c.web.app/mypage/index.html"
+                  movePage = "マイページへ"/>
               <Paginate
-                :page-count="getPageCount"
-                :page-range="3"
-                :margin-pages="2"
-                :click-handler="clickCallback"
-                :prev-text="'<<'"
-                :next-text="'>>'"
-                :no-li-surround="true"
-                :container-class="'paginate'"
-                :prev-link-class="'prev-link'"
-                :page-link-class="'page-link'"
-                :next-link-class="'next-link'"
-                :active-class="'active-page-link'"/>
+                :page-count      = "getPageCount"
+                :page-range      = "3"
+                :margin-pages    = "2"
+                :click-handler   = "clickCallback"
+                :prev-text       = "'<<'"
+                :next-text       = "'>>'"
+                :no-li-surround  = "true"
+                :container-class = "'paginate'"
+                :prev-link-class = "'prev-link'"
+                :page-link-class = "'page-link'"
+                :next-link-class = "'next-link'"
+                :active-class    = "'active-page-link'"/>
             </div>
-            <div class="mypage-contents">
-              <!-- ログアウト関連 -->
+            <div class = "mypage-contents">
               <ExitBtn
-                name="ログアウト"
-                execution="ログアウトする"
-                @click.native="showLogoutPopup"/>
+                name          = "ログアウト"
+                execution     = "ログアウトする"
+                @click.native = "showLogoutPopup"/>
               <ExitPopup
-                v-if="isReconfirmLogout"
-                message="ログアウトしてもよろしいですか？"
-                url="https://jwatch-8411c.web.app/logout/index.html"
-                process="ログアウトする"
-                @exitPopupHide="hideLogoutPopup"/>
-              <!-- アカウント削除関連 -->
+                v-if           = "isReconfirmLogout"
+                message        = "ログアウトしてもよろしいですか？"
+                url            = "https://jwatch-8411c.web.app/logout/index.html"
+                process        = "ログアウトする"
+                @exitPopupHide = "hideLogoutPopup"/>
               <ExitBtn
-                name="アカウント削除"
-                execution="アカウント削除する"
-                @click.native="showDeletePopup"/>
+                name          = "アカウント削除"
+                execution     = "アカウント削除する"
+                @click.native = "showDeletePopup"/>
               <ExitPopup
-                v-if="isReconfirmDelete"
-                message="アカウントを削除してもよろしいですか？(投稿も削除されます)"
-                url="https://jwatch-8411c.web.app/deleteAccount/index.html"
-                process="削除する"
-                @exitPopupHide="hideDeletePopup"/>
+                v-if           = "isReconfirmDelete"
+                message        = "アカウントを削除してもよろしいですか？(投稿も削除されます)"
+                url            = "https://jwatch-8411c.web.app/deleteAccount/index.html"
+                process        = "削除する"
+                @exitPopupHide = "hideDeletePopup"/>
             </div>
           </div>
         </div>
@@ -212,20 +194,20 @@ export default {
       isReconfirmLogout: false,
       visitorUid:        String,
       // firestoreから取得したデータを保管する
-      postMultipleData: [],
+      postMultipleData:  [],
       // ページネーション機能
-      currentPage: 1,
-      parPage:     5,
-      sortValue:   sessionStorage.getItem("sortkey"),
+      currentPage:       1,
+      parPage:           5,
+      sortValue:         sessionStorage.getItem("sortkey"),
       // 編集画面
-      isCompleteEdit: false,
-      editBody:     "",
-      editCategory: "",
-      editId:       "",
-      editStadium:  "",
-      editTitle:    "",
+      isCompleteEdit:    false,
+      editBody:          "",
+      editCategory:      "",
+      editId:            "",
+      editStadium:       "",
+      editTitle:         "",
       // ローディング画面
-      isLoading: false
+      isLoading:         false
     }
   },
   components: {
@@ -241,7 +223,7 @@ export default {
     Jheader,
     MoveTopBtn,
     Paginate,
-    VueLoading,
+    VueLoading
   },
   mixins: [myFirstMixin],
   methods: {
@@ -387,15 +369,7 @@ export default {
           if(postSingleData.contributorUid != user.uid){
             const likedUsers = postSingleData.likedUsers
             if (likedUsers.includes(user.uid)) {
-
               // いいね数を-1する、いいねしたユーザーから解除する
-              const likedCounter = postSingleData.likedCounter-=1
-              for(let i = 0; i < likedUsers.length; i++){
-                if(likedUsers[i] == user.uid){
-                  likedUsers.splice(i, 1)
-                }
-              }
-
               // Firebase上のデータの更新
               firebase.firestore().collection("posts").doc(postSingleData.id)
               .update({
@@ -404,7 +378,14 @@ export default {
               })
 
               // 見た目上の更新
-              for(let i; i < this.postMultipleData.length; i++) {
+              const likedCounter = postSingleData.likedCounter -= 1
+              for(let i = 0; i < likedUsers.length; i++){
+                if(likedUsers[i] == user.uid){
+                  likedUsers.splice(i, 1)
+                }
+              }
+
+              for(let i = 0; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
                   this.$set(this.postMultipleData[i], 'likedUsers',   likedUsers)
@@ -412,11 +393,7 @@ export default {
                 }
               }
             } else {
-
               // いいね数を＋1する、いいねしたユーザーとして登録する
-              const likedCounter = postSingleData.likedCounter+=1
-              likedUsers.push(user.uid)
-
               // Firebase上のデータの更新
               firebase.firestore().collection("posts").doc(postSingleData.id)
               .update({
@@ -425,6 +402,9 @@ export default {
               })
 
               // 見た目上の更新
+              const likedCounter = postSingleData.likedCounter += 1
+              likedUsers.push(user.uid)
+
               for(let i; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
@@ -459,7 +439,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang = "scss">
 .wrap {
   overflow: hidden;
 }

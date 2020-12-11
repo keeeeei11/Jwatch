@@ -1,67 +1,67 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :isAnonymous="isAnonymous"
-        :isLogin="isLogin"
-        :visitorName="visitorName"/>
+        :isAnonymous = "isAnonymous"
+        :isLogin     = "isLogin"
+        :visitorName = "visitorName"/>
       <main>
         <PageTitle
-          title="How to use"
-          description="観戦情報の閲覧と投稿、情報のの方法を記載しています"/>
+          description = "観戦情報の閲覧と投稿、情報のの方法を記載しています"
+          title       = "How to use"/>
         <UsageDescription
-          titleEn="How to Search"
-          titleJa="観戦情報の閲覧方法"
-          descriptionFirst="①スタジアムを選択してください。"
-          descriptionSecond="②カテゴリーを選択してください。"
-          supplement="※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。"/>
+          titleEn           = "How to Search"
+          titleJa           = "観戦情報の閲覧方法"
+          descriptionFirst  = "①スタジアムを選択してください。"
+          descriptionSecond = "②カテゴリーを選択してください。"
+          supplement        = "※求めている情報が見つからない場合はその他のカテゴリーにある可能性もあります。"/>
         <Induction
-          url="https://jwatch-8411c.web.app/searchinformation/index.html"
-          title="Let’s search!"
-          description="観戦情報を探す！"/>
+          url         = "https://jwatch-8411c.web.app/searchinformation/index.html"
+          title       = "Let’s search!"
+          description = "観戦情報を探す！"/>
         <UsageDescription
-          titleEn="How to post"
-          titleJa="観戦情報の投稿方法"
-          descriptionFirst="①観戦情報を投稿する！をクリックします"
-          descriptionSecond="②スタジアム名とカテゴリー,投稿したい内容を入力してください。"
-          supplement="※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。"/>
-        <div class="post-example">
+          titleEn           = "How to post"
+          titleJa           = "観戦情報の投稿方法"
+          descriptionFirst  = "①観戦情報を投稿する！をクリックします"
+          descriptionSecond = "②スタジアム名とカテゴリー,投稿したい内容を入力してください。"
+          supplement        = "※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。"/>
+        <div class = "post-example">
           <h3>投稿例</h3>
-          <div class="post-example-contents">
-            <div class="post-basic-information">
-              <div class="post-basic-information-top">
-                <div class="post-name">
+          <div class = "post-example-contents">
+            <div class = "post-basic-information">
+              <div class = "post-basic-information-top">
+                <div class = "post-name">
                   <p>〇〇さん</p>
                 </div>
-                <div class="post-date">
+                <div class = "post-date">
                   <p>2000/1/1</p>
                 </div>
               </div>
-              <div class="post-basic-information-bottom">
-                <div class="post-stadium">
+              <div class = "post-basic-information-bottom">
+                <div class = "post-stadium">
                   <p>☆☆スタジアム</p>
                 </div>
-                <div class="post-category">
+                <div class = "post-category">
                   <p>スタジアムグルメ</p>
                 </div>
               </div>
             </div>
-            <div class="post-main-content">
-              <div class="post-title">
+            <div class = "post-main-content">
+              <div class = "post-title">
                 <p>△△の唐揚げがとても美味しかったです</p>
               </div>
-              <div class="post-text">
+              <div class = "post-text">
                 <p>
                   ここの唐揚げは出来たてを提供してくれます。また値段も低価格で観戦の際はいつも購入しています！是非購入してみてください！
                 </p>
               </div>
             </div>
-            <div class="post-evaluation">
-              <div class="post-evaluation-contents">
-                <div class="good-count">
+            <div class = "post-evaluation">
+              <div class = "post-evaluation-contents">
+                <div class = "good-count">
                   <p>いいね！ 6</p>
                 </div>
-                <div class="reporting">
+                <div class = "reporting">
                   <p>通報する</p>
                 </div>
               </div>
@@ -69,9 +69,9 @@
           </div>
         </div>
         <Induction
-          description="観戦情報を投稿する！"
-          title="Let’s post!"
-          url="https://jwatch-8411c.web.app/posting/index.html"/>
+          description = "観戦情報を投稿する！"
+          title       = "Let’s post!"
+          url         = "https://jwatch-8411c.web.app/posting/index.html"/>
         <MoveTopBtn/>
       </main>
       <Jfooter/>
@@ -101,7 +101,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 /*以下ヘッダー*/
 .wrap {
   overflow: hidden;

@@ -1,11 +1,11 @@
 <template>
-  <div class="post-no-contents">
+  <div class = "post-no-contents">
     <p>{{ stadium }}の{{ category }}に関する投稿はまだありません…</p>
     <p>知っている情報があれば投稿して共有してみませんか？</p>
     <p>
       ※GoogleまたはTwitterアカウントによるログイン,もしくは匿名ログインが必要です。
     </p>
-    <a href="https://jwatch-8411c.web.app/posting/index.html"
+    <a href = "https://jwatch-8411c.web.app/posting/index.html"
       >観戦情報を投稿する！</a
     >
   </div>
@@ -14,14 +14,13 @@
 <script>
 export default {
   props:{
-    category:String,
-    stadium:String
+    category: String,
+    stadium:  String
   }
 }
 </script>
 
-<style lang="scss" scoped>
-/* 投稿が0件の時に表示する */
+<style lang = "scss" scoped>
 .post-no-contents {
   text-align: center;
   padding: 30px;

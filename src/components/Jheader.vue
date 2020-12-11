@@ -1,66 +1,66 @@
 <template>
   <header>
-    <div class="header-contents">
-      <div class="header-contents-left">
-        <div class="header-left-shortcut">
-          <div class="header-title">
-            <a href="https://jwatch-8411c.web.app/mainpage/index.html">
+    <div class = "header-contents">
+      <div class = "header-contents-left">
+        <div class = "header-left-shortcut">
+          <div class = "header-title">
+            <a href = "https://jwatch-8411c.web.app/mainpage/index.html">
               <h1>Jwatch</h1>
             </a>
           </div>
           <!-- ログイン時に名前を表示 -->
-          <div class="header-username" v-if="isLogin">
-            <p v-if="!isAnonymous">こんにちは {{ visitorName }} さん！</p>
+          <div class = "header-username" v-if = "isLogin">
+            <p v-if = "!isAnonymous">こんにちは {{ visitorName }} さん！</p>
             <p v-else>こんにちは 匿名 さん！</p>
           </div>
         </div>
       </div>
-      <div class="header-contents-right">
-        <div class="header-right-shortcut">
-          <div class="header-menu">
-            <a href="https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a>
-            <a href="https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a>
-            <a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a>
-            <a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
+      <div class = "header-contents-right">
+        <div class = "header-right-shortcut">
+          <div class = "header-menu">
+            <a href = "https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a>
+            <a href = "https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a>
+            <a href = "https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a>
+            <a href = "https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
           </div>
           <!-- 非ログイン時にログインページへのリンクを表示する -->
-          <div class="header-mypage" v-if="isLogin">
-            <a href="https://jwatch-8411c.web.app/mypage/index.html">
-              <i class="fas fa-user-edit">
+          <div class = "header-mypage" v-if = "isLogin">
+            <a href = "https://jwatch-8411c.web.app/mypage/index.html">
+              <i class = "fas fa-user-edit">
                 <p>Mypage</p>
               </i>
             </a>
           </div>
-          <div class="header-login" v-else>
-            <a href="https://jwatch-8411c.web.app/login/index.html">
-              <i class="fas fa-door-open">
+          <div class = "header-login" v-else>
+            <a href = "https://jwatch-8411c.web.app/login/index.html">
+              <i class = "fas fa-door-open">
                 <p>Login</p>
               </i>
             </a>
           </div>
           <!-- ログイン時にマイページへのリンクを表示する -->
-          <div class="humburgar">
-            <div class="menu-bar" @click="showHumburgarMenu">
-              <i class="fas fa-bars" id="show">
+          <div class = "humburgar">
+            <div class = "menu-bar" @click = "showHumburgarMenu">
+              <i class = "fas fa-bars" id = "show">
                 <p>menu</p>
               </i>
             </div>
-            <div class="menu-content" id="menu" v-if="isShowHumburgar">
-              <i class="fa fa-times" id="hide" @click="hideHumburgarMenu">
+            <div class = "menu-content" id = "menu" v-if = "isShowHumburgar">
+              <i class = "fa fa-times" id = "hide" @click = "hideHumburgarMenu">
                 <p>close</p>
               </i>
               <ul>
                 <li>
-                  <a href="https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a>
+                  <a href = "https://jwatch-8411c.web.app/usage/index.html">詳しい使い方</a>
                 </li>
                 <li>
-                  <a href="https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a>
+                  <a href = "https://jwatch-8411c.web.app/searchinformation/index.html">観戦情報を探す</a>
                 </li>
                 <li>
-                  <a href="https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a>
+                  <a href = "https://jwatch-8411c.web.app/posting/index.html">観戦情報を投稿する</a>
                 </li>
                 <li>
-                  <a href="https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
+                  <a href = "https://jwatch-8411c.web.app/popular/index.html">人気の投稿</a>
                 </li>
               </ul>
             </div>
@@ -74,8 +74,8 @@
 export default {
   props: {
     isAnonymous: Boolean,
-    isLogin: Boolean,
-    visitorName: String,
+    isLogin:     Boolean,
+    visitorName: String
   },
   data() {
     return {
@@ -92,7 +92,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 header {
   width: 100%;
   position: fixed;

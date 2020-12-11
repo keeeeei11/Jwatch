@@ -1,61 +1,59 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :isAnonymous="isAnonymous"
-        :isLogin="isLogin"
-        :visitorName="visitorName"/>
+        :isAnonymous = "isAnonymous"
+        :isLogin     = "isLogin"
+        :visitorName = "visitorName"/>
       <main>
         <PageTitle
-          description="〜全ての人にサッカー観戦の楽しみを〜"
-          title="Jwatch"/>
-        <div class="about">
-          <div class="about-title">
+          description = "〜全ての人にサッカー観戦の楽しみを〜"
+          title       = "Jwatch"/>
+        <div class = "about">
+          <div class = "about-title">
             <h1>About</h1>
           </div>
-          <div class="about-discriptions">
-            <div class="first-about-discription">
+          <div class = "about-discriptions">
+            <div class = "first-about-discription">
               <p>JwatchはJリーグスタジアムの観戦情報を</p>
               <p>投稿＆閲覧できるサイトです。</p>
             </div>
-            <div class="second-about-discription">
+            <div class = "second-about-discription">
               <p>事前にリアルなスタジアム情報を</p>
               <p>お届けすることで快適なスタジアム観戦をサポートします。</p>
             </div>
-            <div class="third-about-discription">
+            <div class = "third-about-discription">
               <p>また、自分の応援するチームのスタジアム情報を投稿することで</p>
               <p>応援するチームの良さを全国の人に伝えることができます。</p>
             </div>
           </div>
         </div>
-        <div class="usage">
-          <div class="usage-title">
+        <div class = "usage">
+          <div class = "usage-title">
             <h1>How to use</h1>
           </div>
-          <div class="usage-introduction">
-            <div class="usage-primary-introduction">
-              <div class="usage-search">
-                <a
-                  href="https://jwatch-8411c.web.app/searchinformation/index.html"
-                >
+          <div class = "usage-introduction">
+            <div class = "usage-primary-introduction">
+              <div class = "usage-search">
+                <a href = "https://jwatch-8411c.web.app/searchinformation/index.html">
                   <h3>観戦情報を探す</h3>
                   <img
-                    src="../../assets/1843892_s.jpg"
-                    alt="パソコンと虫眼鏡の画像。情報を探すイメージ。"
-                    loading="lazy"
+                    src     = "../../assets/1843892_s.jpg"
+                    alt     = "パソコンと虫眼鏡の画像。情報を探すイメージ。"
+                    loading = "lazy"
                   />
                 </a>
                 <p>
                   観戦予定のスタジアム/カテゴリーを選択して観戦情報を探してみましょう！
                 </p>
               </div>
-              <div class="usage-post">
-                <a href="https://jwatch-8411c.web.app/posting/index.html">
+              <div class = "usage-post">
+                <a href = "https://jwatch-8411c.web.app/posting/index.html">
                   <h3>観戦情報を投稿する</h3>
                   <img
-                    src="../../assets/student-849825_640.jpg"
-                    alt="女性がスマートフォンで観戦情報を投稿している画像。"
-                    loading="lazy"
+                    src     = "../../assets/student-849825_640.jpg"
+                    alt     = "女性がスマートフォンで観戦情報を投稿している画像。"
+                    loading = "lazy"
                   />
                 </a>
                 <p>
@@ -63,10 +61,10 @@
                 </p>
               </div>
             </div>
-            <div class="usage-secondary-introduction">
+            <div class = "usage-secondary-introduction">
               <p>
                 ※観戦情報の投稿は
-                <a href="https://jwatch-8411c.web.app/login/index.html"
+                <a href = "https://jwatch-8411c.web.app/login/index.html"
                   >ログイン</a
                 >
                 が必要となります。
@@ -74,9 +72,9 @@
             </div>
           </div>
           <Induction
-          description="使い方のより詳しい説明はこちら"
-          title="Detailed discription"
-          url="https://jwatch-8411c.web.app/usage/index.html"/>
+            description = "使い方のより詳しい説明はこちら"
+            title       = "Detailed discription"
+            url         = "https://jwatch-8411c.web.app/usage/index.html"/>
         </div>
         <MoveTopBtn/>
       </main>
@@ -86,6 +84,10 @@
 </template>
 
 <script>
+// import firebase     from "firebase";
+import                   "firebase/auth";
+import                   "firebase/firestore";
+import                   "firebase/storage";
 import Induction    from "../../components/Induction";
 import Jfooter      from "../../components/Jfooter";
 import Jheader      from "../../components/Jheader";
@@ -104,7 +106,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 
 .wrap {
   overflow: hidden;

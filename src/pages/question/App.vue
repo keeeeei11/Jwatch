@@ -1,24 +1,24 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :isAnonymous="isAnonymous"
-        :isLogin="isLogin"
-        :visitorName="visitorName"/>
+        :isAnonymous = "isAnonymous"
+        :isLogin     = "isLogin"
+        :visitorName = "visitorName"/>
       <!--以下メイン-->
       <main>
         <PageTitle
-          description="よくある質問が記載されております"
-          title="Q&A"/>
-        <div class="question-contents">
-          <div class="note">
+          description = "よくある質問が記載されております"
+          title       = "Q&A"/>
+        <div class = "question-contents">
+          <div class = "note">
             <p>質問は随時こちらに掲載いたします。</p>
           </div>
         </div>
         <Induction
-          description="ご意見＆ご要望はこちらから"
-          title="Contact"
-          url="https://jwatch-8411c.web.app/inquiry/index.html"/>
+          description = "ご意見＆ご要望はこちらから"
+          title       = "Contact"
+          url         = "https://jwatch-8411c.web.app/inquiry/index.html"/>
         <MoveTopBtn/>
       </main>
       <Jfooter/>
@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .wrap {
   overflow: hidden;
 }

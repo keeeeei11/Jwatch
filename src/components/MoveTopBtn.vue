@@ -1,30 +1,30 @@
 <template>
-    <div id="move_top" class="arrow" @click="moveToTop" v-if="showBtn"></div>
+    <div id = "move_top" class = "arrow" @click = "moveToTop" v-if = "showBtn"></div>
 </template>
 
 <script>
  export default {
   data(){
     return {
-      showBtn:false,
+      showBtn: false
     }
   },
   methods:{
     moveToTop:function(){
       window.scrollTo({
-        top:0,
-        behavior:"smooth",
+        behavior: "smooth",
+        top: 0,
       })
     }
   },
   mounted: function(){
     window.addEventListener('scroll', ()=>{
-      this.showBtn = (window.scrollY > 150);
+      this.showBtn = (window.scrollY > 150)
     });
   }
  }
 </script>
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 // TODO:ネストした時に矢印を表示させる
 .arrow{
     user-select: none;

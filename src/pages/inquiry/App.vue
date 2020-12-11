@@ -1,61 +1,61 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :isAnonymous="isAnonymous"
-        :isLogin="isLogin"
-        :visitorName="visitorName"/>
+        :isAnonymous = "isAnonymous"
+        :isLogin     = "isLogin"
+        :visitorName = "visitorName"/>
       <!--以下メイン-->
       <main>
         <PageTitle
-          description="ご意見＆ご要望入力フォーム"
-          title="Contact"/>
-        <div class="inquiry-discription">
+          description = "ご意見＆ご要望入力フォーム"
+          title       = "Contact"/>
+        <div class = "inquiry-discription">
           <p>
             <a
-              href="https://jwatch-8411c.web.app/question/index.html"
-              rel="nofollow noopener noreferrer"
-              target="_brank"
+              href   = "https://jwatch-8411c.web.app/question/index.html"
+              rel    = "nofollow noopener noreferrer"
+              target = "_brank"
               >Q&A</a
             >にも情報がありますのでそちらも参考にしてください。
           </p>
         </div>
-        <form class="inquiry-form">
+        <form class = "inquiry-form">
             <InputBox
-              placeholder=""
-              subject="お名前(任意)"
-              type="text"
-              v-model="name"/>
+              placeholder = ""
+              subject     = "お名前(任意)"
+              type        = "text"
+              v-model     = "name"/>
             <InputBox
-              maxlength="50"
-              placeholder=""
-              subject="メールアドレス(任意)"
-              type="text"
-              v-model="mailAddress"/>
+              maxlength   = "50"
+              placeholder = ""
+              subject     = "メールアドレス(任意)"
+              type        = "text"
+              v-model     = "mailAddress"/>
             <InputBox
-              subject="タイトル"
-              type="text"
-              v-model="title"/>
+              subject = "タイトル"
+              type    = "text"
+              v-model = "title"/>
             <TextareaBox
-              placeholder="400字以内で入力してください"
-              subject="本文"
-              v-model="body"/>
-            <p class="execute" @click="showReconfirmationPopup">送信する</p>
+              placeholder = "400字以内で入力してください"
+              subject     = "本文"
+              v-model     = "body"/>
+            <p class = "execute" @click = "showReconfirmationPopup">送信する</p>
         </form>
         <!-- 再確認のポップアップ -->
-        <div class="inquiry-execute">
+        <div class = "inquiry-execute">
           <ReconfirmationPopup
-            v-if="isReconfirmationPopup"
-            message="送信してもよろしいですか？"
-            process="送信する"
-            @reconfirmationPopupHide="hideReconfirmationPopup"
-            @sendData="sendInquiryData"/>
+            v-if                     = "isReconfirmationPopup"
+            message                  = "送信してもよろしいですか？"
+            process                  = "送信する"
+            @reconfirmationPopupHide = "hideReconfirmationPopup"
+            @sendData                = "sendInquiryData"/>
           <!-- 投稿完了のポップアップ -->
           <CompletePopup
-            v-if="isCompletePopup"
-            message="正常に送信されました。"
-            movePage="トップページへ"
-            url="https://jwatch-8411c.web.app/mainpage/index.html"/>
+            v-if     = "isCompletePopup"
+            message  = "正常に送信されました。"
+            movePage = "トップページへ"
+            url      = "https://jwatch-8411c.web.app/mainpage/index.html"/>
         </div>
         <MoveTopBtn/>
       </main>
@@ -144,7 +144,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .wrap {
   overflow: hidden;
 }

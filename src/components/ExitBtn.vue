@@ -9,13 +9,13 @@
 <script>
 export default {
   props:{
-    execution:String,
-    name:String
+    execution: String,
+    name:      String
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 p{
   font-size: 16px;
   width: 250px;

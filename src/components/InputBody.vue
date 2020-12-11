@@ -1,13 +1,13 @@
 <template>
-  <div class="input-body">
+  <div class = "input-body">
     <h3>本文</h3>
     <textarea
-      :maxlength= "maxlength"
-      :placeholder= "placeholder"
-      v-model="count"
-      @input="inputBodyValue"
+      :maxlength   = "maxlength"
+      :placeholder = "placeholder"
+      v-model      = "count"
+      @input       = "inputBodyValue"
     ></textarea>
-    <div class="count-character">
+    <div class = "count-character">
       <p>残り{{ 400 - count.length }}字です</p>
     </div>
   </div>
@@ -21,8 +21,8 @@ export default {
     }
   },
   props:{
-    maxlength:{ type:String, default:"400" },
-    placeholder:{ type:String, default:"400字以内で入力してください" }
+    maxlength:   { type:String, default:"400" },
+    placeholder: { type:String, default:"400字以内で入力してください" }
   },
   methods:{
     inputBodyValue: function(e){
@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
   /* 題名 */
 .input-body{
   h3 {

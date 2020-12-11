@@ -1,6 +1,6 @@
 <template>
-  <div class="page-title-wrapper">
-    <div class="page-title">
+  <div class = "page-title-wrapper">
+    <div class = "page-title">
       <h1>{{ title }}</h1>
       <p>{{ description }}</p>
     </div>
@@ -11,12 +11,12 @@
 export default {
   props: {
     description: String,
-    title: String
-  },
+    title:       String
+  }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .page-title{
     margin-left: 20%;
     margin-top: 250px;

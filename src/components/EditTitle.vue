@@ -1,14 +1,13 @@
 <template>
-  <div class="edit-title">
+  <div class = "edit-title">
     <h3>タイトル</h3>
    <input
-    :maxlength= "maxlength"
-    :name= "name"
-    :placeholder= "placeholder"
-    :type= "type"
-    :value="editTitle"
-    @input="inputTitleValue"
-   >
+    :maxlength   = "maxlength"
+    :name        = "name"
+    :placeholder = "placeholder"
+    :type        = "type"
+    :value       = "editTitle"
+    @input       = "inputTitleValue">
    </div>
 </template>
 
@@ -20,11 +19,11 @@ export default {
     }
   },
   props:{
-    maxlength:{ type:String, default:"20" },
-    name:{ type:String, required:false },
-    placeholder:{ type:String, default:"20字以内で入力してください" },
-    type:{ type:String, required:false },
-    value:{ type:String, required: true }
+    maxlength:   { type:String, default:"20" },
+    name:        { type:String, required:false },
+    placeholder: { type:String, default:"20字以内で入力してください" },
+    type:        { type:String, required:false },
+    value:       { type:String, required: true }
   },
   methods:{
     inputTitleValue: function(e){
@@ -35,7 +34,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
   /* 題名 */
   .edit-title{
     h3 {

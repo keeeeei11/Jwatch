@@ -1,18 +1,18 @@
 <template>
     <header>
-      <div class="header-contents">
-        <div class="header-title">
-          <a href="https://jwatch-8411c.web.app/management/index.html">管理者画面</a>
+      <div class = "header-contents">
+        <div class = "header-title">
+          <a href = "https://jwatch-8411c.web.app/management/index.html">管理者画面</a>
         </div>
-        <div class="header-menu">
-          <a href="https://jwatch-8411c.web.app/reportlist/index.html">通報一覧</a>
-          <a href="https://jwatch-8411c.web.app/inquirymail/index.html">お問い合わせメール</a>
+        <div class = "header-menu">
+          <a href = "https://jwatch-8411c.web.app/reportlist/index.html">通報一覧</a>
+          <a href = "https://jwatch-8411c.web.app/inquirymail/index.html">お問い合わせメール</a>
         </div>
       </div>
     </header>
 </template>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 header{
   width: 100%;
   position: fixed;

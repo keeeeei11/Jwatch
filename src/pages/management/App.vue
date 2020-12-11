@@ -1,22 +1,18 @@
 <template>
-  <div id="app">
+  <div id = "app">
     <main>
-      <div class="management-title">
+      <div class = "management-title">
         <h2>管理画面</h2>
       </div>
-      <div class="management-contents">
-        <div class="management-report content">
-          <a href="http://jwatch-8411c.web.app/reportlist/index.html"
-            >通報一覧</a
-          >
+      <div class = "management-contents">
+        <div class = "management-report content">
+          <a href = "http://jwatch-8411c.web.app/reportlist/index.html">通報一覧</a>
         </div>
-        <div class="management-contact content">
-          <a href="http://jwatch-8411c.web.app/inquirymail/index.html"
-            >お問い合わせメール</a
-          >
+        <div class = "management-contact content">
+          <a href = "http://jwatch-8411c.web.app/inquirymail/index.html">お問い合わせメール</a>
         </div>
-        <div class="logout content">
-          <a href="http://jwatch-8411c.web.app/logout/index.html">ログアウト</a>
+        <div class = "logout content">
+          <a href = "http://jwatch-8411c.web.app/logout/index.html">ログアウト</a>
         </div>
       </div>
     </main>
@@ -58,7 +54,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
   text-align: center;

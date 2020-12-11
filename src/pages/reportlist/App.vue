@@ -1,72 +1,72 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <AdminHeader/>
       <main>
-        <div class="report-title">
+        <div class = "report-title">
           <h2>通報一覧</h2>
         </div>
-        <div class="report-sort">
-          <select @change="sortData()" v-model="sortValue">
-            <option value="newest" selected>通報日時が新しい順</option>
-            <option value="oldest">通報日時が古い順</option>
+        <div class = "report-sort">
+          <select @change = "sortData()" v-model = "sortValue">
+            <option value = "newest" selected>通報日時が新しい順</option>
+            <option value = "oldest">通報日時が古い順</option>
           </select>
         </div>
         <VueLoading
-          v-if="isLoading"
-          color="#aaa"
-          type="spiningDubbles"
-          :size="{ width: '100px', height: '100px' }"/>
-        <div class="report-contents" v-else>
+          v-if  = "isLoading"
+          color = "#aaa"
+          type  = "spiningDubbles"
+          :size = "{ width: '100px', height: '100px' }"/>
+        <div class = "report-contents" v-else>
           <h4>{{ reportMultipleData.length }} 件あります</h4>
           <div
-            v-for="reportSingleData in getItems"
-            :key="reportSingleData.id"
+            v-for = "reportSingleData in getItems"
+            :key  = "reportSingleData.id"
           >
-            <div class="report-example-contents">
-              <div class="report-example-post-title">
+            <div class = "report-example-contents">
+              <div class = "report-example-post-title">
                 <h3>投稿内容</h3>
               </div>
-              <div class="report-basic-information">
-                <div class="report-basic-information-top">
-                  <div class="report-name">
+              <div class = "report-basic-information">
+                <div class = "report-basic-information-top">
+                  <div class = "report-name">
                     <p>{{ reportSingleData.postContributorName }}</p>
                   </div>
-                  <div class="report-uid">
+                  <div class = "report-uid">
                     <p>{{ reportSingleData.postContributorUid }}</p>
                   </div>
-                  <div class="report-date">
+                  <div class = "report-date">
                     <p>{{ reportSingleData.postCreated }}</p>
                   </div>
                 </div>
-                <div class="report-basic-information-bottom">
-                  <div class="report-stadium">
+                <div class = "report-basic-information-bottom">
+                  <div class = "report-stadium">
                     <p>{{ reportSingleData.postStadium }}</p>
                   </div>
-                  <div class="report-category">
+                  <div class = "report-category">
                     <p>{{ reportSingleData.postCategory }}</p>
                   </div>
                 </div>
               </div>
-              <div class="report-main-content">
-                <div class="report-title">
+              <div class = "report-main-content">
+                <div class = "report-title">
                   <p>{{ reportSingleData.postTitle }}</p>
                 </div>
-                <div class="report-text">
+                <div class = "report-text">
                   <p>{{ reportSingleData.postBody }}</p>
                 </div>
               </div>
-              <div class="report-example-warning">
-                <div class="report-example-warning-title">
+              <div class = "report-example-warning">
+                <div class = "report-example-warning-title">
                   <h3>通報理由</h3>
                   <p>{{ reportSingleData.reportReason }}</p>
                   <p>{{ reportSingleData.reportCreated }}</p>
                 </div>
               </div>
-              <div class="report-evaluation">
-                <div class="report-evaluation-contents">
-                  <div class="report-delete">
-                    <button @click="deleteSelectData(reportSingleData.id)">
+              <div class = "report-evaluation">
+                <div class = "report-evaluation-contents">
+                  <div class = "report-delete">
+                    <button @click = "deleteSelectData(reportSingleData.id)">
                       削除する
                     </button>
                   </div>
@@ -76,18 +76,18 @@
           </div>
         </div>
         <Paginate
-          :page-count="getPageCount"
-          :page-range="3"
-          :margin-pages="2"
-          :click-handler="clickCallback"
-          :prev-text="'<<'"
-          :next-text="'>>'"
-          :no-li-surround="true"
-          :container-class="'paginate'"
-          :prev-link-class="'prev-link'"
-          :page-link-class="'page-link'"
-          :next-link-class="'next-link'"
-          :active-class="'active-page-link'"/>
+          :page-count      = "getPageCount"
+          :page-range      = "3"
+          :margin-pages    = "2"
+          :click-handler   = "clickCallback"
+          :prev-text       = "'<<'"
+          :next-text       = "'>>'"
+          :no-li-surround  = "true"
+          :container-class = "'paginate'"
+          :prev-link-class = "'prev-link'"
+          :page-link-class = "'page-link'"
+          :next-link-class = "'next-link'"
+          :active-class    = "'active-page-link'"/>
         <MoveTopBtn/>
       </main>
     </div>
@@ -107,12 +107,10 @@ import { VueLoading } from "vue-loading-template";
 export default {
   data() {
     return {
-      // お問い合わせのデータを格納
       currentPage:        1,
       parPage:            5,
       reportMultipleData: [],
       sortValue:          sessionStorage.getItem("sortkey"),
-      // ローディング画面
       isLoading: false
     };
   },
@@ -127,14 +125,12 @@ export default {
     judgeAdmin: function() {
       // ログインしていない時でもfirebase.auth()は実行される
       firebase.auth().onAuthStateChanged((user) => {
-        // ログインしていないユーザーを強制的にトップページに飛ばす
         if (!user) {
           location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         } else {
           const admin = firebase.firestore().collection("admin");
           admin.get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              // 管理者以外のユーザーを強制的にトップページに飛ばす
               if (doc.id != user.uid) {
                 location.href =
                   "https://jwatch-8411c.web.app/mainpage/index.html";
@@ -144,6 +140,7 @@ export default {
         }
       });
     },
+    // TODO:クラス名と整形する
     loadDataFromDB: function() {
       this.isLoading = true;
       this.postMultipleData = [];
@@ -262,7 +259,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang = "scss">
 .wrap {
   overflow: hidden;
 }

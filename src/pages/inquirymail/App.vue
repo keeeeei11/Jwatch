@@ -1,57 +1,57 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <AdminHeader/>
       <main>
-        <div class="inquiry-title">
+        <div class = "inquiry-title">
           <h2>お問い合わせメール</h2>
           <p>{{ inquiryMultipleData.length }} 件あります</p>
         </div>
-        <div class="inquiry-sort">
-          <select @change="sortData()" v-model="sortValue">
-            <option value="newest" selected>日時が新しい順</option>
-            <option value="oldest">日時が古い順</option>
+        <div class = "inquiry-sort">
+          <select @change = "sortData()" v-model = "sortValue">
+            <option value = "newest" selected>日時が新しい順</option>
+            <option value = "oldest">日時が古い順</option>
           </select>
         </div>
         <VueLoading
-          v-if="isLoading"
-          color="#aaa"
-          type="spiningDubbles"
-          :size="{ width: '100px', height: '100px' }"/>
-        <div class="inquiry-data" v-else>
+          v-if  = "isLoading"
+          color = "#aaa"
+          type  = "spiningDubbles"
+          :size = "{ width: '100px', height: '100px' }"/>
+        <div class = "inquiry-data" v-else>
           <div
-            v-for="inquirySingleData in getItems"
-            :key="inquirySingleData.id"
+            v-for = "inquirySingleData in getItems"
+            :key  = "inquirySingleData.id"
           >
-            <div class="inquiry-contents">
-              <div class="inquiry-example-contents">
-                <div class="inquiry-basic-information">
-                  <div class="inquiry-basic-information-top">
-                    <div class="inquiry-name">
+            <div class = "inquiry-contents">
+              <div class = "inquiry-example-contents">
+                <div class = "inquiry-basic-information">
+                  <div class = "inquiry-basic-information-top">
+                    <div class = "inquiry-name">
                       <p>{{ inquirySingleData.name }}</p>
                     </div>
-                    <div class="inquiry-email">
+                    <div class = "inquiry-email">
                       <p>{{ inquirySingleData.mailAddress }}</p>
                     </div>
                   </div>
-                  <div class="inquiry-basic-information-bottom">
-                    <div class="inquiry-date">
+                  <div class = "inquiry-basic-information-bottom">
+                    <div class = "inquiry-date">
                       <p>{{ inquirySingleData.created }}</p>
                     </div>
                   </div>
                 </div>
-                <div class="inquiry-main-content">
-                  <div class="inquiry-title">
+                <div class = "inquiry-main-content">
+                  <div class = "inquiry-title">
                     <p>{{ inquirySingleData.title }}</p>
                   </div>
-                  <div class="inquiry-text">
+                  <div class = "inquiry-text">
                     <p>{{ inquirySingleData.body }}</p>
                   </div>
                 </div>
-                <div class="inquiry-evaluation">
-                  <div class="inquiry-evaluation-contents">
-                    <div class="inquiry-delete">
-                      <button @click="deleteSelectData(inquirySingleData.id)">
+                <div class = "inquiry-evaluation">
+                  <div class = "inquiry-evaluation-contents">
+                    <div class = "inquiry-delete">
+                      <button @click = "deleteSelectData(inquirySingleData.id)">
                         このお問い合わせを削除する
                       </button>
                     </div>
@@ -62,18 +62,18 @@
           </div>
         </div>
         <Paginate
-          :page-count="getPageCount"
-          :page-range="3"
-          :margin-pages="2"
-          :click-handler="clickCallback"
-          :prev-text="'<<'"
-          :next-text="'>>'"
-          :no-li-surround="true"
-          :container-class="'paginate'"
-          :prev-link-class="'prev-link'"
-          :page-link-class="'page-link'"
-          :next-link-class="'next-link'"
-          :active-class="'active-page-link'"/>
+          :page-count      = "getPageCount"
+          :page-range      = "3"
+          :margin-pages    = "2"
+          :click-handler   = "clickCallback"
+          :prev-text       = "'<<'"
+          :next-text       = "'>>'"
+          :no-li-surround  = "true"
+          :container-class = "'paginate'"
+          :prev-link-class = "'prev-link'"
+          :page-link-class = "'page-link'"
+          :next-link-class = "'next-link'"
+          :active-class    = "'active-page-link'"/>
         <MoveTopBtn/>
       </main>
     </div>
@@ -126,6 +126,7 @@ export default {
         }
       });
     },
+    // TODO:コードのクラス名改善、整形
     loadDataFromDB: function() {
       this.isLoading = true;
       const inquiryData = firebase.firestore().collection("inquiries");
@@ -249,7 +250,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang = "scss">
 .wrap {
   overflow: hidden;
 }

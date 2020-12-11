@@ -1,17 +1,17 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
-        :isAnonymous="isAnonymous"
-        :isLogin="isLogin"
-        :visitorName="visitorName"/>
+        :isAnonymous = "isAnonymous"
+        :isLogin     = "isLogin"
+        :visitorName = "visitorName"/>
       <main>
-        <div class="warning">
+        <div class = "warning">
           <PageTitle
-            description="投稿禁止対象に関する情報が記載されています"
-            title="About warning"/>
-          <div class="warning-contents">
-              <div class="warning-discription">
+            description = "投稿禁止対象に関する情報が記載されています"
+            title       = "About warning"/>
+          <div class = "warning-contents">
+              <div class = "warning-discription">
                 <p>
                   1.特定のチーム、選手、サポーターへの暴言が投稿の中に含まれている。<br />
                   2.有害なサイトへの誘導等。<br />
@@ -19,14 +19,14 @@
                   4.その他閲覧者を攻撃する内容が含まれていると運営が判断した場合。
                 </p>
               </div>
-            <div class="warning-please">
+            <div class = "warning-please">
               <p>健全なサイト運営にご協力よろしくお願い致します。</p>
             </div>
           </div>
         <Induction
-          description="ご意見＆ご要望はこちらから"
-          title="Contact"
-          url="https://jwatch-8411c.web.app/inquiry/index.html"/>
+          description = "ご意見＆ご要望はこちらから"
+          title       = "Contact"
+          url         = "https://jwatch-8411c.web.app/inquiry/index.html"/>
         </div>
         <MoveTopBtn/>
       </main>
@@ -55,7 +55,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 /*以下ヘッダー*/
 .wrap {
   overflow: hidden;

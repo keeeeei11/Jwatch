@@ -1,28 +1,28 @@
 <template>
-  <div class="attention">
-    <div class="attention-title">
+  <div class = "attention">
+    <div class = "attention-title">
       <h2>Points to note</h2>
       <p>注意点</p>
     </div>
-    <div class="attention-discriptions">
-      <div class="attention-discription01">
+    <div class = "attention-discriptions">
+      <div class = "attention-discription01">
         <p>
           ・一つの投稿で一つのテーマについて記載してください。<br />
           例)一つの投稿でグルメと交通情報を両方記載する等はお控えください。
         </p>
       </div>
-      <div class="attention-discription02">
+      <div class = "attention-discription02">
         <p>
           ・投稿禁止対象に該当する投稿だと運営が判断した場合、投稿禁止とさせていただくことがあります。<br />
           ・投稿禁止対象となる行為は<a
-            href="https://jwatch-8411c.web.app/warning/index.html"
-            target="_brank"
-            rel="nofollow noopener noreferrer"
+            href   = "https://jwatch-8411c.web.app/warning/index.html"
+            target = "_brank"
+            rel    = "nofollow noopener noreferrer"
             >こちら</a
           >をご覧ください。
         </p>
       </div>
-      <div class="attention-discription03">
+      <div class = "attention-discription03">
         <p>
           ・特定のチームや選手,サポーターへの誹謗中傷は如何なる理由であれ投稿禁止対象となります。
         </p>
@@ -30,7 +30,7 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 /*注意点*/
 .attention {
   margin-top: 100px;

@@ -1,19 +1,18 @@
 <template>
   <select
-    size="1"
-    @change="inputReportValue"
-  >
-    <option value="" disabled selected>--通報の理由(必須)--</option>
-    <option value="特定のチーム、選手、サポーターへの誹謗中傷"
+    size    = "1"
+    @change = "inputReportValue">
+    <option value = "" disabled selected>--通報の理由(必須)--</option>
+    <option value = "特定のチーム、選手、サポーターへの誹謗中傷"
       >特定のチーム、選手、サポーターへの誹謗中傷</option
     >
-    <option value="有害なサイトへの誘導"
+    <option value = "有害なサイトへの誘導"
       >有害なサイトへの誘導</option
     >
-    <option value="重複する内容を過剰に連投する行為"
+    <option value = "重複する内容を過剰に連投する行為"
       >重複する内容を過剰に連投する行為</option
     >
-    <option value="その他">その他</option>
+    <option value = "その他">その他</option>
   </select>
 </template>
 
@@ -30,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 select {
   height: 30px;
   width: 50%;

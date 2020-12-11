@@ -1,24 +1,24 @@
 <template>
-  <div id="app">
-    <div class="wrap">
+  <div id = "app">
+    <div class = "wrap">
       <Jheader
         :isAnonymous = "isAnonymous"
         :isLogin     = "isLogin"
         :visitorName = "visitorName"/>
       <main>
-        <div class="post-imformation">
+        <div class = "post-imformation">
           <PageTitle
             description = "観戦情報を投稿しましょう！"
             title       = "Post informations"/>
         </div>
         <!-- 注意点 -->
         <PointToNote/>
-        <div class="post-form">
-          <div class="post-form-title">
+        <div class = "post-form">
+          <div class = "post-form-title">
             <h2>Input form</h2>
             <p>入力フォーム</p>
           </div>
-            <form class="post-stadium">
+            <form class = "post-stadium">
               <InputStadium
                 v-model = "stadium"/>
             </form>
@@ -26,19 +26,19 @@
               <InputCategory
                 v-model = "category"/>
             </form>
-            <form class="post-title-information" @submit.prevent>
+            <form class = "post-title-information" @submit.prevent>
               <InputBox
                 v-model = "title"
                 subject = "タイトル"
                 type    = "text"/>
             </form>
-            <form class="post-text-information">
+            <form class = "post-text-information">
               <TextareaBox
                 v-model = "body"
                 subject = "本文"/>
               <p class = "execute" @click = "showReconfirmationPopup">投稿する！</p>
             </form>
-          <div class="post-warning">
+          <div class = "post-warning">
             <p>
               ※投稿内容が警告対象に当てはらないかもう一度確認してから投稿する！ボタンを押してください。<br/>
               警告対象となる行為は<a
@@ -178,7 +178,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .wrap {
   overflow: hidden;
 }

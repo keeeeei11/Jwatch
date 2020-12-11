@@ -1,18 +1,17 @@
 <template>
   <Paginate
-    :margin-pages="marginPages"
-    :page-count="getPageCount"
-    :page-range="pageRange"
-    :click-handler="clickCallback"
-    :prev-text="'<<'"
-    :next-text="'>>'"
-    :no-li-surround="true"
-    :container-class="'paginate'"
-    :prev-link-class="'prev-link'"
-    :page-link-class="'page-link'"
-    :next-link-class="'next-link'"
-    :active-class="'active-page-link'"
-  />
+    :margin-pages    = "marginPages"
+    :page-count      = "getPageCount"
+    :page-range      = "pageRange"
+    :click-handler   = "clickCallback"
+    :prev-text       = "'<<'"
+    :next-text       = "'>>'"
+    :no-li-surround  = "true"
+    :container-class = "'paginate'"
+    :prev-link-class = "'prev-link'"
+    :page-link-class = "'page-link'"
+    :next-link-class = "'next-link'"
+    :active-class    = "'active-page-link'"/>
 </template>
 
 <script>
@@ -21,42 +20,49 @@ export default {
   data(){
     return {
       currentPage: 1,
-      parPage: 10,
+      parPage:     10,
     }
   },
   props:{
-    marginPages:{ type: Number, default:3 },
-    pageRange:{ type: Number, default:2 },
-    postMultipleData:{ type: Array },
+    marginPages:      { type: Number, default:3 },
+    pageRange:        { type: Number, default:2 },
+    postMultipleData: { type: Array }
   },
   methods:{
     clickCallback: function (pageNum) {
       this.currentPage = Number(pageNum);
       window.scrollTo({
-        top: 0,
         behavior: "instant",
+        top: 0,
       });
     },
-    sendGetItems: function () {
-      this.$emit("catchGetItems", this.getItems)
-    },
-    sendGetCounts: function(){
-      this.$emit("catchGetCount", this.getPageCount)
-    }
+    // TODO:getItemsをemit
+    // sendGetItems: function () {
+      // },
+    // sendGetCounts: function(){
+      //   this.$emit("catchGetCount", this.getPageCount)
+    // }
   },
   components:{
     Paginate,
   },
   computed: {
     getItems: function () {
-      let current = this.currentPage * this.parPage;
-      let start = current - this.parPage;
-      return this.postMultipleData.slice(start, current);
+      console.log("実行")
+      const current = this.currentPage * this.parPage;
+      const start = current - this.parPage;
+      const foo = this.postMultipleData.slice(start, current);
+      this.$emit("catchGetItems", foo)
+      return foo
     },
     getPageCount: function () {
       return Math.ceil(this.postMultipleData.length / this.parPage);
     },
   },
+  // mounted: function(){
+  //   this.sendGetItems();
+  //   this.sendGetCounts()
+  // }
 }
 </script>
 

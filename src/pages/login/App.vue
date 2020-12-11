@@ -1,29 +1,29 @@
 <template>
-  <div id="app">
-    <div class="normal-page" v-if="!isLoading">
-      <div class="wrap">
+  <div id = "app">
+    <div class = "normal-page" v-if = "!isLoading">
+      <div class = "wrap">
         <Jheader
-          :isAnonymous="isAnonymous"
-          :isLogin="isLogin"
-          :visitorName="visitorName"/>
+          :isAnonymous = "isAnonymous"
+          :isLogin     = "isLogin"
+          :visitorName = "visitorName"/>
         <main>
             <PageTitle
-              description="観戦情報の投稿はログインが必要です。"
-              title="Login Page"/>
-            <div class="login-contents">
+              description = "観戦情報の投稿はログインが必要です。"
+              title       = "Login Page"/>
+            <div class = "login-contents">
               <h2>ログイン方法を選択してください</h2>
               <LoginBtn
-                @click.native="loginGoogle"
-                loginMethod="Googleアカウントでログイン"
-                name="google"/>
+                @click.native = "loginGoogle"
+                loginMethod   = "Googleアカウントでログイン"
+                name          = "google"/>
               <LoginBtn
-                loginMethod="Twitterアカウントでログイン"
-                @click.native="loginTwitter"
-                name="twitter"/>
+                loginMethod   = "Twitterアカウントでログイン"
+                @click.native = "loginTwitter"
+                name          = "twitter"/>
               <LoginBtn
-                loginMethod="簡単(匿名)ログイン"
-                @click.native="loginAnonymous"
-                name="anonymous"/>
+                loginMethod   = "簡単(匿名)ログイン"
+                @click.native = "loginAnonymous"
+                name          = "anonymous"/>
               <p>ログイン完了後、マイページに移動します</p>
             </div>
           <MoveTopBtn/>
@@ -31,11 +31,11 @@
         <Jfooter/>
       </div>
     </div>
-    <div class="loading-page" v-else>
+    <div class = "loading-page" v-else>
       <VueLoading
-        color="#aaa"
-        type="spiningDubbles"
-        :size="{ width: '100px', height: '100px' }"/>
+        color = "#aaa"
+        type  = "spiningDubbles"
+        :size = "{ width: '100px', height: '100px' }"/>
     </div>
   </div>
 </template>
@@ -99,7 +99,7 @@ export default {
             if (user) {
               sessionStorage.setItem("loading", this.isLoading);
             } else {
-              alert("エラーが発生しました。もう一度ログインしてください。");
+              alert("エラーが発生しました。ページを更新してからもう一度ログインしてください。");
             }
           });
         });
@@ -121,7 +121,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 .wrap {
   overflow: hidden;
 }

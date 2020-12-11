@@ -1,39 +1,45 @@
 <template>
     <footer>
-    <div class="footer-contants">
-      <div class="footer-title">
+    <div class = "footer-contants">
+      <div class = "footer-title">
           <h3>Jwatch</h3>
           <p>〜全ての人にサッカー観戦の楽しみを〜</p>
-          <div class="footer-copyrights">
+          <div class = "footer-copyrights">
             <p>©2020 Keigo Takai</p>
           </div>
       </div>
-      <div class="link">
-        <a href="https://jwatch-8411c.web.app/inquiry/index.html">ご要望＆ご意見はこちら</a><br>
-        <a href="https://jwatch-8411c.web.app/question/index.html">Q&A</a><br>
-        <a href="https://jwatch-8411c.web.app/introduction/index.html">About 管理人</a>
+      <div class = "link">
+        <a href = "https://jwatch-8411c.web.app/inquiry/index.html">ご要望＆ご意見はこちら</a><br>
+        <a href = "https://jwatch-8411c.web.app/question/index.html">Q&A</a><br>
+        <a href = "https://jwatch-8411c.web.app/introduction/index.html">About 管理人</a>
       </div>
-      <div class="sns">
-        <div class="icon-title">
+      <div class = "sns">
+        <div class = "icon-title">
             <p>share</p>
         </div>
-        <div class="icon-img">
-            <div class="icon-top">
-                <div class="twitter">
-                    <a href="https://twitter.com/intent/tweet?url=https://jwatch-8411c.web.app/mainpage/index.html&text=Jwatch Jリーグのスタジアム観戦情報を投稿＆閲覧できるサイト&hashtags=Jwatch&hashtags=Jリーグ" target="_blank" rel="nofollow noopener noreferrer">
-                    <i class="fab fa-twitter"></i>
+        <div class = "icon-img">
+            <div class = "icon-top">
+                <div class = "twitter">
+                    <a href   = "https://twitter.com/intent/tweet?url=https://jwatch-8411c.web.app/mainpage/index.html&text=Jwatch Jリーグのスタジアム観戦情報を投稿＆閲覧できるサイト&hashtags=Jwatch&hashtags=Jリーグ"
+                       target = "_blank"
+                       rel    = "nofollow noopener noreferrer">
+                    <i class = "fab fa-twitter"></i>
                     </a>
                 </div>
-                <div class="line">
-                    <a href="https://social-plugins.line.me/lineit/share?url=https://jwatch-8411c.web.app/mainpage/index.html" target="_blank" rel="nofollow noopener noreferrer">
-                    <i class="fab fa-line"></i>
+                <div class = "line">
+                    <a href   = "https://social-plugins.line.me/lineit/share?url=https://jwatch-8411c.web.app/mainpage/index.html"
+                       target = "_blank"
+                       rel    = "nofollow noopener noreferrer">
+                    <i class = "fab fa-line"></i>
                     </a>
                 </div>
             </div>
-            <div class="icon-bottom">
-                <div class="facebook">
-                    <a href="http://facebook.com/share.php?u=https://jwatch-8411c.web.app/mainpage/index.html" target="_blank" rel="nofollow noopener noreferrer">
-                    <i class="fab fa-facebook-square"></i>
+            <div class = "icon-bottom">
+                <div class = "facebook">
+                    <a href   = "http://facebook.com/share.php?u=https://jwatch-8411c.web.app/mainpage/index.html"
+                       target = "_blank"
+                       rel    = "nofollow noopener noreferrer">
+                    <i class = "fab fa-facebook-square"></i>
                     </a>
                 </div>
             </div>
@@ -43,7 +49,7 @@
   </footer>
 </template>
 
-<style lang="scss" scoped>
+<style lang = "scss" scoped>
 footer{
   background-color:#f2f2f2;
   border-top: 1.5px solid #efefef;
