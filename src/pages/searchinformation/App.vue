@@ -23,7 +23,7 @@
             <button @click = "loadDataFromDB(stadium, category)">情報を見る！</button>
           </div>
           <div class = "post-sort">
-            <select @change = "loadDataFromDB(stadium, category)" v-model="sortValue">
+            <select @change = "loadDataFromDB(stadium, category)" v-model = "sortValue">
               <option value = "newest" selected>日時が新しい順</option>
               <option value = "oldest">日時が古い順</option>
               <option value = "good">いいねが多い順</option>
@@ -77,8 +77,7 @@
                     </div>
                     <div
                       class = "allow-manage"
-                      v-if  = "postSingleData.contributorUid == visitorUid"
-                    >
+                      v-if  = "postSingleData.contributorUid == visitorUid">
                       <div class = "deleting evaluation-btn">
                         <button @click = "deleteSelectData(postSingleData.id)">
                           削除する
@@ -106,21 +105,21 @@
                   <h3>編集画面</h3>
                   <form class = "edit-stadium">
                     <EditStadium
-                      v-model="editStadium"/>
+                      v-model = "editStadium"/>
                   </form>
                   <form class = "edit-category">
                     <EditCategory
-                      v-model="editCategory"/>
+                      v-model = "editCategory"/>
                   </form>
                   <form class = "edit-title-information" @submit.prevent>
                     <EditTitle
-                     v-model="editTitle"
-                     type   = "text"/>
+                     v-model = "editTitle"
+                     type    = "text"/>
                   </form>
                   <form class = "edit-text-information">
                     <EditBody
-                     v-model="editBody"
-                     type   = "text"/>
+                     v-model = "editBody"
+                     type    = "text"/>
                   </form>
                   <div class = "edit-btn">
                     <button @click = "hideEditPage()">戻る</button>
@@ -180,10 +179,6 @@
             :page-link-class = "'page-link'"
             :next-link-class = "'next-link'"
             :active-class    = "'active-page-link'"/>
-             <!-- <Paginate
-             :postMultipleData="postMultipleData"
-             @catchGetItems="receiveGetItems"
-             /> -->
         </div>
         <MoveTopBtn/>
       </main>
@@ -208,7 +203,6 @@ import Jheader        from "../../components/Jheader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
 import myFirstMixin   from "../../mixin/myFirstMixin";
 import PageTitle      from "../../components/PageTitle";
-// import Paginate       from "../../components/Paginate";
 import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
@@ -257,10 +251,6 @@ export default {
   },
   mixins:[myFirstMixin],
   methods: {
-    receiveGetItems: function(data){
-      console.log(data)
-      // this.postMultipleData = data
-    },
     loadDataFromDB: function(stadium, category) {
       if (this.stadium.length > 0 && this.category.length > 0) {
         this.isLoading        = true;
@@ -316,7 +306,6 @@ export default {
             });
             // 投稿をいいねが多い順にソートして表示する
         } else if (this.sortValue === "good") {
-           // TODO:goodDisplayDataを直感で理解できる名前に変える
           const goodOrder = dataBeforeOrder
             .orderBy("likedCounter", "desc")
             .get()
@@ -403,7 +392,6 @@ export default {
         }
       })
     },
-    // 編集画面の表示/非表示
     showEditPage: function(postData, postDataId){
       this.editBody     = postData.body;
       this.editCategory = postData.category;
@@ -414,7 +402,6 @@ export default {
     hideEditPage: function() {
       this.editId = ""
     },
-    // 編集完了画面の表示/非表示
     showEditedPage: function() {
       this.isCompleteEdit = true;
       this.editId         = ""
@@ -465,12 +452,11 @@ export default {
     hideReportPage: function() {
       this.reportId = ""
     },
-    // 通報完了画面の表示/非表示
     showReportedPopup: function() {
       this.isCompleteReport = true;
       this.reportId         = ""
     },
-    // 通報データの追加
+    // DBに通報データを追加する
     reportSelectData: function() {
       const now       = new Date();
       const dataReport = {

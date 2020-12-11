@@ -13,9 +13,9 @@
           <div class = "warning-contents">
               <div class = "warning-discription">
                 <p>
-                  1.特定のチーム、選手、サポーターへの暴言が投稿の中に含まれている。<br />
-                  2.有害なサイトへの誘導等。<br />
-                  3.重複する内容を過剰に連投する行為。<br />
+                  1.特定のチーム、選手、サポーターへの暴言が投稿の中に含まれている。<br/>
+                  2.有害なサイトへの誘導等。<br/>
+                  3.重複する内容を過剰に連投する行為。<br/>
                   4.その他閲覧者を攻撃する内容が含まれていると運営が判断した場合。
                 </p>
               </div>
@@ -49,9 +49,9 @@ export default {
     Jfooter,
     Jheader,
     MoveTopBtn,
-    PageTitle,
+    PageTitle
   },
-  mixins: [myFirstMixin],
+  mixins: [myFirstMixin]
 };
 </script>
 

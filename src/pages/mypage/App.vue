@@ -229,8 +229,8 @@ export default {
   methods: {
     judgeAdmin: function() {
       firebase.auth().onAuthStateChanged((user) => {
-        const admin = firebase.firestore().collection("admin");
-        admin.get().then((querySnapshot) => {
+        const adminUser = firebase.firestore().collection("admin");
+        adminUser.get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             if (doc.id == user.uid) {
               location.href =
@@ -246,18 +246,17 @@ export default {
       this.isLoading = true;
       firebase.auth().onAuthStateChanged((user) => {
         this.isNothingData = true;
-        const postData = firebase.firestore().collection("posts");
-        const displayData = postData
-          .where("contributorUid", "==", user.uid)
-          .orderBy("created", "desc")
-          .get()
-          // 0件の場合はforEachが実行されないのでthis.isNothingData = trueのままで処理が完了する。
-          .then((querySnapshot) => {
+        const dataBeforeOrder    = firebase.firestore().collection("posts");
+        const dataOrderUser      = dataBeforeOrder
+                                   .where("contributorUid", "==", user.uid)
+                                   .orderBy("created", "desc")
+          .get().then((querySnapshot) => {
             this.isNothingData = false;
             querySnapshot.forEach((doc) => {
               this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
+
              if (this.postMultipleData.length == 0) {
                 this.isNothingData = true;
               } else {
@@ -265,7 +264,7 @@ export default {
               }
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, displayData);
+            console.log("Error getting documents: ", error, dataOrderUser);
             this.isLoading = false;
           });
       });
@@ -289,7 +288,7 @@ export default {
     },
     editSelectData: function(postSingleData, postSingleDataId) {
       const postdata = firebase.firestore().collection("posts");
-      const now = new Date();
+      const now      = new Date();
       // スタジアムとカテゴリーが入力されているか判定する
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
@@ -319,18 +318,17 @@ export default {
       }
     },
     // 選択した投稿を削除する
-    deleteSelectData: function(id) {
+    deleteSelectData: function(selectedPostId) {
       if (confirm("この投稿を削除しますか？一度削除すると2度と戻せません。")) {
-        const postData = firebase.firestore().collection("posts");
-        postData
-          .doc(id)
+        const datadelete = firebase.firestore().collection("posts")
+          .doc(selectedPostId)
           .delete()
           .then(function() {
             alert("削除できました。");
             return location.reload();
           })
           .catch(function(error) {
-            console.error("エラーが発生しました。: ", error);
+            console.error("エラーが発生しました。: ", error, datadelete);
           });
       }
     },

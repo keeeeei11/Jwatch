@@ -389,7 +389,7 @@ export default {
     },
     // 通報データの追加
     reportData: function () {
-      const now = new Date();
+      const now       = new Date();
       const inputData = {
         // 通報対象の投稿データ
         postBody:            this.reportBody,
