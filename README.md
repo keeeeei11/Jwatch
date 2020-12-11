@@ -1,6 +1,6 @@
 # Jwatchのサービス概要
 ## イメージ
-<img width="720" alt="スクリーンショット 2020-12-11 23 35 33" src="https://user-images.githubusercontent.com/64242843/101916008-b7259d80-3c09-11eb-9426-711b5cb30d9b.png">
+<img width="1440" alt="スクリーンショット 2020-12-11 23 35 33" src="https://user-images.githubusercontent.com/64242843/101916008-b7259d80-3c09-11eb-9426-711b5cb30d9b.png">
 <img width="1440" alt="スクリーンショット 2020-12-11 23 37 28" src="https://user-images.githubusercontent.com/64242843/101916140-e3411e80-3c09-11eb-86f1-30cf63d0081d.png">
 <img width="1440" alt="スクリーンショット 2020-12-11 23 37 41" src="https://user-images.githubusercontent.com/64242843/101916148-e50ae200-3c09-11eb-9f96-496a7f66fb72.png">
 ## 概要
