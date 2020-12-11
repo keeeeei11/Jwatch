@@ -2,7 +2,7 @@
 ## イメージ
 <img width="560" alt="スクリーンショット 2020-12-11 23 35 33" src="https://user-images.githubusercontent.com/64242843/101916008-b7259d80-3c09-11eb-9426-711b5cb30d9b.png">
 <img width="560" alt="スクリーンショット 2020-12-11 23 37 28" src="https://user-images.githubusercontent.com/64242843/101916140-e3411e80-3c09-11eb-86f1-30cf63d0081d.png">
-<img width="560" alt="スクリーンショット 2020-12-11 23 37 41" src="https://user-images.githubusercontent.com/64242843/101916148-e50ae200-3c09-11eb-9f96-496a7f66fb72.png">
+
 ## 概要
 Jリーグのスタジアム観戦情報を投稿＆閲覧出来るサイトです。  
 https://jwatch-8411c.web.app/mainpage/index.html  
@@ -51,9 +51,13 @@ XSS対策はVue.js、SQLインジェクション対策はfirebaseを使用して
 
 また、ソースコードは文頭を整える等の表面的な部分や、ネストをできるだけ浅くする等の構造的な部分の両面を意識しました。  
 初見でコードを理解するまでにかかる時間を短くすることを意識しました。  
+
 ■ユーザー面  
 無彩色を中心としたデザイン(どのチームのチームカラーにも採用されていないため)  
 トップページから投稿・閲覧まで数クリックで到達できるようにしました。  
+
+上記の注力したところは下記のファイルに集約されております。  
+https://github.com/keeeeei11/Jwatch/blob/master/src/pages/searchinformation/App.vue
 
 ## 作成過程
 独学でWebサービスを作成しましたが、現役のエンジニアの方の助言も頂き、客観的な意見も取り入れつつ作成しました。  
