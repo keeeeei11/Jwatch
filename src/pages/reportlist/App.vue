@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import firebase       from "firebase";
+import firebase       from "firebase/app";
 import AdminHeader    from "../../components/AdminHeader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
 import myFirstMixin   from "../../mixin/myFirstMixin";

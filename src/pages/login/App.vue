@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import firebase       from "firebase";
+import firebase       from "firebase/app";
 import Jfooter        from "../../components/Jfooter";
 import Jheader        from "../../components/Jheader";
 import LoginBtn       from "../../components/LoginBtn";

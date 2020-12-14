@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import firebase     from "firebase";
+import firebase     from "firebase/app";
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   mixins: [myFirstMixin],

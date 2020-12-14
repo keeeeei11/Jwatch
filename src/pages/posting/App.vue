@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import firebase            from "firebase";
+import firebase            from "firebase/app";
 import CompletePopup       from "../../components/CompletePopup";
 import InputBox            from "../../components/InputBox";
 import InputCategory       from "../../components/InputCategory";

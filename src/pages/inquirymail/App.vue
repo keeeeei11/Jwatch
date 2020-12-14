@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import firebase       from "firebase";
+import firebase       from "firebase/app";
 import AdminHeader    from "../../components/AdminHeader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
 import myFirstMixin   from "../../mixin/myFirstMixin";
@@ -235,7 +235,7 @@ export default {
 };
 </script>
 
-<style lang = "scss">
+<style lang = "scss" scoped>
 .wrap {
   overflow: hidden;
 }
