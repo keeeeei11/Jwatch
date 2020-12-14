@@ -39,7 +39,7 @@
             :stadium  = "stadium"
             :category = "category"/>
           <div class = "post-contents" v-else>
-            <div v-for = "postSingleData in postMultipleData" :key = "postSingleData.id">
+            <div v-for = "postSingleData in getItems" :key = "postSingleData.id">
               <div class = "post-example-contents">
                 <div class = "post-basic-information">
                   <div class = "post-basic-information-top">
@@ -215,7 +215,7 @@ export default {
       postMultipleData: [],
       // ページネーション機能
       currentPage:      1,
-      parPage:          10,
+      parPage:          5,
       sortValue:        sessionStorage.getItem("sortkey"),
       // 編集画面
       isCompleteEdit:   false,
@@ -262,9 +262,7 @@ export default {
                                 .where("category", "==", category);
             // 投稿を投稿日時の降順にソートして表示する
         if (this.sortValue === "newest") {
-          const newOrder = dataBeforeOrder
-            .orderBy("created", "desc")
-            .get()
+          dataBeforeOrder.orderBy("created", "desc").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -280,13 +278,11 @@ export default {
             })
 
             .catch(function(error) {
-              console.log("Error getting documents: ", error, newOrder);
+              console.log("Error getting documents: ", error,);
             });
             // 投稿を投稿日時の昇順にソートして表示する
         } else if (this.sortValue === "oldest") {
-          const oldOrder = dataBeforeOrder
-            .orderBy("created")
-            .get()
+           dataBeforeOrder.orderBy("created").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -302,13 +298,11 @@ export default {
             })
 
             .catch(function(error) {
-              console.log("Error getting documents: ", error, oldOrder);
+              console.log("Error getting documents: ", error);
             });
             // 投稿をいいねが多い順にソートして表示する
         } else if (this.sortValue === "good") {
-          const goodOrder = dataBeforeOrder
-            .orderBy("likedCounter", "desc")
-            .get()
+          dataBeforeOrder.orderBy("likedCounter", "desc").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -324,7 +318,7 @@ export default {
 
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error, goodOrder);
+              console.log("Error getting documents: ", error);
             });
         }
       } else {
@@ -408,12 +402,10 @@ export default {
     },
     // 編集処理
     editSelectData: function(postSingleData, postSingleDataId) {
-      const postdata = firebase.firestore().collection("posts");
       const now      = new Date();
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
-          postdata
-            .doc(postSingleDataId)
+            firebase.firestore().collection("posts").doc(postSingleDataId)
             .update(
               {
                 body:            this.editBody,
@@ -458,7 +450,7 @@ export default {
     },
     // DBに通報データを追加する
     reportSelectData: function() {
-      const now       = new Date();
+      const now        = new Date();
       const dataReport = {
         postBody:            this.reportBody,
         postCategory:        this.reportCategory,
@@ -473,14 +465,13 @@ export default {
                              + "/" + ("0" + now.getDate()).slice(-2)
       };
       if (this.reportReason.length > 0) {
-        const dataAddReportCollection = firebase.firestore().collection("reports")
-          .add(dataReport)
+          firebase.firestore().collection("reports").add(dataReport)
           .then(() => {
             this.hideReportPage();
             this.showReportedPopup();
           })
           .catch(function(error) {
-            console.error(error, dataAddReportCollection);
+            console.error(error);
           });
       } else {
         alert("通報理由を選択してください");
@@ -489,15 +480,13 @@ export default {
     // 選択した投稿を削除する
     deleteSelectData: function(selectedPostId) {
       if (confirm("この投稿を削除しますか？一度削除すると2度と戻せません。")) {
-        const datadelete = firebase.firestore().collection("posts")
-          .doc(selectedPostId)
-          .delete()
+         firebase.firestore().collection("posts").doc(selectedPostId).delete()
           .then(function() {
             alert("削除できました。");
             return location.reload();
           })
           .catch(function(error) {
-            console.error("エラーが発生しました。: ", error, datadelete);
+            console.error("エラーが発生しました。: ", error);
           });
       }
     },

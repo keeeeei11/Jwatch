@@ -9,9 +9,6 @@
 
 <script>
 import firebase     from "firebase";
-import                   "firebase/auth";
-import                   "firebase/firestore";
-import                   "firebase/storage";
 import myFirstMixin from "../../mixin/myFirstMixin";
 export default {
   mixins: [myFirstMixin],
@@ -21,8 +18,8 @@ export default {
         if (user) {
           // ユーザーが投稿したデータを削除してからアカウントを削除する
           this.deleteUid = user.uid;
-          const userPostedData = firebase.firestore().collection("posts").where("contributorUid", "==", this.deleteUid);
-          userPostedData.get().then(function(querySnapshot) {
+          firebase.firestore().collection("posts").where("contributorUid", "==", this.deleteUid)
+          .get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
               doc.ref.delete();
             });

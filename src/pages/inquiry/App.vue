@@ -67,9 +67,6 @@
 <script>
 // DBと繋いだ時にで有効にする
 import firebase            from "firebase";
-import                          "firebase/auth";
-import                          "firebase/firestore";
-import                          "firebase/storage";
 import CompletePopup       from "../../components/CompletePopup";
 import InputBox            from "../../components/InputBox";
 import Jfooter             from "../../components/Jfooter";
@@ -120,8 +117,7 @@ export default {
       (this.isCompletePopup = true), (this.isCompleteCover = true);
     },
     sendInquiryData: function() {
-      const postdata = firebase.firestore().collection("inquiries");
-      const now = new Date();
+      const now       = new Date();
       const inputdata = {
         body:        this.body,
         created:     now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) +
@@ -130,8 +126,7 @@ export default {
         name:        this.name,
         title:       this.title
       };
-      postdata
-        .add(inputdata)
+      firebase.firestore().collection("inquiries").add(inputdata)
         .then(() => {
           this.hideReconfirmationPopup();
           this.showCompletePopup();

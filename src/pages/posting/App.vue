@@ -73,9 +73,6 @@
 
 <script>
 import firebase            from "firebase";
-import                          "firebase/auth";
-import                          "firebase/firestore";
-import                          "firebase/storage";
 import CompletePopup       from "../../components/CompletePopup";
 import InputBox            from "../../components/InputBox";
 import InputCategory       from "../../components/InputCategory";
@@ -146,8 +143,7 @@ export default {
       });
     },
     sendPostData: function() {
-      const postdata = firebase.firestore().collection("posts");
-      const now = new Date();
+      const now       = new Date();
       const inputdata = {
         body:            this.body,
         category:        this.category,
@@ -161,8 +157,7 @@ export default {
         title:           this.title,
         updated:         null,
       };
-      postdata
-        .add(inputdata)
+      firebase.firestore().collection("posts").add(inputdata)
         .then(() => {
           this.hideReconfirmationPopup();
           this.showPostedPopup();
@@ -170,12 +165,12 @@ export default {
         .catch(function(error) {
           console.error(error);
         });
-    },
+    }
   },
   mounted: function() {
     this.moveToToppage();
   },
-};
+}
 </script>
 
 <style lang = "scss" scoped>

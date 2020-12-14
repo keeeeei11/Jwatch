@@ -104,6 +104,7 @@
                     <button @click = "editSelectData(postSingleData, editId)">編集する</button>
                   </div>
                 </section>
+                <!-- TODO:背景ということをコメントに残す -->
                 <div class = "background"></div>
               </div>
               <!-- 通報画面 -->
@@ -168,9 +169,6 @@
 
 <script>
 import firebase       from "firebase";
-import                "firebase/auth";
-import                "firebase/firestore";
-import                "firebase/storage";
 import CompletePopup  from "../../components/CompletePopup";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
@@ -237,16 +235,11 @@ export default {
         // 一度配列を空にしないと前の検索結果が残ったままになる。
       this.postMultipleData = [];
       // データの取得
-        const postData = firebase.firestore().collection("posts");
-        const inputData = postData.where("stadium", "==", selectStadium);
-        const displayData = inputData
-          .orderBy("likedCounter", "desc")
-          .get()
+        firebase.firestore().collection("posts").where("stadium", "==", selectStadium).orderBy("likedCounter", "desc").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
               sessionStorage.setItem("sortkey", this.sortValue);
-              // データが1件以上ある時はfalseにする
             });
             this.isLoading = false;
 
@@ -257,7 +250,7 @@ export default {
             }
           })
           .catch(function (error) {
-            console.log("Error getting documents: ", error, displayData);
+            console.log("Error getting documents: ", error);
           });
     },
     switchLikeCounter: function(postSingleData) {
@@ -336,13 +329,11 @@ export default {
       this.editId         = "";
     },
     editSelectData: function (postSingleData, postSingleDataId) {
-      const postdata = firebase.firestore().collection("posts");
-      const now = new Date();
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
-          postdata
-            .doc(postSingleDataId)
+          const now = new Date()
+          firebase.firestore().collection("posts").doc(postSingleDataId)
             .update(
               {
                 body:            this.editBody,
@@ -405,9 +396,7 @@ export default {
         reportReason:        this.reportReason,
       };
       if (this.reportReason.length > 0) {
-        const reportData = firebase.firestore().collection("reports");
-        reportData
-          .add(inputData)
+        firebase.firestore().collection("reports").add(inputData)
           .then(() => {
             this.hideReportPage();
             this.showReportedPopup();
@@ -421,10 +410,7 @@ export default {
     },
     deleteSelectData: function (id) {
       if (confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")) {
-        const postData = firebase.firestore().collection("posts");
-        postData
-          .doc(id)
-          .delete()
+        firebase.firestore().collection("posts").doc(id).delete()
           .then(function () {
             alert("削除できました。");
             return location.reload();

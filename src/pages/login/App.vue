@@ -42,9 +42,6 @@
 
 <script>
 import firebase       from "firebase";
-import                     "firebase/auth";
-import                     "firebase/firestore";
-import                     "firebase/storage";
 import Jfooter        from "../../components/Jfooter";
 import Jheader        from "../../components/Jheader";
 import LoginBtn       from "../../components/LoginBtn";
@@ -69,26 +66,27 @@ export default {
   },
   methods: {
     moveToMypage: function() {
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          sessionStorage.removeItem("loading");
-          location.href = "https://jwatch-8411c.web.app/mypage/index.html";
-        } else {
-          return
-        }
-      });
+      firebase
+        .auth().onAuthStateChanged(function(user) {
+          if (user) {
+            sessionStorage.removeItem("loading");
+            location.href = "https://jwatch-8411c.web.app/mypage/index.html";
+          } else {
+            return
+          }
+        });
     },
     loginGoogle: function() {
       firebase
         .auth()
         .signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-      sessionStorage.setItem("loading", this.isLoading);
+        sessionStorage.setItem("loading", this.isLoading);
     },
     loginTwitter: function() {
       firebase
         .auth()
         .signInWithRedirect(new firebase.auth.TwitterAuthProvider());
-      sessionStorage.setItem("loading", this.isLoading);
+        sessionStorage.setItem("loading", this.isLoading);
     },
     loginAnonymous: function() {
       firebase

@@ -84,10 +84,6 @@
 </template>
 
 <script>
-// import firebase     from "firebase";
-import                   "firebase/auth";
-import                   "firebase/firestore";
-import                   "firebase/storage";
 import Induction    from "../../components/Induction";
 import Jfooter      from "../../components/Jfooter";
 import Jheader      from "../../components/Jheader";

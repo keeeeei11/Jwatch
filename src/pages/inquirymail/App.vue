@@ -82,9 +82,6 @@
 
 <script>
 import firebase       from "firebase";
-import                     "firebase/auth";
-import                     "firebase/firestore";
-import                     "firebase/storage";
 import AdminHeader    from "../../components/AdminHeader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
 import myFirstMixin   from "../../mixin/myFirstMixin";
@@ -97,8 +94,7 @@ export default {
       inquiryMultipleData: [],
       parPage:             5,
       sortValue:           sessionStorage.getItem("sortkey"),
-      // ローディング画面
-      isLoading: false
+      isLoading:           false
     };
   },
   mixins: [myFirstMixin],
@@ -114,15 +110,15 @@ export default {
         if (!user) {
           location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         } else {
-          const admin = firebase.firestore().collection("admin");
-          admin.get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              if (doc.id != user.uid) {
-                location.href =
-                  "https://jwatch-8411c.web.app/mainpage/index.html";
-              }
+          firebase.firestore().collection("admin").get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                if (doc.id != user.uid) {
+                  location.href =
+                    "https://jwatch-8411c.web.app/mainpage/index.html";
+                }
+              });
             });
-          });
         }
       });
     },
@@ -131,9 +127,7 @@ export default {
       this.isLoading = true;
       const inquiryData = firebase.firestore().collection("inquiries");
       if (this.sortValue === "newest") {
-        const displayData = inquiryData
-          .orderBy("created", "desc")
-          .get()
+        inquiryData.orderBy("created", "desc").get()
           .then((querySnapshot) => {
             // docにcloud firestoreからのデータが格納されている
             querySnapshot.forEach((doc) => {
@@ -142,13 +136,11 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, displayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       } else if (this.sortValue === "oldest") {
-        const oldestDisplayData = inquiryData
-          .orderBy("created")
-          .get()
+        inquiryData.orderBy("created").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -156,7 +148,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, oldestDisplayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       }
@@ -168,9 +160,7 @@ export default {
       this.inquiryMultipleData = [];
       const inquiryData = firebase.firestore().collection("inquiries");
       if (this.sortValue === "newest") {
-        const newestDisplayData = inquiryData
-          .orderBy("created", "desc")
-          .get()
+        inquiryData.orderBy("created", "desc").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -184,13 +174,11 @@ export default {
             }
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, newestDisplayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       } else if (this.sortValue === "oldest") {
-        const oldestDisplayData = inquiryData
-          .orderBy("created")
-          .get()
+        inquiryData.orderBy("created").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -199,7 +187,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, oldestDisplayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       } else {
@@ -212,10 +200,7 @@ export default {
           "このお問い合わせを削除しますか？一度削除すると2度と戻せません。"
         )
       ) {
-        const inquiryData = firebase.firestore().collection("inquiries");
-        inquiryData
-          .doc(id)
-          .delete()
+        firebase.firestore().collection("inquiries").doc(id).delete()
           .then(function() {
             alert("削除できました。");
             return location.reload();

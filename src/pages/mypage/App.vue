@@ -3,35 +3,36 @@
     <div class = "wrap">
       <Jheader
         :isAnonymous = "isAnonymous"
-        :isLogin = "isLogin"
+        :isLogin     = "isLogin"
         :visitorName = "visitorName"/>
       <main>
         <div class = "mypage">
           <div class = "mypage-title">
-            <p v-if = "!isAnonymous">{{ visitorName }} さんのマイページ</p>
+            <div class="mypage-name">
+            <p v-if = "!isAnonymous">{{ visitorName }} さんのマイページ
+              </p>
             <p v-else>
               匿名<span>{{ visitorUid.slice(0, 10) }}</span
-              >さんのマイページ
-            </p>
+              >さんのマイページ</p>
+             </div>
           </div>
           <VueLoading
-            v-if = "isLoading"
-            type = "spiningDubbles"
+            v-if  = "isLoading"
+            type  = "spiningDubbles"
             color = "#aaa"
             :size = "{ width: '100px', height: '100px' }"/>
           <div class = "past-posts" v-else>
               <!-- ユーザーの投稿が存在しない時 -->
               <DisplayNoData
-                v-if = "isNothingData"
-                stadium = "あなた"
+                v-if     = "isNothingData"
+                stadium  = "あなた"
                 category = "観戦情報"/>
               <!-- ユーザーの投稿が1つ以上存在する時 -->
               <div class = "post-contents" v-else>
                 <h2>過去の投稿</h2>
                 <div
                   v-for = "postSingleData in getItems"
-                  :key = "postSingleData.id"
-                >
+                   :key = "postSingleData.id">
                   <div class = "post-example-contents">
                     <div class = "post-basic-information">
                       <div class = "post-basic-information-top">
@@ -78,8 +79,7 @@
                           </div>
                           <div class = "editing evaluation-btn">
                             <button
-                              @click = "showEditPage(postSingleData, postSingleData.id)"
-                            >
+                              @click = "showEditPage(postSingleData, postSingleData.id)">
                               編集する
                             </button>
                           </div>
@@ -168,9 +168,6 @@
 
 <script>
 import firebase       from "firebase";
-import                     "firebase/auth";
-import                     "firebase/firestore";
-import                     "firebase/storage";
 import CompletePopup  from "../../components/CompletePopup";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
@@ -207,7 +204,7 @@ export default {
       editStadium:       "",
       editTitle:         "",
       // ローディング画面
-      isLoading:         false
+      isLoading:         false,
     }
   },
   components: {
@@ -229,42 +226,39 @@ export default {
   methods: {
     judgeAdmin: function() {
       firebase.auth().onAuthStateChanged((user) => {
-        const adminUser = firebase.firestore().collection("admin");
-        adminUser.get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            if (doc.id == user.uid) {
-              location.href =
-                "https://jwatch-8411c.web.app/management/index.html";
-            } else {
-              return;
-            }
+        firebase.firestore().collection("admin").get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              if (doc.id == user.uid) {
+                location.href =
+                  "https://jwatch-8411c.web.app/management/index.html";
+              } else {
+                return;
+              }
+            });
           });
-        });
       });
     },
     loadDataFromDB: function() {
       this.isLoading = true;
       firebase.auth().onAuthStateChanged((user) => {
         this.isNothingData = true;
-        const dataBeforeOrder    = firebase.firestore().collection("posts");
-        const dataOrderUser      = dataBeforeOrder
-                                   .where("contributorUid", "==", user.uid)
-                                   .orderBy("created", "desc")
-          .get().then((querySnapshot) => {
+        firebase.firestore().collection("posts").where("contributorUid", "==", user.uid).orderBy("created", "desc").get()
+          .then((querySnapshot) => {
             this.isNothingData = false;
             querySnapshot.forEach((doc) => {
               this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
             this.isLoading = false;
 
-             if (this.postMultipleData.length == 0) {
-                this.isNothingData = true;
-              } else {
-                this.isNothingData = false;
-              }
+            if (this.postMultipleData.length == 0) {
+              this.isNothingData = true;
+            } else {
+              this.isNothingData = false;
+            }
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, dataOrderUser);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       });
@@ -276,25 +270,23 @@ export default {
       this.editCategory = postData.category;
       this.editId       = postDataId;
       this.editStadium  = postData.stadium;
-      this.editTitle    = postData.title;
+      this.editTitle    = postData.title
     },
     hideEditPage: function() {
-      this.editId = "";
+      this.editId = ""
     },
     // 編集完了画面の表示/非表示
     showEditedPage: function() {
       this.isCompleteEdit = true;
-      this.editId         = "";
+      this.editId         = ""
     },
     editSelectData: function(postSingleData, postSingleDataId) {
-      const postdata = firebase.firestore().collection("posts");
-      const now      = new Date();
       // スタジアムとカテゴリーが入力されているか判定する
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
-          postdata
-            .doc(postSingleDataId)
+          const now      = new Date();
+          firebase.firestore().collection("posts").doc(postSingleDataId)
             .update({
               body:            this.editBody,
               category:        this.editCategory,
@@ -320,15 +312,13 @@ export default {
     // 選択した投稿を削除する
     deleteSelectData: function(selectedPostId) {
       if (confirm("この投稿を削除しますか？一度削除すると2度と戻せません。")) {
-        const datadelete = firebase.firestore().collection("posts")
-          .doc(selectedPostId)
-          .delete()
+        firebase.firestore().collection("posts").doc(selectedPostId).delete()
           .then(function() {
             alert("削除できました。");
             return location.reload();
           })
           .catch(function(error) {
-            console.error("エラーが発生しました。: ", error, datadelete);
+            console.error("エラーが発生しました。: ", error);
           });
       }
     },
@@ -343,23 +333,23 @@ export default {
     // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、
     // 情報がないと誤表示されるのを防ぐ役割
     hideNothingData: function() {
-      this.isNothingData = false;
+      this.isNothingData = false
     },
     showLogoutPopup: function() {
       this.isReconfirmLogout = true;
-      this.coverShow         = true;
+      this.coverShow         = true
     },
     hideLogoutPopup: function() {
       this.isReconfirmLogout = false;
-      this.coverShow         = false;
+      this.coverShow         = false
     },
     showDeletePopup: function() {
       this.isReconfirmDelete = true;
-      this.coverShow         = true;
+      this.coverShow         = true
     },
     hideDeletePopup: function() {
       this.isReconfirmDelete = false;
-      this.coverShow         = false;
+      this.coverShow         = false
     },
     switchLikeCounter: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
@@ -432,9 +422,9 @@ export default {
   },
   mounted: function() {
     this.judgeAdmin();
-    this.loadDataFromDB()
+    this.loadDataFromDB();
   },
-};
+}
 </script>
 
 <style lang = "scss">
@@ -442,15 +432,14 @@ export default {
   overflow: hidden;
 }
 
-/*以下メイン*/
-
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
 }
+
 .mypage-title {
   text-align: center;
   margin-top: 250px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   p {
     font-size: 32px;
   }
@@ -459,7 +448,6 @@ main {
   }
 }
 
-/* 投稿を表示する部分 */
 .post-contents {
   text-align: center;
 }

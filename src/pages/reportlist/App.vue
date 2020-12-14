@@ -96,9 +96,6 @@
 
 <script>
 import firebase       from "firebase";
-import                     "firebase/auth";
-import                     "firebase/firestore";
-import                     "firebase/storage";
 import AdminHeader    from "../../components/AdminHeader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
 import myFirstMixin   from "../../mixin/myFirstMixin";
@@ -111,7 +108,7 @@ export default {
       parPage:            5,
       reportMultipleData: [],
       sortValue:          sessionStorage.getItem("sortkey"),
-      isLoading: false
+      isLoading:          false
     };
   },
   mixins: [myFirstMixin],
@@ -128,15 +125,15 @@ export default {
         if (!user) {
           location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         } else {
-          const admin = firebase.firestore().collection("admin");
-          admin.get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              if (doc.id != user.uid) {
-                location.href =
-                  "https://jwatch-8411c.web.app/mainpage/index.html";
-              }
+          firebase.firestore().collection("admin").get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                if (doc.id != user.uid) {
+                  location.href =
+                    "https://jwatch-8411c.web.app/mainpage/index.html";
+                }
+              });
             });
-          });
         }
       });
     },
@@ -146,9 +143,7 @@ export default {
       this.postMultipleData = [];
       const reportData = firebase.firestore().collection("reports");
       if (this.sortValue === "newest") {
-        const displayData = reportData
-          .orderBy("reportCreated", "desc")
-          .get()
+        reportData.orderBy("reportCreated", "desc").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -156,13 +151,11 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, displayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       } else if (this.sortValue === "oldest") {
-        const oldestDisplayData = reportData
-          .orderBy("reportCreated")
-          .get()
+        reportData.orderBy("reportCreated").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -170,7 +163,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, oldestDisplayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       } else {
@@ -184,9 +177,7 @@ export default {
       this.reportMultipleData = [];
       const reportData = firebase.firestore().collection("reports");
       if (this.sortValue === "newest") {
-        const newestDisplayData = reportData
-          .orderBy("reportCreated", "desc")
-          .get()
+        reportData.orderBy("reportCreated", "desc").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -195,13 +186,11 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, newestDisplayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       } else if (this.sortValue === "oldest") {
-        const oldestDisplayData = reportData
-          .orderBy("reportCreated")
-          .get()
+        reportData.orderBy("reportCreated").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               this.reportMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
@@ -210,7 +199,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error, oldestDisplayData);
+            console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
       } else {
@@ -218,13 +207,8 @@ export default {
       }
     },
     deleteSelectData: function(id) {
-      if (
-        confirm("この通報内容を削除しますか？一度削除すると2度と戻せません。")
-      ) {
-        const reportData = firebase.firestore().collection("reports");
-        reportData
-          .doc(id)
-          .delete()
+      if (confirm("この通報内容を削除しますか？一度削除すると2度と戻せません。")){
+        firebase.firestore().collection("reports").doc(id).delete()
           .then(function() {
             alert("削除できました。");
             return location.reload();
