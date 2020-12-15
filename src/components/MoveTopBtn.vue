@@ -19,7 +19,7 @@
   },
   mounted: function(){
     window.addEventListener('scroll', ()=>{
-      this.showBtn = (window.scrollY > 150)
+      this.showBtn = (window.scrollY > 150);
     });
   }
  }

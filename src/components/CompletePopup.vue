@@ -20,7 +20,7 @@ export default {
   },
   methods:{
     reload:function(){
-      location.reload()
+      location.reload();
     }
   }
 }

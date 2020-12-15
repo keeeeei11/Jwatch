@@ -27,8 +27,8 @@ export default {
   },
   methods:{
     inputBodyValue: function(e){
-      this.editBody = e.target.value
-      this.$emit('input', this.editBody)
+      this.editBody = e.target.value;
+      this.$emit('input', this.editBody);
     }
   }
 }

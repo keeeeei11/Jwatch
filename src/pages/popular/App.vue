@@ -266,10 +266,10 @@ export default {
               .update({
                 likedCounter: firebase.firestore.FieldValue.increment(-1),
                 likedUsers:   firebase.firestore.FieldValue.arrayRemove(user.uid)
-              })
+              });
 
               // 見た目上の更新
-              const likedCounter = postSingleData.likedCounter -= 1
+              const likedCounter = postSingleData.likedCounter -= 1;
               for(let i = 0; i < likedUsers.length; i++){
                 if(likedUsers[i] == user.uid){
                   likedUsers.splice(i, 1)
@@ -290,11 +290,11 @@ export default {
               .update({
                 likedCounter: firebase.firestore.FieldValue.increment(1),
                 likedUsers:   firebase.firestore.FieldValue.arrayUnion(user.uid)
-              })
+              });
 
               // 見た目上の更新
-              const likedCounter = postSingleData.likedCounter += 1
-              likedUsers.push(user.uid)
+              const likedCounter = postSingleData.likedCounter += 1;
+              likedUsers.push(user.uid);
 
               for(let i; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
@@ -305,10 +305,10 @@ export default {
               }
             }
           } else {
-            alert('投稿者はいいねを押すことが出来ません')
+            alert('投稿者はいいねを押すことが出来ません');
           }
         } else {
-          alert('いいね機能を使用するにはログインが必要です')
+          alert('いいね機能を使用するにはログインが必要です');
         }
       })
     },
@@ -332,7 +332,7 @@ export default {
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
-          const now = new Date()
+          const now = new Date();
           firebase.firestore().collection("posts").doc(postSingleDataId)
             .update(
               {
@@ -342,9 +342,8 @@ export default {
                 stadium:         this.editStadium,
                 title:           this.editTitle,
                 updated:         now.getFullYear() + "/" +("0" + (now.getMonth() + 1)).slice(-2) +
-                                 "/" +("0" + now.getDate()).slice(-2),
-              },
-            )
+                                 "/" +("0" + now.getDate()).slice(-2)
+              })
             .then(() => {
               this.showEditedPage();
             })
@@ -360,15 +359,15 @@ export default {
     },
     // 通報画面の表示/非表示
     showReportPage: function (postData, postDataId) {
-      this.reportBody            = postData.body
-      this.reportCategory        = postData.category
-      this.reportContributorName = postData.contributorName
-      this.reportContributorUid  = postData.contributorUid
-      this.reportCreated         = postData.created
-      this.reportId              = postDataId
-      this.reportStadium         = postData.stadium
-      this.reportTitle           = postData.title
-      this.updated               = postData.updated
+      this.reportBody            = postData.body;
+      this.reportCategory        = postData.category;
+      this.reportContributorName = postData.contributorName;
+      this.reportContributorUid  = postData.contributorUid;
+      this.reportCreated         = postData.created;
+      this.reportId              = postDataId;
+      this.reportStadium         = postData.stadium;
+      this.reportTitle           = postData.title;
+      this.updated               = postData.updated;
     },
     hideReportPage: function () {
       this.reportId = "";
@@ -376,7 +375,7 @@ export default {
     // 通報完了画面の表示/非表示
     showReportedPopup: function () {
       this.isCompleteReport = true;
-      this.reportId         = ""
+      this.reportId         = "";
     },
     // 通報データの追加
     reportData: function () {
@@ -393,7 +392,7 @@ export default {
         postUpdated:         this.updated,
         reportCreated:       now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2)
                              + "/" + ("0" + now.getDate()).slice(-2),
-        reportReason:        this.reportReason,
+        reportReason:        this.reportReason
       };
       if (this.reportReason.length > 0) {
         firebase.firestore().collection("reports").add(inputData)
@@ -424,7 +423,7 @@ export default {
       this.currentPage = Number(pageNum);
       window.scrollTo({
         behavior: "instant",
-        top: 0,
+        top: 0
       });
     },
   },

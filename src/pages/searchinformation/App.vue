@@ -188,7 +188,7 @@
 </template>
 
 <script>
-import firebase       from "firebase/app";
+import firebase       from "firebase";
 import CompletePopup  from "../../components/CompletePopup";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
@@ -340,7 +340,7 @@ export default {
               .update({
                 likedCounter: firebase.firestore.FieldValue.increment(-1),
                 likedUsers:   firebase.firestore.FieldValue.arrayRemove(user.uid)
-              })
+              });
 
               // 見た目上の更新
               const likedCounter = postSingleData.likedCounter -= 1
@@ -364,7 +364,7 @@ export default {
               .update({
                 likedCounter: firebase.firestore.FieldValue.increment(1),
                 likedUsers:   firebase.firestore.FieldValue.arrayUnion(user.uid)
-              })
+              });
 
               // 見た目上の更新
               const likedCounter = postSingleData.likedCounter += 1
@@ -394,11 +394,11 @@ export default {
       this.editTitle    = postData.title;
     },
     hideEditPage: function() {
-      this.editId = ""
+      this.editId = "";
     },
     showEditedPage: function() {
       this.isCompleteEdit = true;
-      this.editId         = ""
+      this.editId         = "";
     },
     // 編集処理
     editSelectData: function(postSingleData, postSingleDataId) {

@@ -13,20 +13,20 @@ export default {
     logoutUser: function() {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          firebase
-            .auth().signOut()
+          firebase.auth().signOut()
             .then(function() {
               // 正常にアカウント削除が完了した時
-              location.href =
-                "https://jwatch-8411c.web.app/mainpage/index.html";
+              location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
             });
+        } else {
+          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         }
       });
     },
   },
   mixins: [myFirstMixin],
   mounted: function() {
-    this.logoutUser();
+    this.logoutUser()
   },
 };
 </script>

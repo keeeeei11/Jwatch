@@ -19,7 +19,7 @@ export default {
   },
   methods:{
     hideExitPopup:function(){
-      this.$emit("hideExitPopup")
+      this.$emit("hideExitPopup");
     }
   }
 }

@@ -107,24 +107,23 @@ export default {
   methods: {
     judgeAdmin: function() {
       firebase.auth().onAuthStateChanged((user) => {
-        if (!user) {
-          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
-        } else {
+        if (user) {
           firebase.firestore().collection("admin").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 if (doc.id != user.uid) {
-                  location.href =
-                    "https://jwatch-8411c.web.app/mainpage/index.html";
+                  location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
                 }
               });
-            });
+          });
+        } else {
+          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         }
       });
     },
     // TODO:コードのクラス名改善、整形
     loadDataFromDB: function() {
-      this.isLoading = true;
+      this.isLoading    = true;
       const inquiryData = firebase.firestore().collection("inquiries");
       if (this.sortValue === "newest") {
         inquiryData.orderBy("created", "desc").get()
@@ -156,9 +155,10 @@ export default {
     // selectタグの操作時に実行する。
     // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
     sortData: function() {
-      this.isLoading = true;
+      this.isLoading           = true;
       this.inquiryMultipleData = [];
       const inquiryData = firebase.firestore().collection("inquiries");
+
       if (this.sortValue === "newest") {
         inquiryData.orderBy("created", "desc").get()
           .then((querySnapshot) => {
@@ -177,6 +177,7 @@ export default {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
+
       } else if (this.sortValue === "oldest") {
         inquiryData.orderBy("created").get()
           .then((querySnapshot) => {
@@ -185,6 +186,11 @@ export default {
               sessionStorage.setItem("sortkey", this.sortValue);
             });
             this.isLoading = false;
+            if (this.inquiryMultipleData.length == 0) {
+              this.noData = true;
+            } else {
+              this.noData = false;
+            }
           })
           .catch(function(error) {
             console.log("Error getting documents: ", error);
@@ -195,11 +201,7 @@ export default {
       }
     },
     deleteSelectData: function(id) {
-      if (
-        confirm(
-          "このお問い合わせを削除しますか？一度削除すると2度と戻せません。"
-        )
-      ) {
+      if (confirm("このお問い合わせを削除しますか？一度削除すると2度と戻せません。")) {
         firebase.firestore().collection("inquiries").doc(id).delete()
           .then(function() {
             alert("削除できました。");

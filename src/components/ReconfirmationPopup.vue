@@ -18,10 +18,10 @@ export default {
   },
   methods:{
     hideReconfirmationPopup:function(){
-      this.$emit("hideReconfirmationPopup")
+      this.$emit("hideReconfirmationPopup");
     },
     sendData:function(){
-      this.$emit("sendData")
+      this.$emit("sendData");
     }
   }
 }

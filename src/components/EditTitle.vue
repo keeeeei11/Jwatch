@@ -27,8 +27,8 @@ export default {
   },
   methods:{
     inputTitleValue: function(e){
-      this.editTitle = e.target.value
-      this.$emit('input', this.editTitle)
+      this.editTitle = e.target.value;
+      this.$emit('input', this.editTitle);
     }
   },
 }

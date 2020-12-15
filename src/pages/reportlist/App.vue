@@ -120,20 +120,18 @@ export default {
   },
   methods: {
     judgeAdmin: function() {
-      // ログインしていない時でもfirebase.auth()は実行される
       firebase.auth().onAuthStateChanged((user) => {
-        if (!user) {
-          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
-        } else {
+        if (user) {
           firebase.firestore().collection("admin").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 if (doc.id != user.uid) {
-                  location.href =
-                    "https://jwatch-8411c.web.app/mainpage/index.html";
+                  location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
                 }
               });
-            });
+          });
+        } else {
+          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         }
       });
     },

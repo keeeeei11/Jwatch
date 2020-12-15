@@ -111,7 +111,7 @@ export default {
     PageTitle,
     PointToNote,
     ReconfirmationPopup,
-    TextareaBox,
+    TextareaBox
   },
   mixins: [myFirstMixin],
   methods: {
@@ -155,7 +155,7 @@ export default {
         likedUsers:      [],
         stadium:         this.stadium,
         title:           this.title,
-        updated:         null,
+        updated:         null
       };
       firebase.firestore().collection("posts").add(inputdata)
         .then(() => {

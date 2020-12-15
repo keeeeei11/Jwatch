@@ -38,8 +38,8 @@ export default {
   },
   methods:{
     inputCategoryValue: function(e){
-      this.editCategory = e.target.value
-      this.$emit('input', this.editCategory)
+      this.editCategory = e.target.value;
+      this.$emit('input', this.editCategory);
     }
   },
 }

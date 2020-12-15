@@ -96,7 +96,7 @@ export default {
     Jfooter,
     Jheader,
     MoveTopBtn,
-    PageTitle,
+    PageTitle
   },
   mixins: [myFirstMixin],
 };

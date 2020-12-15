@@ -7,7 +7,7 @@
         :visitorName = "visitorName"/>
       <main>
         <PageTitle
-          description = "観戦情報の閲覧と投稿、情報のの方法を記載しています"
+          description = "観戦情報の閲覧と投稿、情報の方法を記載しています"
           title       = "How to use"/>
         <UsageDescription
           titleEn           = "How to Search"
@@ -95,18 +95,16 @@ export default {
     Jheader,
     MoveTopBtn,
     PageTitle,
-    UsageDescription,
+    UsageDescription
   },
   mixins: [myFirstMixin],
 };
 </script>
 
 <style lang = "scss" scoped>
-/*以下ヘッダー*/
 .wrap {
   overflow: hidden;
 }
-/*以下メイン*/
 
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
@@ -117,7 +115,6 @@ main {
   text-align: center;
 }
 
-/*投稿例*/
 .post-example-contents {
   width: 70%;
   margin: 30px auto;
@@ -193,8 +190,6 @@ main {
 }
 
 @media (max-width: 959px) {
-  /* メイン */
-  /* 投稿内容 */
   .post-example-contents {
     width: 80%;
     margin: 10% auto;
@@ -218,9 +213,6 @@ main {
 }
 
 @media (max-width: 559px) {
-  /* メイン */
-  /* 投稿例 */
-
   .post-example h3 {
     font-size: 18px;
   }
@@ -233,7 +225,7 @@ main {
     text-align: center;
     font-size: 18px;
   }
-  
+
   .post-text {
     margin: 10px 0;
     padding: 0 10px;

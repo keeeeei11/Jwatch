@@ -246,8 +246,8 @@ export default {
   },
   methods:{
     inputStadiumValue: function(e){
-      this.editStadium = e.target.value
-      this.$emit('input', this.editStadium)
+      this.editStadium = e.target.value;
+      this.$emit('input', this.editStadium);
     }
   },
 }

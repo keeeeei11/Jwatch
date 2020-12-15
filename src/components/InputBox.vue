@@ -22,7 +22,7 @@ export default {
   },
   methods:{
     inputTitleValue: function(e){
-      this.$emit("input", e.target.value)
+      this.$emit("input", e.target.value);
     }
   }
 }

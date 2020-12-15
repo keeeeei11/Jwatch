@@ -17,8 +17,7 @@ export default {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           // ユーザーが投稿したデータを削除してからアカウントを削除する
-          this.deleteUid = user.uid;
-          firebase.firestore().collection("posts").where("contributorUid", "==", this.deleteUid)
+          firebase.firestore().collection("posts").where("contributorUid", "==", user.uid)
           .get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
               doc.ref.delete();

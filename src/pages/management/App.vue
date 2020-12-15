@@ -27,20 +27,17 @@ export default {
   methods: {
     judgeAdmin: function() {
       firebase.auth().onAuthStateChanged((user) => {
-        // ログインしていないユーザーを強制的にトップページに飛ばす
-        if (!user) {
-          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
-        } else {
+        if (user) {
           firebase.firestore().collection("admin").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
-                // 管理者以外のユーザーを強制的にトップページに飛ばす
                 if (doc.id != user.uid) {
-                  location.href =
-                    "https://jwatch-8411c.web.app/mainpage/index.html";
+                  location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
                 }
               });
           });
+        } else {
+          location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
         }
       });
     },

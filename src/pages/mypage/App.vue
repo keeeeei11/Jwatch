@@ -204,7 +204,7 @@ export default {
       editStadium:       "",
       editTitle:         "",
       // ローディング画面
-      isLoading:         false,
+      isLoading:         false
     }
   },
   components: {
@@ -233,7 +233,7 @@ export default {
                 location.href =
                   "https://jwatch-8411c.web.app/management/index.html";
               } else {
-                return;
+                return
               }
             });
           });
@@ -270,15 +270,15 @@ export default {
       this.editCategory = postData.category;
       this.editId       = postDataId;
       this.editStadium  = postData.stadium;
-      this.editTitle    = postData.title
+      this.editTitle    = postData.title;
     },
     hideEditPage: function() {
-      this.editId = ""
+      this.editId = "";
     },
     // 編集完了画面の表示/非表示
     showEditedPage: function() {
       this.isCompleteEdit = true;
-      this.editId         = ""
+      this.editId         = "";
     },
     editSelectData: function(postSingleData, postSingleDataId) {
       // スタジアムとカテゴリーが入力されているか判定する
@@ -294,7 +294,7 @@ export default {
               stadium:         this.editStadium,
               title:           this.editTitle,
               updated:         now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) +
-                               "/" + ("0" + now.getDate()).slice(-2),
+                               "/" + ("0" + now.getDate()).slice(-2)
             })
             .then(() => {
               this.showEditedPage();
@@ -327,35 +327,35 @@ export default {
       this.currentPage = Number(pageNum);
       window.scrollTo({
         behavior: "instant",
-        top: 0,
+        top: 0
       });
     },
     // スタジアム・カテゴリーを再選択した時に「情報を見るボタン」を押すまで、
     // 情報がないと誤表示されるのを防ぐ役割
     hideNothingData: function() {
-      this.isNothingData = false
+      this.isNothingData = false;
     },
     showLogoutPopup: function() {
       this.isReconfirmLogout = true;
-      this.coverShow         = true
+      this.coverShow         = true;
     },
     hideLogoutPopup: function() {
       this.isReconfirmLogout = false;
-      this.coverShow         = false
+      this.coverShow         = false;
     },
     showDeletePopup: function() {
       this.isReconfirmDelete = true;
-      this.coverShow         = true
+      this.coverShow         = true;
     },
     hideDeletePopup: function() {
       this.isReconfirmDelete = false;
-      this.coverShow         = false
+      this.coverShow         = false;
     },
     switchLikeCounter: function(postSingleData) {
       firebase.auth().onAuthStateChanged((user) => {
         if(user){
           if(postSingleData.contributorUid != user.uid){
-            const likedUsers = postSingleData.likedUsers
+            const likedUsers = postSingleData.likedUsers;
             if (likedUsers.includes(user.uid)) {
               // いいね数を-1する、いいねしたユーザーから解除する
               // Firebase上のデータの更新
@@ -366,7 +366,7 @@ export default {
               })
 
               // 見た目上の更新
-              const likedCounter = postSingleData.likedCounter -= 1
+              const likedCounter = postSingleData.likedCounter -= 1;
               for(let i = 0; i < likedUsers.length; i++){
                 if(likedUsers[i] == user.uid){
                   likedUsers.splice(i, 1)
@@ -390,8 +390,8 @@ export default {
               })
 
               // 見た目上の更新
-              const likedCounter = postSingleData.likedCounter += 1
-              likedUsers.push(user.uid)
+              const likedCounter = postSingleData.likedCounter += 1;
+              likedUsers.push(user.uid);
 
               for(let i; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
@@ -402,10 +402,10 @@ export default {
               }
             }
           } else {
-            alert('投稿者はいいねを押すことが出来ません')
+            alert('投稿者はいいねを押すことが出来ません');
           }
         } else {
-          alert('いいね機能を使用するにはログインが必要です')
+          alert('いいね機能を使用するにはログインが必要です');
         }
       })
     },
@@ -414,10 +414,10 @@ export default {
     getItems: function() {
       const current = this.currentPage * this.parPage;
       const start   = current - this.parPage;
-      return this.postMultipleData.slice(start, current)
+      return this.postMultipleData.slice(start, current);
     },
     getPageCount: function() {
-      return Math.ceil(this.postMultipleData.length / this.parPage)
+      return Math.ceil(this.postMultipleData.length / this.parPage);
     },
   },
   mounted: function() {
