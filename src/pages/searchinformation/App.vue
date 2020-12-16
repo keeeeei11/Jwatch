@@ -31,8 +31,8 @@
           </div>
           <VueLoading
             v-if  = "isLoading"
-            type  = "spiningDubbles"
             color = "#aaa"
+            type  = "spiningDubbles"
             :size = "{ width: '100px', height: '100px' }"/>
           <DisplayNoData
             v-if      = "isNothingData"
@@ -72,28 +72,24 @@
                     <div class = "good-count evaluation-btn"
                         :class = "{'liked':(postSingleData.likedUsers.includes(visitorUid))}">
                       <button @click = "switchLikeCounter(postSingleData)">
-                        いいね！ {{ postSingleData.likedCounter }}
-                      </button>
+                        いいね！ {{ postSingleData.likedCounter }}</button>
                     </div>
                     <div
                       class = "allow-manage"
                       v-if  = "postSingleData.contributorUid == visitorUid">
                       <div class = "deleting evaluation-btn">
                         <button @click = "deleteSelectData(postSingleData.id)">
-                          削除する
-                        </button>
+                          削除する</button>
                       </div>
                       <div class = "editing evaluation-btn">
                         <button @click = "showEditPage(postSingleData, postSingleData.id)">
-                          編集する
-                        </button>
+                          編集する</button>
                       </div>
                     </div>
                     <div class = "disallow-report" v-else>
                       <div class = "reporting evaluation-btn">
                         <button @click = "showReportPage(postSingleData, postSingleData.id)">
-                          通報する
-                        </button>
+                          通報する</button>
                       </div>
                     </div>
                   </div>
@@ -268,13 +264,7 @@ export default {
                 this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
                 sessionStorage.setItem("sortkey", this.sortValue);
               });
-              this.isLoading = false;
-
-              if (this.postMultipleData.length == 0) {
-                this.isNothingData = true;
-              } else {
-                this.isNothingData = false;
-              }
+              this.displayExistOrNot();
             })
 
             .catch(function(error) {
@@ -282,19 +272,13 @@ export default {
             });
             // 投稿を投稿日時の昇順にソートして表示する
         } else if (this.sortValue === "oldest") {
-           dataBeforeOrder.orderBy("created").get()
+          dataBeforeOrder.orderBy("created").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                 this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
                 sessionStorage.setItem("sortkey", this.sortValue);
               });
-              this.isLoading = false;
-
-              if (this.postMultipleData.length == 0) {
-                this.isNothingData = true;
-              } else {
-                this.isNothingData = false;
-              }
+              this.displayExistOrNot();
             })
 
             .catch(function(error) {
@@ -308,13 +292,7 @@ export default {
                 this.postMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
                 sessionStorage.setItem("sortkey", this.sortValue);
               });
-              this.isLoading = false;
-
-              if (this.postMultipleData.length == 0) {
-                this.isNothingData = true;
-              } else {
-                this.isNothingData = false;
-              }
+              this.displayExistOrNot();
 
             })
             .catch(function(error) {
@@ -489,6 +467,15 @@ export default {
             console.error("エラーが発生しました。: ", error);
           });
       }
+    },
+    displayExistOrNot: function(){
+        // 投稿があるかどうかチェックが終わったのでローディング画面を非表示にする
+        this.isLoading = false;
+        if (this.postMultipleData.length == 0) {
+          this.isNothingData = true;
+        } else {
+          this.isNothingData = false;
+        }
     },
     // ページネーション機能、押したページ数に移動する処理
     clickCallback: function(pageNum) {
