@@ -256,7 +256,7 @@ export default {
         const dataBeforeOrder = firebase.firestore().collection("posts")
                                 .where("stadium",  "==", stadium)
                                 .where("category", "==", category);
-            // 投稿を投稿日時の降順にソートして表示する
+
         if (this.sortValue === "newest") {
           dataBeforeOrder.orderBy("created", "desc").get()
             .then((querySnapshot) => {
@@ -270,7 +270,7 @@ export default {
             .catch(function(error) {
               console.log("Error getting documents: ", error,);
             });
-            // 投稿を投稿日時の昇順にソートして表示する
+
         } else if (this.sortValue === "oldest") {
           dataBeforeOrder.orderBy("created").get()
             .then((querySnapshot) => {
@@ -284,7 +284,7 @@ export default {
             .catch(function(error) {
               console.log("Error getting documents: ", error);
             });
-            // 投稿をいいねが多い順にソートして表示する
+
         } else if (this.sortValue === "good") {
           dataBeforeOrder.orderBy("likedCounter", "desc").get()
             .then((querySnapshot) => {
@@ -348,7 +348,7 @@ export default {
               const likedCounter = postSingleData.likedCounter += 1
               likedUsers.push(user.uid)
 
-              for(let i; i < this.postMultipleData.length; i++) {
+              for(let i = 0; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
                   this.$set(this.postMultipleData[i], 'likedUsers',   likedUsers)
@@ -469,7 +469,7 @@ export default {
       }
     },
     displayExistOrNot: function(){
-        // 投稿があるかどうかチェックが終わったのでローディング画面を非表示にする
+        //でローディング画面を非表示にする
         this.isLoading = false;
         if (this.postMultipleData.length == 0) {
           this.isNothingData = true;

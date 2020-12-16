@@ -258,7 +258,9 @@ export default {
         if(user){
           if(postSingleData.contributorUid != user.uid){
             const likedUsers = postSingleData.likedUsers
-
+            // updateしたデータはページの更新が行われるまでページ上に反映されない
+            // そのため、updateでfirebase上のデータを更新するとともに、一時的にページ上の
+            // いいねボタンを(表面的に)更新する。
             if (likedUsers.includes(user.uid)) {
               // いいね数を-1する、いいねしたユーザーから解除する
                 // Firebase上のデータの更新
@@ -296,7 +298,7 @@ export default {
               const likedCounter = postSingleData.likedCounter += 1;
               likedUsers.push(user.uid);
 
-              for(let i; i < this.postMultipleData.length; i++) {
+              for(let i = 0; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
                   this.$set(this.postMultipleData[i], 'likedUsers',   likedUsers)

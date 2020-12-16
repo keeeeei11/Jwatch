@@ -393,7 +393,7 @@ export default {
               const likedCounter = postSingleData.likedCounter += 1;
               likedUsers.push(user.uid);
 
-              for(let i; i < this.postMultipleData.length; i++) {
+              for(let i = 0; i < this.postMultipleData.length; i++) {
                 if (postSingleData.id === this.postMultipleData[i].id) {
                   this.$set(this.postMultipleData[i], 'likedCounter', likedCounter)
                   this.$set(this.postMultipleData[i], 'likedUsers',   likedUsers)
