@@ -8,8 +8,8 @@
       <main>
         <div class = "search-information">
           <PageTitle
-            title       = "Search informations"
-            description = "スタジアムとカテゴリーを選択すると情報が表示されます。"/>
+            description = "スタジアムとカテゴリーを選択すると情報が表示されます。"
+            title       = "Search informations"/>
           <div class = "select-stadium">
             <h2>スタジアムとカテゴリーを選択してボタンを押してください</h2>
               <InputStadium
@@ -40,7 +40,8 @@
             :category = "category"/>
           <div class = "post-contents" v-else>
             <div v-for = "postSingleData in getItems" :key = "postSingleData.id">
-              <div class = "post-example-contents">
+              <!-- TODO：名前変更 -->
+              <div class = "post-content">
                 <div class = "post-basic-information">
                   <div class = "post-basic-information-top">
                     <div class = "post-name">
@@ -409,22 +410,22 @@ export default {
       }
     },
     showReportPage: function(postData, postDataId) {
-      this.reportBody            = postData.body
-      this.reportCategory        = postData.category
-      this.reportContributorName = postData.contributorName
-      this.reportContributorUid  = postData.contributorUid
-      this.reportCreated         = postData.created
-      this.reportId              = postDataId
-      this.reportStadium         = postData.stadium
-      this.reportTitle           = postData.title
-      this.updated               = postData.updated
+      this.reportBody            = postData.body;
+      this.reportCategory        = postData.category;
+      this.reportContributorName = postData.contributorName;
+      this.reportContributorUid  = postData.contributorUid;
+      this.reportCreated         = postData.created;
+      this.reportId              = postDataId;
+      this.reportStadium         = postData.stadium;
+      this.reportTitle           = postData.title;
+      this.updated               = postData.updated;
     },
     hideReportPage: function() {
-      this.reportId = ""
+      this.reportId = "";
     },
     showReportedPopup: function() {
       this.isCompleteReport = true;
-      this.reportId         = ""
+      this.reportId         = "";
     },
     // DBに通報データを追加する
     reportSelectData: function() {
@@ -469,7 +470,7 @@ export default {
       }
     },
     displayExistOrNot: function(){
-        //でローディング画面を非表示にする
+        //ローディング画面を非表示にする
         this.isLoading = false;
         if (this.postMultipleData.length == 0) {
           this.isNothingData = true;
@@ -579,7 +580,7 @@ main {
   text-align: center;
 }
 
-.post-example-contents {
+.post-content {
   width: 70%;
   margin: 30px auto;
   padding: 20px 40px 20px;
@@ -846,7 +847,7 @@ main {
     width: 60%;
   }
 
-  .post-example-contents {
+  .post-content {
     width: 80%;
     margin: 10% auto;
   }
@@ -910,7 +911,7 @@ main {
     }
   }
 
-  .post-example-contents {
+  .post-content {
     padding: 20px;
   }
 

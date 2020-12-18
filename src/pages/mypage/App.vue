@@ -33,7 +33,7 @@
                 <div
                   v-for = "postSingleData in getItems"
                    :key = "postSingleData.id">
-                  <div class = "post-example-contents">
+                  <div class = "post-content">
                     <div class = "post-basic-information">
                       <div class = "post-basic-information-top">
                         <div class = "post-name">
@@ -452,7 +452,7 @@ main {
   text-align: center;
 }
 
-.post-example-contents {
+.post-content {
   width: 70%;
   margin: 30px auto;
   padding: 20px 40px 20px;
@@ -657,7 +657,7 @@ main {
 @media (max-width: 959px) {
   /* メイン */
   /* 投稿内容 */
-  .post-example-contents {
+  .post-content {
     width: 80%;
     margin: 10% auto;
   }
@@ -719,7 +719,7 @@ main {
   }
 
   /* 投稿内容*/
-  .post-example-contents {
+  .post-content {
     padding: 20px;
   }
   .post-basic-information-top {

@@ -24,7 +24,7 @@
             category = "観戦情報"/>
           <div class = "post-contents" v-else>
             <div v-for = "postSingleData in getItems" :key = "postSingleData.id">
-              <div class = "post-example-contents">
+              <div class = "post-content">
                 <div class = "post-basic-information">
                   <div class = "post-basic-information-top">
                     <div class = "post-name">
@@ -470,7 +470,7 @@ main {
   margin: 50px 0;
 }
 
-.post-example-contents {
+.post-content {
   width: 80%;
   margin: 30px auto;
   padding: 20px 40px 20px;
@@ -737,7 +737,7 @@ main {
 
 @media (max-width: 959px) {
     /* 投稿内容 */
-  .post-example-contents {
+  .post-content {
     width: 80%;
     margin: 10% auto;
     text-align: center;
@@ -802,7 +802,7 @@ main {
   }
 
   /* 投稿内容 */
-  .post-example-contents {
+  .post-content {
     padding: 20px;
   }
 
