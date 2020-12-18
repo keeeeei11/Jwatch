@@ -102,7 +102,7 @@ export default {
     AdminHeader,
     MoveTopBtn,
     Paginate,
-    VueLoading,
+    VueLoading
   },
   methods: {
     judgeAdmin: function() {
@@ -121,14 +121,13 @@ export default {
         }
       });
     },
-    // TODO:コードのクラス名改善、整形
     loadDataFromDB: function() {
       this.isLoading    = true;
       const inquiryData = firebase.firestore().collection("inquiries");
+
       if (this.sortValue === "newest") {
         inquiryData.orderBy("created", "desc").get()
           .then((querySnapshot) => {
-            // docにcloud firestoreからのデータが格納されている
             querySnapshot.forEach((doc) => {
               this.inquiryMultipleData.push(Object.assign(doc.data(), {id: doc.id}));
             });
@@ -138,7 +137,8 @@ export default {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
-      } else if (this.sortValue === "oldest") {
+
+      } else {
         inquiryData.orderBy("created").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -153,11 +153,10 @@ export default {
       }
     },
     // selectタグの操作時に実行する。
-    // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
     sortData: function() {
       this.isLoading           = true;
       this.inquiryMultipleData = [];
-      const inquiryData = firebase.firestore().collection("inquiries");
+      const inquiryData        = firebase.firestore().collection("inquiries");
 
       if (this.sortValue === "newest") {
         inquiryData.orderBy("created", "desc").get()
@@ -167,18 +166,13 @@ export default {
               sessionStorage.setItem("sortkey", this.sortValue);
             });
             this.isLoading = false;
-            if (this.inquiryMultipleData.length == 0) {
-              this.noData = true;
-            } else {
-              this.noData = false;
-            }
           })
           .catch(function(error) {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
 
-      } else if (this.sortValue === "oldest") {
+      } else {
         inquiryData.orderBy("created").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -186,18 +180,11 @@ export default {
               sessionStorage.setItem("sortkey", this.sortValue);
             });
             this.isLoading = false;
-            if (this.inquiryMultipleData.length == 0) {
-              this.noData = true;
-            } else {
-              this.noData = false;
-            }
           })
           .catch(function(error) {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
-      } else {
-        console.log("sortError!");
       }
     },
     deleteSelectData: function(id) {
@@ -237,7 +224,7 @@ export default {
 };
 </script>
 
-<style lang = "scss" scoped>
+<style lang = "scss">
 .wrap {
   overflow: hidden;
 }

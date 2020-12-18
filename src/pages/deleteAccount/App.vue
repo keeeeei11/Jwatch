@@ -15,15 +15,17 @@ export default {
   methods: {
     deleteUserInformation: function() {
       firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
           // ユーザーが投稿したデータを削除してからアカウントを削除する
           firebase.firestore().collection("posts").where("contributorUid", "==", user.uid)
           .get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
               doc.ref.delete();
             });
-          });
-
+          })
+          .catch(function(error) {
+              console.log(error);
+          })
+          // ユーザーの削除
           user.delete()
             .then(function() {
               location.href =
@@ -34,17 +36,11 @@ export default {
               // 再度ログインしてからアカウント削除するよう文章で誘導)
               console.log(error);
             })
-            .catch(function(error) {
-              console.log("エラーが発生しました", error);
-            });
-        } else {
-          return;
-        }
       });
     },
   },
   mounted: function() {
     this.deleteUserInformation();
-  },
+  }
 };
 </script>

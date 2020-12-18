@@ -140,6 +140,7 @@ export default {
       this.isLoading = true;
       this.postMultipleData = [];
       const reportData = firebase.firestore().collection("reports");
+
       if (this.sortValue === "newest") {
         reportData.orderBy("reportCreated", "desc").get()
           .then((querySnapshot) => {
@@ -152,7 +153,8 @@ export default {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
-      } else if (this.sortValue === "oldest") {
+
+      } else {
         reportData.orderBy("reportCreated").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -164,8 +166,6 @@ export default {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
-      } else {
-        return;
       }
     },
     // selectタグの操作時に実行する。
@@ -187,7 +187,7 @@ export default {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
-      } else if (this.sortValue === "oldest") {
+      } else {
         reportData.orderBy("reportCreated").get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -200,8 +200,6 @@ export default {
             console.log("Error getting documents: ", error);
             this.isLoading = false;
           });
-      } else {
-        console.log("sortError!");
       }
     },
     deleteSelectData: function(id) {
