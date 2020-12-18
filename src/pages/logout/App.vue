@@ -27,6 +27,6 @@ export default {
   mixins: [myFirstMixin],
   mounted: function() {
     this.logoutUser()
-  },
+  }
 };
 </script>

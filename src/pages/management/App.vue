@@ -55,8 +55,8 @@ main {
 }
 
 .management-contents {
-  a {
-      color: rgb(28.8%, 29.6%, 28.8%);
+  a{
+    color: rgb(28.8%, 29.6%, 28.8%);
     font-size: 18px;
     position: relative;
     display: inline-block;

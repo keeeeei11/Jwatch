@@ -27,7 +27,7 @@
           supplement        = "※スタジアムの快適な面だけでなく、不便なところも貴重な情報となります。"/>
         <div class = "post-example">
           <h3>投稿例</h3>
-          <div class = "post-example-contents">
+          <div class = "post-content">
             <div class = "post-basic-information">
               <div class = "post-basic-information-top">
                 <div class = "post-name">
@@ -115,7 +115,7 @@ main {
   text-align: center;
 }
 
-.post-example-contents {
+.post-content {
   width: 70%;
   margin: 30px auto;
   padding: 20px 40px 20px;
@@ -190,7 +190,7 @@ main {
 }
 
 @media (max-width: 959px) {
-  .post-example-contents {
+  .post-content {
     width: 80%;
     margin: 10% auto;
   }
@@ -217,7 +217,7 @@ main {
     font-size: 18px;
   }
 
-  .post-example-contents {
+  .post-content {
     padding: 20px;
   }
 

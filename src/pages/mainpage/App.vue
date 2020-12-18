@@ -40,12 +40,9 @@
                   <img
                     src     = "../../assets/1843892_s.jpg"
                     alt     = "パソコンと虫眼鏡の画像。情報を探すイメージ。"
-                    loading = "lazy"
-                  />
+                    loading = "lazy"/>
                 </a>
-                <p>
-                  観戦予定のスタジアム/カテゴリーを選択して観戦情報を探してみましょう！
-                </p>
+                <p>観戦予定のスタジアム/カテゴリーを選択して観戦情報を探してみましょう！</p>
               </div>
               <div class = "usage-post">
                 <a href = "https://jwatch-8411c.web.app/posting/index.html">
@@ -53,20 +50,15 @@
                   <img
                     src     = "../../assets/student-849825_640.jpg"
                     alt     = "女性がスマートフォンで観戦情報を投稿している画像。"
-                    loading = "lazy"
-                  />
+                    loading = "lazy"/>
                 </a>
-                <p>
-                  試合観戦の感想やワンポイントアドバイス等を投稿してみましょう！
-                </p>
+                <p>試合観戦の感想やワンポイントアドバイス等を投稿してみましょう！</p>
               </div>
             </div>
             <div class = "usage-secondary-introduction">
               <p>
                 ※観戦情報の投稿は
-                <a href = "https://jwatch-8411c.web.app/login/index.html"
-                  >ログイン</a
-                >
+                <a href = "https://jwatch-8411c.web.app/login/index.html">ログイン</a>
                 が必要となります。
               </p>
             </div>

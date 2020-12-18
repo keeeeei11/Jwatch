@@ -93,7 +93,7 @@
 }
 
 @media (max-width: 959px) {
-  /* メイン */
+  
   /*注意点*/
   .attention {
     text-align: center;
@@ -107,7 +107,7 @@
 
 
 @media (max-width: 559px) {
-  /* メイン */
+  
   /*注意点*/
   .attention {
     padding: 50px 40px;

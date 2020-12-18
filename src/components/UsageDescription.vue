@@ -54,7 +54,7 @@ export default {
 }
 
 @media (max-width: 959px) {
-  /* メイン */
+  
   /*観戦情報の探し方*/
   .usage-contents {
     margin-left: 0%;
@@ -70,7 +70,7 @@ export default {
 }
 
 @media (max-width: 559px) {
-  /* メイン */
+  
   /*観戦情報の探し方*/
   .usage-contents {
     padding: 50px 40px;

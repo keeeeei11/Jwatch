@@ -49,7 +49,7 @@ export default {
 .wrap {
   overflow: hidden;
 }
-/*以下メイン*/
+
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
 }
@@ -64,15 +64,9 @@ main {
   text-align: center;
 }
 
-
-/* タブレット */
 @media (max-width: 959px) {
   .question-contents {
     margin-left: 0;
   }
-}
-
-/* スマホ */
-@media (max-width: 559px) {
 }
 </style>

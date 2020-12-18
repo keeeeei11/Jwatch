@@ -516,6 +516,7 @@ export default {
 .wrap {
   overflow: hidden;
 }
+
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
 }

@@ -171,7 +171,7 @@ export default {
     // selectタグの操作時に実行する。
     // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
     sortData: function() {
-      this.isLoading = true;
+      this.isLoading          = true;
       this.reportMultipleData = [];
       const reportData = firebase.firestore().collection("reports");
       if (this.sortValue === "newest") {
@@ -271,8 +271,6 @@ main {
   text-align: center;
 }
 
-/*投稿例*/
-/* 通報対象の投稿 */
 .report-example-contents {
   width: 70%;
   margin: 30px auto;
@@ -332,7 +330,6 @@ main {
   }
 }
 
-/* 通報理由 */
 .report-example-warning {
   text-align: center;
   margin: 50px auto;
@@ -350,7 +347,6 @@ main {
   font-size: 18px;
 }
 
-/* 削除ボタン */
 .report-evaluation p {
   margin-block-start: 0em;
   margin-block-end: 0em;
@@ -373,13 +369,10 @@ main {
   }
 }
 
-/* ページネーション */
 .paginate {
   margin: 50px auto;
   text-align: center;
 }
-
-/* 前に戻るボタン */
 
 .prev-link {
   font-size: 24px;
@@ -388,7 +381,6 @@ main {
   color: #484b48;
 }
 
-/* 数字のボタン */
 .page-link {
   font-size: 24px;
   font-weight: lighter;
@@ -399,13 +391,12 @@ main {
   outline: none;
 }
 
-/* 次に進むボタン */
 .next-link {
   font-size: 24px;
   margin-left: 10px;
   outline: none;
 }
-/* 選択中のペ-ジ */
+
 .active-page-link {
   color: #ffffff;
   background-color: gray;

@@ -98,7 +98,6 @@
                       v-model = "editBody"
                       type    = "text"/>
                   </form>
-                  <!-- ボタン -->
                   <div class = "edit-btn">
                     <button @click = "hideEditPage()">戻る</button>
                     <button @click = "editSelectData(postSingleData, editId)">編集する</button>
@@ -107,7 +106,6 @@
                 <!-- TODO:背景ということをコメントに残す -->
                 <div class = "background"></div>
               </div>
-              <!-- 通報画面 -->
                <div class = "report" v-if = "reportId == postSingleData.id">
                 <section class = "report-page">
                   <h3>通報画面</h3>
@@ -119,12 +117,10 @@
                         <p>{{ reportBody }}</p>
                       </div>
                     </div>
-                  <!-- 通報理由 -->
                   <form class = "report-reason">
                     <InputReport
                       v-model = "reportReason"/>
                   </form>
-                  <!-- ボタン -->
                   <div class = "report-btn">
                     <button class = "cancel" @click = "hideReportPage()">戻る</button>
                     <button
@@ -581,7 +577,6 @@ main {
   display: flex;
 }
 
-/* 編集画面 */
 .edit-page {
   opacity: 1;
   width: 800px;
@@ -599,7 +594,6 @@ main {
   z-index: 3;
 }
 
-/* ボタン */
 .edit-btn {
   display: flex;
   margin:10px 0;
@@ -624,7 +618,6 @@ main {
   }
 }
 
-/* 通報画面 */
 .report-page {
   opacity: 1;
   width: 80%;
@@ -641,8 +634,7 @@ main {
   transition: 0.4s;
   z-index: 3;
 }
-/* 投稿を表示する部分 */
-/* 通報対象の投稿 */
+
 .report-post-title p {
   text-align: center;
   font-size: 21px;
@@ -657,12 +649,10 @@ main {
   }
 }
 
-/*通報の理由*/
 .report-reason {
   margin: 30px 0;
 }
 
-/* ボタン */
 .report-btn {
   display: flex;
   button {
@@ -697,13 +687,10 @@ main {
   opacity: 0.8;
 }
 
-/* ページネーション */
 .paginate {
   margin-top: 100px;
   text-align: center;
 }
-
-/* 前に戻るボタン */
 
 .prev-link {
   font-size: 24px;
@@ -712,7 +699,6 @@ main {
   color: #484b48;
 }
 
-/* 数字のボタン */
 .page-link {
   font-size: 24px;
   font-weight: lighter;
@@ -723,7 +709,6 @@ main {
   outline: none;
 }
 
-/* 次に進むボタン */
 .next-link {
   font-size: 24px;
   margin-left: 10px;
@@ -736,7 +721,6 @@ main {
 }
 
 @media (max-width: 959px) {
-    /* 投稿内容 */
   .post-content {
     width: 80%;
     margin: 10% auto;
@@ -758,7 +742,7 @@ main {
   .post-date {
     font-size: 16px;
   }
-    /* 編集画面 */
+
   .edit-page{
     width: 500px;
     height: 800px;
@@ -770,14 +754,14 @@ main {
       margin:30px auto;
     }
   }
-    /* 通報画面 */
+
   .report-btn {
     display: block;
     button {
       margin:30px auto;
     }
   }
-  /* ページネーション機能 */
+
   .prev-link {
     font-size: 18px;
     margin-right: 5px;
@@ -796,12 +780,10 @@ main {
 }
 
 @media (max-width: 559px) {
-  /* メイン */
   .stadium-list {
     font-size: 16px;
   }
 
-  /* 投稿内容 */
   .post-content {
     padding: 20px;
   }
@@ -851,7 +833,7 @@ main {
       font-size: 14px;
     }
   }
-    /* 編集画面 */
+
   .edit-page {
     width: 300px;
   }
@@ -860,7 +842,7 @@ main {
     font-size: 16px;
     width: 200px;
   }
-  /* 通報画面 */
+
   .report-post-title p {
     text-align: center;
     font-size: 16px;
@@ -870,7 +852,6 @@ main {
     font-size: 14px;
   }
 
-  /*通報の理由*/
   .report-btn button {
     font-size: 16px;
     width: 200px;

@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import               "firebase/auth";
 import               "firebase/firestore";
-import               "firebase/storage";
+import               "firebase/analytics";
 export default {
   data() {
     return {
@@ -12,7 +12,7 @@ export default {
       photoURL:      "",
       isAnonymous:   "",
       providerData:  "",
-      isLogin:       false,
+      isLogin:       false
     };
   },
   mounted: function() {
@@ -52,11 +52,11 @@ export default {
           );
         } else {
           this.visitorName = null;
-          this.visitorUid  = null
+          this.visitorUid  = null;
         }
         // 匿名ユーザーが投稿した時にユーザー名を「匿名」と表示する
         if(this.isAnonymous == true){
-          this.visitorName = "匿名"
+          this.visitorName = "匿名";
         }
       });
     }

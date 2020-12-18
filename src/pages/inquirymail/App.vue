@@ -263,7 +263,6 @@ main {
   }
 }
 
-/*お問い合わせのフォーム*/
 .inquiry-example-contents {
   width: 70%;
   margin: 30px auto;
@@ -351,13 +350,10 @@ main {
   }
 }
 
-/* ページネーション */
 .paginate {
   margin: 50px auto;
   text-align: center;
 }
-
-/* 前に戻るボタン */
 
 .prev-link {
   font-size: 24px;
@@ -366,7 +362,6 @@ main {
   color: #484b48;
 }
 
-/* 数字のボタン */
 .page-link {
   font-size: 24px;
   font-weight: lighter;
@@ -377,13 +372,12 @@ main {
   outline: none;
 }
 
-/* 次に進むボタン */
 .next-link {
   font-size: 24px;
   margin-left: 10px;
   outline: none;
 }
-/* 選択中のペ-ジ */
+
 .active-page-link {
   color: #ffffff;
   background-color: gray;

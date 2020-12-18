@@ -19,9 +19,9 @@
                   4.その他閲覧者を攻撃する内容が含まれていると運営が判断した場合。
                 </p>
               </div>
-            <div class = "warning-please">
-              <p>健全なサイト運営にご協力よろしくお願い致します。</p>
-            </div>
+              <div class = "warning-please">
+                <p>健全なサイト運営にご協力よろしくお願い致します。</p>
+              </div>
           </div>
         <Induction
           description = "ご意見＆ご要望はこちらから"
@@ -56,7 +56,6 @@ export default {
 </script>
 
 <style lang = "scss" scoped>
-/*以下ヘッダー*/
 .wrap {
   overflow: hidden;
 }
@@ -65,7 +64,6 @@ main {
   color: rgb(28.8%, 29.6%, 28.8%);
 }
 
-/*警告の詳細*/
 .warning-contents {
   width: 60%;
   margin: 100px auto;
@@ -83,7 +81,6 @@ main {
 }
 
 @media (max-width: 959px) {
-  /*警告の詳細*/
   .warning-discription {
     text-align: center;
     p {
@@ -94,7 +91,6 @@ main {
 }
 
 @media (max-width: 559px) {
-  /* 警告内容 */
   .warning-discription p {
     font-size: 16px;
   }

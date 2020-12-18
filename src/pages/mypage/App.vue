@@ -563,7 +563,6 @@ main {
   display: flex;
 }
 
-/* 編集画面 */
 .edit-page {
   opacity: 1;
   width: 800px;
@@ -580,7 +579,7 @@ main {
   transition: 0.4s;
   z-index: 3;
 }
-/* ボタン */
+
 .edit-btn {
   display: flex;
   margin:10px 0;
@@ -616,13 +615,10 @@ main {
   opacity: 0.8;
 }
 
-/* ページネーション */
 .paginate {
   margin: 100px 0px;
   text-align: center;
 }
-
-/* 前に戻るボタン */
 
 .prev-link {
   font-size: 24px;
@@ -631,7 +627,6 @@ main {
   color: #484b48;
 }
 
-/* 数字のボタン */
 .page-link {
   font-size: 24px;
   font-weight: lighter;
@@ -642,7 +637,6 @@ main {
   outline: none;
 }
 
-/* 次に進むボタン */
 .next-link {
   font-size: 24px;
   margin-left: 10px;
@@ -655,8 +649,6 @@ main {
 }
 
 @media (max-width: 959px) {
-  /* メイン */
-  /* 投稿内容 */
   .post-content {
     width: 80%;
     margin: 10% auto;
@@ -677,7 +669,7 @@ main {
   .post-date {
     font-size: 16px;
   }
-    /* 編集画面 */
+
   .edit-page{
     width: 500px;
     height: 800px;
@@ -690,7 +682,6 @@ main {
     }
   }
 
-    /* ページネーション機能 */
   .prev-link {
     font-size: 18px;
     margin-right: 5px;
@@ -708,7 +699,6 @@ main {
 }
 
 @media (max-width: 559px) {
-  /* メイン */
   .mypage-title{
     p {
       font-size: 21px;
@@ -718,7 +708,6 @@ main {
     }
   }
 
-  /* 投稿内容*/
   .post-content {
     padding: 20px;
   }
@@ -750,7 +739,6 @@ main {
     font-size: 18px;
   }
 
-    /* 編集画面 */
   .edit-page {
     width: 300px;
   }

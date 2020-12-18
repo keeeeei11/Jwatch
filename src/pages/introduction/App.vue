@@ -75,12 +75,10 @@ export default {
   overflow: hidden;
 }
 
-/*以下メイン*/
 main {
   color: #494b49;
 }
 
-/* Jwatchの作成理由 */
 .reason {
   margin-top: 100px;
   margin-bottom: 50px;
@@ -109,10 +107,7 @@ main {
   margin-top: 30px;
 }
 
-/* タブレット */
 @media (max-width: 959px) {
-  /* メイン */
-  /* Jwatchの作成理由 */
   .reason {
     margin-left: 0;
     text-align: center;
@@ -122,23 +117,22 @@ main {
     padding-left: 0px;
   }
 }
-/* スマホ */
+
 @media (max-width: 559px) {
-  /* メイン */
   .reason {
     padding: 50px 40px;
     p {
       font-size: 16px;
     }
   }
-  /* タイトル */
+
   .introduction-title h1 {
     font-size: 36px;
     p {
       font-size: 18px;
     }
   }
-  /* Jwatchの作成理由 */
+
   .reason-title h2 {
     font-size: 28px;
   }

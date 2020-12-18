@@ -123,7 +123,6 @@ export default {
 .wrap {
   overflow: hidden;
 }
-/*以下メイン*/
 
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
@@ -170,10 +169,7 @@ main {
   justify-content: center;
 }
 
-/* タブレット */
 @media (max-width: 959px) {
-  /* メイン */
-  /* タイトル */
   .login-title {
     margin-left: 10%;
     margin-top: 250px;
@@ -184,12 +180,11 @@ main {
   }
 }
 
-/* スマホ */
 @media (max-width: 559px) {
-  /* メイン */
   .login-title p {
     font-size: 18px;
   }
+
   .login-contents {
     padding: 50px 0px;
     h2 {

@@ -11,7 +11,6 @@
             description = "観戦情報を投稿しましょう！"
             title       = "Post informations"/>
         </div>
-        <!-- 注意点 -->
         <PointToNote/>
         <div class = "post-form">
           <div class = "post-form-title">
@@ -45,18 +44,15 @@
                 href   = "https://jwatch-8411c.web.app/warning/index.html"
                 rel    = "nofollow noopener noreferrer"
                 target = "_brank"
-                >こちら</a
-              >
+                >こちら</a>
             </p>
           </div>
-          <!-- 再確認のポップアップ -->
           <ReconfirmationPopup
             v-if                     = "isReconfirmPost"
             message                  = "投稿してもよろしいですか？"
             process                  = "投稿する!"
             @reconfirmationPopupHide = "hideReconfirmationPopup"
             @sendData                = "sendPostData"/>
-          <!-- 投稿完了を伝えるポップアップ -->
           <CompletePopup
             v-if     = "isRecompletePost"
             back     = "続けて投稿する"
@@ -88,7 +84,6 @@ import TextareaBox         from "../../components/TextareaBox";
 export default {
   data() {
     return {
-      // 再確認のポップアップの表示設定
       completeCoverShow:     false,
       confirmationCoverShow: false,
       isRecompletePost:      false,
@@ -177,12 +172,9 @@ export default {
 .wrap {
   overflow: hidden;
 }
-/*以下メイン*/
 main {
   color: rgb(28.8%, 29.6%, 28.8%);
 }
-
-/*観戦情報の入力フォーム*/
 
 .post-form {
   margin-top: 100px;
@@ -207,7 +199,6 @@ main {
   text-align: center;
 }
 
-/* 送信ボタン*/
 .execute {
   width: 150px;
   font-size: 18px;
@@ -228,7 +219,6 @@ main {
   }
 }
 
-/*注意喚起*/
 .post-warning{
    p {
     font-size: 18px;
@@ -259,8 +249,6 @@ main {
   }
 }
 @media (max-width: 959px) {
-  /* メイン */
-  /*観戦情報の入力フォーム*/
   .post-form {
     margin-left: 0;
   }
@@ -271,8 +259,6 @@ main {
 }
 
 @media (max-width: 559px) {
-  /* メイン */
-  /*観戦情報の入力フォーム*/
   .post-form {
     padding: 50px 40px;
   }
@@ -286,11 +272,9 @@ main {
     }
   }
 
-  /* 送信ボタン*/
   .execute {
     font-size: 16px;
   }
-  /* 注意喚起 */
 
   .post-warning p {
     font-size: 16px;
