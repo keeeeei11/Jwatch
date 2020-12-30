@@ -16,8 +16,7 @@
               href   = "https://jwatch-8411c.web.app/question/index.html"
               rel    = "nofollow noopener noreferrer"
               target = "_brank"
-              >Q&A</a
-            >にも情報がありますのでそちらも参考にしてください。
+            >Q&A</a>にも情報がありますのでそちらも参考にしてください。
           </p>
         </div>
         <form class = "inquiry-form">
@@ -42,7 +41,6 @@
               v-model     = "body"/>
             <p class = "execute" @click = "showReconfirmationPopup">送信する</p>
         </form>
-        <!-- 再確認のポップアップ -->
         <div class = "inquiry-execute">
           <ReconfirmationPopup
             v-if                     = "isReconfirmationPopup"
@@ -50,7 +48,6 @@
             process                  = "送信する"
             @reconfirmationPopupHide = "hideReconfirmationPopup"
             @sendData                = "sendInquiryData"/>
-          <!-- 投稿完了のポップアップ -->
           <CompletePopup
             v-if     = "isCompletePopup"
             message  = "正常に送信されました。"
@@ -65,7 +62,6 @@
 </template>
 
 <script>
-// DBと繋いだ時にで有効にする
 import firebase            from "firebase";
 import CompletePopup       from "../../components/CompletePopup";
 import dayjs               from "dayjs";
@@ -84,7 +80,6 @@ export default {
       isCompletePopup:       false,
       isReconfirmationCover: false,
       isReconfirmationPopup: false,
-      // お問い合わせフォームの入力内容
       body:        "",
       mailAddress: "",
       name:        "",
@@ -104,7 +99,6 @@ export default {
   mixins: [myFirstMixin],
   methods: {
     showReconfirmationPopup: function() {
-      // タイトルと本文が入力されているか判定する
       if (this.title.length > 0 && this.body.length > 0) {
         (this.isReconfirmationPopup = true), (this.isReconfirmationCover = true);
       } else {

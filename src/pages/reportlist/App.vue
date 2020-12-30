@@ -135,7 +135,6 @@ export default {
         }
       });
     },
-    // TODO:クラス名と整形する
     loadDataFromDB: function() {
       this.isLoading        = true;
       this.postMultipleData = [];
@@ -168,8 +167,9 @@ export default {
           });
       }
     },
-    // selectタグの操作時に実行する。
-    // ソート後にページを更新(location.reload())してデータを表示させる部分だけ異なる。
+    // selectタグ操作時に実行。
+    // ソート後にsessionStorageでソート基準を保存&ページを更新する部分だけ
+    // loadDataFromDBメソッドと異なる。
     sortData: function() {
       this.isLoading          = true;
       this.reportMultipleData = [];
