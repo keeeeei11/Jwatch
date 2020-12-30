@@ -23,7 +23,7 @@ export default {
             });
           })
           .catch(function(error) {
-              console.log(error);
+            console.log(error);
           })
           // ユーザーの削除
           user.delete()

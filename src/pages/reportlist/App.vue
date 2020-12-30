@@ -137,9 +137,9 @@ export default {
     },
     // TODO:クラス名と整形する
     loadDataFromDB: function() {
-      this.isLoading = true;
+      this.isLoading        = true;
       this.postMultipleData = [];
-      const reportData = firebase.firestore().collection("reports");
+      const reportData      = firebase.firestore().collection("reports");
 
       if (this.sortValue === "newest") {
         reportData.orderBy("reportCreated", "desc").get()
