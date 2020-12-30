@@ -40,7 +40,6 @@
             :category = "category"/>
           <div class = "post-contents" v-else>
             <div v-for = "postSingleData in getItems" :key = "postSingleData.id">
-              <!-- TODO：名前変更 -->
               <div class = "post-content">
                 <div class = "post-basic-information">
                   <div class = "post-basic-information-top">
@@ -97,6 +96,7 @@
                 </div>
               </div>
               <!-- 編集ボタンが押された投稿のみ表示する -->
+              <!-- TODO:編集画面をコンポーネント化する -->
               <div class = "edit" v-if = "editId == postSingleData.id">
                 <section class = "edit-page">
                   <h3>編集画面</h3>
@@ -123,6 +123,8 @@
                     <button @click = "editSelectData(postSingleData, editId)">編集する</button>
                   </div>
                 </section>
+                <!-- <EditForm
+                /> -->
                 <div class = "background"></div>
               </div>
               <div class = "report" v-if = "reportId == postSingleData.id">
@@ -187,6 +189,7 @@
 <script>
 import firebase       from "firebase";
 import CompletePopup  from "../../components/CompletePopup";
+import dayjs               from "dayjs";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
 import EditCategory   from "../../components/EditCategory";
@@ -257,7 +260,7 @@ export default {
         const dataBeforeOrder = firebase.firestore().collection("posts")
                                 .where("stadium",  "==", stadium)
                                 .where("category", "==", category);
-
+        // 新しい順
         if (this.sortValue === "newest") {
           dataBeforeOrder.orderBy("created", "desc").get()
             .then((querySnapshot) => {
@@ -267,11 +270,10 @@ export default {
               });
               this.displayExistOrNot();
             })
-
             .catch(function(error) {
               console.log("Error getting documents: ", error,);
             });
-
+        // 古い順
         } else if (this.sortValue === "oldest") {
           dataBeforeOrder.orderBy("created").get()
             .then((querySnapshot) => {
@@ -281,12 +283,11 @@ export default {
               });
               this.displayExistOrNot();
             })
-
             .catch(function(error) {
               console.log("Error getting documents: ", error);
             });
-
-        } else if (this.sortValue === "good") {
+        // いいねが多い順
+        } else {
           dataBeforeOrder.orderBy("likedCounter", "desc").get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
@@ -381,7 +382,6 @@ export default {
     },
     // 編集処理
     editSelectData: function(postSingleData, postSingleDataId) {
-      const now      = new Date();
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
             firebase.firestore().collection("posts").doc(postSingleDataId)
@@ -392,8 +392,7 @@ export default {
                 contributorName: this.visitorName,
                 stadium:         this.editStadium,
                 title:           this.editTitle,
-                updated:         now.getFullYear() +"/" +("0" + (now.getMonth() + 1)).slice(-2) +
-                                 "/" +("0" + now.getDate()).slice(-2)
+                updated:         dayjs().format('YYYY/MM/DD')
               },
             )
             .then(() => {
@@ -429,7 +428,6 @@ export default {
     },
     // DBに通報データを追加する
     reportSelectData: function() {
-      const now        = new Date();
       const dataReport = {
         postBody:            this.reportBody,
         postCategory:        this.reportCategory,
@@ -440,8 +438,7 @@ export default {
         postTitle:           this.reportTitle,
         postUpdated:         this.updated,
         reportReason:        this.reportReason,
-        reportCreated:       now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2)
-                             + "/" + ("0" + now.getDate()).slice(-2)
+        reportCreated:       dayjs().format('YYYY/MM/DD')
       };
       if (this.reportReason.length > 0) {
           firebase.firestore().collection("reports").add(dataReport)

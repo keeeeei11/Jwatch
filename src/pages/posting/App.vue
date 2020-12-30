@@ -70,6 +70,7 @@
 <script>
 import firebase            from "firebase/app";
 import CompletePopup       from "../../components/CompletePopup";
+import dayjs               from "dayjs";
 import InputBox            from "../../components/InputBox";
 import InputCategory       from "../../components/InputCategory";
 import InputStadium        from "../../components/InputStadium";
@@ -138,14 +139,12 @@ export default {
       });
     },
     sendPostData: function() {
-      const now       = new Date();
       const inputdata = {
         body:            this.body,
         category:        this.category,
         contributorName: this.visitorName,
         contributorUid:  this.visitorUid,
-        created:         now.getFullYear() +"/" +("0" + (now.getMonth() + 1)).slice(-2) +
-                         "/" +("0" + now.getDate()).slice(-2),
+        created:         dayjs().format('YYYY/MM/DD'),
         likedCounter:    0,
         likedUsers:      [],
         stadium:         this.stadium,

@@ -166,6 +166,7 @@
 <script>
 import firebase       from "firebase/app";
 import CompletePopup  from "../../components/CompletePopup";
+import dayjs               from "dayjs";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
 import EditCategory   from "../../components/EditCategory";
@@ -330,7 +331,6 @@ export default {
       if (this.editStadium.length > 0 && this.editCategory.length > 0) {
         // タイトルと本文が入力されているか判定する
         if (this.editTitle.length > 0 && this.editBody.length > 0) {
-          const now = new Date();
           firebase.firestore().collection("posts").doc(postSingleDataId)
             .update(
               {
@@ -339,8 +339,7 @@ export default {
                 contributorName: this.visitorName,
                 stadium:         this.editStadium,
                 title:           this.editTitle,
-                updated:         now.getFullYear() + "/" +("0" + (now.getMonth() + 1)).slice(-2) +
-                                 "/" +("0" + now.getDate()).slice(-2)
+                updated:         dayjs().format('YYYY/MM/DD')
               })
             .then(() => {
               this.showEditedPage();
@@ -377,7 +376,6 @@ export default {
     },
     // 通報データの追加
     reportData: function () {
-      const now       = new Date();
       const inputData = {
         // 通報対象の投稿データ
         postBody:            this.reportBody,
@@ -388,8 +386,7 @@ export default {
         postStadium:         this.reportStadium,
         postTitle:           this.reportTitle,
         postUpdated:         this.updated,
-        reportCreated:       now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2)
-                             + "/" + ("0" + now.getDate()).slice(-2),
+        reportCreated:       dayjs().format('YYYY/MM/DD'),
         reportReason:        this.reportReason
       };
       if (this.reportReason.length > 0) {

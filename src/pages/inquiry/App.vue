@@ -68,6 +68,7 @@
 // DBと繋いだ時にで有効にする
 import firebase            from "firebase";
 import CompletePopup       from "../../components/CompletePopup";
+import dayjs               from "dayjs";
 import InputBox            from "../../components/InputBox";
 import Jfooter             from "../../components/Jfooter";
 import Jheader             from "../../components/Jheader";
@@ -117,11 +118,9 @@ export default {
       (this.isCompletePopup = true), (this.isCompleteCover = true);
     },
     sendInquiryData: function() {
-      const now       = new Date();
       const inputdata = {
         body:        this.body,
-        created:     now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) +
-                     "/" + ("0" + now.getDate()).slice(-2),
+        created:     dayjs().format('YYYY/MM/DD'),
         mailAddress: this.mailAddress,
         name:        this.name,
         title:       this.title
