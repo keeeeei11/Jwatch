@@ -166,7 +166,7 @@
 <script>
 import firebase       from "firebase/app";
 import CompletePopup  from "../../components/CompletePopup";
-import dayjs               from "dayjs";
+import dayjs          from "dayjs";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
 import EditCategory   from "../../components/EditCategory";

@@ -17,12 +17,12 @@
                 loginMethod   = "Googleアカウントでログイン"
                 name          = "google"/>
               <LoginBtn
-                loginMethod   = "Twitterアカウントでログイン"
                 @click.native = "loginTwitter"
+                loginMethod   = "Twitterアカウントでログイン"
                 name          = "twitter"/>
               <LoginBtn
-                loginMethod   = "簡単(匿名)ログイン"
                 @click.native = "loginAnonymous"
+                loginMethod   = "簡単(匿名)ログイン"
                 name          = "anonymous"/>
               <p>ログイン完了後、マイページに移動します</p>
             </div>
