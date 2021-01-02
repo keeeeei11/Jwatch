@@ -149,7 +149,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("データの読み込みに失敗しました。もう一度お試しください。" + error);
             this.isLoading = false;
           });
 
@@ -162,7 +162,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("データの読み込みに失敗しました。もう一度お試しください。" + error);
             this.isLoading = false;
           });
       }
@@ -173,7 +173,7 @@ export default {
     sortData: function() {
       this.isLoading          = true;
       this.reportMultipleData = [];
-      const reportData = firebase.firestore().collection("reports");
+      const reportData        = firebase.firestore().collection("reports");
       if (this.sortValue === "newest") {
         reportData.orderBy("reportCreated", "desc").get()
           .then((querySnapshot) => {
@@ -184,7 +184,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("データのソートに失敗しました。もう一度お試しください。" + error);
             this.isLoading = false;
           });
       } else {
@@ -197,7 +197,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("データのソートに失敗しました。もう一度お試しください。" + error);
             this.isLoading = false;
           });
       }

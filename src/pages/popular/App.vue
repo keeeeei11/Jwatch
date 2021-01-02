@@ -247,7 +247,7 @@ export default {
             }
           })
           .catch(function (error) {
-            console.log("Error getting documents: ", error);
+            alert("データの読み込みに失敗しました。もう一度お試しください。" + error)
           });
     },
     switchLikeCounter: function(postSingleData) {
@@ -345,7 +345,7 @@ export default {
               this.showEditedPage();
             })
             .catch(function (error) {
-              console.error(error);
+              alert("編集できませんでした。もう一度お試しください。")
             });
         } else {
           alert("タイトルと本文を入力してください。");

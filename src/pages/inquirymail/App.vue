@@ -134,7 +134,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("データの読み込みに失敗しました。もう一度お試しください。" + error)
             this.isLoading = false;
           });
 
@@ -147,7 +147,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("データの読み込みに失敗しました。もう一度お試しください。" + error)
             this.isLoading = false;
           });
       }
@@ -168,7 +168,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("ソートできませんでした。もう一度お試しください。" + error)
             this.isLoading = false;
           });
 
@@ -182,7 +182,7 @@ export default {
             this.isLoading = false;
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("ソートできませんでした。もう一度お試しください。" + error)
             this.isLoading = false;
           });
       }

@@ -189,7 +189,7 @@
 <script>
 import firebase       from "firebase";
 import CompletePopup  from "../../components/CompletePopup";
-import dayjs               from "dayjs";
+import dayjs          from "dayjs";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
 import EditCategory   from "../../components/EditCategory";
@@ -271,7 +271,7 @@ export default {
               this.displayExistOrNot();
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error,);
+              alert("ソートできませんでした。ページを更新してからもう一度お試しください。" + error)
             });
         // 古い順
         } else if (this.sortValue === "oldest") {
@@ -284,7 +284,7 @@ export default {
               this.displayExistOrNot();
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error);
+              alert("ソートできませんでした。ページを更新してからもう一度お試しください。" + error)
             });
         // いいねが多い順
         } else {
@@ -295,10 +295,9 @@ export default {
                 sessionStorage.setItem("sortkey", this.sortValue);
               });
               this.displayExistOrNot();
-
             })
             .catch(function(error) {
-              console.log("Error getting documents: ", error);
+              alert("ソートできませんでした。ページを更新してからもう一度お試しください。" + error)
             });
         }
       } else {

@@ -125,7 +125,7 @@ export default {
           this.showCompletePopup();
         })
         .catch(function(error) {
-          console.error(error);
+          alert("もう一度送信するボタンを押してください。" + error)
         });
     },
   },

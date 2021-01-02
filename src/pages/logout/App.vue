@@ -15,7 +15,11 @@ export default {
           firebase.auth().signOut()
             .then(function() {
               location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
-            });
+            })
+            .catch(function(error) {
+              alert("ログインしているか確認してください。" + error)
+              location.href = "https://jwatch-8411c.web.app/mainpage/index.html";
+            })
       });
     },
   },

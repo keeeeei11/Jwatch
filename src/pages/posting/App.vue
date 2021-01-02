@@ -157,7 +157,7 @@ export default {
           this.showPostedPopup();
         })
         .catch(function(error) {
-          console.error(error);
+          alert("エラーが発生しました。もう一度お試しください。"　+ error)
         });
     }
   },

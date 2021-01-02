@@ -169,7 +169,7 @@
 <script>
 import firebase       from "firebase/app";
 import CompletePopup  from "../../components/CompletePopup";
-import dayjs               from "dayjs";
+import dayjs          from "dayjs";
 import DisplayNoData  from "../../components/DisplayNoData";
 import EditBody       from "../../components/EditBody";
 import EditCategory   from "../../components/EditCategory";
@@ -259,7 +259,7 @@ export default {
             }
           })
           .catch(function(error) {
-            console.log("Error getting documents: ", error);
+            alert("データを取得できませんでした。ページの更新を行ってください。" + error )
             this.isLoading = false;
           });
       });
