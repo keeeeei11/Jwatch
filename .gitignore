@@ -25,3 +25,6 @@ pnpm-debug.log*
 #git管理対象外(firebase関連)
 .firebaserc
 firestore.indexes.json
+Paginate.vue
+
+#使用するか検討中
