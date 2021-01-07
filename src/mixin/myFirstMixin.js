@@ -26,13 +26,12 @@ export default {
       appId:             "1:868452645100:web:b0ac64ce8f42b75a7dcdc9",
       measurementId:     "G-RK4728SNM4"
     };
-    // 稀にfirebaseの初期化が多重に行われてエラーが発生するのでそれを防ぐ
+    // 稀にfirebaseの初期化が多重に行われてエラーが発生するのを防ぐ役割
     if (firebase.apps.length === 0) {
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          // ログイン時
           this.email         = user.email;
           this.emailVerified = user.emailVerified;
           this.isAnonymous   = user.isAnonymous;
@@ -54,7 +53,7 @@ export default {
           this.visitorName = null;
           this.visitorUid  = null;
         }
-        // 匿名ユーザーが投稿した時にユーザー名を「匿名」と表示する
+        // 匿名ユーザーの表示名を「匿名」と表示する
         if(this.isAnonymous == true){
           this.visitorName = "匿名";
         }
