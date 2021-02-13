@@ -21,9 +21,9 @@ export default {
     }
   },
   props:{
-    maxlength:   { type:String, default:"400" },
-    placeholder: { type:String, default:"400字以内で入力してください" },
-    value:       { type: String, required: true }
+    maxlength:   { type:String,  default:"400" },
+    placeholder: { type:String,  default:"400字以内で入力してください" },
+    value:       { type:String, required:true }
   },
   methods:{
     inputBodyValue: function(e){
