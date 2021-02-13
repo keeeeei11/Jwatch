@@ -98,7 +98,7 @@
 import firebase       from "firebase/app";
 import AdminHeader    from "../../components/AdminHeader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
-import myFirstMixin   from "../../mixin/myFirstMixin";
+import FirebaseAvailable   from "../../mixin/FirebaseAvailable";
 import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
@@ -111,7 +111,7 @@ export default {
       isLoading:          false
     };
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   components: {
     AdminHeader,
     MoveTopBtn,

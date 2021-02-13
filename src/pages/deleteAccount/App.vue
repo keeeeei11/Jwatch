@@ -9,9 +9,9 @@
 
 <script>
 import firebase     from "firebase/app";
-import myFirstMixin from "../../mixin/myFirstMixin";
+import FirebaseAvailable from "../../mixin/FirebaseAvailable";
 export default {
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   methods: {
     deleteUserInformation: function() {
       firebase.auth().onAuthStateChanged((user) => {

@@ -77,7 +77,7 @@ import InputStadium        from "../../components/InputStadium";
 import Jfooter             from "../../components/Jfooter";
 import Jheader             from "../../components/Jheader";
 import MoveTopBtn          from "../../components/MoveTopBtn";
-import myFirstMixin        from "../../mixin/myFirstMixin";
+import FirebaseAvailable        from "../../mixin/FirebaseAvailable";
 import PageTitle           from "../../components/PageTitle";
 import PointToNote         from "../../components/PointToNote";
 import ReconfirmationPopup from "../../components/ReconfirmationPopup";
@@ -93,7 +93,7 @@ export default {
       body:     "",
       category: "",
       stadium:  "",
-      title:    "",
+      title:    ""
     };
   },
   components: {
@@ -109,7 +109,7 @@ export default {
     ReconfirmationPopup,
     TextareaBox
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   methods: {
     showReconfirmationPopup: function() {
       if (this.stadium.length > 0 && this.category.length > 0) {
@@ -157,7 +157,7 @@ export default {
           this.showPostedPopup();
         })
         .catch(function(error) {
-          alert("エラーが発生しました。もう一度お試しください。"　+ error)
+          alert("エラーが発生しました。もう一度お試しください。" + error)
         });
     }
   },

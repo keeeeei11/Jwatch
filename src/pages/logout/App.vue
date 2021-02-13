@@ -7,7 +7,7 @@
 
 <script>
 import firebase     from "firebase/app";
-import myFirstMixin from "../../mixin/myFirstMixin";
+import FirebaseAvailable from "../../mixin/FirebaseAvailable";
 export default {
   methods: {
     logoutUser: function() {
@@ -23,7 +23,7 @@ export default {
       });
     },
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   mounted: function() {
     this.logoutUser()
   }

@@ -180,7 +180,7 @@ import ExitPopup      from "../../components/ExitPopup";
 import Jfooter        from "../../components/Jfooter";
 import Jheader        from "../../components/Jheader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
-import myFirstMixin   from "../../mixin/myFirstMixin";
+import FirebaseAvailable   from "../../mixin/FirebaseAvailable";
 import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
 export default {
@@ -223,7 +223,7 @@ export default {
     Paginate,
     VueLoading
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   methods: {
     judgeAdmin: function() {
       firebase.auth().onAuthStateChanged((user) => {

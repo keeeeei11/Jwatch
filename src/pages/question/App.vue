@@ -31,7 +31,7 @@ import Induction    from "../../components/Induction";
 import Jfooter      from "../../components/Jfooter";
 import Jheader      from "../../components/Jheader";
 import MoveTopBtn   from "../../components/MoveTopBtn";
-import myFirstMixin from "../../mixin/myFirstMixin";
+import FirebaseAvailable from "../../mixin/FirebaseAvailable";
 import PageTitle    from "../../components/PageTitle";
 export default {
   components: {
@@ -41,7 +41,7 @@ export default {
     MoveTopBtn,
     PageTitle
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
 };
 </script>
 

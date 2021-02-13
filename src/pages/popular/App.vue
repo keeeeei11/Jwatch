@@ -177,7 +177,7 @@ import InputStadium   from "../../components/InputStadium";
 import Jfooter        from "../../components/Jfooter";
 import Jheader        from "../../components/Jheader";
 import MoveTopBtn     from "../../components/MoveTopBtn";
-import myFirstMixin   from "../../mixin/myFirstMixin";
+import FirebaseAvailable   from "../../mixin/FirebaseAvailable";
 import PageTitle      from "../../components/PageTitle";
 import Paginate       from "vuejs-paginate";
 import { VueLoading } from "vue-loading-template";
@@ -225,7 +225,7 @@ export default {
     Paginate,
     VueLoading
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   methods: {
     loadDataFromDB: function (selectStadium) {
       this.isLoading = true;
@@ -345,7 +345,7 @@ export default {
               this.showEditedPage();
             })
             .catch(function (error) {
-              alert("編集できませんでした。もう一度お試しください。")
+              alert("編集できませんでした。もう一度お試しください。"+ error)
             });
         } else {
           alert("タイトルと本文を入力してください。");

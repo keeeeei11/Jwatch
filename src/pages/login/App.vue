@@ -46,7 +46,7 @@ import Jfooter        from "../../components/Jfooter";
 import Jheader        from "../../components/Jheader";
 import LoginBtn       from "../../components/LoginBtn";
 import MoveTopBtn     from "../../components/MoveTopBtn";
-import myFirstMixin   from "../../mixin/myFirstMixin";
+import FirebaseAvailable   from "../../mixin/FirebaseAvailable";
 import PageTitle      from "../../components/PageTitle";
 import { VueLoading } from "vue-loading-template";
 export default {
@@ -58,7 +58,7 @@ export default {
     PageTitle,
     VueLoading
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   data() {
     return {
       isLoading:true,

@@ -69,7 +69,7 @@ import InputBox            from "../../components/InputBox";
 import Jfooter             from "../../components/Jfooter";
 import Jheader             from "../../components/Jheader";
 import MoveTopBtn          from "../../components/MoveTopBtn";
-import myFirstMixin        from "../../mixin/myFirstMixin";
+import FirebaseAvailable        from "../../mixin/FirebaseAvailable";
 import PageTitle           from "../../components/PageTitle";
 import ReconfirmationPopup from "../../components/ReconfirmationPopup";
 import TextareaBox         from "../../components/TextareaBox";
@@ -96,7 +96,7 @@ export default {
     ReconfirmationPopup,
     TextareaBox
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
   methods: {
     showReconfirmationPopup: function() {
       if (this.title.length > 0 && this.body.length > 0) {

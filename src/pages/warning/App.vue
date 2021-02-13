@@ -40,7 +40,7 @@ import Induction    from "../../components/Induction";
 import Jfooter      from "../../components/Jfooter.vue";
 import Jheader      from "../../components/Jheader.vue";
 import MoveTopBtn   from "../../components/MoveTopBtn.vue";
-import myFirstMixin from "../../mixin/myFirstMixin";
+import FirebaseAvailable from "../../mixin/FirebaseAvailable";
 import PageTitle    from "../../components/PageTitle.vue";
 
 export default {
@@ -51,7 +51,7 @@ export default {
     MoveTopBtn,
     PageTitle
   },
-  mixins: [myFirstMixin]
+  mixins: [FirebaseAvailable]
 };
 </script>
 

@@ -84,7 +84,7 @@ import Induction        from "../../components/Induction";
 import Jfooter          from "../../components/Jfooter";
 import Jheader          from "../../components/Jheader";
 import MoveTopBtn       from "../../components/MoveTopBtn";
-import myFirstMixin     from "../../mixin/myFirstMixin";
+import FirebaseAvailable     from "../../mixin/FirebaseAvailable";
 import PageTitle        from "../../components/PageTitle";
 import UsageDescription from "../../components/UsageDescription";
 
@@ -97,7 +97,7 @@ export default {
     PageTitle,
     UsageDescription
   },
-  mixins: [myFirstMixin],
+  mixins: [FirebaseAvailable],
 };
 </script>
 
