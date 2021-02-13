@@ -13,7 +13,7 @@
     moveToTop:function(){
       window.scrollTo({
         behavior: "smooth",
-        top: 0,
+        top: 0
       })
     }
   },

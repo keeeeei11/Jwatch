@@ -23,7 +23,7 @@ export default {
     name:        { type:String, required:false },
     placeholder: { type:String, default:"20字以内で入力してください" },
     type:        { type:String, required:false },
-    value:       { type:String, required: true }
+    value:       { type:String, required:true }
   },
   methods:{
     inputTitleValue: function(e){

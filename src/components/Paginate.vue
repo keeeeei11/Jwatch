@@ -20,13 +20,13 @@ export default {
   data(){
     return {
       currentPage: 1,
-      parPage:     10,
+      parPage:     10
     }
   },
   props:{
-    marginPages:      { type: Number, default:3 },
-    pageRange:        { type: Number, default:2 },
-    postMultipleData: { type: Array }
+    marginPages:      { type:Number, default:3 },
+    pageRange:        { type:Number, default:2 },
+    postMultipleData: { type:Array }
   },
   methods:{
     clickCallback: function (pageNum) {
@@ -36,19 +36,12 @@ export default {
         top: 0,
       });
     },
-    // TODO:getItemsをemit
-    // sendGetItems: function () {
-      // },
-    // sendGetCounts: function(){
-      //   this.$emit("catchGetCount", this.getPageCount)
-    // }
   },
   components:{
     Paginate,
   },
   computed: {
     getItems: function () {
-      console.log("実行")
       const current = this.currentPage * this.parPage;
       const start = current - this.parPage;
       const foo = this.postMultipleData.slice(start, current);
@@ -59,10 +52,6 @@ export default {
       return Math.ceil(this.postMultipleData.length / this.parPage);
     },
   },
-  // mounted: function(){
-  //   this.sendGetItems();
-  //   this.sendGetCounts()
-  // }
 }
 </script>
 
