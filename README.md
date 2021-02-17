@@ -6,7 +6,6 @@
 Jリーグのスタジアム観戦情報を投稿＆閲覧出来るサイトです。  
 https://jwatch-8411c.web.app/mainpage/index.html  
 
-デプロイまで完了しておりますので閲覧していただけます。  
 投稿機能,いいね機能等一部ログインが必要な機能がございますので*匿名ログイン*を使用していただければと思います。  
 https://jwatch-8411c.web.app/login/index.html
 
